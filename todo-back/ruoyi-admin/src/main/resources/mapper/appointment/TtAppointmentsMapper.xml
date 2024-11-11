@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.appointment.mapper.TtAppointmentsMapper">
+    
+    <resultMap type="TtAppointments" id="TtAppointmentsResult">
+        <result property="appointmentId"    column="appointment_id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="appointmentDate"    column="appointment_date"    />
+        <result property="appointmentTime"    column="appointment_time"    />
+        <result property="appointmentDuration"    column="appointment_duration"    />
+        <result property="appointmentProject"    column="appointment_project"    />
+        <result property="appointmentStatus"    column="appointment_status"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+        <association property="ttDoctor" javaType="TtDoctorsVo" column="doctor_id" resultMap="TtDoctorsVoResult" />
+        <association property="ttPatient" javaType="TtPatientsVo" column="patient_id" resultMap="TtPatientsVoTResult" />
+    </resultMap>
+
+    <resultMap type="TtDoctorsVo" id="TtDoctorsVoResult">
+        <result property="name"    column="doctorsName"    />
+
+    </resultMap>
+
+    <resultMap type="TtPatientsVo" id="TtPatientsVoTResult">
+        <result property="name"    column="patientsName"    />
+
+    </resultMap>
+
+    <sql id="selectTtAppointmentsVo">
+        select a.appointment_id,
+               a.patient_id,
+               a.doctor_id,
+               a.appointment_date,
+               a.appointment_time,
+               a.appointment_duration,
+               a.appointment_project,
+               a.appointment_status,
+               a.created_at,
+               a.updated_at,
+               b.name as patientsName,
+               c.name as doctorsName
+        from tt_appointments a
+                 INNER JOIN tt_patients b on a.patient_id = b.patient_id
+                 INNER JOIN tt_doctors c on a.doctor_id = c.doctor_id
+
+    </sql>
+
+    <select id="selectTtAppointmentsList" parameterType="TtAppointments" resultMap="TtAppointmentsResult">
+        <include refid="selectTtAppointmentsVo"/>
+        <where>  
+            <if test="patientId != null "> and patient_id like concat('%', #{patientId}, '%')</if>
+            <if test="doctorId != null "> and doctor_id like concat('%', #{doctorId}, '%')</if>
+            <if test="appointmentDuration != null "> and appointment_duration = #{appointmentDuration}</if>
+            <if test="appointmentProject != null  and appointmentProject != ''"> and appointment_project = #{appointmentProject}</if>
+            <if test="appointmentStatus != null  and appointmentStatus != ''"> and appointment_status = #{appointmentStatus}</if>
+            <if test="patientName != null "> and b.name like concat('%', #{patientName}, '%')</if>
+
+        </where>
+    </select>
+    
+    <select id="selectTtAppointmentsByAppointmentId" parameterType="Long" resultMap="TtAppointmentsResult">
+        <include refid="selectTtAppointmentsVo"/>
+        where appointment_id = #{appointmentId}
+    </select>
+
+    <insert id="insertTtAppointments" parameterType="TtAppointments" useGeneratedKeys="true" keyProperty="appointmentId">
+        insert into tt_appointments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">patient_id,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="appointmentDate != null">appointment_date,</if>
+            <if test="appointmentTime != null">appointment_time,</if>
+            <if test="appointmentDuration != null">appointment_duration,</if>
+            <if test="appointmentProject != null and appointmentProject != ''">appointment_project,</if>
+            <if test="appointmentStatus != null and appointmentStatus != ''">appointment_status,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">#{patientId},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="appointmentDate != null">#{appointmentDate},</if>
+            <if test="appointmentTime != null">#{appointmentTime},</if>
+            <if test="appointmentDuration != null">#{appointmentDuration},</if>
+            <if test="appointmentProject != null and appointmentProject != ''">#{appointmentProject},</if>
+            <if test="appointmentStatus != null and appointmentStatus != ''">#{appointmentStatus},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTtAppointments" parameterType="TtAppointments">
+        update tt_appointments
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="appointmentDate != null">appointment_date = #{appointmentDate},</if>
+            <if test="appointmentTime != null">appointment_time = #{appointmentTime},</if>
+            <if test="appointmentDuration != null">appointment_duration = #{appointmentDuration},</if>
+            <if test="appointmentProject != null and appointmentProject != ''">appointment_project = #{appointmentProject},</if>
+            <if test="appointmentStatus != null and appointmentStatus != ''">appointment_status = #{appointmentStatus},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where appointment_id = #{appointmentId}
+    </update>
+
+    <delete id="deleteTtAppointmentsByAppointmentId" parameterType="Long">
+        delete from tt_appointments where appointment_id = #{appointmentId}
+    </delete>
+
+    <delete id="deleteTtAppointmentsByAppointmentIds" parameterType="String">
+        delete from tt_appointments where appointment_id in 
+        <foreach item="appointmentId" collection="array" open="(" separator="," close=")">
+            #{appointmentId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.appointment.mapper.TtDoctorsVoMapper">
+    
+    <resultMap type="TtDoctorsVo" id="TtDoctorsResult">
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="name"    column="name"    />
+        <result property="department"    column="department"    />
+        <result property="phone"    column="phone"    />
+        <result property="position"    column="position"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <sql id="selectTtDoctorsVo">
+        select doctor_id, name, department, phone, position, created_at, updated_at from tt_doctors
+    </sql>
+
+    <select id="selectTtDoctorsList" parameterType="TtDoctorsVo" resultMap="TtDoctorsResult">
+        <include refid="selectTtDoctorsVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="department != null  and department != ''"> and department = #{department}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+            <if test="position != null  and position != ''"> and position = #{position}</if>
+            <if test="createdAt != null "> and created_at = #{createdAt}</if>
+            <if test="updatedAt != null "> and updated_at = #{updatedAt}</if>
+        </where>
+    </select>
+    
+    <select id="selectTtDoctorsByDoctorId" parameterType="Long" resultMap="TtDoctorsResult">
+        <include refid="selectTtDoctorsVo"/>
+        where doctor_id = #{doctorId}
+    </select>
+
+    <insert id="insertTtDoctors" parameterType="TtDoctorsVo" useGeneratedKeys="true" keyProperty="doctorId">
+        insert into tt_doctors
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="department != null">department,</if>
+            <if test="phone != null">phone,</if>
+            <if test="position != null">position,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="department != null">#{department},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="position != null">#{position},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateTtDoctors" parameterType="TtDoctorsVo">
+        update tt_doctors
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="department != null">department = #{department},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="position != null">position = #{position},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where doctor_id = #{doctorId}
+    </update>
+
+    <delete id="deleteTtDoctorsByDoctorId" parameterType="Long">
+        delete from tt_doctors where doctor_id = #{doctorId}
+    </delete>
+
+    <delete id="deleteTtDoctorsByDoctorIds" parameterType="String">
+        delete from tt_doctors where doctor_id in 
+        <foreach item="doctorId" collection="array" open="(" separator="," close=")">
+            #{doctorId}
+        </foreach>
+    </delete>
+</mapper>

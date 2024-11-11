@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.patientlist.mapper.PatientListMapper">
+    
+    <resultMap type="PatientList" id="PatientListResult">
+        <result property="patientId"    column="patient_id"    />
+        <result property="name"    column="name"    />
+        <result property="medicalRecordNumber"    column="medical_record_number"    />
+        <result property="birthday"    column="birthday"    />
+        <result property="gender"    column="gender"    />
+        <result property="phone"    column="phone"    />
+        <result property="address"    column="address"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+        <result property="remarks"    column="remarks"    />
+    </resultMap>
+
+    <sql id="selectPatientListVo">
+        select patient_id, name, medical_record_number, birthday, gender, phone, address, created_at, updated_at, remarks from tt_patients
+    </sql>
+
+    <select id="selectPatientListList" parameterType="PatientList" resultMap="PatientListResult">
+        <include refid="selectPatientListVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="medicalRecordNumber != null "> and medical_record_number = #{medicalRecordNumber}</if>
+            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+        </where>
+    </select>
+    
+    <select id="selectPatientListByPatientId" parameterType="Long" resultMap="PatientListResult">
+        <include refid="selectPatientListVo"/>
+        where patient_id = #{patientId}
+    </select>
+
+    <insert id="insertPatientList" parameterType="PatientList" useGeneratedKeys="true" keyProperty="patientId">
+        insert into tt_patients
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">name,</if>
+            <if test="medicalRecordNumber != null">medical_record_number,</if>
+            <if test="birthday != null">birthday,</if>
+            <if test="gender != null and gender != ''">gender,</if>
+            <if test="phone != null">phone,</if>
+            <if test="address != null">address,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+            <if test="remarks != null">remarks,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">#{name},</if>
+            <if test="medicalRecordNumber != null">#{medicalRecordNumber},</if>
+            <if test="birthday != null">#{birthday},</if>
+            <if test="gender != null and gender != ''">#{gender},</if>
+            <if test="phone != null">#{phone},</if>
+            <if test="address != null">#{address},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+            <if test="remarks != null">#{remarks},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePatientList" parameterType="PatientList">
+        update tt_patients
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="medicalRecordNumber != null">medical_record_number = #{medicalRecordNumber},</if>
+            <if test="birthday != null">birthday = #{birthday},</if>
+            <if test="gender != null and gender != ''">gender = #{gender},</if>
+            <if test="phone != null">phone = #{phone},</if>
+            <if test="address != null">address = #{address},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+            <if test="remarks != null">remarks = #{remarks},</if>
+        </trim>
+        where patient_id = #{patientId}
+    </update>
+
+    <delete id="deletePatientListByPatientId" parameterType="Long">
+        delete from tt_patients where patient_id = #{patientId}
+    </delete>
+
+    <delete id="deletePatientListByPatientIds" parameterType="String">
+        delete from tt_patients where patient_id in 
+        <foreach item="patientId" collection="array" open="(" separator="," close=")">
+            #{patientId}
+        </foreach>
+    </delete>
+</mapper>
