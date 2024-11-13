@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.inventory.mapper.InventoryInboundMapper">
+    
+    <resultMap type="InventoryInbound" id="InventoryInboundResult">
+        <result property="inboundId"    column="inbound_id"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="responsible"    column="responsible"    />
+        <result property="supplier"    column="supplier"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="unit"    column="unit"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="freight"    column="freight"    />
+        <result property="spending"    column="spending"    />
+        <result property="inboundTime"    column="inbound_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectInventoryInboundVo">
+        select inbound_id, item_name, responsible, supplier, quantity, unit, purchase_price, freight, spending, inbound_time, create_time, update_time from tt_inventory_inbound
+    </sql>
+
+    <select id="selectInventoryInboundList" parameterType="InventoryInbound" resultMap="InventoryInboundResult">
+        <include refid="selectInventoryInboundVo"/>
+        <where>  
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="responsible != null  and responsible != ''"> and responsible like concat('%', #{responsible}, '%')</if>
+            <if test="supplier != null  and supplier != ''"> and supplier like concat('%', #{supplier}, '%')</if>
+            <if test="inboundTime != null "> and inbound_time = #{inboundTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectInventoryInboundByInboundId" parameterType="Long" resultMap="InventoryInboundResult">
+        <include refid="selectInventoryInboundVo"/>
+        where inbound_id = #{inboundId}
+    </select>
+
+    <insert id="insertInventoryInbound" parameterType="InventoryInbound" useGeneratedKeys="true" keyProperty="inboundId">
+        insert into tt_inventory_inbound
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemName != null and itemName != ''">item_name,</if>
+            <if test="responsible != null and responsible != ''">responsible,</if>
+            <if test="supplier != null and supplier != ''">supplier,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="unit != null and unit != ''">unit,</if>
+            <if test="purchasePrice != null">purchase_price,</if>
+            <if test="freight != null">freight,</if>
+            <if test="spending != null">spending,</if>
+            <if test="inboundTime != null">inbound_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemName != null and itemName != ''">#{itemName},</if>
+            <if test="responsible != null and responsible != ''">#{responsible},</if>
+            <if test="supplier != null and supplier != ''">#{supplier},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="unit != null and unit != ''">#{unit},</if>
+            <if test="purchasePrice != null">#{purchasePrice},</if>
+            <if test="freight != null">#{freight},</if>
+            <if test="spending != null">#{spending},</if>
+            <if test="inboundTime != null">#{inboundTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInventoryInbound" parameterType="InventoryInbound">
+        update tt_inventory_inbound
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>
+            <if test="responsible != null and responsible != ''">responsible = #{responsible},</if>
+            <if test="supplier != null and supplier != ''">supplier = #{supplier},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="unit != null and unit != ''">unit = #{unit},</if>
+            <if test="purchasePrice != null">purchase_price = #{purchasePrice},</if>
+            <if test="freight != null">freight = #{freight},</if>
+            <if test="spending != null">spending = #{spending},</if>
+            <if test="inboundTime != null">inbound_time = #{inboundTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where inbound_id = #{inboundId}
+    </update>
+
+    <delete id="deleteInventoryInboundByInboundId" parameterType="Long">
+        delete from tt_inventory_inbound where inbound_id = #{inboundId}
+    </delete>
+
+    <delete id="deleteInventoryInboundByInboundIds" parameterType="String">
+        delete from tt_inventory_inbound where inbound_id in 
+        <foreach item="inboundId" collection="array" open="(" separator="," close=")">
+            #{inboundId}
+        </foreach>
+    </delete>
+</mapper>
