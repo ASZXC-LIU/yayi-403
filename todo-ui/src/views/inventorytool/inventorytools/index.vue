@@ -141,7 +141,7 @@
         <el-form-item label="库存数量" prop="quantity">
           <el-input v-model="form.quantity" placeholder="请输入库存数量" />
         </el-form-item>
-        <el-form-item label="工具的单位" prop="unit">
+        <el-form-item label="计量单位" prop="unit">
           <el-input v-model="form.unit" placeholder="请输入工具的单位" />
         </el-form-item>
         <el-form-item label="生产日期" prop="manufactureDate">
