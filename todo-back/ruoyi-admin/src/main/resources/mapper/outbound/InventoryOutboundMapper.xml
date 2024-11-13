@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.inventory.mapper.InventoryOutboundMapper">
+    
+    <resultMap type="InventoryOutbound" id="InventoryOutboundResult">
+        <result property="outboundId"    column="outbound_id"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="responsible"    column="responsible"    />
+        <result property="reason"    column="reason"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="unit"    column="unit"    />
+        <result property="expensesReason"    column="expenses_reason"    />
+        <result property="spending"    column="spending"    />
+        <result property="outboundTime"    column="outbound_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectInventoryOutboundVo">
+        select outbound_id, item_name, responsible, reason, quantity, unit, expenses_reason, spending, outbound_time, create_time, update_time from tt_inventory_outbound
+    </sql>
+
+    <select id="selectInventoryOutboundList" parameterType="InventoryOutbound" resultMap="InventoryOutboundResult">
+        <include refid="selectInventoryOutboundVo"/>
+        <where>  
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="responsible != null  and responsible != ''"> and responsible like concat('%', #{responsible}, '%')</if>
+            <if test="outboundTime != null "> and outbound_time = #{outboundTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectInventoryOutboundByOutboundId" parameterType="Long" resultMap="InventoryOutboundResult">
+        <include refid="selectInventoryOutboundVo"/>
+        where outbound_id = #{outboundId}
+    </select>
+
+    <insert id="insertInventoryOutbound" parameterType="InventoryOutbound" useGeneratedKeys="true" keyProperty="outboundId">
+        insert into tt_inventory_outbound
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemName != null and itemName != ''">item_name,</if>
+            <if test="responsible != null and responsible != ''">responsible,</if>
+            <if test="reason != null and reason != ''">reason,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="unit != null and unit != ''">unit,</if>
+            <if test="expensesReason != null">expenses_reason,</if>
+            <if test="spending != null">spending,</if>
+            <if test="outboundTime != null">outbound_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemName != null and itemName != ''">#{itemName},</if>
+            <if test="responsible != null and responsible != ''">#{responsible},</if>
+            <if test="reason != null and reason != ''">#{reason},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="unit != null and unit != ''">#{unit},</if>
+            <if test="expensesReason != null">#{expensesReason},</if>
+            <if test="spending != null">#{spending},</if>
+            <if test="outboundTime != null">#{outboundTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInventoryOutbound" parameterType="InventoryOutbound">
+        update tt_inventory_outbound
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>
+            <if test="responsible != null and responsible != ''">responsible = #{responsible},</if>
+            <if test="reason != null and reason != ''">reason = #{reason},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="unit != null and unit != ''">unit = #{unit},</if>
+            <if test="expensesReason != null">expenses_reason = #{expensesReason},</if>
+            <if test="spending != null">spending = #{spending},</if>
+            <if test="outboundTime != null">outbound_time = #{outboundTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where outbound_id = #{outboundId}
+    </update>
+
+    <delete id="deleteInventoryOutboundByOutboundId" parameterType="Long">
+        delete from tt_inventory_outbound where outbound_id = #{outboundId}
+    </delete>
+
+    <delete id="deleteInventoryOutboundByOutboundIds" parameterType="String">
+        delete from tt_inventory_outbound where outbound_id in 
+        <foreach item="outboundId" collection="array" open="(" separator="," close=")">
+            #{outboundId}
+        </foreach>
+    </delete>
+</mapper>
