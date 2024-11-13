@@ -28,6 +28,13 @@
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
+        <el-button
+          type="warning"
+          icon="Edit"
+          @click="handleAdd_off"
+          v-hasPermi="['offsetting:offsettings:add']"
+          >对冲</el-button
+        >
       </el-form-item>
     </el-form>
 
@@ -167,6 +174,47 @@
       <template #footer>
         <div class="dialog-footer">
           <el-button type="primary" @click="submitForm">确 定</el-button>
+          <el-button @click="cancel">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+     <!-- 添加或修改对冲记录工单对话框 -->
+     <el-dialog :title="title" v-model="openoffsetting" width="500px" append-to-body>
+      <el-form ref="offsettingsRef" :model="form_off" :rules="rules_off" label-width="80px">
+        <el-form-item label="物品名字" prop="itemName">
+          <el-input v-model="form_off.itemName" placeholder="请输入物品名字" />
+        </el-form-item>
+        <el-form-item label="负责人" prop="responsible">
+          <el-input v-model="form_off.responsible" placeholder="请输入负责人" />
+        </el-form-item>
+        <el-form-item label="对冲原因" prop="reason">
+          <el-input v-model="form_off.reason" placeholder="请输入对冲原因" />
+        </el-form-item>
+        <el-form-item label="对冲数量" prop="quantity">
+          <el-input v-model="form_off.quantity" placeholder="请输入对冲数量" />
+        </el-form-item>
+        <el-form-item label="剂量单位" prop="unit">
+          <el-input v-model="form_off.unit" placeholder="请输入剂量单位" />
+        </el-form-item>
+        <el-form-item label="开销原因" prop="expensesReason">
+          <el-input v-model="form_off.expensesReason" type="textarea" placeholder="请输入内容" />
+        </el-form-item>
+        <el-form-item label="开销" prop="spending">
+          <el-input v-model="form_off.spending" placeholder="请输入开销" />
+        </el-form-item>
+        <el-form-item label="对冲时间" prop="offsettingTime">
+          <el-date-picker clearable
+            v-model="form_off.offsettingTime"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择对冲时间">
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="submitForm_off">确 定</el-button>
           <el-button @click="cancel">取 消</el-button>
         </div>
       </template>
@@ -323,5 +371,68 @@ function handleExport() {
   }, `inventorytools_${new Date().getTime()}.xlsx`)
 }
 
+
+
+/*以上为药品管理，以下为对冲功能*/ 
+import { addOffsettings, updateOffsettings } from "@/api/offsetting/offsettings";
+
+const openoffsetting = ref(false);
+
+
+const data_offsetting = reactive({
+  form_off: {},
+  queryParams_off: {
+    pageNum: 1,
+    pageSize: 10,
+    itemName: null,
+    responsible: null,
+    offsettingTime: null,
+  },
+  rules_off: {
+    itemName: [
+      { required: true, message: "物品名字不能为空", trigger: "blur" }
+    ],
+    responsible: [
+      { required: true, message: "负责人不能为空", trigger: "blur" }
+    ],
+    reason: [
+      { required: true, message: "对冲原因不能为空", trigger: "blur" }
+    ],
+    quantity: [
+      { required: true, message: "对冲数量不能为空", trigger: "blur" }
+    ],
+    unit: [
+      { required: true, message: "剂量单位不能为空", trigger: "blur" }
+    ],
+  }
+});
+
+const { queryParams_off, form_off, rules_off } = toRefs(data_offsetting);
+
+
+
+
+
+/** 新增按钮操作 */
+function handleAdd_off() {
+  
+  openoffsetting.value = true;
+  title.value = "添加对冲记录工单";
+}
+
+
+/** 提交按钮 */
+function submitForm_off() {
+  proxy.$refs["offsettingsRef"].validate(valid => {
+    
+        addOffsettings(form_off.value).then(response => {
+          proxy.$modal.msgSuccess("对冲成功");
+          openoffsetting.value = false;
+          
+        });
+      
+    }
+  );
+}
 getList();
 </script>
