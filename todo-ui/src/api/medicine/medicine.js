@@ -35,6 +35,14 @@ export function updateMedicine(data) {
   })
 }
 
+// 修改对冲后的药品库存
+export function offsettingUpdateMedicine(data) {
+  return request({
+    url: '/medicine/medicine/offsettingUpdateMedicine',
+    method: 'put',
+    data: data
+  })
+}
 // 删除药品库存
 export function delMedicine(medicineId) {
   return request({

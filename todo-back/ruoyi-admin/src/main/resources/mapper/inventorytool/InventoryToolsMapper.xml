@@ -21,6 +21,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="updatedAt"    column="updated_at"    />
     </resultMap>
 
+
+    <resultMap type="InventoryOffsetting" id="offsettingUpdateInventoryMedicineResult">
+        <result property="itemId"    column="item_id"    />
+
+        <result property="quantity"    column="quantity"    />
+    </resultMap>
+
+
+
     <sql id="selectInventoryToolsVo">
         select tools_id, tools_name, tools_description, supplier, origin, purchase_price, selling_price, quantity, unit, manufacture_date, shelf_life, expiration_date, created_at, updated_at from tt_inventory_tools
     </sql>
@@ -92,6 +101,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
         where tools_id = #{toolsId}
     </update>
+
+
+    <update id="offsettingUpdateInventoryInventoryToolsResult" parameterType="InventoryTools">
+        update tt_inventory_tools
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="quantity != null">quantity = quantity - #{quantity},</if>
+        </trim>
+        where tools_id = #{itemId}
+    </update>
+
+
+
+
 
     <delete id="deleteInventoryToolsByToolsId" parameterType="Long">
         delete from tt_inventory_tools where tools_id = #{toolsId}

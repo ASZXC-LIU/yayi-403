@@ -2,6 +2,8 @@ package com.ruoyi.inventory.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -90,6 +92,21 @@ public class InventoryToolsController extends BaseController
     {
         return toAjax(inventoryToolsService.updateInventoryTools(inventoryTools));
     }
+
+    /**
+     * 修改对冲后的库存
+     */
+    @PreAuthorize("@ss.hasPermi('inventorytool:inventorytools:edit')")
+    @Log(title = "药品库存", businessType = BusinessType.UPDATE)
+    @PutMapping("/offsettingUpdateInventorytools")
+    public AjaxResult offsettingUpdateInventorytools(@RequestBody InventoryOffsetting inventoryOffsetting)
+    {
+        System.out.println("inventoryMedicine111111111111111111111");
+        System.out.println(inventoryOffsetting);
+        System.out.println("inventoryMedicine2222222222222222222222");
+        return toAjax(inventoryToolsService.offsettingUpdateInventorytools(inventoryOffsetting));
+    }
+
 
     /**
      * 删除工具库存

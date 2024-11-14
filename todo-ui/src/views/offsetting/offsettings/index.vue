@@ -1,10 +1,10 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="物品名字" prop="itemName">
+      <el-form-item label="物品ID" prop="itemId">
         <el-input
-          v-model="queryParams.itemName"
-          placeholder="请输入物品名字"
+          v-model="queryParams.itemId"
+          placeholder="请输入物品ID"
           clearable
           @keyup.enter="handleQuery"
         />
@@ -76,7 +76,7 @@
     <el-table v-loading="loading" :data="offsettingsList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="对冲工单id" align="center" prop="offsettingId" />
-      <el-table-column label="物品名字" align="center" prop="itemName" />
+      <el-table-column label="物品ID" align="center" prop="itemId" />
       <el-table-column label="负责人" align="center" prop="responsible" />
       <el-table-column label="对冲原因" align="center" prop="reason" />
       <el-table-column label="对冲数量" align="center" prop="quantity" />
@@ -117,8 +117,8 @@
     <!-- 添加或修改对冲记录工单对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="offsettingsRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="物品名字" prop="itemName">
-          <el-input v-model="form.itemName" placeholder="请输入物品名字" />
+        <el-form-item label="物品ID" prop="itemId">
+          <el-input v-model="form.itemId" placeholder="请输入物品ID" />
         </el-form-item>
         <el-form-item label="负责人" prop="responsible">
           <el-input v-model="form.responsible" placeholder="请输入负责人" />
@@ -177,13 +177,13 @@ const data = reactive({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    itemName: null,
+    itemId: null,
     responsible: null,
     offsettingTime: null,
   },
   rules: {
-    itemName: [
-      { required: true, message: "物品名字不能为空", trigger: "blur" }
+    itemId: [
+      { required: true, message: "物品ID不能为空", trigger: "blur" }
     ],
     responsible: [
       { required: true, message: "负责人不能为空", trigger: "blur" }
@@ -222,7 +222,7 @@ function cancel() {
 function reset() {
   form.value = {
     offsettingId: null,
-    itemName: null,
+    itemId: null,
     responsible: null,
     reason: null,
     quantity: null,

@@ -1,6 +1,8 @@
 package com.ruoyi.inventory.service.impl;
 
 import java.util.List;
+
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.inventory.mapper.InventoryToolsMapper;
@@ -66,6 +68,20 @@ public class InventoryToolsServiceImpl implements IInventoryToolsService
     {
         return inventoryToolsMapper.updateInventoryTools(inventoryTools);
     }
+
+    /**
+     * 根据对冲修改药品库存
+     *
+     * @param inventoryOffsetting 药品库存
+     * @return 结果
+     */
+    @Override
+    public int offsettingUpdateInventorytools(InventoryOffsetting inventoryOffsetting)
+    {
+
+        return inventoryToolsMapper.offsettingUpdateInventoryInventoryToolsResult(inventoryOffsetting);
+    }
+
 
     /**
      * 批量删除工具库存

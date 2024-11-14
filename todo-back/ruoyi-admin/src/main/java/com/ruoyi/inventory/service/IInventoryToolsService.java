@@ -1,6 +1,8 @@
 package com.ruoyi.inventory.service;
 
 import java.util.List;
+
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 import com.ruoyi.inventory.domain.InventoryTools;
 
 /**
@@ -42,6 +44,16 @@ public interface IInventoryToolsService
      * @return 结果
      */
     public int updateInventoryTools(InventoryTools inventoryTools);
+
+
+    /**
+     * 修改对冲后的对应药品库存
+     *
+     * @param inventoryOffsetting 药品库存
+     * @return 结果
+     */
+    public int offsettingUpdateInventorytools(InventoryOffsetting inventoryOffsetting);
+
 
     /**
      * 批量删除工具库存
