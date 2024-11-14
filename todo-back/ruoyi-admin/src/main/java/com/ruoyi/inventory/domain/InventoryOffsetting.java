@@ -21,9 +21,13 @@ public class InventoryOffsetting extends BaseEntity
     @Excel(name = "对冲工单id")
     private Long offsettingId;
 
+
+
+
+
     /** 物品名字 */
-    @Excel(name = "物品名字")
-    private String itemName;
+    @Excel(name = "物品ID")
+    private String itemId;
 
     /** 负责人 */
     @Excel(name = "负责人")
@@ -63,15 +67,7 @@ public class InventoryOffsetting extends BaseEntity
     {
         return offsettingId;
     }
-    public void setItemName(String itemName) 
-    {
-        this.itemName = itemName;
-    }
 
-    public String getItemName() 
-    {
-        return itemName;
-    }
     public void setResponsible(String responsible) 
     {
         this.responsible = responsible;
@@ -140,7 +136,7 @@ public class InventoryOffsetting extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("offsettingId", getOffsettingId())
-            .append("itemName", getItemName())
+            .append("itemId", getItemId())
             .append("responsible", getResponsible())
             .append("reason", getReason())
             .append("quantity", getQuantity())
@@ -151,5 +147,14 @@ public class InventoryOffsetting extends BaseEntity
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
             .toString();
+    }
+
+
+    public String getItemId() {
+        return itemId;
+    }
+
+    public void setItemID(String itemId) {
+        this.itemId = itemId;
     }
 }

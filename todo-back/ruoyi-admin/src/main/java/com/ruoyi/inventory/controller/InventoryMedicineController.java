@@ -2,6 +2,9 @@ package com.ruoyi.inventory.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.framework.web.domain.server.Sys;
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -88,8 +91,24 @@ public class InventoryMedicineController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody InventoryMedicine inventoryMedicine)
     {
+
         return toAjax(inventoryMedicineService.updateInventoryMedicine(inventoryMedicine));
     }
+
+    /**
+     * 修改对冲后的库存
+     */
+    @PreAuthorize("@ss.hasPermi('medicine:medicine:edit')")
+    @Log(title = "药品库存", businessType = BusinessType.UPDATE)
+    @PutMapping("/offsettingUpdateMedicine")
+    public AjaxResult offsettingUpdateMedicine(@RequestBody InventoryOffsetting inventoryOffsetting)
+    {
+
+        return toAjax(inventoryMedicineService.offsettingUpdateMedicine(inventoryOffsetting));
+    }
+
+
+
 
     /**
      * 删除药品库存

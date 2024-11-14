@@ -2,6 +2,7 @@ package com.ruoyi.inventory.service;
 
 import java.util.List;
 import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 
 /**
  * 药品库存Service接口
@@ -42,6 +43,16 @@ public interface IInventoryMedicineService
      * @return 结果
      */
     public int updateInventoryMedicine(InventoryMedicine inventoryMedicine);
+
+    /**
+     * 修改对冲后的对应药品库存
+     *
+     * @param inventoryOffsetting 药品库存
+     * @return 结果
+     */
+    public int offsettingUpdateMedicine(InventoryOffsetting inventoryOffsetting);
+
+
 
     /**
      * 批量删除药品库存

@@ -2,6 +2,7 @@ package com.ruoyi.inventory.mapper;
 
 import java.util.List;
 import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 
 /**
  * 药品库存Mapper接口
@@ -42,6 +43,15 @@ public interface InventoryMedicineMapper
      * @return 结果
      */
     public int updateInventoryMedicine(InventoryMedicine inventoryMedicine);
+
+    /**
+     * 修改药品库存
+     *
+     * @param inventoryOffsetting 药品库存
+     * @return 结果
+     */
+    public int offsettingUpdateInventoryMedicineResult(InventoryOffsetting inventoryOffsetting);
+
 
     /**
      * 删除药品库存
