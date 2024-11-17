@@ -10,18 +10,26 @@
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
-        <el-button type="warning" icon="Edit" @click="handleAdd_off"
-          v-hasPermi="['offsetting:offsettings:add']">对冲</el-button>
 
-        <!--test-->
+     
       </el-form-item>
     </el-form>
-
-    <el-row :gutter="10" class="mb8">
+    <span style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;color: red;">注意：若要增加新药品，请先通过"新建"按钮增加种类，然后再通过"入库"按钮设置数量</span>
+    <el-row :gutter="10" class="mb8" style="margin-top: 20px;">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="Plus" @click="handleAdd"
           v-hasPermi="['medicine:medicine:add']">新增</el-button>
       </el-col>
+      
+      <el-button type="warning" icon="Edit" @click="handleAdd_inbounds"
+          v-hasPermi="['offsetting:offsettings:add']">入库</el-button>
+
+          <el-button type="warning" icon="Edit" @click="handleAdd_off"
+          v-hasPermi="['offsetting:offsettings:add']">出库</el-button>
+
+        <el-button type="warning" icon="Edit" @click="handleAdd_off"
+          v-hasPermi="['offsetting:offsettings:add']">对冲</el-button>
+
       <el-col :span="1.5">
         <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
           v-hasPermi="['medicine:medicine:edit']">修改</el-button>
@@ -81,7 +89,7 @@
     <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
       v-model:limit="queryParams.pageSize" @pagination="getList" />
 
-    <!-- 添加或修改药品库存对话框 -->
+    <!-- 添加药品库存对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="medicineRef" :model="form" :rules="rules" label-width="80px">
         
@@ -91,43 +99,8 @@
         <el-form-item label="药品描述" prop="medicineDescription">
           <el-input v-model="form.medicineDescription" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="供应商" prop="supplier">
-          <el-input v-model="form.supplier" placeholder="请输入供应商" />
-        </el-form-item>
-        <el-form-item label="进价" prop="purchasePrice">
-          <el-input v-model="form.purchasePrice" placeholder="请输入进价" />
-        </el-form-item>
         <el-form-item label="售价" prop="sellingPrice">
           <el-input v-model="form.sellingPrice" placeholder="请输入售价" />
-        </el-form-item>
-        <el-form-item label="库存数量" prop="quantity">
-          <el-input v-model="form.quantity" placeholder="请输入库存数量" />
-        </el-form-item>
-        <el-form-item label="计量单位" prop="unit">
-          <el-input v-model="form.unit" placeholder="请输入计量单位" />
-        </el-form-item>
-        <el-form-item label="生产日期" prop="manufactureDate">
-          <el-date-picker clearable v-model="form.manufactureDate" type="date" value-format="YYYY-MM-DD"
-            placeholder="请选择生产日期">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="保质期" prop="shelfLife">
-          <el-input v-model="form.shelfLife" placeholder="请输入保质期" />
-        </el-form-item>
-        <el-form-item label="过期日期" prop="expirationDate">
-          <el-date-picker clearable v-model="form.expirationDate" type="date" value-format="YYYY-MM-DD"
-            placeholder="请选择过期日期">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="创建时间" prop="createdAt">
-          <el-date-picker clearable v-model="form.createdAt" type="date" value-format="YYYY-MM-DD"
-            placeholder="请选择创建时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="更新时间" prop="updatedAt">
-          <el-date-picker clearable v-model="form.updatedAt" type="date" value-format="YYYY-MM-DD"
-            placeholder="请选择更新时间">
-          </el-date-picker>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -177,6 +150,75 @@
         </div>
       </template>
     </el-dialog>
+
+    <!--以上为药品，对冲，以下为入库弹窗-->
+    <!-- 添加或修改入库工单对话框 -->
+    <el-dialog :title="title" v-model="openinbounds" width="500px" append-to-body>
+      <el-form ref="inboundsRef" :model="form_inbounds" :rules="rules_inbounds" label-width="100px">
+        <el-form-item label="入库货物ID" prop="itemId" >
+          <el-input v-model="form_inbounds.itemId" placeholder="请输入入库货物ID" />
+        </el-form-item>
+        <el-form-item label="物品名字" prop="itemName">
+          <el-input v-model="form_inbounds.itemName" placeholder="请输入物品名字" />
+        </el-form-item>
+        <el-form-item label="负责人" prop="responsible">
+          <el-input v-model="form_inbounds.responsible" placeholder="请输入负责人" />
+        </el-form-item>
+        <el-form-item label="供应来源" prop="supplier">
+          <el-input v-model="form_inbounds.supplier" placeholder="请输入供应来源" />
+        </el-form-item>
+        <el-form-item label="入库数量" prop="quantity">
+          <el-input v-model="form_inbounds.quantity" placeholder="请输入入库数量" />
+        </el-form-item>
+        <el-form-item label="剂量单位" prop="unit">
+          <el-input v-model="form_inbounds.unit" placeholder="请输入剂量单位" />
+        </el-form-item>
+        <el-form-item label="进价" prop="purchasePrice">
+          <el-input v-model="form_inbounds.purchasePrice" placeholder="请输入进价" />
+        </el-form-item>
+        <el-form-item label="运费" prop="freight">
+          <el-input v-model="form_inbounds.freight" placeholder="请输入运费" />
+        </el-form-item>
+        <el-form-item label="总开销" prop="spending">
+          <el-input v-model="form_inbounds.spending" placeholder="请输入总开销" />
+        </el-form-item>
+        <el-form-item label="入库时间" prop="inboundTime">
+          <el-date-picker clearable
+            v-model="form_inbounds.inboundTime"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择入库时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="生产日期" prop="manufactureDate">
+          <el-date-picker clearable
+            v-model="form_inbounds.manufactureDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择生产日期">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="保质期" prop="shelfLife">
+          <el-input v-model="form_inbounds.shelfLife" placeholder="请输入保质期" />
+        </el-form-item>
+        <el-form-item label="过期日期" prop="expirationDate">
+          <el-date-picker clearable
+            v-model="form_inbounds.expirationDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择过期日期">
+          </el-date-picker>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="submitForm_inb">确 定</el-button>
+          <el-button @click="cancel_inb">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+
   </div>
 </template>
 
@@ -187,7 +229,9 @@ import {
   delMedicine,
   addMedicine,
   updateMedicine,
-  offsettingUpdateMedicine
+  offsettingUpdateMedicine,
+  inboundUpdateMedicine
+  
 } from "@/api/medicine/medicine";
 
 const { proxy } = getCurrentInstance();
@@ -286,16 +330,7 @@ function handleAdd() {
   title.value = "添加药品库存";
 }
 
-/** 修改按钮操作 */
-function handleUpdate(row) {
-  reset();
-  const _medicineId = row.medicineId || ids.value;
-  getMedicine(_medicineId).then((response) => {
-    form.value = response.data;
-    open.value = true;
-    title.value = "修改药品库存";
-  });
-}
+
 
 /** 提交按钮 */
 function submitForm() {
@@ -404,6 +439,121 @@ function submitForm_off() {
 // 取消按钮
 function cancel_off() {
   openoffsetting.value = false;
+}
+
+/*以上为药品管理,对冲功能，以下为入库功能*/
+
+import {
+  addInbounds,
+
+} from "@/api/inbound/inbounds";
+
+const openinbounds = ref(false);
+
+const data_inbounds = reactive({
+  form_inbounds: {},
+  queryParams_inbounds: {
+    pageNum: 1,
+    pageSize: 10,
+    itemName: null,
+    responsible: null,
+    supplier: null,
+    inboundTime: null,
+  },
+  rules_inbounds: {
+    itemId: [
+      { required: true, message: "物品id不能为空", trigger: "blur" }
+    ],
+    itemName: [
+      { required: true, message: "物品名字不能为空", trigger: "blur" }
+    ],
+    responsible: [
+      { required: true, message: "负责人不能为空", trigger: "blur" }
+    ],
+    supplier: [
+      { required: true, message: "供应来源不能为空", trigger: "blur" }
+    ],
+    quantity: [
+      { required: true, message: "入库数量不能为空", trigger: "blur" }
+    ],
+    unit: [
+      { required: true, message: "剂量单位不能为空", trigger: "blur" }
+    ],
+    purchasePrice: [
+      { required: true, message: "进价不能为空", trigger: "blur" }
+    ],
+    freight: [
+      { required: true, message: "运费不能为空", trigger: "blur" }
+    ],
+    spending: [
+      { required: true, message: "总开销不能为空", trigger: "blur" }
+    ],
+    inboundTime: [
+      { required: true, message: "入库时间不能为空", trigger: "blur" }
+    ],
+    manufactureDate: [
+      { required: true, message: "生产日期不能为空", trigger: "blur" }
+    ],
+    shelfLife: [
+      { required: true, message: "保质期不能为空", trigger: "blur" }
+    ],
+    expirationDate: [
+      { required: true, message: "过期日期不能为空", trigger: "blur" }
+    ],
+  }
+});
+
+// 表单重置
+function reset_inbounds() {
+  form.value = {
+    inboundId: null,
+    itemId: null,
+    itemName: null,
+    responsible: null,
+    supplier: null,
+    quantity: null,
+    unit: null,
+    purchasePrice: null,
+    freight: null,
+    spending: null,
+    inboundTime: null,
+    manufactureDate: null,
+    shelfLife: null,
+    expirationDate: null,
+    createTime: null,
+    updateTime: null
+  };
+  proxy.resetForm("inboundsRef");
+}
+
+const { form_inbounds, rules_inbounds } = toRefs(data_inbounds);
+/** 入库按钮操作 */
+function handleAdd_inbounds() {
+  reset_inbounds();
+  openinbounds.value = true;
+  title.value = "入库工单";
+}
+
+/** 入库表单提交按钮 */
+function submitForm_inb() {
+
+  proxy.$refs["inboundsRef"].validate((valid) => {
+   
+    inboundUpdateMedicine(form_inbounds.value).then((response) => {
+      proxy.$modal.msgSuccess("入库成功");
+      openinbounds.value = false;
+      addInbounds(form_inbounds.value).then((response) => {
+        proxy.$modal.msgSuccess("入库工单生成成功");
+        openinbounds.value = false;
+      });
+      getList();
+    });
+
+  });
+}
+// 取消按钮
+function cancel_inb() {
+  openinbounds.value = false;
 }
 getList();
 </script>

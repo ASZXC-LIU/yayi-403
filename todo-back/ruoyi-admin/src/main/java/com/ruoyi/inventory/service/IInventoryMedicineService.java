@@ -1,6 +1,8 @@
 package com.ruoyi.inventory.service;
 
 import java.util.List;
+
+import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.domain.InventoryMedicine;
 import com.ruoyi.inventory.domain.InventoryOffsetting;
 
@@ -52,6 +54,13 @@ public interface IInventoryMedicineService
      */
     public int offsettingUpdateMedicine(InventoryOffsetting inventoryOffsetting);
 
+    /**
+     * 修改入库后的对应药品库存
+     *
+     * @param inventoryInbound 药品库存
+     * @return 结果
+     */
+    public int inboundUpdateMedicine(InventoryInbound inventoryInbound);
 
 
     /**

@@ -2,6 +2,7 @@ package com.ruoyi.inventory.service.impl;
 
 import java.util.List;
 
+import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.domain.InventoryOffsetting;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,6 +82,21 @@ public class InventoryMedicineServiceImpl implements IInventoryMedicineService
 
         return inventoryMedicineMapper.offsettingUpdateInventoryMedicineResult(inventoryOffsetting);
     }
+
+    /**
+     * 根据入库修改药品库存
+     *
+     * @param inventoryInbound 药品库存
+     * @return 结果
+     */
+    @Override
+    public int inboundUpdateMedicine(InventoryInbound inventoryInbound)
+    {
+
+        return inventoryMedicineMapper.inboundUpdateMedicineUpdateInventoryMedicineResult(inventoryInbound);
+    }
+
+
 
     /**
      * 批量删除药品库存
