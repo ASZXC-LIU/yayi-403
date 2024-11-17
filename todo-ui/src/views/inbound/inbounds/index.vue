@@ -1,10 +1,18 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="入库货物" prop="itemName">
+      <el-form-item label="物品id" prop="itemId">
+        <el-input
+          v-model="queryParams.itemId"
+          placeholder="请输入物品id"
+          clearable
+          @keyup.enter="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="物品名字" prop="itemName">
         <el-input
           v-model="queryParams.itemName"
-          placeholder="请输入入库货物"
+          placeholder="请输入物品名字"
           clearable
           @keyup.enter="handleQuery"
         />
@@ -31,6 +39,22 @@
           type="date"
           value-format="YYYY-MM-DD"
           placeholder="请选择入库时间">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="生产日期" prop="manufactureDate">
+        <el-date-picker clearable
+          v-model="queryParams.manufactureDate"
+          type="date"
+          value-format="YYYY-MM-DD"
+          placeholder="请选择生产日期">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="过期日期" prop="expirationDate">
+        <el-date-picker clearable
+          v-model="queryParams.expirationDate"
+          type="date"
+          value-format="YYYY-MM-DD"
+          placeholder="请选择过期日期">
         </el-date-picker>
       </el-form-item>
       <el-form-item>
@@ -83,8 +107,9 @@
 
     <el-table v-loading="loading" :data="inboundsList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="工单ID" align="center" prop="inboundId" />
-      <el-table-column label="入库货物" align="center" prop="itemName" />
+      <el-table-column label="入库工单id" align="center" prop="inboundId" />
+      <el-table-column label="物品id" align="center" prop="itemId" />
+      <el-table-column label="物品名字" align="center" prop="itemName" />
       <el-table-column label="负责人" align="center" prop="responsible" />
       <el-table-column label="供应来源" align="center" prop="supplier" />
       <el-table-column label="入库数量" align="center" prop="quantity" />
@@ -95,6 +120,17 @@
       <el-table-column label="入库时间" align="center" prop="inboundTime" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.inboundTime, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="生产日期" align="center" prop="manufactureDate" width="180">
+        <template #default="scope">
+          <span>{{ parseTime(scope.row.manufactureDate, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="保质期" align="center" prop="shelfLife" />
+      <el-table-column label="过期日期" align="center" prop="expirationDate" width="180">
+        <template #default="scope">
+          <span>{{ parseTime(scope.row.expirationDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="创建时间" align="center" prop="createTime" width="180">
@@ -126,8 +162,11 @@
     <!-- 添加或修改入库工单对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="inboundsRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="入库货物" prop="itemName">
-          <el-input v-model="form.itemName" placeholder="请输入入库货物" />
+        <el-form-item label="物品id" prop="itemId">
+          <el-input v-model="form.itemId" placeholder="请输入物品id" />
+        </el-form-item>
+        <el-form-item label="物品名字" prop="itemName">
+          <el-input v-model="form.itemName" placeholder="请输入物品名字" />
         </el-form-item>
         <el-form-item label="负责人" prop="responsible">
           <el-input v-model="form.responsible" placeholder="请输入负责人" />
@@ -156,6 +195,25 @@
             type="date"
             value-format="YYYY-MM-DD"
             placeholder="请选择入库时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="生产日期" prop="manufactureDate">
+          <el-date-picker clearable
+            v-model="form.manufactureDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择生产日期">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="保质期" prop="shelfLife">
+          <el-input v-model="form.shelfLife" placeholder="请输入保质期" />
+        </el-form-item>
+        <el-form-item label="过期日期" prop="expirationDate">
+          <el-date-picker clearable
+            v-model="form.expirationDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择过期日期">
           </el-date-picker>
         </el-form-item>
       </el-form>
@@ -189,14 +247,20 @@ const data = reactive({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
+    itemId: null,
     itemName: null,
     responsible: null,
     supplier: null,
     inboundTime: null,
+    manufactureDate: null,
+    expirationDate: null,
   },
   rules: {
+    itemId: [
+      { required: true, message: "物品id不能为空", trigger: "blur" }
+    ],
     itemName: [
-      { required: true, message: "入库货物不能为空", trigger: "blur" }
+      { required: true, message: "物品名字不能为空", trigger: "blur" }
     ],
     responsible: [
       { required: true, message: "负责人不能为空", trigger: "blur" }
@@ -212,6 +276,24 @@ const data = reactive({
     ],
     purchasePrice: [
       { required: true, message: "进价不能为空", trigger: "blur" }
+    ],
+    freight: [
+      { required: true, message: "运费不能为空", trigger: "blur" }
+    ],
+    spending: [
+      { required: true, message: "总开销不能为空", trigger: "blur" }
+    ],
+    inboundTime: [
+      { required: true, message: "入库时间不能为空", trigger: "blur" }
+    ],
+    manufactureDate: [
+      { required: true, message: "生产日期不能为空", trigger: "blur" }
+    ],
+    shelfLife: [
+      { required: true, message: "保质期不能为空", trigger: "blur" }
+    ],
+    expirationDate: [
+      { required: true, message: "过期日期不能为空", trigger: "blur" }
     ],
   }
 });
@@ -238,6 +320,7 @@ function cancel() {
 function reset() {
   form.value = {
     inboundId: null,
+    itemId: null,
     itemName: null,
     responsible: null,
     supplier: null,
@@ -247,6 +330,9 @@ function reset() {
     freight: null,
     spending: null,
     inboundTime: null,
+    manufactureDate: null,
+    shelfLife: null,
+    expirationDate: null,
     createTime: null,
     updateTime: null
   };

@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectBillingRecordsVo">
-        select billing_id, patient_id, appointment_id, amount, payment_method, payment_status, payment_time, created_at, updated_at from tt_billing_records
+        select billing_id, patient_id,  amount, payment_method, payment_status, payment_time, created_at, updated_at from tt_billing_records
     </sql>
 
     <select id="selectBillingRecordsList" parameterType="BillingRecords" resultMap="BillingRecordsResult">
