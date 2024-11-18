@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.billing.mapper.TtBillingMapper">
+
+    <!-- 定义一个 resultMap，用于映射数据库字段与实体类 TtBilling 的属性 -->
+    <resultMap type="TtBilling" id="TtBillingResult">
+        <!-- 每个 <result> 定义数据库表字段 (column) 和实体类属性 (property) 的对应关系 -->
+        <result property="billingId"    column="billing_id"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="doctorName"    column="doctor_name"    />
+        <result property="billingDate"    column="billing_date"    />
+        <result property="totalAmount"    column="total_amount"    />
+        <result property="paymentStatus"    column="payment_status"    />
+        <result property="paymentMethod"    column="payment_method"    />
+        <result property="receiver"    column="receiver"    />
+        <result property="notes"    column="notes"    />
+    </resultMap>
+
+    <!-- 定义一个公共 SQL 片段，供其他 SQL 语句复用 -->
+    <sql id="selectTtBillingVo">
+        select billing_id, patient_name, doctor_name, billing_date, total_amount, payment_status, payment_method, receiver, notes
+        from tt_billing
+    </sql>
+
+    <!-- 查询账单列表，支持动态条件过滤 -->
+    <select id="selectTtBillingList" parameterType="TtBilling" resultMap="TtBillingResult">
+        <!-- 引用公共 SQL 片段 -->
+        <include refid="selectTtBillingVo"/>
+        <where>
+            <!-- 动态条件：患者姓名模糊查询 -->
+            <if test="patientName != null  and patientName != ''">
+                and patient_name like concat('%', #{patientName}, '%')
+            </if>
+            <!-- 动态条件：医生姓名模糊查询 -->
+            <if test="doctorName != null  and doctorName != ''">
+                and doctor_name like concat('%', #{doctorName}, '%')
+            </if>
+            <!-- 动态条件：支付状态模糊查询 -->
+            <if test="paymentStatus != null  and paymentStatus != ''">
+                and payment_status like concat('%', #{paymentStatus}, '%')
+            </if>
+        </where>
+        ORDER BY billing_id ASC
+    </select>
+
+    <!-- 根据账单 ID 查询账单详情 -->
+    <select id="selectTtBillingByBillingId" parameterType="Long" resultMap="TtBillingResult">
+        <!-- 引用公共 SQL 片段 -->
+        <include refid="selectTtBillingVo"/>
+        where billing_id = #{billingId} <!-- 精确匹配 billing_id -->
+    </select>
+
+    <!-- 插入新账单记录 -->
+    <insert id="insertTtBilling" parameterType="TtBilling" useGeneratedKeys="true" keyProperty="billingId">
+        insert into tt_billing
+        <!-- 动态拼接插入字段 -->
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">patient_name,</if>
+            <if test="doctorName != null and doctorName != ''">doctor_name,</if>
+            <if test="billingDate != null">billing_date,</if>
+            <if test="totalAmount != null">total_amount,</if>
+            <if test="paymentStatus != null and paymentStatus != ''">payment_status,</if>
+            <if test="paymentMethod != null">payment_method,</if>
+            <if test="receiver != null">receiver,</if>
+            <if test="notes != null">notes,</if>
+        </trim>
+        <!-- 动态拼接字段对应的值 -->
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">#{patientName},</if>
+            <if test="doctorName != null and doctorName != ''">#{doctorName},</if>
+            <if test="billingDate != null">#{billingDate},</if>
+            <if test="totalAmount != null">#{totalAmount},</if>
+            <if test="paymentStatus != null and paymentStatus != ''">#{paymentStatus},</if>
+            <if test="paymentMethod != null">#{paymentMethod},</if>
+            <if test="receiver != null">#{receiver},</if>
+            <if test="notes != null">#{notes},</if>
+        </trim>
+    </insert>
+
+    <!-- 更新账单信息 -->
+    <update id="updateTtBilling" parameterType="TtBilling">
+        update tt_billing
+        <!-- 动态拼接更新字段 -->
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientName != null and patientName != ''">patient_name = #{patientName},</if>
+            <if test="doctorName != null and doctorName != ''">doctor_name = #{doctorName},</if>
+            <if test="billingDate != null">billing_date = #{billingDate},</if>
+            <if test="totalAmount != null">total_amount = #{totalAmount},</if>
+            <if test="paymentStatus != null and paymentStatus != ''">payment_status = #{paymentStatus},</if>
+            <if test="paymentMethod != null">payment_method = #{paymentMethod},</if>
+            <if test="receiver != null">receiver = #{receiver},</if>
+            <if test="notes != null">notes = #{notes},</if>
+        </trim>
+        where billing_id = #{billingId} <!-- 根据 billing_id 更新特定记录 -->
+    </update>
+
+    <!-- 删除单条账单记录 -->
+    <delete id="deleteTtBillingByBillingId" parameterType="Long">
+        delete from tt_billing where billing_id = #{billingId} <!-- 按 billing_id 精确删除 -->
+    </delete>
+
+    <!-- 批量删除账单记录 -->
+    <delete id="deleteTtBillingByBillingIds" parameterType="String">
+        delete from tt_billing where billing_id in
+        <!-- 使用 foreach 动态拼接多个 billing_id -->
+        <foreach item="billingId" collection="array" open="(" separator="," close=")">
+            #{billingId}
+        </foreach>
+    </delete>
+</mapper>

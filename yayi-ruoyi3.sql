@@ -1361,60 +1361,115 @@ insert  into `tt_action_logs`(`log_id`,`user_id`,`action_type`,`table_name`,`rec
 (4,4,'READ','medical_visits',3,'2024-10-05 09:51:34','查看就诊记录'),
 (5,5,'CREATE','billing_records',4,'2024-10-05 09:51:34','添加收费记录');
 
-/*Table structure for table `tt_appointments` */
-
+-- ----------------------------
+-- Table structure for tt_appointments
+-- ----------------------------
 DROP TABLE IF EXISTS `tt_appointments`;
-
-CREATE TABLE `tt_appointments` (
+CREATE TABLE `tt_appointments`  (
   `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
-  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
-  `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID，关联医生表',
-  `appointment_date` date NOT NULL COMMENT '预约日期',
-  `appointment_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约时间',
-  `appointment_duration` int(11) DEFAULT NULL COMMENT '预约时长（分钟）',
+  `patient_id` bigint(20) NULL DEFAULT NULL COMMENT '患者ID，关联患者表',
+  `doctor_id` bigint(20) NULL DEFAULT NULL COMMENT '医生ID，关联医生表',
+  `appointment_date` date NULL DEFAULT NULL COMMENT '预约终止时间',
+  `appointment_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约开始时间',
+  `appointment_duration` int(11) NULL DEFAULT NULL COMMENT '预约时长（分钟）',
   `appointment_project` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '预约的项目',
-  `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预约创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '预约更新时间',
   PRIMARY KEY (`appointment_id`) USING BTREE,
-  UNIQUE KEY `doctor_id` (`doctor_id`,`appointment_date`,`appointment_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
-  KEY `fk_patient_appointment` (`patient_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
+  UNIQUE INDEX `doctor_id`(`doctor_id`, `appointment_date`, `appointment_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
+  INDEX `fk_patient_appointment`(`patient_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 7 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '预约表' ROW_FORMAT = DYNAMIC;
 
-/*Data for the table `tt_appointments` */
+-- ----------------------------
+-- Records of tt_appointments
+-- ----------------------------
+INSERT INTO `tt_appointments` VALUES (1, 1, 3, '2024-11-18', '2024-11-18 08:00:00', 30, '1', '2', '2024-10-05 00:00:00', '2024-11-18 00:00:00');
+INSERT INTO `tt_appointments` VALUES (2, 2, 1, '2024-11-15', '2024-11-18 11:20:56', 45, '3', '1', '2024-10-05 00:00:00', '2024-11-18 11:20:56');
+INSERT INTO `tt_appointments` VALUES (3, 3, 3, '2024-11-29', '2024-11-18 11:20:59', 60, '3', '3', '2024-10-05 00:00:00', '2024-11-18 11:20:59');
+INSERT INTO `tt_appointments` VALUES (4, 4, 4, '2024-11-03', '2024-11-18 11:21:03', 30, '4', '3', '2024-10-05 00:00:00', '2024-11-18 11:21:03');
+INSERT INTO `tt_appointments` VALUES (5, 5, 5, '2024-11-12', '2024-11-18 11:21:06', 30, '6', '1', '2024-10-05 09:51:34', '2024-11-18 11:21:06');
+INSERT INTO `tt_appointments` VALUES (6, 1, 1, NULL, '2024-11-18 17:33:37', 45, '2', '1', '2024-11-18 17:33:01', '2024-11-18 17:33:37');
 
-insert  into `tt_appointments`(`appointment_id`,`patient_id`,`doctor_id`,`appointment_date`,`appointment_time`,`appointment_duration`,`appointment_project`,`appointment_status`,`created_at`,`updated_at`) values 
-(1,1,3,'2024-10-10','2024-10-10 00:00:00',30,'1','2','2024-10-05 00:00:00','2024-10-15 00:00:00'),
-(2,2,1,'2024-10-12','2024-10-15 00:00:00',45,'3','1','2024-10-05 00:00:00','2024-10-15 00:00:00'),
-(3,3,3,'2024-10-15','2024-10-15 01:00:00',60,'3','3','2024-10-05 00:00:00','2024-10-15 16:21:45'),
-(4,4,4,'2024-10-20','2024-10-15 00:00:00',30,'4','3','2024-10-05 00:00:00','2024-10-15 00:00:00'),
-(5,5,5,'2024-10-25','2024-10-15 15:30:00',30,'6','1','2024-10-05 09:51:34','2024-10-15 11:37:21');
+-- ----------------------------
+-- Table structure for tt_appointments_test
+-- ----------------------------
+DROP TABLE IF EXISTS `tt_appointments_test`;
+CREATE TABLE `tt_appointments_test`  (
+  `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
+  `patient_id` bigint(20) NULL DEFAULT NULL COMMENT '患者ID，关联患者表',
+  `doctor_id` bigint(20) NULL DEFAULT NULL COMMENT '医生ID，关联医生表',
+  `appointment_start_time` datetime NULL DEFAULT NULL COMMENT '预约开始时间',
+  `appointment_end_time` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约终止时间',
+  `appointment_duration` int(11) NULL DEFAULT NULL COMMENT '预约时长（分钟）',
+  `appointment_project` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '预约的项目',
+  `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预约创建时间',
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '预约更新时间',
+  PRIMARY KEY (`appointment_id`) USING BTREE,
+  UNIQUE INDEX `doctor_id`(`doctor_id`, `appointment_start_time`, `appointment_end_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
+  INDEX `fk_patient_appointment`(`patient_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '预约表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of tt_appointments_test
+-- ----------------------------
+INSERT INTO `tt_appointments_test` VALUES (1, 1, 3, '2024-11-18 16:54:31', '2024-11-18 16:54:33', 30, '1', '2', '2024-10-05 00:00:00', '2024-11-18 16:54:33');
+INSERT INTO `tt_appointments_test` VALUES (2, 2, 1, '2024-11-20 16:54:34', '2024-11-18 16:54:51', 45, '3', '1', '2024-10-05 00:00:00', '2024-11-18 16:54:51');
+INSERT INTO `tt_appointments_test` VALUES (3, 3, 3, '2024-11-20 16:54:37', '2024-11-18 16:54:56', 60, '3', '3', '2024-10-05 00:00:00', '2024-11-18 16:54:56');
+INSERT INTO `tt_appointments_test` VALUES (4, 4, 4, '2024-11-19 16:54:39', '2024-11-18 16:54:48', 30, '4', '3', '2024-10-05 00:00:00', '2024-11-18 16:54:48');
+INSERT INTO `tt_appointments_test` VALUES (5, 5, 5, '2024-11-21 16:54:41', '2024-11-18 16:54:59', 30, '6', '1', '2024-10-05 09:51:34', '2024-11-18 16:54:59');
 
 /*Table structure for table `tt_billing_records` */
 
-DROP TABLE IF EXISTS `tt_billing_records`;
+DROP TABLE IF EXISTS `tt_billing`;
+CREATE TABLE `tt_billing`  (
+  `billing_id` int(11) NOT NULL AUTO_INCREMENT,
+  `patient_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `doctor_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `billing_date` datetime NOT NULL,
+  `total_amount` decimal(10, 2) NOT NULL,
+  `payment_status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `payment_method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `receiver` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL,
+  PRIMARY KEY (`billing_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
-CREATE TABLE `tt_billing_records` (
+-- ----------------------------
+-- Records of tt_billing
+-- ----------------------------
+INSERT INTO `tt_billing` VALUES (1, '张三', '李医生', '2024-11-18 17:45:03', 800.50, '1', '1', '王护士', '牙齿检查及清洁');
+INSERT INTO `tt_billing` VALUES (2, '李四', '杜医生', '2024-11-16 07:02:10', 300.00, '2', '5', '张护士', '补牙费用');
+INSERT INTO `tt_billing` VALUES (6, '刘洋', '李医生', '2024-11-18 17:45:56', 200.00, '2', '5', '刘护士', '鸿运当头666，猪头肉\n');
+INSERT INTO `tt_billing` VALUES (4, '赵六', '李医生', '2024-11-13 05:20:45', 1200.53, '1', '1', '王护士', '牙齿矫正咨询费');
+INSERT INTO `tt_billing` VALUES (5, '钱七', '杜医生', '2024-11-13 09:25:30', 500.00, '1', '1', '张护士', '定期牙齿清洁');
+
+-- ----------------------------
+-- Table structure for tt_billing_records
+-- ----------------------------
+DROP TABLE IF EXISTS `tt_billing_records`;
+CREATE TABLE `tt_billing_records`  (
   `billing_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '收费记录唯一ID',
-  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
-  `amount` decimal(10,2) NOT NULL COMMENT '收费金额',
+  `patient_id` bigint(20) NULL DEFAULT NULL COMMENT '患者ID，关联患者表',
+  `amount` decimal(10, 2) NOT NULL COMMENT '收费金额',
   `payment_method` enum('CASH','CREDIT_CARD','INSURANCE','ONLINE') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '支付方式',
-  `payment_status` enum('PENDING','COMPLETED','FAILED') CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'PENDING' COMMENT '支付状态',
+  `payment_status` enum('PENDING','COMPLETED','FAILED') CHARACTER SET utf8 COLLATE utf8_unicode_ci NULL DEFAULT 'PENDING' COMMENT '支付状态',
   `payment_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '支付时间',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '收费记录创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '收费记录更新时间',
   PRIMARY KEY (`billing_id`) USING BTREE,
-  KEY `fk_patient_billing` (`patient_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=FIXED COMMENT='收费记录表，记录患者的付款信息';
+  INDEX `fk_patient_billing`(`patient_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '收费记录表，记录患者的付款信息' ROW_FORMAT = FIXED;
 
-/*Data for the table `tt_billing_records` */
-
-insert  into `tt_billing_records`(`billing_id`,`patient_id`,`amount`,`payment_method`,`payment_status`,`payment_time`,`created_at`,`updated_at`) values 
-(1,1,200.00,'CREDIT_CARD','COMPLETED','2024-10-05 09:51:34','2024-10-05 09:51:34','2024-10-05 09:51:34'),
-(2,2,300.00,'ONLINE','PENDING','2024-10-05 09:51:34','2024-10-05 09:51:34','2024-10-05 09:51:34'),
-(3,3,150.00,'CASH','FAILED','2024-10-05 09:51:34','2024-10-05 09:51:34','2024-10-05 09:51:34'),
-(4,4,100.00,'INSURANCE','COMPLETED','2024-10-05 09:51:34','2024-10-05 09:51:34','2024-10-05 09:51:34'),
-(5,5,250.00,'CREDIT_CARD','COMPLETED','2024-10-05 09:51:34','2024-10-05 09:51:34','2024-10-05 09:51:34');
+-- ----------------------------
+-- Records of tt_billing_records
+-- ----------------------------
+INSERT INTO `tt_billing_records` VALUES (1, 1, 200.00, 'CREDIT_CARD', 'COMPLETED', '2024-10-05 09:51:34', '2024-10-05 09:51:34', '2024-10-05 09:51:34');
+INSERT INTO `tt_billing_records` VALUES (2, 2, 300.00, 'ONLINE', 'PENDING', '2024-10-05 09:51:34', '2024-10-05 09:51:34', '2024-10-05 09:51:34');
+INSERT INTO `tt_billing_records` VALUES (3, 3, 150.00, 'CASH', 'FAILED', '2024-10-05 09:51:34', '2024-10-05 09:51:34', '2024-10-05 09:51:34');
+INSERT INTO `tt_billing_records` VALUES (4, 4, 100.00, 'INSURANCE', 'COMPLETED', '2024-10-05 09:51:34', '2024-10-05 09:51:34', '2024-10-05 09:51:34');
+INSERT INTO `tt_billing_records` VALUES (5, 5, 250.00, 'CREDIT_CARD', 'COMPLETED', '2024-10-05 09:51:34', '2024-10-05 09:51:34', '2024-10-05 09:51:34');
 
 /*Table structure for table `tt_doctors` */
 
