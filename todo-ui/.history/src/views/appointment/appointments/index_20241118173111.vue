@@ -111,7 +111,7 @@
         </el-form-item>
 
         <el-form-item label="会诊时间" prop="appointmentTime">
-          <el-date-picker v-model="form.appointmentTime" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="选择日期时间">
+          <el-date-picker v-model="value1" type="datetime" placeholder="选择日期时间">
           </el-date-picker>
         </el-form-item>
 

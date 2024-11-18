@@ -9,6 +9,14 @@
           <el-option v-for="dict in tt_doctor" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
+      <!-- <el-form-item label="预约时长" prop="appointmentDuration">
+        <el-input
+          v-model="queryParams.appointmentDuration"
+          placeholder="请输入预约时长"
+          clearable
+          @keyup.enter="handleQuery"
+        />
+      </el-form-item> -->
       <el-form-item label="预约项目" prop="appointmentProject">
         <el-select v-model="queryParams.appointmentProject" placeholder="请选择预约项目" clearable>
           <el-option v-for="dict in tt_tooth" :key="dict.value" :label="dict.label" :value="dict.value" />
@@ -94,8 +102,8 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
-      v-model:limit="queryParams.pageSize" @pagination="getList" />
+    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
+      @pagination="getList" />
 
     <!-- 添加或修改预约功能对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
@@ -111,8 +119,11 @@
         </el-form-item>
 
         <el-form-item label="会诊时间" prop="appointmentTime">
-          <el-date-picker v-model="form.appointmentTime" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="选择日期时间">
-          </el-date-picker>
+          <div class="block">
+            <el-date-picker v-model="form.appointmentTime" type="datetime" placeholder="选择日期时间"
+              value-format="YYYY-MM-DD HH:mm:ss" default-time="12:00:00">
+            </el-date-picker>
+          </div>
         </el-form-item>
 
 
@@ -149,6 +160,42 @@
 
 
 
+<script>
+export default {
+  data() {
+    return {
+      form: {
+        appointmentTime: '', // 初始化为一个空值
+      },
+      pickerOptions: {
+        shortcuts: [
+          {
+            text: '今天',
+            onClick(picker) {
+              picker.$emit('pick', new Date());
+            }
+          },
+          {
+            text: '昨天',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24);
+              picker.$emit('pick', date);
+            }
+          },
+          {
+            text: '一周前',
+            onClick(picker) {
+              const date = new Date();
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', date);
+            }
+          }
+        ]
+      }
+    };
+  }
+};</script>
 
 
 

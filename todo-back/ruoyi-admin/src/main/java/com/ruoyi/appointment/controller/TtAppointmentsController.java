@@ -42,13 +42,13 @@ public class TtAppointmentsController extends BaseController
     public TableDataInfo list(TtAppointments ttAppointments)
     {
         System.out.println(ttAppointments);
-        System.out.println("****************************************************========================================================");
         startPage();
         List<TtAppointments> list = ttAppointmentsService.selectTtAppointmentsList(ttAppointments);
-        System.out.println("****************************************************");
+        System.out.println("xxxxxxxxxxxxxxxxxxxxx");
         System.out.println(list);
-        System.out.println("****************************************************");
+
         return getDataTable(list);
+
     }
 
     /**

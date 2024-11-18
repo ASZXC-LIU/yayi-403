@@ -74,8 +74,8 @@ public class TtAppointments extends BaseEntity
     private Date appointmentDate;
 
     /** 会诊时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "会诊时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "会诊时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date appointmentTime;
 
     /** 预约时长 */
@@ -91,123 +91,106 @@ public class TtAppointments extends BaseEntity
     private String appointmentStatus;
 
     /** 预约创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "预约创建时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "预约创建时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date createdAt;
 
     /** 预约更新时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "预约更新时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "预约更新时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date updatedAt;
 
-    public void setAppointmentId(Long appointmentId) 
+    public void setAppointmentId(Long appointmentId)
     {
         this.appointmentId = appointmentId;
     }
 
-    public Long getAppointmentId() 
+    public Long getAppointmentId()
     {
         return appointmentId;
     }
-    public void setPatientId(Long patientId) 
+    public void setPatientId(Long patientId)
     {
         this.patientId = patientId;
     }
 
-    public Long getPatientId() 
+    public Long getPatientId()
     {
         return patientId;
     }
-    public void setDoctorId(Long doctorId) 
+    public void setDoctorId(Long doctorId)
     {
         this.doctorId = doctorId;
     }
 
-    public Long getDoctorId() 
+    public Long getDoctorId()
     {
         return doctorId;
     }
-    public void setAppointmentDate(Date appointmentDate) 
+    public void setAppointmentDate(Date appointmentDate)
     {
         this.appointmentDate = appointmentDate;
     }
 
-    public Date getAppointmentDate() 
+    public Date getAppointmentDate()
     {
         return appointmentDate;
     }
-    public void setAppointmentTime(Date appointmentTime) 
+    public void setAppointmentTime(Date appointmentTime)
     {
         this.appointmentTime = appointmentTime;
     }
 
-    public Date getAppointmentTime() 
+    public Date getAppointmentTime()
     {
         return appointmentTime;
     }
-    public void setAppointmentDuration(Long appointmentDuration) 
+    public void setAppointmentDuration(Long appointmentDuration)
     {
         this.appointmentDuration = appointmentDuration;
     }
 
-    public Long getAppointmentDuration() 
+    public Long getAppointmentDuration()
     {
         return appointmentDuration;
     }
-    public void setAppointmentProject(String appointmentProject) 
+    public void setAppointmentProject(String appointmentProject)
     {
         this.appointmentProject = appointmentProject;
     }
 
-    public String getAppointmentProject() 
+    public String getAppointmentProject()
     {
         return appointmentProject;
     }
-    public void setAppointmentStatus(String appointmentStatus) 
+    public void setAppointmentStatus(String appointmentStatus)
     {
         this.appointmentStatus = appointmentStatus;
     }
 
-    public String getAppointmentStatus() 
+    public String getAppointmentStatus()
     {
         return appointmentStatus;
     }
-    public void setCreatedAt(Date createdAt) 
+    public void setCreatedAt(Date createdAt)
     {
         this.createdAt = createdAt;
     }
 
-    public Date getCreatedAt() 
+    public Date getCreatedAt()
     {
         return createdAt;
     }
-    public void setUpdatedAt(Date updatedAt) 
+    public void setUpdatedAt(Date updatedAt)
     {
         this.updatedAt = updatedAt;
     }
 
-    public Date getUpdatedAt() 
+    public Date getUpdatedAt()
     {
         return updatedAt;
     }
 
-   /* @Override
-    public String toString() {
-        return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("appointmentId", getAppointmentId())
-            .append("patientId", getPatientId())
-            .append("doctorId", getDoctorId())
-                .append("patientName", ttPatient.getName())
-                .append("doctorName", ttDoctor.getName())
-            .append("appointmentDate", getAppointmentDate())
-            .append("appointmentTime", getAppointmentTime())
-            .append("appointmentDuration", getAppointmentDuration())
-            .append("appointmentProject", getAppointmentProject())
-            .append("appointmentStatus", getAppointmentStatus())
-            .append("createdAt", getCreatedAt())
-            .append("updatedAt", getUpdatedAt())
-            .toString();
-    }*/
 
     @Override
     public String toString() {

@@ -48,18 +48,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     </sql>
 
-    <select id="selectTtAppointmentsList" parameterType="TtAppointments" resultMap="TtAppointmentsResult">
-        <include refid="selectTtAppointmentsVo"/>
-        <where>  
-            <if test="patientId != null "> and patient_id like concat('%', #{patientId}, '%')</if>
-            <if test="doctorId != null "> and doctor_id like concat('%', #{doctorId}, '%')</if>
-            <if test="appointmentDuration != null "> and appointment_duration = #{appointmentDuration}</if>
-            <if test="appointmentProject != null  and appointmentProject != ''"> and appointment_project = #{appointmentProject}</if>
-            <if test="appointmentStatus != null  and appointmentStatus != ''"> and appointment_status = #{appointmentStatus}</if>
-            <if test="patientName != null "> and b.name like concat('%', #{patientName}, '%')</if>
+<select id="selectTtAppointmentsList" parameterType="TtAppointments" resultMap="TtAppointmentsResult">
+    <include refid="selectTtAppointmentsVo"/>
+    <where>
+        <if test="patientId != null "> and a.patient_id like concat('%', #{patientId}, '%')</if>
+        <if test="doctorId != null "> and c.doctor_id like concat('%', #{doctorId}, '%')</if>
+        <if test="appointmentDuration != null "> and a.appointment_duration = #{appointmentDuration}</if>
+        <if test="appointmentProject != null  and appointmentProject != ''"> and a.appointment_project = #{appointmentProject}</if>
+        <if test="appointmentStatus != null  and appointmentStatus != ''"> and a.appointment_status = #{appointmentStatus}</if>
+        <if test="patientName != null "> and b.name like concat('%', #{patientName}, '%')</if>
+    </where>
+</select>
 
-        </where>
-    </select>
     
     <select id="selectTtAppointmentsByAppointmentId" parameterType="Long" resultMap="TtAppointmentsResult">
         <include refid="selectTtAppointmentsVo"/>

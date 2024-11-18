@@ -94,8 +94,8 @@
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
-      v-model:limit="queryParams.pageSize" @pagination="getList" />
+    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
+      @pagination="getList" />
 
     <!-- 添加或修改预约功能对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
@@ -111,8 +111,9 @@
         </el-form-item>
 
         <el-form-item label="会诊时间" prop="appointmentTime">
-          <el-date-picker v-model="form.appointmentTime" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="选择日期时间">
-          </el-date-picker>
+            <el-date-picker v-model="form.appointmentTime" type="datetime" placeholder="选择日期时间"
+              value-format="YYYY-MM-DD HH:mm:ss" default-time="12:00:00">
+            </el-date-picker>
         </el-form-item>
 
 
