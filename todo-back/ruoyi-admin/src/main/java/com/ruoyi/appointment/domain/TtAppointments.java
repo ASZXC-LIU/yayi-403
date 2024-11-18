@@ -74,8 +74,8 @@ public class TtAppointments extends BaseEntity
     private Date appointmentDate;
 
     /** 会诊时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "会诊时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @Excel(name = "会诊时间", width = 30, dateFormat = "yyyy-MM-dd hh:mm:ss ")
     private Date appointmentTime;
 
     /** 预约时长 */

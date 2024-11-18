@@ -111,6 +111,7 @@
           <span>{{ parseTime(scope.row.appointmentTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
+      
 
       
       <el-table-column label="预约时长" align="center" prop="appointmentDuration" />
@@ -171,8 +172,8 @@
         <el-form-item label="会诊时间" prop="appointmentTime">
           <el-date-picker clearable
             v-model="form.appointmentTime"
-            type="date"
-            value-format="YYYY-MM-DD"
+            type="datetime"
+            value-format="YYYY-MM-DD hh:mm:ss"                      
             placeholder="请选择会诊时间">
           </el-date-picker>
         </el-form-item>
@@ -212,10 +213,7 @@
 
 <script setup name="Appointments">
 import { listAppointments, getAppointments, delAppointments, addAppointments, updateAppointments } from "@/api/appointment/appointments";
-// import { listPatients } from "@/api/appointment/patients";  // 假设你有一个 API 来获取医生列表
-// const tt_patientlist = ref([]);  // 存储医生列表
-// import { listDoctors } from "@/api/appointment/doctors";  // 假设你有一个 API 来获取医生列表
-// const tt_doctorslist = ref([]);  // 存储医生列表
+
 const { proxy } = getCurrentInstance();
 const { tt_doctor, tt_tooth, tt_appointments_status } = proxy.useDict('tt_doctor', 'tt_tooth', 'tt_appointments_status');
 
@@ -337,7 +335,7 @@ function getList() {
   loading.value = true;
   console.log({...queryParams.value});
   listAppointments({...queryParams.value}).then(response => {
-    //  console.log(response)
+    console.log("11111111111",response)
     appointmentsList.value = response.rows;
     total.value = response.total;
     loading.value = false;
@@ -397,6 +395,7 @@ function handleSelectionChange(selection) {
 /** 新增按钮操作 */
 function handleAdd() {
   reset();
+  get
   open.value = true;
   title.value = "添加预约功能";
 }

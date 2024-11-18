@@ -160,6 +160,10 @@
 <script setup name="Offsettings">
 import { listOffsettings, getOffsettings, delOffsettings, addOffsettings, updateOffsettings } from "@/api/offsetting/offsettings";
 
+import{
+  formatPriceToLong,
+  formatPriceToDecimal
+} from "@/utils/price";
 const { proxy } = getCurrentInstance();
 
 const offsettingsList = ref([]);
@@ -205,7 +209,14 @@ const { queryParams, form, rules } = toRefs(data);
 /** 查询对冲记录工单列表 */
 function getList() {
   loading.value = true;
+  
   listOffsettings(queryParams.value).then(response => {
+    response.rows.forEach((item) => {
+      item.spending = formatPriceToDecimal(item.spending);
+   
+      // item.purchasePrice = (item.purchasePrice / 100).toFixed(2);
+      // item.sellingPrice = (item.sellingPrice / 100).toFixed(2);
+    })
     offsettingsList.value = response.rows;
     total.value = response.total;
     loading.value = false;

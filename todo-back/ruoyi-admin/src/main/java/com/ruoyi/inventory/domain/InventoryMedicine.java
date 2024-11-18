@@ -1,5 +1,6 @@
 package com.ruoyi.inventory.domain;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -120,21 +121,21 @@ public class InventoryMedicine extends BaseEntity
     {
         return origin;
     }
-    public void setPurchasePrice(Long purchasePrice) 
+    public void setPurchasePrice(Long purchasePrice)
     {
         this.purchasePrice = purchasePrice;
     }
 
-    public Long getPurchasePrice() 
+    public Long getPurchasePrice()
     {
         return purchasePrice;
     }
-    public void setSellingPrice(Long sellingPrice) 
+    public void setSellingPrice(Long sellingPrice)
     {
         this.sellingPrice = sellingPrice;
     }
 
-    public Long getSellingPrice() 
+    public Long getSellingPrice()
     {
         return sellingPrice;
     }
