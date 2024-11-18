@@ -2,58 +2,29 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="物品id" prop="itemId">
-        <el-input
-          v-model="queryParams.itemId"
-          placeholder="请输入物品id"
-          clearable
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.itemId" placeholder="请输入物品id" clearable @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="物品名字" prop="itemName">
-        <el-input
-          v-model="queryParams.itemName"
-          placeholder="请输入物品名字"
-          clearable
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.itemName" placeholder="请输入物品名字" clearable @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="负责人" prop="responsible">
-        <el-input
-          v-model="queryParams.responsible"
-          placeholder="请输入负责人"
-          clearable
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.responsible" placeholder="请输入负责人" clearable @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="供应来源" prop="supplier">
-        <el-input
-          v-model="queryParams.supplier"
-          placeholder="请输入供应来源"
-          clearable
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.supplier" placeholder="请输入供应来源" clearable @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="入库时间" prop="inboundTime">
-        <el-date-picker clearable
-          v-model="queryParams.inboundTime"
-          type="date"
-          value-format="YYYY-MM-DD"
+        <el-date-picker clearable v-model="queryParams.inboundTime" type="date" value-format="YYYY-MM-DD"
           placeholder="请选择入库时间">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="生产日期" prop="manufactureDate">
-        <el-date-picker clearable
-          v-model="queryParams.manufactureDate"
-          type="date"
-          value-format="YYYY-MM-DD"
+        <el-date-picker clearable v-model="queryParams.manufactureDate" type="date" value-format="YYYY-MM-DD"
           placeholder="请选择生产日期">
         </el-date-picker>
       </el-form-item>
       <el-form-item label="过期日期" prop="expirationDate">
-        <el-date-picker clearable
-          v-model="queryParams.expirationDate"
-          type="date"
-          value-format="YYYY-MM-DD"
+        <el-date-picker clearable v-model="queryParams.expirationDate" type="date" value-format="YYYY-MM-DD"
           placeholder="请选择过期日期">
         </el-date-picker>
       </el-form-item>
@@ -65,42 +36,20 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="Plus"
-          @click="handleAdd"
-          v-hasPermi="['inbound:inbounds:add']"
-        >新增</el-button>
+        <el-button type="primary" plain icon="Plus" @click="handleAdd"
+          v-hasPermi="['inbound:inbounds:add']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="Edit"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['inbound:inbounds:edit']"
-        >修改</el-button>
+        <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
+          v-hasPermi="['inbound:inbounds:edit']">修改</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="Delete"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['inbound:inbounds:remove']"
-        >删除</el-button>
+        <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
+          v-hasPermi="['inbound:inbounds:remove']">删除</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="Download"
-          @click="handleExport"
-          v-hasPermi="['inbound:inbounds:export']"
-        >导出</el-button>
+        <el-button type="warning" plain icon="Download" @click="handleExport"
+          v-hasPermi="['inbound:inbounds:export']">导出</el-button>
       </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -145,19 +94,16 @@
       </el-table-column>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['inbound:inbounds:edit']">修改</el-button>
-          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['inbound:inbounds:remove']">删除</el-button>
+          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
+            v-hasPermi="['inbound:inbounds:edit']">修改</el-button>
+          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
+            v-hasPermi="['inbound:inbounds:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    
-    <pagination
-      v-show="total>0"
-      :total="total"
-      v-model:page="queryParams.pageNum"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+
+    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
+      @pagination="getList" />
 
     <!-- 添加或修改入库工单对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
@@ -190,18 +136,12 @@
           <el-input v-model="form.spending" placeholder="请输入总开销" />
         </el-form-item>
         <el-form-item label="入库时间" prop="inboundTime">
-          <el-date-picker clearable
-            v-model="form.inboundTime"
-            type="date"
-            value-format="YYYY-MM-DD"
+          <el-date-picker clearable v-model="form.inboundTime" type="date" value-format="YYYY-MM-DD"
             placeholder="请选择入库时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="生产日期" prop="manufactureDate">
-          <el-date-picker clearable
-            v-model="form.manufactureDate"
-            type="date"
-            value-format="YYYY-MM-DD"
+          <el-date-picker clearable v-model="form.manufactureDate" type="date" value-format="YYYY-MM-DD"
             placeholder="请选择生产日期">
           </el-date-picker>
         </el-form-item>
@@ -209,10 +149,7 @@
           <el-input v-model="form.shelfLife" placeholder="请输入保质期" />
         </el-form-item>
         <el-form-item label="过期日期" prop="expirationDate">
-          <el-date-picker clearable
-            v-model="form.expirationDate"
-            type="date"
-            value-format="YYYY-MM-DD"
+          <el-date-picker clearable v-model="form.expirationDate" type="date" value-format="YYYY-MM-DD"
             placeholder="请选择过期日期">
           </el-date-picker>
         </el-form-item>
@@ -229,6 +166,13 @@
 
 <script setup name="Inbounds">
 import { listInbounds, getInbounds, delInbounds, addInbounds, updateInbounds } from "@/api/inbound/inbounds";
+
+
+//引入自定义价格格式化js
+import {
+  formatPriceToLong,
+  formatPriceToDecimal
+} from "@/utils/price";
 
 const { proxy } = getCurrentInstance();
 
@@ -249,6 +193,7 @@ const data = reactive({
     pageSize: 10,
     itemId: null,
     itemName: null,
+    quantity: null,
     responsible: null,
     supplier: null,
     inboundTime: null,
@@ -304,6 +249,16 @@ const { queryParams, form, rules } = toRefs(data);
 function getList() {
   loading.value = true;
   listInbounds(queryParams.value).then(response => {
+    //将价格的long转换为decimal
+
+    response.rows.forEach((item) => {
+      item.purchasePrice = formatPriceToDecimal(item.purchasePrice);
+      item.freight = formatPriceToDecimal(item.freight);
+      item.spending = formatPriceToDecimal(item.spending);
+
+
+    })
+
     inboundsList.value = response.rows;
     total.value = response.total;
     loading.value = false;
@@ -400,12 +355,12 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const _inboundIds = row.inboundId || ids.value;
-  proxy.$modal.confirm('是否确认删除入库工单编号为"' + _inboundIds + '"的数据项？').then(function() {
+  proxy.$modal.confirm('是否确认删除入库工单编号为"' + _inboundIds + '"的数据项？').then(function () {
     return delInbounds(_inboundIds);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => {});
+  }).catch(() => { });
 }
 
 /** 导出按钮操作 */
