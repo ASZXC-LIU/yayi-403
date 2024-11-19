@@ -35,14 +35,36 @@ export function updateInventorytools(data) {
   })
 }
 
+
+
+
 // 修改对冲后的药品库存
 export function offsettingUpdateInventorytools(data) {
   return request({
-    url: '/inventorytool/inventorytools/offsettingUpdateInventorytools',
+    url: '/inventorytool/inventorytools/offsettingUpdateTools',
     method: 'put',
     data: data
   })
 }
+
+// 修改入库后的药品库存
+export function inboundUpdateInventorytools(data) {
+  return request({
+    url: '/inventorytool/inventorytools/inboundUpdateTools',
+    method: 'put',
+    data: data
+  })
+}
+
+// 修改入库后的药品库存
+export function outboundUpdateInventorytools(data) {
+  return request({
+    url: '/inventorytool/inventorytools/outboundUpdateTools',
+    method: 'put',
+    data: data
+  })
+}
+
 
 
 // 删除工具库存

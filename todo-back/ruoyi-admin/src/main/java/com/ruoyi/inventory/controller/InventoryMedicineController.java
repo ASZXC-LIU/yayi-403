@@ -1,11 +1,14 @@
 package com.ruoyi.inventory.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.framework.web.domain.server.Sys;
 import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.domain.InventoryOffsetting;
+import com.ruoyi.inventory.domain.InventoryOutbound;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -92,7 +95,6 @@ public class InventoryMedicineController extends BaseController
     @PutMapping
     public AjaxResult edit(@RequestBody InventoryMedicine inventoryMedicine)
     {
-
         return toAjax(inventoryMedicineService.updateInventoryMedicine(inventoryMedicine));
     }
 
@@ -104,8 +106,19 @@ public class InventoryMedicineController extends BaseController
     @PutMapping("/offsettingUpdateMedicine")
     public AjaxResult offsettingUpdateMedicine(@RequestBody InventoryOffsetting inventoryOffsetting)
     {
-
-        return toAjax(inventoryMedicineService.offsettingUpdateMedicine(inventoryOffsetting));
+        InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(Long.valueOf(inventoryOffsetting.getItemId()));
+        if (inventoryMedicine == null) {
+            // 如果数据库中不存在该货物
+            return AjaxResult.error("出库失败：货物不存在");
+        }
+        Long nowQuantity = inventoryMedicine.getQuantity();
+        Long outboundQuantity = inventoryOffsetting.getQuantity(); // 假设需要比较的另一值
+            if (nowQuantity.compareTo(outboundQuantity) >= 0) {
+                return toAjax(inventoryMedicineService.offsettingUpdateMedicine(inventoryOffsetting));
+            } else{
+                // nowQuantity 小于 outboundQuantity
+                return AjaxResult.error("出库失败：当前库存不足，库存量为 " + nowQuantity + "，出库量为 " + outboundQuantity);
+            }
     }
 
     /**
@@ -116,10 +129,74 @@ public class InventoryMedicineController extends BaseController
     @PutMapping("/inboundUpdateMedicine")
     public AjaxResult inboundUpdateMedicine(@RequestBody InventoryInbound inventoryInbound)
     {
-        System.out.println("1111111111111111111111111");
-        System.out.println(inventoryInbound);
-        System.out.println("2222222222222222222222222");
-        return toAjax(inventoryMedicineService.inboundUpdateMedicine(inventoryInbound));
+        InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryInbound.getItemId());
+        if (inventoryMedicine == null) {
+            // 如果数据库中不存在该货物
+            return AjaxResult.error("入库失败：货物不存在");
+        }
+        String exitName = inventoryMedicine.getMedicineName();
+
+
+        String outName = inventoryInbound.getItemName();
+
+
+        if (exitName.equals(outName)) {
+
+            return toAjax(inventoryMedicineService.inboundUpdateMedicine(inventoryInbound));
+
+        } else {
+            return AjaxResult.error("入库失败:货物名称不正确");
+        }
+
+
+    }
+
+
+    /**
+     * 修改出库后的库存
+     */
+    @PreAuthorize("@ss.hasPermi('medicine:medicine:edit')")
+    @Log(title = "药品库存", businessType = BusinessType.UPDATE)
+    @PutMapping("/outboundUpdateMedicine")
+    public AjaxResult outboundUpdateMedicine(@RequestBody InventoryOutbound inventoryOutbound)
+    {
+
+
+        InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryOutbound.getItemId());
+
+        if (inventoryMedicine == null) {
+            // 如果数据库中不存在该货物
+            return AjaxResult.error("出库失败：货物不存在");
+        }
+
+        Long nowQuantity = inventoryMedicine.getQuantity();
+        String exitName = inventoryMedicine.getMedicineName();
+
+        Long outboundQuantity = inventoryOutbound.getQuantity(); // 假设需要比较的另一值
+        String outName = inventoryOutbound.getItemName();
+
+
+        if (exitName.equals(outName)) {
+
+
+            if (nowQuantity.compareTo(outboundQuantity) >= 0) {
+
+
+
+                return toAjax(inventoryMedicineService.outboundUpdateMedicine(inventoryOutbound));
+            } else{
+                // nowQuantity 小于 outboundQuantity
+
+                return AjaxResult.error("出库失败：当前库存不足，库存量为 " + nowQuantity + "，出库量为 " + outboundQuantity);
+            }
+        } else {
+            return AjaxResult.error("出库失败:货物名称不正确");
+        }
+
+
+
+
+
 
     }
 

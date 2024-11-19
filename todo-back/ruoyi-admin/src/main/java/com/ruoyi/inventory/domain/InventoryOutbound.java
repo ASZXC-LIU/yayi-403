@@ -21,6 +21,10 @@ public class InventoryOutbound extends BaseEntity
     @Excel(name = "入库工单id")
     private Long outboundId;
 
+    /** 物品id */
+    @Excel(name = "物品名字")
+    private Long itemId;
+
     /** 物品名字 */
     @Excel(name = "物品名字")
     private String itemName;
@@ -63,14 +67,14 @@ public class InventoryOutbound extends BaseEntity
     {
         return outboundId;
     }
-    public void setItemName(String itemName) 
+    public void setItemId(Long itemId)
     {
-        this.itemName = itemName;
+        this.itemId = itemId;
     }
 
-    public String getItemName() 
+    public Long getItemId()
     {
-        return itemName;
+        return itemId;
     }
     public void setResponsible(String responsible) 
     {
@@ -140,7 +144,9 @@ public class InventoryOutbound extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("outboundId", getOutboundId())
-            .append("itemName", getItemName())
+
+                .append("getItemId", getItemId())
+                .append("itemName", getItemName())
             .append("responsible", getResponsible())
             .append("reason", getReason())
             .append("quantity", getQuantity())
@@ -151,5 +157,13 @@ public class InventoryOutbound extends BaseEntity
             .append("createTime", getCreateTime())
             .append("updateTime", getUpdateTime())
             .toString();
+    }
+
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
     }
 }

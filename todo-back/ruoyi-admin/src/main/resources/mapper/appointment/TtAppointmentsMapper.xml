@@ -60,6 +60,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </where>
 </select>
 
+
+
     
     <select id="selectTtAppointmentsByAppointmentId" parameterType="Long" resultMap="TtAppointmentsResult">
         <include refid="selectTtAppointmentsVo"/>

@@ -2,7 +2,9 @@ package com.ruoyi.inventory.service;
 
 import java.util.List;
 
+import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.domain.InventoryOffsetting;
+import com.ruoyi.inventory.domain.InventoryOutbound;
 import com.ruoyi.inventory.domain.InventoryTools;
 
 /**
@@ -52,7 +54,24 @@ public interface IInventoryToolsService
      * @param inventoryOffsetting 药品库存
      * @return 结果
      */
-    public int offsettingUpdateInventorytools(InventoryOffsetting inventoryOffsetting);
+    public int offsettingUpdateTools(InventoryOffsetting inventoryOffsetting);
+
+    /**
+     * 修改入库后的对应药品库存
+     *
+     * @param inventoryInbound 药品库存
+     * @return 结果
+     */
+    public int inboundUpdateTools(InventoryInbound inventoryInbound);
+
+
+    /**
+     * 修改出库后的对应药品库存
+     *
+     * @param inventoryOutbound 药品库存
+     * @return 结果
+     */
+    public int outboundUpdateTools(InventoryOutbound inventoryOutbound);
 
 
     /**

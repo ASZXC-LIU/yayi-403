@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
 
-    <resultMap type="InventoryOffsetting" id="offsettingUpdateInventoryMedicineResult">
+    <resultMap type="InventoryOffsetting" id="offsettingUpdateInventoryToolsResult">
         <result property="itemId"    column="item_id"    />
 
         <result property="quantity"    column="quantity"    />
@@ -103,9 +103,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </update>
 
 
-    <update id="offsettingUpdateInventoryInventoryToolsResult" parameterType="InventoryTools">
+    <update id="offsettingUpdateInventoryToolsResult" parameterType="InventoryTools">
         update tt_inventory_tools
         <trim prefix="SET" suffixOverrides=",">
+            <if test="quantity != null">quantity = quantity - #{quantity},</if>
+        </trim>
+        where tools_id = #{itemId}
+    </update>
+
+    <update id="inboundUpdateToolsUpdateInventoryToolsResult" parameterType="InventoryTools">
+        update tt_inventory_tools
+        <trim prefix="SET" suffixOverrides=",">
+
+            <if test="quantity != null">quantity = quantity + #{quantity},</if>
+        </trim>
+        where tools_id = #{itemId}
+    </update>
+
+    <update id="outboundUpdateToolsUpdateInventoryToolsResult" parameterType="InventoryTools">
+        update tt_inventory_tools
+        <trim prefix="SET" suffixOverrides=",">
+
             <if test="quantity != null">quantity = quantity - #{quantity},</if>
         </trim>
         where tools_id = #{itemId}

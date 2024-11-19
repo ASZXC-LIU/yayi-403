@@ -9,6 +9,8 @@ export function listAppointments(query) {
   })
 }
 
+
+
 // 查询预约功能详细
 export function getAppointments(appointmentId) {
   return request({

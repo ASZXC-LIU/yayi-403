@@ -118,14 +118,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="inboundUpdateMedicineUpdateInventoryMedicineResult" parameterType="InventoryMedicine">
         update tt_inventory_medicine
         <trim prefix="SET" suffixOverrides=",">
-            <if test="supplier != null and supplier != ''">supplier = #{supplier},</if>
 
-            <if test="unit != null and unit != ''">unit = #{unit},</if>
-            <if test="purchasePrice != null">purchase_price = #{purchasePrice},</if>
-            <if test="manufactureDate != null">manufacture_date = #{manufactureDate},</if>
-            <if test="shelfLife != null and shelfLife != ''">shelf_life = #{shelfLife},</if>
-            <if test="expirationDate != null">expiration_date = #{expirationDate},</if>
             <if test="quantity != null">quantity = quantity + #{quantity},</if>
+        </trim>
+        where medicine_id = #{itemId}
+    </update>
+
+    <update id="outboundUpdateMedicineUpdateInventoryMedicineResult" parameterType="InventoryMedicine">
+        update tt_inventory_medicine
+        <trim prefix="SET" suffixOverrides=",">
+
+            <if test="quantity != null">quantity = quantity - #{quantity},</if>
         </trim>
         where medicine_id = #{itemId}
     </update>

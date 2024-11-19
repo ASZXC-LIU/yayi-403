@@ -43,6 +43,7 @@ public class InventoryOutboundController extends BaseController
     {
         startPage();
         List<InventoryOutbound> list = inventoryOutboundService.selectInventoryOutboundList(inventoryOutbound);
+        System.out.println(list);
         return getDataTable(list);
     }
 
