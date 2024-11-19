@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.inventory.mapper.InventoryMedicineMapper">
+    
+    <resultMap type="InventoryMedicine" id="InventoryMedicineResult">
+        <result property="medicineId"    column="medicine_id"    />
+        <result property="medicineName"    column="medicine_name"    />
+        <result property="medicineDescription"    column="medicine_description"    />
+        <result property="supplier"    column="supplier"    />
+        <result property="origin"    column="origin"    />
+        <result property="purchasePrice"    column="purchase_price"    />
+        <result property="sellingPrice"    column="selling_price"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="unit"    column="unit"    />
+        <result property="manufactureDate"    column="manufacture_date"    />
+        <result property="shelfLife"    column="shelf_life"    />
+        <result property="expirationDate"    column="expiration_date"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+    </resultMap>
+
+    <resultMap type="InventoryOffsetting" id="offsettingUpdateInventoryMedicineResult">
+        <result property="itemId"    column="item_id"    />
+
+        <result property="quantity"    column="quantity"    />
+    </resultMap>
+
+
+    <resultMap type="inventoryInbound" id="inboundUpdateMedicineUpdateInventoryMedicineResult">
+        <result property="itemId"    column="item_id"    />
+
+        <result property="quantity"    column="quantity"    />
+    </resultMap>
+
+
+    <sql id="selectInventoryMedicineVo">
+        select medicine_id, medicine_name, medicine_description, supplier, origin, purchase_price, selling_price, quantity, unit, manufacture_date, shelf_life, expiration_date, created_at, updated_at from tt_inventory_medicine
+    </sql>
+
+    <select id="selectInventoryMedicineList" parameterType="InventoryMedicine" resultMap="InventoryMedicineResult">
+        <include refid="selectInventoryMedicineVo"/>
+        <where>  
+            <if test="medicineName != null  and medicineName != ''"> and medicine_name like concat('%', #{medicineName}, '%')</if>
+            <if test="supplier != null  and supplier != ''"> and supplier = #{supplier}</if>
+        </where>
+    </select>
+    
+    <select id="selectInventoryMedicineByMedicineId" parameterType="Long" resultMap="InventoryMedicineResult">
+        <include refid="selectInventoryMedicineVo"/>
+        where medicine_id = #{medicineId}
+    </select>
+
+    <insert id="insertInventoryMedicine" parameterType="InventoryMedicine" useGeneratedKeys="true" keyProperty="medicineId">
+        insert into tt_inventory_medicine
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="medicineName != null and medicineName != ''">medicine_name,</if>
+            <if test="medicineDescription != null">medicine_description,</if>
+            <if test="supplier != null">supplier,</if>
+            <if test="origin != null">origin,</if>
+            <if test="purchasePrice != null">purchase_price,</if>
+            <if test="sellingPrice != null">selling_price,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="unit != null and unit != ''">unit,</if>
+            <if test="manufactureDate != null">manufacture_date,</if>
+            <if test="shelfLife != null">shelf_life,</if>
+            <if test="expirationDate != null">expiration_date,</if>
+            <if test="createdAt != null">created_at,</if>
+            <if test="updatedAt != null">updated_at,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="medicineName != null and medicineName != ''">#{medicineName},</if>
+            <if test="medicineDescription != null">#{medicineDescription},</if>
+            <if test="supplier != null">#{supplier},</if>
+            <if test="origin != null">#{origin},</if>
+            <if test="purchasePrice != null">#{purchasePrice},</if>
+            <if test="sellingPrice != null">#{sellingPrice},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="unit != null and unit != ''">#{unit},</if>
+            <if test="manufactureDate != null">#{manufactureDate},</if>
+            <if test="shelfLife != null">#{shelfLife},</if>
+            <if test="expirationDate != null">#{expirationDate},</if>
+            <if test="createdAt != null">#{createdAt},</if>
+            <if test="updatedAt != null">#{updatedAt},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInventoryMedicine" parameterType="InventoryMedicine">
+        update tt_inventory_medicine
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="medicineName != null and medicineName != ''">medicine_name = #{medicineName},</if>
+            <if test="medicineDescription != null">medicine_description = #{medicineDescription},</if>
+            <if test="supplier != null">supplier = #{supplier},</if>
+            <if test="origin != null">origin = #{origin},</if>
+            <if test="purchasePrice != null">purchase_price = #{purchasePrice},</if>
+            <if test="sellingPrice != null">selling_price = #{sellingPrice},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="unit != null and unit != ''">unit = #{unit},</if>
+            <if test="manufactureDate != null">manufacture_date = #{manufactureDate},</if>
+            <if test="shelfLife != null">shelf_life = #{shelfLife},</if>
+            <if test="expirationDate != null">expiration_date = #{expirationDate},</if>
+            <if test="createdAt != null">created_at = #{createdAt},</if>
+            <if test="updatedAt != null">updated_at = #{updatedAt},</if>
+        </trim>
+        where medicine_id = #{medicineId}
+    </update>
+
+
+    <update id="offsettingUpdateInventoryMedicineResult" parameterType="InventoryMedicine">
+        update tt_inventory_medicine
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="quantity != null">quantity = quantity - #{quantity},</if>
+        </trim>
+        where medicine_id = #{itemId}
+    </update>
+
+    <update id="inboundUpdateMedicineUpdateInventoryMedicineResult" parameterType="InventoryMedicine">
+        update tt_inventory_medicine
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="supplier != null and supplier != ''">supplier = #{supplier},</if>
+
+            <if test="unit != null and unit != ''">unit = #{unit},</if>
+            <if test="purchasePrice != null">purchase_price = #{purchasePrice},</if>
+            <if test="manufactureDate != null">manufacture_date = #{manufactureDate},</if>
+            <if test="shelfLife != null and shelfLife != ''">shelf_life = #{shelfLife},</if>
+            <if test="expirationDate != null">expiration_date = #{expirationDate},</if>
+            <if test="quantity != null">quantity = quantity + #{quantity},</if>
+        </trim>
+        where medicine_id = #{itemId}
+    </update>
+
+
+
+    <delete id="deleteInventoryMedicineByMedicineId" parameterType="Long">
+        delete from tt_inventory_medicine where medicine_id = #{medicineId}
+    </delete>
+
+    <delete id="deleteInventoryMedicineByMedicineIds" parameterType="String">
+        delete from tt_inventory_medicine where medicine_id in 
+        <foreach item="medicineId" collection="array" open="(" separator="," close=")">
+            #{medicineId}
+        </foreach>
+    </delete>
+</mapper>

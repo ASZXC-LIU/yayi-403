@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.inventory.mapper.InventoryOffsettingMapper">
+    
+    <resultMap type="InventoryOffsetting" id="InventoryOffsettingResult">
+        <result property="offsettingId"    column="offsetting_id"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="responsible"    column="responsible"    />
+        <result property="reason"    column="reason"    />
+        <result property="quantity"    column="quantity"    />
+        <result property="unit"    column="unit"    />
+        <result property="expensesReason"    column="expenses_reason"    />
+        <result property="spending"    column="spending"    />
+        <result property="offsettingTime"    column="offsetting_time"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectInventoryOffsettingVo">
+        select offsetting_id, item_id, responsible, reason, quantity, unit, expenses_reason, spending, offsetting_time, create_time, update_time from tt_inventory_offsetting
+    </sql>
+
+    <select id="selectInventoryOffsettingList" parameterType="InventoryOffsetting" resultMap="InventoryOffsettingResult">
+        <include refid="selectInventoryOffsettingVo"/>
+        <where>  
+            <if test="itemId != null  and itemId != ''"> and item_id like concat('%', #{itemId}, '%')</if>
+            <if test="responsible != null  and responsible != ''"> and responsible like concat('%', #{responsible}, '%')</if>
+            <if test="offsettingTime != null "> and offsetting_time = #{offsettingTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectInventoryOffsettingByOffsettingId" parameterType="Long" resultMap="InventoryOffsettingResult">
+        <include refid="selectInventoryOffsettingVo"/>
+        where offsetting_id = #{offsettingId}
+    </select>
+
+    <insert id="insertInventoryOffsetting" parameterType="InventoryOffsetting" useGeneratedKeys="true" keyProperty="offsettingId">
+        insert into tt_inventory_offsetting
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemId != null and itemId != ''">item_id,</if>
+            <if test="responsible != null and responsible != ''">responsible,</if>
+            <if test="reason != null and reason != ''">reason,</if>
+            <if test="quantity != null">quantity,</if>
+            <if test="unit != null and unit != ''">unit,</if>
+            <if test="expensesReason != null">expenses_reason,</if>
+            <if test="spending != null">spending,</if>
+            <if test="offsettingTime != null">offsetting_time,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemId != null and itemId != ''">#{itemId},</if>
+            <if test="responsible != null and responsible != ''">#{responsible},</if>
+            <if test="reason != null and reason != ''">#{reason},</if>
+            <if test="quantity != null">#{quantity},</if>
+            <if test="unit != null and unit != ''">#{unit},</if>
+            <if test="expensesReason != null">#{expensesReason},</if>
+            <if test="spending != null">#{spending},</if>
+            <if test="offsettingTime != null">#{offsettingTime},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateInventoryOffsetting" parameterType="InventoryOffsetting">
+        update tt_inventory_offsetting
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="itemId != null and itemId != ''">item_id = #{itemId},</if>
+            <if test="responsible != null and responsible != ''">responsible = #{responsible},</if>
+            <if test="reason != null and reason != ''">reason = #{reason},</if>
+            <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="unit != null and unit != ''">unit = #{unit},</if>
+            <if test="expensesReason != null">expenses_reason = #{expensesReason},</if>
+            <if test="spending != null">spending = #{spending},</if>
+            <if test="offsettingTime != null">offsetting_time = #{offsettingTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where offsetting_id = #{offsettingId}
+    </update>
+
+    <delete id="deleteInventoryOffsettingByOffsettingId" parameterType="Long">
+        delete from tt_inventory_offsetting where offsetting_id = #{offsettingId}
+    </delete>
+
+    <delete id="deleteInventoryOffsettingByOffsettingIds" parameterType="String">
+        delete from tt_inventory_offsetting where offsetting_id in 
+        <foreach item="offsettingId" collection="array" open="(" separator="," close=")">
+            #{offsettingId}
+        </foreach>
+    </delete>
+</mapper>
