@@ -730,7 +730,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2179 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2180 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
 
 /*Data for the table `sys_menu` */
 
@@ -834,13 +834,13 @@ insert  into `sys_menu`(`menu_id`,`menu_name`,`parent_id`,`order_num`,`path`,`co
 (2108,'医生信息修改',2105,3,'#','',NULL,'',1,0,'F','0','0','doctorlist:doctorlists:edit','#','admin','2024-10-24 15:52:05','',NULL,''),
 (2109,'医生信息删除',2105,4,'#','',NULL,'',1,0,'F','0','0','doctorlist:doctorlists:remove','#','admin','2024-10-24 15:52:05','',NULL,''),
 (2110,'医生信息导出',2105,5,'#','',NULL,'',1,0,'F','0','0','doctorlist:doctorlists:export','#','admin','2024-10-24 15:52:05','',NULL,''),
-(2111,'收银台',0,4,'bill',NULL,NULL,'',1,0,'M','0','0','','cash','admin','2024-11-01 14:47:45','admin','2024-11-13 21:20:16',''),
-(2112,'收费',2111,1,'bills','bill/bills/index',NULL,'',1,0,'C','0','0','bill:bills:list','cash','admin','2024-11-01 14:51:13','admin','2024-11-01 16:08:02','收费菜单'),
-(2113,'收费查询',2112,1,'#','',NULL,'',1,0,'F','0','0','bill:bills:query','#','admin','2024-11-01 14:51:13','',NULL,''),
-(2114,'收费新增',2112,2,'#','',NULL,'',1,0,'F','0','0','bill:bills:add','#','admin','2024-11-01 14:51:13','',NULL,''),
-(2115,'收费修改',2112,3,'#','',NULL,'',1,0,'F','0','0','bill:bills:edit','#','admin','2024-11-01 14:51:13','',NULL,''),
-(2116,'收费删除',2112,4,'#','',NULL,'',1,0,'F','0','0','bill:bills:remove','#','admin','2024-11-01 14:51:13','',NULL,''),
-(2117,'收费导出',2112,5,'#','',NULL,'',1,0,'F','0','0','bill:bills:export','#','admin','2024-11-01 14:51:13','',NULL,''),
+(2111,'收银台',0,4,'billing',NULL,NULL,'',1,0,'M','0','0','','cash','admin','2024-11-01 14:47:45','admin','2024-11-13 21:20:16',''),
+(2112,'收费',2111,1,'billing','billing/billing/index',NULL,'',1,1,'C','0','0','billing:billing:list','cash','admin','2024-11-01 14:51:13','admin','2024-11-19 11:27:14','收费菜单'),
+(2113,'收费查询',2112,1,'#','',NULL,'',1,0,'F','0','0','billing:billing:query','#','admin','2024-11-01 14:51:13','',NULL,''),
+(2114,'收费新增',2112,2,'#','',NULL,'',1,0,'F','0','0','billing:billing:add','#','admin','2024-11-01 14:51:13','',NULL,''),
+(2115,'收费修改',2112,3,'#','',NULL,'',1,0,'F','0','0','billing:billing:edit','#','admin','2024-11-01 14:51:13','',NULL,''),
+(2116,'收费删除',2112,4,'#','',NULL,'',1,0,'F','0','0','billing:billing:remove','#','admin','2024-11-01 14:51:13','',NULL,''),
+(2117,'收费导出',2112,5,'#','',NULL,'',1,0,'F','0','0','billing:billing:export','#','admin','2024-11-01 14:51:13','',NULL,''),
 (2118,'库存管理',0,5,'inventory',NULL,NULL,'',1,0,'M','0','0','','monitor','admin','2024-11-13 13:03:29','admin','2024-11-13 21:20:24',''),
 (2119,'药品库存',2118,1,'medicine','medicine/medicine/index',NULL,'',1,0,'C','0','0','medicine:medicine:list','#','admin','2024-11-13 13:09:58','',NULL,'药品库存菜单'),
 (2120,'药品库存查询',2119,1,'#','',NULL,'',1,0,'F','0','0','medicine:medicine:query','#','admin','2024-11-13 13:09:58','',NULL,''),
@@ -871,7 +871,8 @@ insert  into `sys_menu`(`menu_id`,`menu_name`,`parent_id`,`order_num`,`path`,`co
 (2175,'出库工单新增',2173,2,'#','',NULL,'',1,0,'F','0','0','outbound:outbounds:add','#','admin','2024-11-13 15:46:48','',NULL,''),
 (2176,'出库工单修改',2173,3,'#','',NULL,'',1,0,'F','0','0','outbound:outbounds:edit','#','admin','2024-11-13 15:46:48','',NULL,''),
 (2177,'出库工单删除',2173,4,'#','',NULL,'',1,0,'F','0','0','outbound:outbounds:remove','#','admin','2024-11-13 15:46:48','',NULL,''),
-(2178,'出库工单导出',2173,5,'#','',NULL,'',1,0,'F','0','0','outbound:outbounds:export','#','admin','2024-11-13 15:46:48','',NULL,'');
+(2178,'出库工单导出',2173,5,'#','',NULL,'',1,0,'F','0','0','outbound:outbounds:export','#','admin','2024-11-13 15:46:48','',NULL,''),
+(2179,'未支付',2111,2,'unpay','billing/billing/unpay',NULL,'',1,1,'C','0','0','','money','admin','2024-11-19 11:29:13','admin','2024-11-19 11:33:02','');
 
 /*Table structure for table `sys_notice` */
 
@@ -919,7 +920,7 @@ CREATE TABLE `sys_oper_log` (
   KEY `idx_sys_oper_log_bt` (`business_type`) USING BTREE,
   KEY `idx_sys_oper_log_s` (`status`) USING BTREE,
   KEY `idx_sys_oper_log_ot` (`oper_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=592 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=597 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
 
 /*Data for the table `sys_oper_log` */
 
@@ -1154,7 +1155,12 @@ insert  into `sys_oper_log`(`oper_id`,`title`,`business_type`,`method`,`request_
 (588,'预约功能',1,'com.ruoyi.appointment.controller.TtAppointmentsController.add()','POST',1,'admin','牙医诊所','/appointment/appointments','127.0.0.1','内网IP','{\"appointmentDuration\":1,\"appointmentProject\":\"1\",\"appointmentStatus\":\"1\",\"appointmentTime\":\"2024-11-18 05:27:01\",\"params\":{},\"ttDoctor\":{\"params\":{}},\"ttPatient\":{\"params\":{}}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'appointment_date\' doesn\'t have a default value\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\appointment\\TtAppointmentsMapper.xml]\r\n### The error may involve com.ruoyi.appointment.mapper.TtAppointmentsMapper.insertTtAppointments-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_appointments          ( appointment_time,             appointment_duration,             appointment_project,             appointment_status )           values ( ?,             ?,             ?,             ? )\r\n### Cause: java.sql.SQLException: Field \'appointment_date\' doesn\'t have a default value\n; Field \'appointment_date\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'appointment_date\' doesn\'t have a default value','2024-11-18 17:27:42',4),
 (589,'药品库存',1,'com.ruoyi.inventory.controller.InventoryMedicineController.add()','POST',1,'admin','牙医诊所','/medicine/medicine','127.0.0.1','内网IP','{\"medicineDescription\":\"aaaaa\",\"medicineId\":135,\"medicineName\":\"Test\",\"params\":{},\"sellingPrice\":1080}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-18 17:40:23',19),
 (590,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-19\",\"freight\":12,\"inboundTime\":\"2024-11-18\",\"itemId\":135,\"itemName\":\"Test\",\"manufactureDate\":\"2024-11-18\",\"params\":{},\"purchasePrice\":12,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"10\",\"spending\":222,\"supplier\":\"1\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-18 17:41:13',28),
-(591,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-18 17:41:13\",\"expirationDate\":\"2024-11-19\",\"freight\":12,\"inboundId\":15,\"inboundTime\":\"2024-11-18\",\"itemId\":135,\"itemName\":\"Test\",\"manufactureDate\":\"2024-11-18\",\"params\":{},\"purchasePrice\":12,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"10\",\"spending\":222,\"supplier\":\"1\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-18 17:41:13',68);
+(591,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-18 17:41:13\",\"expirationDate\":\"2024-11-19\",\"freight\":12,\"inboundId\":15,\"inboundTime\":\"2024-11-18\",\"itemId\":135,\"itemName\":\"Test\",\"manufactureDate\":\"2024-11-18\",\"params\":{},\"purchasePrice\":12,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"10\",\"spending\":222,\"supplier\":\"1\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-18 17:41:13',68),
+(592,'菜单管理',2,'com.ruoyi.web.controller.system.SysMenuController.edit()','PUT',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"component\":\"billing/billing/index\",\"createTime\":\"2024-11-01 14:51:13\",\"icon\":\"cash\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuId\":2112,\"menuName\":\"收费\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2111,\"path\":\"billing\",\"perms\":\"billing:billing:list\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-19 11:22:11',71),
+(593,'菜单管理',2,'com.ruoyi.web.controller.system.SysMenuController.edit()','PUT',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"component\":\"billing/billing/index\",\"createTime\":\"2024-11-01 14:51:13\",\"icon\":\"cash\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuId\":2112,\"menuName\":\"收费\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2111,\"path\":\"billing\",\"perms\":\"billing:billing:list\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-19 11:27:14',75),
+(594,'账单管理',1,'com.ruoyi.billing.controller.TtBillingController.add()','POST',1,'admin','牙医诊所','/billing/billing','127.0.0.1','内网IP','{\"billingDate\":\"2024-11-19 11:27:47\",\"billingId\":8,\"doctorName\":\"杜医生\",\"params\":{},\"patientName\":\"test\",\"paymentMethod\":\"5\",\"paymentStatus\":\"2\",\"totalAmount\":11}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-19 11:27:53',48),
+(595,'菜单管理',1,'com.ruoyi.web.controller.system.SysMenuController.add()','POST',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"createBy\":\"admin\",\"icon\":\"money\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"未支付\",\"menuType\":\"M\",\"orderNum\":2,\"params\":{},\"parentId\":2111,\"path\":\"unpay\",\"status\":\"0\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-19 11:29:14',99),
+(596,'菜单管理',2,'com.ruoyi.web.controller.system.SysMenuController.edit()','PUT',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"component\":\"billing/billing/unpay\",\"createTime\":\"2024-11-19 11:29:13\",\"icon\":\"money\",\"isCache\":\"1\",\"isFrame\":\"1\",\"menuId\":2179,\"menuName\":\"未支付\",\"menuType\":\"C\",\"orderNum\":2,\"params\":{},\"parentId\":2111,\"path\":\"unpay\",\"perms\":\"\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-19 11:33:02',165);
 
 /*Table structure for table `sys_post` */
 
@@ -1369,8 +1375,8 @@ CREATE TABLE `tt_appointments` (
   `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
   `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
   `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID，关联医生表',
-  `appointment_date` date NOT NULL COMMENT '预约日期',
-  `appointment_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约时间',
+  `appointment_date` date DEFAULT NULL COMMENT '预约终止时间',
+  `appointment_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约开始时间',
   `appointment_duration` int(11) DEFAULT NULL COMMENT '预约时长（分钟）',
   `appointment_project` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '预约的项目',
   `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1379,16 +1385,73 @@ CREATE TABLE `tt_appointments` (
   PRIMARY KEY (`appointment_id`) USING BTREE,
   UNIQUE KEY `doctor_id` (`doctor_id`,`appointment_date`,`appointment_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
   KEY `fk_patient_appointment` (`patient_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
 
 /*Data for the table `tt_appointments` */
 
 insert  into `tt_appointments`(`appointment_id`,`patient_id`,`doctor_id`,`appointment_date`,`appointment_time`,`appointment_duration`,`appointment_project`,`appointment_status`,`created_at`,`updated_at`) values 
-(1,1,3,'2024-10-10','2024-10-10 00:00:00',30,'1','2','2024-10-05 00:00:00','2024-10-15 00:00:00'),
-(2,2,1,'2024-10-12','2024-10-15 00:00:00',45,'3','1','2024-10-05 00:00:00','2024-10-15 00:00:00'),
-(3,3,3,'2024-10-15','2024-10-15 01:00:00',60,'3','3','2024-10-05 00:00:00','2024-10-15 16:21:45'),
-(4,4,4,'2024-10-20','2024-10-15 00:00:00',30,'4','3','2024-10-05 00:00:00','2024-10-15 00:00:00'),
-(5,5,5,'2024-10-25','2024-10-15 15:30:00',30,'6','1','2024-10-05 09:51:34','2024-10-15 11:37:21');
+(1,1,3,'2024-11-18','2024-11-18 08:00:00',30,'1','2','2024-10-05 00:00:00','2024-11-18 00:00:00'),
+(2,2,1,'2024-11-15','2024-11-18 11:20:56',45,'3','1','2024-10-05 00:00:00','2024-11-18 11:20:56'),
+(3,3,3,'2024-11-29','2024-11-18 11:20:59',60,'3','3','2024-10-05 00:00:00','2024-11-18 11:20:59'),
+(4,4,4,'2024-11-03','2024-11-18 11:21:03',30,'4','3','2024-10-05 00:00:00','2024-11-18 11:21:03'),
+(5,5,5,'2024-11-12','2024-11-18 11:21:06',30,'6','1','2024-10-05 09:51:34','2024-11-18 11:21:06'),
+(6,1,1,NULL,'2024-11-18 17:33:37',45,'2','1','2024-11-18 17:33:01','2024-11-18 17:33:37');
+
+/*Table structure for table `tt_appointments_test` */
+
+DROP TABLE IF EXISTS `tt_appointments_test`;
+
+CREATE TABLE `tt_appointments_test` (
+  `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
+  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
+  `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID，关联医生表',
+  `appointment_start_time` datetime DEFAULT NULL COMMENT '预约开始时间',
+  `appointment_end_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约终止时间',
+  `appointment_duration` int(11) DEFAULT NULL COMMENT '预约时长（分钟）',
+  `appointment_project` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '预约的项目',
+  `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预约创建时间',
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '预约更新时间',
+  PRIMARY KEY (`appointment_id`) USING BTREE,
+  UNIQUE KEY `doctor_id` (`doctor_id`,`appointment_start_time`,`appointment_end_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
+  KEY `fk_patient_appointment` (`patient_id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
+
+/*Data for the table `tt_appointments_test` */
+
+insert  into `tt_appointments_test`(`appointment_id`,`patient_id`,`doctor_id`,`appointment_start_time`,`appointment_end_time`,`appointment_duration`,`appointment_project`,`appointment_status`,`created_at`,`updated_at`) values 
+(1,1,3,'2024-11-18 16:54:31','2024-11-18 16:54:33',30,'1','2','2024-10-05 00:00:00','2024-11-18 16:54:33'),
+(2,2,1,'2024-11-20 16:54:34','2024-11-18 16:54:51',45,'3','1','2024-10-05 00:00:00','2024-11-18 16:54:51'),
+(3,3,3,'2024-11-20 16:54:37','2024-11-18 16:54:56',60,'3','3','2024-10-05 00:00:00','2024-11-18 16:54:56'),
+(4,4,4,'2024-11-19 16:54:39','2024-11-18 16:54:48',30,'4','3','2024-10-05 00:00:00','2024-11-18 16:54:48'),
+(5,5,5,'2024-11-21 16:54:41','2024-11-18 16:54:59',30,'6','1','2024-10-05 09:51:34','2024-11-18 16:54:59');
+
+/*Table structure for table `tt_billing` */
+
+DROP TABLE IF EXISTS `tt_billing`;
+
+CREATE TABLE `tt_billing` (
+  `billing_id` int(11) NOT NULL AUTO_INCREMENT,
+  `patient_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `doctor_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `billing_date` datetime NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL,
+  `payment_status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `payment_method` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `receiver` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `notes` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
+  PRIMARY KEY (`billing_id`) USING BTREE
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
+
+/*Data for the table `tt_billing` */
+
+insert  into `tt_billing`(`billing_id`,`patient_name`,`doctor_name`,`billing_date`,`total_amount`,`payment_status`,`payment_method`,`receiver`,`notes`) values 
+(1,'张三','李医生','2024-11-18 17:45:03',800.50,'1','1','王护士','牙齿检查及清洁'),
+(2,'李四','杜医生','2024-11-16 07:02:10',300.00,'2','5','张护士','补牙费用'),
+(6,'刘洋','李医生','2024-11-18 17:45:56',200.00,'2','5','刘护士','鸿运当头666，猪头肉\n'),
+(4,'赵六','李医生','2024-11-13 05:20:45',1200.53,'1','1','王护士','牙齿矫正咨询费'),
+(5,'钱七','杜医生','2024-11-13 09:25:30',500.00,'1','1','张护士','定期牙齿清洁'),
+(8,'test','杜医生','2024-11-19 11:27:47',11.00,'2','5',NULL,NULL);
 
 /*Table structure for table `tt_billing_records` */
 
@@ -1496,16 +1559,16 @@ CREATE TABLE `tt_inventory_inbound` (
   `inbound_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '入库工单id',
   `item_id` bigint(20) NOT NULL COMMENT '物品id',
   `item_name` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '物品名字',
-  `responsible` char(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
-  `supplier` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '供应来源',
+  `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
+  `supplier` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '供应来源',
   `quantity` bigint(20) NOT NULL COMMENT '入库数量',
-  `unit` char(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '剂量单位',
+  `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '剂量单位',
   `purchase_price` decimal(10,0) NOT NULL COMMENT '进价（最小单位）',
   `freight` decimal(10,0) DEFAULT NULL COMMENT '运费',
   `spending` decimal(10,0) DEFAULT NULL COMMENT '总开销',
   `inbound_time` date DEFAULT NULL COMMENT '入库时间',
   `manufacture_date` date DEFAULT NULL COMMENT '生产日期',
-  `shelf_life` char(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '保质期',
+  `shelf_life` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '保质期',
   `expiration_date` date DEFAULT NULL COMMENT '过期日期',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
@@ -1540,9 +1603,9 @@ CREATE TABLE `tt_inventory_medicine` (
   `purchase_price` decimal(10,0) DEFAULT NULL COMMENT '进价',
   `selling_price` decimal(10,0) DEFAULT NULL COMMENT '售价',
   `quantity` bigint(20) NOT NULL DEFAULT '0' COMMENT '库存数量',
-  `unit` char(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '药品的单位',
+  `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '药品的单位',
   `manufacture_date` date DEFAULT NULL COMMENT '生产日期',
-  `shelf_life` char(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '保质期',
+  `shelf_life` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '保质期',
   `expiration_date` date DEFAULT NULL COMMENT '过期日期',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -1569,11 +1632,11 @@ DROP TABLE IF EXISTS `tt_inventory_offsetting`;
 CREATE TABLE `tt_inventory_offsetting` (
   `offsetting_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '对冲工单id',
   `item_id` bigint(20) NOT NULL COMMENT '物品ID',
-  `responsible` char(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
+  `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
   `reason` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '对冲原因',
   `quantity` bigint(20) NOT NULL COMMENT '对冲数量',
-  `unit` char(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '剂量单位',
-  `expenses_reason` text COLLATE utf8mb4_unicode_ci COMMENT '开销原因',
+  `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '剂量单位',
+  `expenses_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '开销原因',
   `spending` decimal(10,0) DEFAULT NULL COMMENT '开销',
   `offsetting_time` date DEFAULT NULL COMMENT '对冲时间',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -1594,12 +1657,12 @@ DROP TABLE IF EXISTS `tt_inventory_outbound`;
 
 CREATE TABLE `tt_inventory_outbound` (
   `outbound_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '入库工单id',
-  `item_name` char(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '物品名字',
-  `responsible` char(30) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
+  `item_name` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '物品名字',
+  `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
   `reason` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '出库原因',
   `quantity` bigint(20) NOT NULL COMMENT '出库数量',
-  `unit` char(20) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '剂量单位',
-  `expenses_reason` text COLLATE utf8mb4_unicode_ci COMMENT '开销原因',
+  `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '剂量单位',
+  `expenses_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '开销原因',
   `spending` decimal(10,0) DEFAULT NULL COMMENT '总开销',
   `outbound_time` date DEFAULT NULL COMMENT '出库时间',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
