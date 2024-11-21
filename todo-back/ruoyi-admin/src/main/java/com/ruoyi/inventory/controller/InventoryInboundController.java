@@ -2,6 +2,11 @@ package com.ruoyi.inventory.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.inventory.mapper.InventoryMedicineMapper;
+import com.ruoyi.inventory.service.IInventoryMedicineService;
+import com.ruoyi.inventory.service.impl.InventoryMedicineServiceImpl;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +38,8 @@ public class InventoryInboundController extends BaseController
 {
     @Autowired
     private IInventoryInboundService inventoryInboundService;
+    @Autowired
+    private IInventoryMedicineService inventoryMedicineService;
 
     /**
      * 查询入库工单列表
@@ -77,7 +84,15 @@ public class InventoryInboundController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody InventoryInbound inventoryInbound)
     {
-        return toAjax(inventoryInboundService.insertInventoryInbound(inventoryInbound));
+        if(inventoryInbound.getItemId() != null){
+            InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryInbound.getItemId());
+             String unit = inventoryMedicine.getUnit();
+            inventoryInbound.setUnit(unit);
+            System.out.println(inventoryInbound);
+            return toAjax(inventoryInboundService.insertInventoryInbound(inventoryInbound));
+        }else {
+            return AjaxResult.error("ID不存在");
+        }
     }
 
     /**

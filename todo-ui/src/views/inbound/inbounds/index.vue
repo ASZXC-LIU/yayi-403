@@ -63,9 +63,21 @@
       <el-table-column label="供应来源" align="center" prop="supplier" />
       <el-table-column label="入库数量" align="center" prop="quantity" />
       <el-table-column label="剂量单位" align="center" prop="unit" />
-      <el-table-column label="进价" align="center" prop="purchasePrice" />
-      <el-table-column label="运费" align="center" prop="freight" />
-      <el-table-column label="总开销" align="center" prop="spending" />
+      <el-table-column label="进价" align="center" width="180">
+        <template #default="scope">
+          <span>￥{{ scope.row.purchasePrice }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="运费" align="center" width="180">
+        <template #default="scope">
+          <span>￥{{ scope.row.freight }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="总开销" align="center" width="180">
+        <template #default="scope">
+          <span>￥{{ scope.row.spending }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="入库时间" align="center" prop="inboundTime" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.inboundTime, '{y}-{m}-{d}') }}</span>
@@ -76,7 +88,11 @@
           <span>{{ parseTime(scope.row.manufactureDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="保质期" align="center" prop="shelfLife" />
+      <el-table-column label="保质期" align="center" width="180">
+        <template #default="scope">
+          <span>{{ scope.row.shelfLife }}月</span>
+        </template>
+      </el-table-column>
       <el-table-column label="过期日期" align="center" prop="expirationDate" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.expirationDate, '{y}-{m}-{d}') }}</span>

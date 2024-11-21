@@ -50,21 +50,14 @@
       <el-table-column label="药品名称" align="center" prop="medicineName" />
       <el-table-column label="药品描述" align="center" prop="medicineDescription" width="180" />
       <el-table-column label="供应商" align="center" prop="supplier" width="180" />
-      <el-table-column label="进价" align="center" prop="purchasePrice" />
-      <el-table-column label="售价" align="center" prop="sellingPrice" />
+      <el-table-column label="售价" align="center" width="180">
+        <template #default="scope">
+          <span>￥{{ scope.row.sellingPrice }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="库存数量" align="center" prop="quantity" />
       <el-table-column label="计量单位" align="center" prop="unit" />
-      <el-table-column label="生产日期" align="center" prop="manufactureDate" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.manufactureDate, "{y}-{m}-{d}") }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="保质期" align="center" prop="shelfLife" />
-      <el-table-column label="过期日期" align="center" prop="expirationDate" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.expirationDate, "{y}-{m}-{d}") }}</span>
-        </template>
-      </el-table-column>
+
       <el-table-column label="创建时间" align="center" prop="createdAt" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.createdAt, "{y}-{m}-{d}") }}</span>
@@ -94,6 +87,9 @@
 
         <el-form-item label="药品名称" prop="medicineName">
           <el-input v-model="form.medicineName" placeholder="请输入药品名称" />
+        </el-form-item>
+        <el-form-item label="剂量单位" prop="unit">
+          <el-input v-model="form.unit" placeholder="请输入剂量单位" />
         </el-form-item>
         <el-form-item label="药品描述" prop="medicineDescription">
           <el-input v-model="form.medicineDescription" type="textarea" placeholder="请输入内容" />
@@ -169,9 +165,7 @@
         <el-form-item label="入库数量" prop="quantity">
           <el-input v-model="form_inbounds.quantity" placeholder="请输入入库数量" />
         </el-form-item>
-        <el-form-item label="剂量单位" prop="unit">
-          <el-input v-model="form_inbounds.unit" placeholder="请输入剂量单位" />
-        </el-form-item>
+
         <el-form-item label="进价" prop="purchasePrice">
           <el-input v-model="form_inbounds.purchasePrice" placeholder="请输入进价" />
         </el-form-item>
@@ -179,26 +173,22 @@
           <el-input v-model="form_inbounds.freight" placeholder="请输入运费" />
         </el-form-item>
         <el-form-item label="总开销" prop="spending">
-          <el-input v-model="form_inbounds.spending" placeholder="请输入总开销" />
+          <el-input v-model="form_inbounds.spending" placeholder="此处自动计算总开销" readonly />
         </el-form-item>
         <el-form-item label="入库时间" prop="inboundTime">
           <el-date-picker clearable v-model="form_inbounds.inboundTime" type="date" value-format="YYYY-MM-DD"
             placeholder="请选择入库时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="生产日期" prop="manufactureDate">
-          <el-date-picker clearable v-model="form_inbounds.manufactureDate" type="date" value-format="YYYY-MM-DD"
-            placeholder="请选择生产日期">
-          </el-date-picker>
+        <!-- <el-form-item label="保质期" prop="dateRange">
+          <el-date-picker v-model="dateRange" type="daterange" range-separator="To" start-placeholder="Start date"
+            end-placeholder="End date" :size="size" />
+        </el-form-item> -->
+        <el-form-item label="保质期" prop="dateRange2">
+          <el-date-picker v-model="dateRange2" type="monthrange" range-separator="To" start-placeholder="Start month"
+            end-placeholder="End month" />
         </el-form-item>
-        <el-form-item label="保质期" prop="shelfLife">
-          <el-input v-model="form_inbounds.shelfLife" placeholder="请输入保质期" />
-        </el-form-item>
-        <el-form-item label="过期日期" prop="expirationDate">
-          <el-date-picker clearable v-model="form_inbounds.expirationDate" type="date" value-format="YYYY-MM-DD"
-            placeholder="请选择过期日期">
-          </el-date-picker>
-        </el-form-item>
+
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -266,10 +256,9 @@
           <el-input v-model="form_supplier.supplierRemark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="可信度" prop="Creditworthiness">
-          <el-select v-model="form_supplier.Creditworthiness" placeholder="请选择"
-          @change="handleChange">
-            <el-option v-for="option in creditworthinessOptions" 
-            :key="option.id" :label="option.value" :value="option.value" ></el-option>
+          <el-select v-model="form_supplier.Creditworthiness" placeholder="请选择" @change="handleChange">
+            <el-option v-for="option in creditworthinessOptions" :key="option.id" :label="option.value"
+              :value="option.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="供应货物ID" prop="itemId">
@@ -312,6 +301,7 @@
 </template>
 
 <script setup name="Medicine">
+import { watch } from 'vue';
 import {
   listMedicine,
   getMedicine,
@@ -535,11 +525,11 @@ function submitForm_off() {
         openoffsetting.value = false;
       });
       getList();
-      
+
     }, (error) => {
       proxy.$modal.msgError(error.values[0].message);
     }
-  );
+    );
 
   });
 }
@@ -592,27 +582,78 @@ const data_inbounds = reactive({
     freight: [
       { required: true, message: "运费不能为空", trigger: "blur" }
     ],
-    spending: [
-      { required: true, message: "总开销不能为空", trigger: "blur" }
-    ],
     inboundTime: [
       { required: true, message: "入库时间不能为空", trigger: "blur" }
-    ],
-    manufactureDate: [
-      { required: true, message: "生产日期不能为空", trigger: "blur" }
-    ],
-    shelfLife: [
+    ], 
+    dateRange2: [
       { required: true, message: "保质期不能为空", trigger: "blur" }
     ],
-    expirationDate: [
-      { required: true, message: "过期日期不能为空", trigger: "blur" }
-    ],
+
   }
 });
 
+// 从 data_inbounds 中解构出 form_inbounds
+
+const { form_inbounds, rules_inbounds } = toRefs(data_inbounds);
+
+// 计算总开销
+const calculateSpending = (quantity, purchasePrice, freight) => {
+  // 确保所有输入都是数字，如果为 null 或 undefined，则使用 0 作为默认值
+  quantity = Number(quantity) || 0;
+  purchasePrice = Number(purchasePrice) || 0;
+  freight = Number(freight) || 0;
+
+  if (quantity && purchasePrice && freight) {
+    return formatPriceToLong((quantity * purchasePrice + freight).toFixed(2));
+  }
+  return null;
+};
+
+// 设置 watch
+watch(form_inbounds, (newVal, oldVal) => {
+  // 检查是否有任何字段有值
+  const hasValues = Object.values(newVal).some(value => value !== '');
+
+  if (hasValues) {
+    form_inbounds.value.spending = calculateSpending(
+      form_inbounds.value.quantity,
+      form_inbounds.value.purchasePrice,
+      form_inbounds.value.freight
+    );
+  }
+}, { deep: true, immediate: true });
+
+//设置时间范围数组，用于选择时间范围
+const dateRange2 = ref([]);
+// 监听 dateRange 的变化
+watch(dateRange2, (newVal) => {
+  if (newVal && newVal.length === 2) {
+    data_inbounds.form_inbounds.manufactureDate = newVal[0];
+    data_inbounds.form_inbounds.expirationDate = newVal[1];
+
+    // 计算保质期
+    const startDate = new Date(newVal[0]);
+    const endDate = new Date(newVal[1]);
+    const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
+    const monthsDifference = endDate.getMonth() - startDate.getMonth();
+    const totalMonthsDifference = yearsDifference * 12 + monthsDifference;
+
+    data_inbounds.form_inbounds.shelfLife = totalMonthsDifference;
+
+  } else {
+    data_inbounds.form_inbounds.manufactureDate = '';
+    data_inbounds.form_inbounds.expirationDate = '';
+    data_inbounds.form_inbounds.shelfLife = '';
+  }
+});
+
+
+
+
+
 // 表单重置
 function reset_inbounds() {
-  form.value = {
+  form_inbounds.value = {
     inboundId: null,
     itemId: null,
     itemName: null,
@@ -633,7 +674,6 @@ function reset_inbounds() {
   proxy.resetForm("inboundsRef");
 }
 
-const { form_inbounds, rules_inbounds } = toRefs(data_inbounds);
 /** 入库按钮操作 */
 function handleAdd_inbounds() {
   reset_inbounds();
@@ -659,9 +699,9 @@ function submitForm_inb() {
       });
       getList();
     }, (error) => {
-      proxy.$modal.msgError(error.values[0].message );
+      proxy.$modal.msgError(error.values[0].message);
     }
-  );
+    );
 
   });
 }
@@ -757,9 +797,9 @@ function submitForm_out() {
       });
       getList();
     }, (error) => {
-      proxy.$modal.msgError(error.values[0].message );
+      proxy.$modal.msgError(error.values[0].message);
     }
-  );
+    );
 
   });
 }
@@ -774,6 +814,7 @@ function cancel_out() {
 
 
 import { addSuppliers } from "@/api/supplier/suppliers";
+import { sl } from 'element-plus/es/locales.mjs';
 const opensupplier = ref(false);
 
 const creditworthinessOptions = reactive([
@@ -798,7 +839,7 @@ const data_supplier = reactive({
     Contact: null,
     Creditworthiness: null,
   },
-  
+
   rules_supplier: {
     supplierName: [
       { required: true, message: "供应商名称不能为空", trigger: "blur" }

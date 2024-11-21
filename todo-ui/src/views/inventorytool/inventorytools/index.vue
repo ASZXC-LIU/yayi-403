@@ -62,21 +62,13 @@
           
         </template>
       </el-table-column>
-      <el-table-column label="进价" align="center" prop="purchasePrice" />
-      <el-table-column label="售价" align="center" prop="sellingPrice" />
+      <el-table-column label="售价" align="center" width="180">
+        <template #default="scope">
+          <span>￥{{ scope.row.sellingPrice }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="库存数量" align="center" prop="quantity" />
-      <el-table-column label="工具的单位" align="center" prop="unit" />
-      <el-table-column label="生产日期" align="center" prop="manufactureDate" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.manufactureDate, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="保质期" align="center" prop="shelfLife" />
-      <el-table-column label="过期日期" align="center" prop="expirationDate" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.expirationDate, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="计量单位" align="center" prop="unit" />
       <el-table-column label="创建时间" align="center" prop="createdAt" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.createdAt, '{y}-{m}-{d}') }}</span>
@@ -179,9 +171,6 @@
         </el-form-item>
         <el-form-item label="入库数量" prop="quantity">
           <el-input v-model="form_inbounds.quantity" placeholder="请输入入库数量" />
-        </el-form-item>
-        <el-form-item label="剂量单位" prop="unit">
-          <el-input v-model="form_inbounds.unit" placeholder="请输入剂量单位" />
         </el-form-item>
         <el-form-item label="进价" prop="purchasePrice">
           <el-input v-model="form_inbounds.purchasePrice" placeholder="请输入进价" />
