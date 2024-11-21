@@ -227,6 +227,10 @@
 // //   console.log(key, keyPath)
 // // }
 import { ref } from 'vue';
+
+
+
+
 const selectedDate = ref(new Date());
 const appointments = ref({});
 const currentView = ref('month');

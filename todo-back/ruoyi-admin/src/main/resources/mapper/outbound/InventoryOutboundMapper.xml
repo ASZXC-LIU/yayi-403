@@ -6,6 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <resultMap type="InventoryOutbound" id="InventoryOutboundResult">
         <result property="outboundId"    column="outbound_id"    />
+        <result property="itemId"    column="item_id"    />
         <result property="itemName"    column="item_name"    />
         <result property="responsible"    column="responsible"    />
         <result property="reason"    column="reason"    />
@@ -19,12 +20,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectInventoryOutboundVo">
-        select outbound_id, item_name, responsible, reason, quantity, unit, expenses_reason, spending, outbound_time, create_time, update_time from tt_inventory_outbound
+        select outbound_id, item_id, item_name, responsible, reason, quantity, unit, expenses_reason, spending, outbound_time, create_time, update_time from tt_inventory_outbound
     </sql>
 
     <select id="selectInventoryOutboundList" parameterType="InventoryOutbound" resultMap="InventoryOutboundResult">
         <include refid="selectInventoryOutboundVo"/>
-        <where>  
+        <where>
+            <if test="itemId != null "> and item_id = #{itemId}</if>
             <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
             <if test="responsible != null  and responsible != ''"> and responsible like concat('%', #{responsible}, '%')</if>
             <if test="outboundTime != null "> and outbound_time = #{outboundTime}</if>
@@ -39,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertInventoryOutbound" parameterType="InventoryOutbound" useGeneratedKeys="true" keyProperty="outboundId">
         insert into tt_inventory_outbound
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="itemId != null">item_id,</if>
             <if test="itemName != null and itemName != ''">item_name,</if>
             <if test="responsible != null and responsible != ''">responsible,</if>
             <if test="reason != null and reason != ''">reason,</if>
@@ -51,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="itemId != null">#{itemId},</if>
             <if test="itemName != null and itemName != ''">#{itemName},</if>
             <if test="responsible != null and responsible != ''">#{responsible},</if>
             <if test="reason != null and reason != ''">#{reason},</if>
@@ -67,6 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateInventoryOutbound" parameterType="InventoryOutbound">
         update tt_inventory_outbound
         <trim prefix="SET" suffixOverrides=",">
+            <if test="itemId != null">item_id = #{itemId},</if>
             <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>
             <if test="responsible != null and responsible != ''">responsible = #{responsible},</if>
             <if test="reason != null and reason != ''">reason = #{reason},</if>

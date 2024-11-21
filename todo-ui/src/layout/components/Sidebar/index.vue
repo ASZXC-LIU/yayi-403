@@ -3,6 +3,7 @@
     <logo v-if="showLogo" :collapse="isCollapse" />
     <el-scrollbar :class="sideTheme" wrap-class="scrollbar-wrapper">
       <el-menu
+        :default-openeds="['/system', '/tool']"
         :default-active="activeMenu"
         :collapse="isCollapse"
         :background-color="sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground"

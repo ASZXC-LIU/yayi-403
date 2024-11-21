@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.supplier.mapper.SupplierMapper">
+    
+    <resultMap type="Supplier" id="SupplierResult">
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierRemark"    column="supplier_remark"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="itemName"    column="item_name"    />
+        <result property="itemRemark"    column="item_remark"    />
+        <result property="supplierPhone"    column="supplier_phone"    />
+        <result property="supplierPhone2"    column="supplier_phone2"    />
+        <result property="supplierAddress"    column="supplier_address"    />
+        <result property="supplierPost"    column="supplier_post"    />
+        <result property="mail"    column="mail"    />
+        <result property="Contact"    column="Contact"    />
+        <result property="Creditworthiness"    column="Creditworthiness"    />
+        <result property="creatTime"    column="creat_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectSupplierVo">
+        select supplier_id, supplier_name, supplier_remark, item_id, item_name, item_remark, supplier_phone, supplier_phone2, supplier_address, supplier_post, mail, Contact, Creditworthiness, creat_time, update_time from tt_supplier
+    </sql>
+
+    <select id="selectSupplierList" parameterType="Supplier" resultMap="SupplierResult">
+        <include refid="selectSupplierVo"/>
+        <where>  
+            <if test="supplierName != null  and supplierName != ''"> and supplier_name like concat('%', #{supplierName}, '%')</if>
+            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
+            <if test="supplierPhone != null  and supplierPhone != ''"> and supplier_phone like concat('%', #{supplierPhone}, '%')</if>
+            <if test="Contact != null  and Contact != ''"> and Contact like concat('%', #{Contact}, '%')</if>
+            <if test="Creditworthiness != null  and Creditworthiness != ''"> and Creditworthiness = #{Creditworthiness}</if>
+        </where>
+    </select>
+    
+    <select id="selectSupplierBySupplierId" parameterType="Long" resultMap="SupplierResult">
+        <include refid="selectSupplierVo"/>
+        where supplier_id = #{supplierId}
+    </select>
+
+    <insert id="insertSupplier" parameterType="Supplier" useGeneratedKeys="true" keyProperty="supplierId">
+        insert into tt_supplier
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="supplierName != null and supplierName != ''">supplier_name,</if>
+            <if test="supplierRemark != null">supplier_remark,</if>
+            <if test="itemId != null">item_id,</if>
+            <if test="itemName != null and itemName != ''">item_name,</if>
+            <if test="itemRemark != null">item_remark,</if>
+            <if test="supplierPhone != null">supplier_phone,</if>
+            <if test="supplierPhone2 != null">supplier_phone2,</if>
+            <if test="supplierAddress != null">supplier_address,</if>
+            <if test="supplierPost != null">supplier_post,</if>
+            <if test="mail != null">mail,</if>
+            <if test="Contact != null">Contact,</if>
+            <if test="Creditworthiness != null and Creditworthiness != ''">Creditworthiness,</if>
+            <if test="creatTime != null">creat_time,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="supplierName != null and supplierName != ''">#{supplierName},</if>
+            <if test="supplierRemark != null">#{supplierRemark},</if>
+            <if test="itemId != null">#{itemId},</if>
+            <if test="itemName != null and itemName != ''">#{itemName},</if>
+            <if test="itemRemark != null">#{itemRemark},</if>
+            <if test="supplierPhone != null">#{supplierPhone},</if>
+            <if test="supplierPhone2 != null">#{supplierPhone2},</if>
+            <if test="supplierAddress != null">#{supplierAddress},</if>
+            <if test="supplierPost != null">#{supplierPost},</if>
+            <if test="mail != null">#{mail},</if>
+            <if test="Contact != null">#{Contact},</if>
+            <if test="Creditworthiness != null and Creditworthiness != ''">#{Creditworthiness},</if>
+            <if test="creatTime != null">#{creatTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateSupplier" parameterType="Supplier">
+        update tt_supplier
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="supplierName != null and supplierName != ''">supplier_name = #{supplierName},</if>
+            <if test="supplierRemark != null">supplier_remark = #{supplierRemark},</if>
+            <if test="itemId != null">item_id = #{itemId},</if>
+            <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>
+            <if test="itemRemark != null">item_remark = #{itemRemark},</if>
+            <if test="supplierPhone != null">supplier_phone = #{supplierPhone},</if>
+            <if test="supplierPhone2 != null">supplier_phone2 = #{supplierPhone2},</if>
+            <if test="supplierAddress != null">supplier_address = #{supplierAddress},</if>
+            <if test="supplierPost != null">supplier_post = #{supplierPost},</if>
+            <if test="mail != null">mail = #{mail},</if>
+            <if test="Contact != null">Contact = #{Contact},</if>
+            <if test="Creditworthiness != null and Creditworthiness != ''">Creditworthiness = #{Creditworthiness},</if>
+            <if test="creatTime != null">creat_time = #{creatTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where supplier_id = #{supplierId}
+    </update>
+
+    <delete id="deleteSupplierBySupplierId" parameterType="Long">
+        delete from tt_supplier where supplier_id = #{supplierId}
+    </delete>
+
+    <delete id="deleteSupplierBySupplierIds" parameterType="String">
+        delete from tt_supplier where supplier_id in 
+        <foreach item="supplierId" collection="array" open="(" separator="," close=")">
+            #{supplierId}
+        </foreach>
+    </delete>
+</mapper>

@@ -44,10 +44,19 @@ export function offsettingUpdateMedicine(data) {
   })
 }
 
-// 修改对冲后的药品库存
+// 修改入库后的药品库存
 export function inboundUpdateMedicine(data) {
   return request({
     url: '/medicine/medicine/inboundUpdateMedicine',
+    method: 'put',
+    data: data
+  })
+}
+
+// 修改入库后的药品库存
+export function outboundUpdateMedicine(data) {
+  return request({
+    url: '/medicine/medicine/outboundUpdateMedicine',
     method: 'put',
     data: data
   })
