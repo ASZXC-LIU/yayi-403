@@ -599,20 +599,18 @@ const { form_inbounds, rules_inbounds } = toRefs(data_inbounds);
 // 计算总开销
 const calculateSpending = (quantity, purchasePrice, freight) => {
   // 确保所有输入都是数字，如果为 null 或 undefined，则使用 0 作为默认值
-  quantity = Number(quantity) || 0;
-  purchasePrice = Number(purchasePrice) || 0;
-  freight = Number(freight) || 0;
+  quantity = parseFloat(quantity) || 0;
+  purchasePrice = parseFloat(purchasePrice) || 0;
+  freight = parseFloat(freight) || 0;
 
-  if (quantity && purchasePrice && freight) {
+  if (!isNaN(quantity) && !isNaN(purchasePrice) && !isNaN(freight)) {
     return formatPriceToLong((quantity * purchasePrice + freight).toFixed(2));
   }
   return null;
 };
 
-// 设置 watch
 watch(form_inbounds, (newVal, oldVal) => {
-  // 检查是否有任何字段有值
-  const hasValues = Object.values(newVal).some(value => value !== '');
+  const hasValues = Object.values(newVal).every(value => !isNaN(parseFloat(value)));
 
   if (hasValues) {
     form_inbounds.value.spending = calculateSpending(
@@ -622,6 +620,9 @@ watch(form_inbounds, (newVal, oldVal) => {
     );
   }
 }, { deep: true, immediate: true });
+
+
+
 
 //设置时间范围数组，用于选择时间范围
 const dateRange2 = ref([]);
