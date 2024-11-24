@@ -49,8 +49,14 @@
       <el-table-column label="药品号" align="center" prop="medicineId" />
       <el-table-column label="药品名称" align="center" prop="medicineName" />
       <el-table-column label="药品描述" align="center" prop="medicineDescription" width="180" />
-      <el-table-column label="供应商" align="center" prop="supplier" width="180" />
-      <el-table-column label="售价" align="center" width="180">
+      <el-table-column label="查看详情" align="center" width="100" >
+        <template #default="scope">
+          <el-button  type="primary" @click="handleView_supplier">
+            查看详情</el-button>
+          
+        </template>
+      </el-table-column>
+      <el-table-column label="售价" align="center"  prop="sellingPrice" width="180">
         <template #default="scope">
           <span>￥{{ scope.row.sellingPrice }}</span>
         </template>
@@ -160,8 +166,13 @@
           <el-input v-model="form_inbounds.responsible" placeholder="请输入负责人" />
         </el-form-item>
         <el-form-item label="供应来源" prop="supplier">
-          <el-input v-model="form_inbounds.supplier" placeholder="请输入供应来源" />
+          <el-select v-model="form_inbounds.supplier" placeholder="请选择供应来源" >
+            <el-option v-for="option in supplierOptions" :key="option.key" :label="option.label"
+              :value="option.label"></el-option>
+          </el-select>
         </el-form-item>
+
+
         <el-form-item label="入库数量" prop="quantity">
           <el-input v-model="form_inbounds.quantity" placeholder="请输入入库数量" />
         </el-form-item>
@@ -255,8 +266,8 @@
         <el-form-item label="供应商备注" prop="supplierRemark">
           <el-input v-model="form_supplier.supplierRemark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="可信度" prop="Creditworthiness">
-          <el-select v-model="form_supplier.Creditworthiness" placeholder="请选择" @change="handleChange">
+        <el-form-item label="可信度" prop="creditworthiness">
+          <el-select v-model="form_supplier.creditworthiness" placeholder="请选择" @change="handleChange">
             <el-option v-for="option in creditworthinessOptions" :key="option.id" :label="option.value"
               :value="option.value"></el-option>
           </el-select>
@@ -285,8 +296,8 @@
         <el-form-item label="邮箱地址" prop="mail">
           <el-input v-model="form_supplier.mail" placeholder="请输入邮箱地址" />
         </el-form-item>
-        <el-form-item label="联系人" prop="Contact">
-          <el-input v-model="form_supplier.Contact" placeholder="请输入联系人" />
+        <el-form-item label="联系人" prop="contact">
+          <el-input v-model="form_supplier.contact" placeholder="请输入联系人" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -603,14 +614,14 @@ const calculateSpending = (quantity, purchasePrice, freight) => {
   purchasePrice = parseFloat(purchasePrice) || 0;
   freight = parseFloat(freight) || 0;
 
-  if (!isNaN(quantity) && !isNaN(purchasePrice) && !isNaN(freight)) {
-    return formatPriceToLong((quantity * purchasePrice + freight).toFixed(2));
+  if ((quantity) && (purchasePrice) && (freight)) {
+    return ((quantity * purchasePrice + freight));
   }
   return null;
 };
 
 watch(form_inbounds, (newVal, oldVal) => {
-  const hasValues = Object.values(newVal).every(value => !isNaN(parseFloat(value)));
+  const hasValues = Object.values(newVal).some(value => (value !== null && value !== undefined && value !== ""));
 
   if (hasValues) {
     form_inbounds.value.spending = calculateSpending(
@@ -670,7 +681,8 @@ function reset_inbounds() {
     shelfLife: null,
     expirationDate: null,
     createTime: null,
-    updateTime: null
+    updateTime: null,
+    dateRange2: null,
   };
   proxy.resetForm("inboundsRef");
 }
@@ -810,12 +822,81 @@ function cancel_out() {
 }
 
 
+//以下为查看供应商详情操作
+// const open_supplier = ref(false);
+
+// const data_supplierList = reactive({
+//   form_supplierList: {},
+//   rules_supplierList: {
+//     pageNum: 1,
+//     pageSize: 10,
+//     supplierName: null,
+//     itemName: null,
+//     supplierPhone: null,
+//     contact: null,
+//     creditworthiness: null,
+//   },
+
+// });
+
+// 表单重置
+// function reset_supplier() {
+//   form_supplier.value = {
+//     supplierId: null,
+//     supplierName: null, // 绑定的值
+//     supplierPhone: null,
+//     contact: null,
+//     creditworthiness: null,
+//   };
+//   proxy.resetForm("supplierRef");
+// }
+
+// const { form_supplierList, rules_supplierList } = toRefs(data_supplierList);
+/** 查看供应商详情按钮操作 */
+// function handleView_supplier(row) {
+//   // reset_supplier();
+//   const MedicineId = row.medicineId || 0; //供应商id
+//   open_supplier.value = true;
+//   title.value = "供应商详情";
+//   getSupplierByMedicineId(MedicineId);
+// }
+
+// /** 查看供应商详情 */
+// function getSupplier(supplierId) {
+//   getSupplierById(supplierId).then((response) => {
+//     form_supplier.value = response.data;
+//   });
+// }
+
+
+
 
 //以下为新增供应商操作
 
 
-import { addSuppliers } from "@/api/supplier/suppliers";
-import { sl } from 'element-plus/es/locales.mjs';
+import { addSuppliers,listSuppliers } from "@/api/supplier/suppliers";
+
+
+//查询供应商列表，获得供应商名字和id供选择
+const supplierList = ref([]);
+const supplierOptions = ref([]);
+const getSupplierList = () => {
+  listSuppliers().then((response) => {
+    supplierList.value = response.rows;
+    supplierOptions.value = supplierList.value.map(item => ({
+      key: item.supplierId,
+      value: item.supplierId,
+      label: item.supplierName
+    }));
+  });
+};
+getSupplierList();
+
+
+
+
+
+//新增供应商评价
 const opensupplier = ref(false);
 
 const creditworthinessOptions = reactive([
@@ -829,7 +910,7 @@ const creditworthinessOptions = reactive([
 
 const data_supplier = reactive({
   form_supplier: {
-    Creditworthiness: null, // 绑定的值
+    creditworthiness: null, // 绑定的值
   },
   queryParams_supplier: {
     pageNum: 1,
@@ -837,8 +918,8 @@ const data_supplier = reactive({
     supplierName: null,
     itemName: null,
     supplierPhone: null,
-    Contact: null,
-    Creditworthiness: null,
+    contact: null,
+    creditworthiness: null,
   },
 
   rules_supplier: {
@@ -851,7 +932,7 @@ const data_supplier = reactive({
     itemName: [
       { required: true, message: "供应货物名称不能为空", trigger: "blur" }
     ],
-    Creditworthiness: [
+    creditworthiness: [
       { required: true, message: "信用度不能为空", trigger: "change" }
     ],
   }
@@ -863,8 +944,6 @@ function cancel_supplier() {
   opensupplier.value = false;
   reset();
 }
-
-console.log(data_supplier.creditworthinessOptions);
 
 
 // 表单重置
@@ -881,8 +960,8 @@ function reset_supplier() {
     supplierAddress: null,
     supplierPost: null,
     mail: null,
-    Contact: null,
-    Creditworthiness: "未知",
+    contact: null,
+    creditworthiness: "未知",
     creatTime: null,
     updateTime: null,
 
@@ -899,8 +978,7 @@ function handleAdd_supplier() {
 }
 
 function handleChange(value) {
-  console.log("选中的值是：", value);
-  console.log("form_supplier.Creditworthiness：", form_supplier.Creditworthiness);
+  
 }
 
 /** 提交按钮 */
@@ -908,7 +986,8 @@ function submitForm_supplier() {
   proxy.$refs["suppliersRef"].validate(valid => {
 
     addSuppliers(form_supplier.value).then(response => {
-      console.log(form_supplier.Creditworthiness)
+      console.log('form_supplier.value',form_supplier.value)
+      console.log(form_supplier.value.creditworthiness)
       proxy.$modal.msgSuccess("新增供应商成功");
       opensupplier.value = false;
 

@@ -6,10 +6,10 @@ export function formatPriceToLong(price1) {
     else {
         
         let StrPrice = price1.toString();
-
+        console.log(StrPrice);
         // 分割字符串，获取整数部分和小数部分
         let parts = StrPrice.split('.');
-
+        console.log(parts);
         // 如果有小数部分，则将整数部分和小数部分拼接起来
         if (parts.length > 1) {
             let integerPart = parts[0];
@@ -22,14 +22,21 @@ export function formatPriceToLong(price1) {
             let combined = integerPart + decimalPart;
 
             // 将结果转换为 long 类型
-            price1 = parseInt(combined, 10);
+            price1 = parseFloat(combined, 10);
+        }else{
+            price1 = parseFloat(StrPrice, 10)*100;
         }
+        console.log(price1);
         return price1;
     }
 }
+
+
 
 export function formatPriceToDecimal(price2) {
     price2 = (price2 / 100).toFixed(2);
     return price2;
 }
+
+
 

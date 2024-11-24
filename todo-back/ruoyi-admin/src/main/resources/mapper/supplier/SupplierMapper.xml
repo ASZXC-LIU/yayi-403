@@ -17,13 +17,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="supplierPost"    column="supplier_post"    />
         <result property="mail"    column="mail"    />
         <result property="Contact"    column="Contact"    />
-        <result property="Creditworthiness"    column="Creditworthiness"    />
+        <result property="creditworthiness"    column="creditworthiness"    />
         <result property="creatTime"    column="creat_time"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
     <sql id="selectSupplierVo">
-        select supplier_id, supplier_name, supplier_remark, item_id, item_name, item_remark, supplier_phone, supplier_phone2, supplier_address, supplier_post, mail, Contact, Creditworthiness, creat_time, update_time from tt_supplier
+        select supplier_id, supplier_name, supplier_remark, item_id, item_name, item_remark, supplier_phone, supplier_phone2, supplier_address, supplier_post, mail, contact, creditworthiness, creat_time, update_time from tt_supplier
     </sql>
 
     <select id="selectSupplierList" parameterType="Supplier" resultMap="SupplierResult">
@@ -32,8 +32,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="supplierName != null  and supplierName != ''"> and supplier_name like concat('%', #{supplierName}, '%')</if>
             <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
             <if test="supplierPhone != null  and supplierPhone != ''"> and supplier_phone like concat('%', #{supplierPhone}, '%')</if>
-            <if test="Contact != null  and Contact != ''"> and Contact like concat('%', #{Contact}, '%')</if>
-            <if test="Creditworthiness != null  and Creditworthiness != ''"> and Creditworthiness = #{Creditworthiness}</if>
+            <if test="contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>
+            <if test="creditworthiness != null  and creditworthiness != ''"> and creditworthiness = #{creditworthiness}</if>
         </where>
     </select>
     
@@ -55,8 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="supplierAddress != null">supplier_address,</if>
             <if test="supplierPost != null">supplier_post,</if>
             <if test="mail != null">mail,</if>
-            <if test="Contact != null">Contact,</if>
-            <if test="Creditworthiness != null and Creditworthiness != ''">Creditworthiness,</if>
+            <if test="contact != null">contact,</if>
+            <if test="creditworthiness != null and creditworthiness != ''">creditworthiness,</if>
             <if test="creatTime != null">creat_time,</if>
             <if test="updateTime != null">update_time,</if>
          </trim>
@@ -71,8 +71,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="supplierAddress != null">#{supplierAddress},</if>
             <if test="supplierPost != null">#{supplierPost},</if>
             <if test="mail != null">#{mail},</if>
-            <if test="Contact != null">#{Contact},</if>
-            <if test="Creditworthiness != null and Creditworthiness != ''">#{Creditworthiness},</if>
+            <if test="contact != null">#{contact},</if>
+            <if test="creditworthiness != null and creditworthiness != ''">#{creditworthiness},</if>
             <if test="creatTime != null">#{creatTime},</if>
             <if test="updateTime != null">#{updateTime},</if>
          </trim>
@@ -91,8 +91,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="supplierAddress != null">supplier_address = #{supplierAddress},</if>
             <if test="supplierPost != null">supplier_post = #{supplierPost},</if>
             <if test="mail != null">mail = #{mail},</if>
-            <if test="Contact != null">Contact = #{Contact},</if>
-            <if test="Creditworthiness != null and Creditworthiness != ''">Creditworthiness = #{Creditworthiness},</if>
+            <if test="contact != null">contact = #{contact},</if>
+            <if test="creditworthiness != null and creditworthiness != ''">creditworthiness = #{creditworthiness},</if>
             <if test="creatTime != null">creat_time = #{creatTime},</if>
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>

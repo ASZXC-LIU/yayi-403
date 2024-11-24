@@ -2,6 +2,7 @@ package com.ruoyi.inventory.service;
 
 import java.util.List;
 import com.ruoyi.inventory.domain.InventoryInbound;
+import com.ruoyi.inventory.domain.MedicineSupplier;
 
 /**
  * 入库工单Service接口
@@ -34,6 +35,14 @@ public interface IInventoryInboundService
      * @return 结果
      */
     public int insertInventoryInbound(InventoryInbound inventoryInbound);
+
+    /**
+     * 新增药品供应商关联
+     *
+     * @param medicineSupplier 入库工单
+     * @return 结果
+     */
+    public int insertMedicineSuppliers(MedicineSupplier medicineSupplier);
 
     /**
      * 修改入库工单

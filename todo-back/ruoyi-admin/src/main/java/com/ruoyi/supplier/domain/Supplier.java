@@ -63,11 +63,11 @@ public class Supplier extends BaseEntity
 
     /** 联系人 */
     @Excel(name = "联系人")
-    private String Contact;
+    private String contact;
 
     /** 信用度 */
     @Excel(name = "信用度")
-    private String Creditworthiness;
+    private String creditworthiness;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -173,23 +173,23 @@ public class Supplier extends BaseEntity
     {
         return mail;
     }
-    public void setContact(String Contact) 
+    public void setContact(String contact)
     {
-        this.Contact = Contact;
+        this.contact = contact;
     }
 
     public String getContact() 
     {
-        return Contact;
+        return contact;
     }
-    public void setCreditworthiness(String Creditworthiness) 
+    public void setCreditworthiness(String creditworthiness)
     {
-        this.Creditworthiness = Creditworthiness;
+        this.creditworthiness = creditworthiness;
     }
 
     public String getCreditworthiness() 
     {
-        return Creditworthiness;
+        return creditworthiness;
     }
     public void setCreatTime(Date creatTime) 
     {
@@ -215,8 +215,8 @@ public class Supplier extends BaseEntity
             .append("supplierAddress", getSupplierAddress())
             .append("supplierPost", getSupplierPost())
             .append("mail", getMail())
-            .append("Contact", getContact())
-            .append("Creditworthiness", getCreditworthiness())
+            .append("contact", getContact())
+            .append("creditworthiness", getCreditworthiness())
             .append("creatTime", getCreatTime())
             .append("updateTime", getUpdateTime())
             .toString();

@@ -44,6 +44,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="medicineName != null  and medicineName != ''"> and medicine_name like concat('%', #{medicineName}, '%')</if>
             <if test="supplier != null  and supplier != ''"> and supplier = #{supplier}</if>
+
         </where>
     </select>
     
