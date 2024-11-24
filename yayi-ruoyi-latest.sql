@@ -43,7 +43,7 @@ CREATE TABLE `gen_table` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表';
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表';
 
 /*Data for the table `gen_table` */
 
@@ -57,7 +57,8 @@ insert  into `gen_table`(`table_id`,`table_name`,`table_comment`,`sub_table_name
 (25,'tt_inventory_outbound','出库表',NULL,NULL,'InventoryOutbound','crud','element-plus','com.ruoyi.inventory','outbound','outbounds','出库工单','刘航','0','/','{\"parentMenuId\":2118}','admin','2024-11-13 15:35:23','','2024-11-13 15:46:27',NULL),
 (26,'tt_inventory_inbound','入库工单表',NULL,NULL,'InventoryInbound','crud','element-plus','com.ruoyi.inventory','inbound','inbounds','入库工单','刘航','0','/','{\"parentMenuId\":\"2118\"}','admin','2024-11-17 19:58:31','','2024-11-17 20:40:52',NULL),
 (27,'tt_inventory_medicine','物品管理表，记录库存的物品信息及供应商产地',NULL,NULL,'TtInventoryMedicine','crud','','com.ruoyi.system','system','medicine','物品管理，记录库存的物品信息及供应商产地','ruoyi','0','/',NULL,'admin','2024-11-18 10:27:35','',NULL,NULL),
-(30,'tt_supplier','供货商表',NULL,NULL,'Supplier','crud','element-plus','com.ruoyi.supplier','supplier','suppliers','供应商列表','刘航','0','/','{\"parentMenuId\":2180}','admin','2024-11-20 00:01:21','','2024-11-20 00:04:19',NULL);
+(30,'tt_supplier','供货商表',NULL,NULL,'Supplier','crud','element-plus','com.ruoyi.supplier','supplier','suppliers','供应商列表','刘航','0','/','{\"parentMenuId\":2180}','admin','2024-11-20 00:01:21','','2024-11-20 00:04:19',NULL),
+(31,'tt_emr','',NULL,NULL,'TtEmr','crud','','com.ruoyi.system','system','emr',NULL,'ruoyi','0','/',NULL,'admin','2024-11-24 21:32:06','',NULL,NULL);
 
 /*Table structure for table `gen_table_column` */
 
@@ -87,7 +88,7 @@ CREATE TABLE `gen_table_column` (
   `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=317 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表字段';
+) ENGINE=InnoDB AUTO_INCREMENT=331 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表字段';
 
 /*Data for the table `gen_table_column` */
 
@@ -208,7 +209,33 @@ insert  into `gen_table_column`(`column_id`,`table_id`,`column_name`,`column_com
 (313,30,'Contact','联系人','char(250)','String','Contact','0','0','0','1','1','1','1','LIKE','input','',12,'admin','2024-11-20 00:01:21','','2024-11-20 00:04:19'),
 (314,30,'Creditworthiness','信用度','enum(\'未知\',\'差\',\'一般\',\'较好\',\'特别好\')','String','Creditworthiness','0','0','1','1','1','1','1','EQ','select','',13,'admin','2024-11-20 00:01:21','','2024-11-20 00:04:19'),
 (315,30,'creat_time','创建时间','datetime','Date','creatTime','0','0','0','0','0','1','0','EQ','datetime','',14,'admin','2024-11-20 00:01:21','','2024-11-20 00:04:19'),
-(316,30,'update_time','更新时间','datetime','Date','updateTime','0','0','0','0','0','1',NULL,'EQ','datetime','',15,'admin','2024-11-20 00:01:21','','2024-11-20 00:04:19');
+(316,30,'update_time','更新时间','datetime','Date','updateTime','0','0','0','0','0','1',NULL,'EQ','datetime','',15,'admin','2024-11-20 00:01:21','','2024-11-20 00:04:19'),
+(317,31,'emr_id','电子病历id','bigint(20)','Long','emrId','1','0','0','1',NULL,NULL,NULL,'EQ','input','',1,'admin','2024-11-24 21:32:06','',NULL),
+(318,31,'patient_id','患者ID','bigint(20)','Long','patientId','0','0','0','1','1','1','1','EQ','input','',2,'admin','2024-11-24 21:32:06','',NULL),
+(319,31,'patient_name','患者姓名','varchar(50)','String','patientName','0','0','1','1','1','1','1','LIKE','input','',3,'admin','2024-11-24 21:32:06','',NULL),
+(320,31,'doctor_id','医生ID','bigint(20)','Long','doctorId','0','0','0','1','1','1','1','EQ','input','',4,'admin','2024-11-24 21:32:06','',NULL),
+(321,31,'doctor_name','医生姓名','varchar(50)','String','doctorName','0','0','1','1','1','1','1','LIKE','input','',5,'admin','2024-11-24 21:32:06','',NULL),
+(322,31,'maincase','主诉','text','String','maincase','0','0','0','1','1','1','1','EQ','textarea','',6,'admin','2024-11-24 21:32:06','',NULL),
+(323,31,'current_medical_history','现在病史','text','String','currentMedicalHistory','0','0','0','1','1','1','1','EQ','textarea','',7,'admin','2024-11-24 21:32:06','',NULL),
+(324,31,'treatment_type','治疗方式','varchar(255)','String','treatmentType','0','0','0','1','1','1','1','EQ','select','',8,'admin','2024-11-24 21:32:06','',NULL),
+(325,31,'clinical_results','治疗结果','text','String','clinicalResults','0','0','0','1','1','1','1','EQ','textarea','',9,'admin','2024-11-24 21:32:06','',NULL),
+(326,31,'created_time','病历创建时间','datetime','Date','createdTime','0','0','1','1','1','1','1','EQ','datetime','',10,'admin','2024-11-24 21:32:06','',NULL),
+(327,31,'updated_time','更新时间','datetime','Date','updatedTime','0','0','1','1','1','1','1','EQ','datetime','',11,'admin','2024-11-24 21:32:06','',NULL),
+(328,31,'emr_statue','诊断状态','enum(\'未诊断\',\'已诊断\')','String','emrStatue','0','0','1','1','1','1','1','EQ',NULL,'',12,'admin','2024-11-24 21:32:06','',NULL),
+(329,31,'appointment_id','预约id','bigint(20)','Long','appointmentId','0','0','1','1','1','1','1','EQ','input','',13,'admin','2024-11-24 21:32:06','',NULL),
+(330,31,'bill_id','账单id','bigint(20)','Long','billId','0','0','1','1','1','1','1','EQ','input','',14,'admin','2024-11-24 21:32:06','',NULL);
+
+/*Table structure for table `medicine_supplier` */
+
+DROP TABLE IF EXISTS `medicine_supplier`;
+
+CREATE TABLE `medicine_supplier` (
+  `medicine_id` bigint(20) NOT NULL,
+  `supplier_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`medicine_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `medicine_supplier` */
 
 /*Table structure for table `qrtz_blob_triggers` */
 
@@ -633,7 +660,7 @@ CREATE TABLE `sys_logininfor` (
   PRIMARY KEY (`info_id`) USING BTREE,
   KEY `idx_sys_logininfor_s` (`status`) USING BTREE,
   KEY `idx_sys_logininfor_lt` (`login_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=207 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
 
 /*Data for the table `sys_logininfor` */
 
@@ -744,7 +771,23 @@ insert  into `sys_logininfor`(`info_id`,`user_name`,`ipaddr`,`login_location`,`b
 (203,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-21 13:13:09'),
 (204,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','1','验证码错误','2024-11-21 13:13:13'),
 (205,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-21 13:13:15'),
-(206,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-21 20:28:08');
+(206,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-21 20:28:08'),
+(207,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-21 21:12:20'),
+(208,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-21 21:12:23'),
+(209,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-22 08:50:22'),
+(210,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-22 09:25:37'),
+(211,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-22 10:50:01'),
+(212,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','1','验证码已失效','2024-11-22 15:59:58'),
+(213,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-22 16:00:03'),
+(214,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-22 16:57:28'),
+(215,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','1','验证码已失效','2024-11-24 14:58:00'),
+(216,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 14:58:03'),
+(217,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 15:55:35'),
+(218,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 20:33:56'),
+(219,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-24 20:56:32'),
+(220,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 20:56:36'),
+(221,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-24 21:07:32'),
+(222,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 21:31:57');
 
 /*Table structure for table `sys_menu` */
 
@@ -969,7 +1012,7 @@ CREATE TABLE `sys_oper_log` (
   KEY `idx_sys_oper_log_bt` (`business_type`) USING BTREE,
   KEY `idx_sys_oper_log_s` (`status`) USING BTREE,
   KEY `idx_sys_oper_log_ot` (`oper_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=738 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=779 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
 
 /*Data for the table `sys_oper_log` */
 
@@ -1350,7 +1393,48 @@ insert  into `sys_oper_log`(`oper_id`,`title`,`business_type`,`method`,`request_
 (734,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2036-05-31\",\"freight\":2088,\"inboundTime\":\"2024-11-20\",\"itemId\":2,\"itemName\":\"药品B\",\"manufactureDate\":\"2026-05-31\",\"params\":{},\"purchasePrice\":1020,\"quantity\":60,\"responsible\":\"liuhang\",\"shelfLife\":\"3653\",\"spending\":6328800,\"supplier\":\"test月份2\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-21 20:45:15',10),
 (735,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-21 20:45:15\",\"expirationDate\":\"2036-05-31\",\"freight\":2088,\"inboundId\":23,\"inboundTime\":\"2024-11-20\",\"itemId\":2,\"itemName\":\"药品B\",\"manufactureDate\":\"2026-05-31\",\"params\":{},\"purchasePrice\":1020,\"quantity\":60,\"responsible\":\"liuhang\",\"shelfLife\":\"3653\",\"spending\":6328800,\"supplier\":\"test月份2\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-21 20:45:15',24),
 (736,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-30\",\"freight\":10,\"inboundTime\":\"2024-11-21\",\"itemId\":3,\"itemName\":\"药品C\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":220,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":23000,\"supplier\":\"test月份3\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-21 20:59:07',11),
-(737,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-21 20:59:07\",\"expirationDate\":\"2024-11-30\",\"freight\":10,\"inboundId\":24,\"inboundTime\":\"2024-11-21\",\"itemId\":3,\"itemName\":\"药品C\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":220,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":2201000,\"supplier\":\"test月份3\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-21 20:59:07',12);
+(737,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-21 20:59:07\",\"expirationDate\":\"2024-11-30\",\"freight\":10,\"inboundId\":24,\"inboundTime\":\"2024-11-21\",\"itemId\":3,\"itemName\":\"药品C\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":220,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":2201000,\"supplier\":\"test月份3\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-21 20:59:07',12),
+(738,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-06-30\",\"freight\":179889,\"inboundTime\":\"2024-11-21\",\"itemId\":2,\"itemName\":\"药品B\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":10,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":0,\"supplier\":\"test4\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-21 21:13:17',13),
+(739,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-21 21:13:17\",\"expirationDate\":\"2024-06-30\",\"freight\":179889,\"inboundId\":25,\"inboundTime\":\"2024-11-21\",\"itemId\":2,\"itemName\":\"药品B\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":10,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":0,\"supplier\":\"test4\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-21 21:13:17',30),
+(740,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-30\",\"freight\":10000,\"inboundTime\":\"2024-11-13\",\"itemId\":1,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":198,\"quantity\":20,\"responsible\":\"刘航\",\"shelfLife\":\"6\",\"spending\":1003960,\"supplier\":\"test5\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 09:39:50',33),
+(741,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"freight\":1,\"params\":{},\"purchasePrice\":1,\"quantity\":1,\"spending\":200}','{\"msg\":\"入库失败：货物不存在\",\"code\":500}',0,NULL,'2024-11-22 09:41:44',2),
+(742,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"freight\":1,\"params\":{},\"purchasePrice\":1,\"quantity\":1,\"spending\":200}','{\"msg\":\"入库失败：货物不存在\",\"code\":500}',0,NULL,'2024-11-22 09:41:54',2),
+(743,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-07-31\",\"freight\":1,\"inboundTime\":\"2024-11-19\",\"itemId\":1,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":198,\"quantity\":1,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":298,\"supplier\":\"刘航\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 09:44:37',7),
+(744,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-30\",\"freight\":2059,\"inboundTime\":\"2024-11-22\",\"itemId\":1,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":2350,\"quantity\":100,\"responsible\":\"留阿灰姑娘\",\"shelfLife\":\"1\",\"spending\":237059,\"supplier\":\"test23\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 09:50:08',8),
+(745,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 09:50:08\",\"expirationDate\":\"2024-11-30\",\"freight\":2059,\"inboundId\":26,\"inboundTime\":\"2024-11-22\",\"itemId\":1,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":2350,\"quantity\":100,\"responsible\":\"留阿灰姑娘\",\"shelfLife\":\"1\",\"spending\":237059,\"supplier\":\"test23\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 09:50:08',34),
+(746,'药品库存',1,'com.ruoyi.inventory.controller.InventoryMedicineController.add()','POST',1,'admin','牙医诊所','/medicine/medicine','127.0.0.1','内网IP','{\"medicineDescription\":\"test\",\"medicineId\":138,\"medicineName\":\"药品T\",\"params\":{},\"sellingPrice\":10099,\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 09:56:28',11),
+(747,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-30\",\"freight\":2055,\"inboundTime\":\"2024-11-22\",\"itemId\":138,\"itemName\":\"药品T\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":9999,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1001955,\"supplier\":\"testyeah\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 09:57:28',7),
+(748,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 09:57:28\",\"expirationDate\":\"2024-11-30\",\"freight\":2055,\"inboundId\":27,\"inboundTime\":\"2024-11-22\",\"itemId\":138,\"itemName\":\"药品T\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":9999,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1001955,\"supplier\":\"testyeah\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 09:57:28',10),
+(749,'药品库存',1,'com.ruoyi.inventory.controller.InventoryMedicineController.add()','POST',1,'admin','牙医诊所','/medicine/medicine','127.0.0.1','内网IP','{\"medicineDescription\":\"test1\",\"medicineId\":139,\"medicineName\":\"麻醉药\",\"params\":{},\"sellingPrice\":19999,\"unit\":\"针\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 10:50:33',14),
+(750,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-30\",\"freight\":2050,\"inboundTime\":\"2024-11-19\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":102050,\"supplier\":\"厂商A\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 10:51:04',9),
+(751,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 10:51:04\",\"expirationDate\":\"2024-11-30\",\"freight\":2050,\"inboundId\":28,\"inboundTime\":\"2024-11-19\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":3050,\"supplier\":\"厂商A\",\"unit\":\"针\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 10:51:04',70),
+(752,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-07-31\",\"freight\":2050,\"inboundTime\":\"2024-11-21\",\"itemId\":139,\"itemName\":\"麻醉针\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":90,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":902050,\"supplier\":\"test2\"}','{\"msg\":\"入库失败:货物名称不正确\",\"code\":500}',0,NULL,'2024-11-22 10:52:12',2),
+(753,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-30\",\"freight\":2050,\"inboundTime\":\"2024-11-21\",\"itemId\":139,\"itemName\":\"麻醉针\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":90,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":11050,\"supplier\":\"test2\"}','{\"msg\":\"入库失败:货物名称不正确\",\"code\":500}',0,NULL,'2024-11-22 10:52:15',2),
+(754,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-30\",\"freight\":2050,\"inboundTime\":\"2024-11-21\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":90,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":11050,\"supplier\":\"test2\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 10:52:23',5),
+(755,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 10:52:23\",\"expirationDate\":\"2024-11-30\",\"freight\":2050,\"inboundId\":29,\"inboundTime\":\"2024-11-21\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":90,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":11050,\"supplier\":\"test2\",\"unit\":\"针\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 10:52:23',29),
+(756,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-07-31\",\"freight\":2050,\"inboundTime\":\"2024-11-22\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1002050,\"supplier\":\"test\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 10:57:17',6),
+(757,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 10:57:17\",\"expirationDate\":\"2024-07-31\",\"freight\":2050,\"inboundId\":30,\"inboundTime\":\"2024-11-22\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":12050,\"supplier\":\"test\",\"unit\":\"针\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 10:57:17',13),
+(758,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-11-30\",\"freight\":2050,\"inboundTime\":\"2024-11-21\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1002050,\"supplier\":\"test1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:00:03',7),
+(759,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 11:00:03\",\"expirationDate\":\"2024-11-30\",\"freight\":2050,\"inboundId\":31,\"inboundTime\":\"2024-11-21\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":12050,\"supplier\":\"test1\",\"unit\":\"针\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:00:03',48),
+(760,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-07-31\",\"freight\":2050,\"inboundTime\":\"2024-11-20\",\"itemId\":139,\"itemName\":\"麻醉哟啊\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":10000,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1002050,\"supplier\":\"test22\"}','{\"msg\":\"入库失败:货物名称不正确\",\"code\":500}',0,NULL,'2024-11-22 11:03:33',2),
+(761,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-07-31\",\"freight\":205000,\"inboundTime\":\"2024-11-20\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":1000000,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":100205000,\"supplier\":\"test22\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:03:39',10),
+(762,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 11:03:39\",\"expirationDate\":\"2024-07-31\",\"freight\":205000,\"inboundId\":32,\"inboundTime\":\"2024-11-20\",\"itemId\":139,\"itemName\":\"麻醉药\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":1000000,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":100205000,\"supplier\":\"test22\",\"unit\":\"针\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:03:39',16),
+(763,'供应商列表',1,'com.ruoyi.supplier.controller.SupplierController.add()','POST',1,'admin','牙医诊所','/supplier/suppliers','127.0.0.1','内网IP','{\"itemId\":555,\"itemName\":\"555\",\"params\":{},\"supplierId\":12,\"supplierName\":\"555\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:12:21',82),
+(764,'供应商列表',1,'com.ruoyi.supplier.controller.SupplierController.add()','POST',1,'admin','牙医诊所','/supplier/suppliers','127.0.0.1','内网IP','{\"itemId\":666,\"itemName\":\"666\",\"params\":{},\"supplierId\":13,\"supplierName\":\"666\",\"supplierRemark\":\"666\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:13:08',99),
+(765,'供应商列表',1,'com.ruoyi.supplier.controller.SupplierController.add()','POST',1,'admin','牙医诊所','/supplier/suppliers','127.0.0.1','内网IP','{\"itemId\":888,\"itemName\":\"888\",\"params\":{},\"supplierId\":14,\"supplierName\":\"888\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:15:12',35),
+(766,'供应商列表',1,'com.ruoyi.supplier.controller.SupplierController.add()','POST',1,'admin','牙医诊所','/supplier/suppliers','127.0.0.1','内网IP','{\"itemId\":1,\"itemName\":\"1\",\"params\":{},\"supplierId\":15,\"supplierName\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:17:10',87),
+(767,'供应商列表',1,'com.ruoyi.supplier.controller.SupplierController.add()','POST',1,'admin','牙医诊所','/supplier/suppliers','127.0.0.1','内网IP','{\"itemId\":1,\"itemName\":\"1\",\"params\":{},\"supplierId\":16,\"supplierName\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:17:38',79),
+(768,'供应商列表',1,'com.ruoyi.supplier.controller.SupplierController.add()','POST',1,'admin','牙医诊所','/supplier/suppliers','127.0.0.1','内网IP','{\"itemId\":1,\"itemName\":\"1\",\"params\":{},\"supplierName\":\"1\"}',NULL,1,'nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named \'Contact\' in \'class com.ruoyi.supplier.domain.Supplier\'','2024-11-22 11:36:40',8),
+(769,'供应商列表',1,'com.ruoyi.supplier.controller.SupplierController.add()','POST',1,'admin','牙医诊所','/supplier/suppliers','127.0.0.1','内网IP','{\"creditworthiness\":\"特别好\",\"itemId\":1,\"itemName\":\"1\",\"params\":{},\"supplierName\":\"1\"}',NULL,1,'nested exception is org.apache.ibatis.reflection.ReflectionException: There is no getter for property named \'Contact\' in \'class com.ruoyi.supplier.domain.Supplier\'','2024-11-22 11:37:51',1),
+(770,'供应商列表',1,'com.ruoyi.supplier.controller.SupplierController.add()','POST',1,'admin','牙医诊所','/supplier/suppliers','127.0.0.1','内网IP','{\"creditworthiness\":\"特别好\",\"itemId\":1,\"itemName\":\"1\",\"params\":{},\"supplierId\":17,\"supplierName\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 11:39:18',17),
+(771,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2032-05-31\",\"freight\":2555,\"inboundTime\":\"2024-11-22\",\"itemId\":1,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":99,\"responsible\":\"刘航\",\"shelfLife\":\"96\",\"spending\":992555,\"supplier\":\"2\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 16:11:19',20),
+(772,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 16:11:19\",\"expirationDate\":\"2032-05-31\",\"freight\":2555,\"inboundId\":33,\"inboundTime\":\"2024-11-22\",\"itemId\":1,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":99,\"responsible\":\"刘航\",\"shelfLife\":\"96\",\"spending\":12455,\"supplier\":\"2\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 16:11:19',48),
+(773,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-06-30\",\"freight\":2055,\"inboundTime\":\"2024-11-22\",\"itemId\":3,\"itemName\":\"药品C\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":60,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":602055,\"supplier\":\"B\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 16:17:26',13),
+(774,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-22 16:17:26\",\"expirationDate\":\"2024-06-30\",\"freight\":2055,\"inboundId\":34,\"inboundTime\":\"2024-11-22\",\"itemId\":3,\"itemName\":\"药品C\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":60,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":8055,\"supplier\":\"B\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-22 16:17:26',32),
+(775,'药品库存',1,'com.ruoyi.inventory.controller.InventoryMedicineController.add()','POST',1,'admin','牙医诊所','/medicine/medicine','127.0.0.1','内网IP','{\"medicineDescription\":\"test\",\"medicineId\":140,\"medicineName\":\"test111\",\"params\":{},\"sellingPrice\":10000,\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 20:56:49',17),
+(776,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2025-06-30\",\"freight\":2550,\"inboundTime\":\"2024-11-24\",\"itemId\":140,\"itemName\":\"test111\",\"manufactureDate\":\"2024-01-31\",\"params\":{},\"purchasePrice\":2000,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"17\",\"spending\":202550,\"supplier\":\"A\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 20:57:16',10),
+(777,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-24 20:57:16\",\"expirationDate\":\"2025-06-30\",\"freight\":2550,\"inboundId\":35,\"inboundTime\":\"2024-11-24\",\"itemId\":140,\"itemName\":\"test111\",\"manufactureDate\":\"2024-01-31\",\"params\":{},\"purchasePrice\":2000,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"17\",\"spending\":202550,\"supplier\":\"A\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 20:57:16',36),
+(778,'代码生成',6,'com.ruoyi.generator.controller.GenController.importTableSave()','POST',1,'admin','牙医诊所','/tool/gen/importTable','127.0.0.1','内网IP','{\"tables\":\"tt_emr\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 21:32:06',118);
 
 /*Table structure for table `sys_post` */
 
@@ -1495,7 +1579,7 @@ CREATE TABLE `sys_user` (
 /*Data for the table `sys_user` */
 
 insert  into `sys_user`(`user_id`,`dept_id`,`user_name`,`nick_name`,`user_type`,`email`,`phonenumber`,`sex`,`avatar`,`password`,`status`,`del_flag`,`login_ip`,`login_date`,`create_by`,`create_time`,`update_by`,`update_time`,`remark`) values 
-(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-21 20:28:09','admin','2024-10-05 15:46:15','','2024-11-21 20:28:08','管理员'),
+(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-24 21:31:58','admin','2024-10-05 15:46:15','','2024-11-24 21:31:57','管理员'),
 (2,100,'ry','若依','00','ry@qq.com','15666666666','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-10-05 15:46:15','admin','2024-10-05 15:46:15','admin','2024-11-13 16:12:11','测试员'),
 (100,100,'test','test','00','','','2','','$2a$10$/NIAAJu1SxRBUsCNvALkuO.fPkPNMFZQSuVNe6qjP6r9ReocXAT7q','0','0','127.0.0.1','2024-11-04 10:22:26','admin','2024-11-01 16:26:49','','2024-11-04 10:22:25',NULL);
 
@@ -1699,18 +1783,19 @@ DROP TABLE IF EXISTS `tt_emr`;
 
 CREATE TABLE `tt_emr` (
   `emr_id` bigint(20) NOT NULL COMMENT '电子病历id',
+  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID',
   `patient_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '患者姓名',
-  `appointment_id` bigint(20) NOT NULL COMMENT '预约id',
+  `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID',
   `doctor_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '医生姓名',
-  `bill_id` bigint(20) NOT NULL COMMENT '账单id',
   `maincase` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '主诉',
   `current_medical_history` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '现在病史',
   `treatment_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '治疗方式',
   `clinical_results` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '治疗结果',
-  `created_time` datetime NOT NULL COMMENT '病历创建时间',
-  `updated_time` datetime NOT NULL COMMENT '更新时间',
+  `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '病历创建时间',
+  `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `emr_statue` enum('未诊断','已诊断') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '未诊断' COMMENT '诊断状态',
-  `medical_record_number` bigint(20) DEFAULT NULL COMMENT '患者唯一病历号',
+  `appointment_id` bigint(20) NOT NULL COMMENT '预约id',
+  `bill_id` bigint(20) NOT NULL COMMENT '账单id',
   PRIMARY KEY (`emr_id`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
 
@@ -1763,7 +1848,7 @@ CREATE TABLE `tt_inventory_inbound` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`inbound_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `tt_inventory_inbound` */
 
@@ -1773,7 +1858,18 @@ insert  into `tt_inventory_inbound`(`inbound_id`,`item_id`,`item_name`,`responsi
 (21,5,'药品E','刘航','test',90,NULL,10080,20,90722000,'2024-11-21','2024-11-11',NULL,'2026-04-09','2024-11-21 12:59:02','2024-11-21 12:59:02'),
 (22,5,'药品E','刘航','test月份',100,NULL,1080,2020,11002000,'2024-11-21','2025-12-31','7305','2045-12-31','2024-11-21 20:40:50','2024-11-21 20:40:49'),
 (23,2,'药品B','liuhang','test月份2',60,NULL,1020,2088,6328800,'2024-11-20','2026-05-31','3653','2036-05-31','2024-11-21 20:45:15','2024-11-21 20:45:15'),
-(24,3,'药品C','刘航','test月份3',100,NULL,220,10,2201000,'2024-11-21','2024-10-31','1','2024-11-30','2024-11-21 20:59:08','2024-11-21 20:59:07');
+(24,3,'药品C','刘航','test月份3',100,NULL,220,10,2201000,'2024-11-21','2024-10-31','1','2024-11-30','2024-11-21 20:59:08','2024-11-21 20:59:07'),
+(25,2,'药品B','刘航','test4',10,NULL,10,179889,0,'2024-11-21','2024-05-31','1','2024-06-30','2024-11-21 21:13:17','2024-11-21 21:13:17'),
+(26,1,'药品A','留阿灰姑娘','test23',100,NULL,2350,2059,237059,'2024-11-22','2024-10-31','1','2024-11-30','2024-11-22 09:50:08','2024-11-22 09:50:08'),
+(27,138,'药品T','刘航','testyeah',100,'个',9999,2055,1001955,'2024-11-22','2024-10-31','1','2024-11-30','2024-11-22 09:57:28','2024-11-22 09:57:28'),
+(28,139,'麻醉药','刘航','厂商A',10,'针',100,2050,3050,'2024-11-19','2024-10-31','1','2024-11-30','2024-11-22 10:51:04','2024-11-22 10:51:04'),
+(29,139,'麻醉药','刘航','test2',90,'针',100,2050,11050,'2024-11-21','2024-10-31','1','2024-11-30','2024-11-22 10:52:23','2024-11-22 10:52:23'),
+(30,139,'麻醉药','刘航','test',100,'针',100,2050,12050,'2024-11-22','2024-06-30','1','2024-07-31','2024-11-22 10:57:17','2024-11-22 10:57:17'),
+(31,139,'麻醉药','刘航','test1',100,'针',100,2050,12050,'2024-11-21','2024-10-31','1','2024-11-30','2024-11-22 11:00:03','2024-11-22 11:00:03'),
+(32,139,'麻醉药','刘航','test22',100,'针',1000000,205000,100205000,'2024-11-20','2024-06-30','1','2024-07-31','2024-11-22 11:03:39','2024-11-22 11:03:39'),
+(33,1,'药品A','刘航','2',99,NULL,100,2555,12455,'2024-11-22','2024-05-31','96','2032-05-31','2024-11-22 16:11:19','2024-11-22 16:11:19'),
+(34,3,'药品C','刘航','B',60,NULL,100,2055,8055,'2024-11-22','2024-05-31','1','2024-06-30','2024-11-22 16:17:26','2024-11-22 16:17:26'),
+(35,140,'test111','刘航','A',100,'个',2000,2550,202550,'2024-11-24','2024-01-31','17','2025-06-30','2024-11-24 20:57:16','2024-11-24 20:57:16');
 
 /*Table structure for table `tt_inventory_medicine` */
 
@@ -1783,7 +1879,7 @@ CREATE TABLE `tt_inventory_medicine` (
   `medicine_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '物品ID',
   `medicine_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '物品名称',
   `medicine_description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '物品描述',
-  `supplier` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '供应商',
+  `supplier` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商',
   `origin` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '供应商产地',
   `purchase_price` decimal(10,0) DEFAULT NULL COMMENT '进价',
   `selling_price` decimal(10,0) DEFAULT NULL COMMENT '售价',
@@ -1795,16 +1891,19 @@ CREATE TABLE `tt_inventory_medicine` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`medicine_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=138 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='物品管理表，记录库存的物品信息及供应商产地';
+) ENGINE=MyISAM AUTO_INCREMENT=141 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='物品管理表，记录库存的物品信息及供应商产地';
 
 /*Data for the table `tt_inventory_medicine` */
 
 insert  into `tt_inventory_medicine`(`medicine_id`,`medicine_name`,`medicine_description`,`supplier`,`origin`,`purchase_price`,`selling_price`,`quantity`,`unit`,`manufacture_date`,`shelf_life`,`expiration_date`,`created_at`,`updated_at`) values 
-(1,'药品A','心脏病药物','药品公司A','中国',NULL,NULL,80,NULL,'2025-12-31',NULL,NULL,'2024-10-05 09:51:34','2024-11-17 20:50:52'),
-(2,'药品B','抗生素','药品公司B','中国',NULL,NULL,90,NULL,'2025-06-30',NULL,NULL,'2024-10-05 09:51:34','2024-11-21 20:45:15'),
-(3,'药品C','止痛药','药品公司C','中国',NULL,NULL,140,NULL,'2026-01-15',NULL,NULL,'2024-10-05 09:51:34','2024-11-21 20:59:07'),
-(4,'药品D','维生素补充剂','药品公司D','中国',NULL,NULL,100,NULL,'2026-03-01',NULL,NULL,'2024-10-05 09:51:34','2024-10-05 09:51:34'),
-(5,'药品E','抗过敏药物','药品公司E','中国',NULL,NULL,300,NULL,'2024-11-30',NULL,NULL,'2024-10-05 09:51:34','2024-11-21 20:40:49');
+(1,'药品A','心脏病药物','2','中国',NULL,NULL,300,NULL,'2025-12-31',NULL,NULL,'2024-10-05 09:51:34','2024-11-22 16:11:19'),
+(2,'药品B','抗生素',NULL,'中国',NULL,NULL,100,NULL,'2025-06-30',NULL,NULL,'2024-10-05 09:51:34','2024-11-21 21:13:17'),
+(3,'药品C','止痛药','B','中国',NULL,NULL,200,NULL,'2026-01-15',NULL,NULL,'2024-10-05 09:51:34','2024-11-22 16:17:26'),
+(4,'药品D','维生素补充剂',NULL,'中国',NULL,NULL,100,NULL,'2026-03-01',NULL,NULL,'2024-10-05 09:51:34','2024-10-05 09:51:34'),
+(5,'药品E','抗过敏药物',NULL,'中国',NULL,NULL,300,NULL,'2024-11-30',NULL,NULL,'2024-10-05 09:51:34','2024-11-21 20:40:49'),
+(138,'药品T','test',NULL,NULL,NULL,10099,100,'个',NULL,NULL,NULL,'2024-11-22 09:56:28','2024-11-22 09:57:28'),
+(139,'麻醉药','test1','test22',NULL,NULL,19999,400,'针',NULL,NULL,NULL,'2024-11-22 10:50:33','2024-11-22 11:03:38'),
+(140,'test111','test','A',NULL,NULL,10000,100,'个',NULL,NULL,NULL,'2024-11-24 20:56:49','2024-11-24 20:57:16');
 
 /*Table structure for table `tt_inventory_offsetting` */
 
@@ -1956,21 +2055,27 @@ CREATE TABLE `tt_supplier` (
   `supplier_address` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商地址',
   `supplier_post` char(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮政编码',
   `mail` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮箱地址',
-  `Contact` char(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '联系人',
-  `Creditworthiness` enum('未知','差','一般','较好','特别好') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '未知' COMMENT '信用度',
+  `contact` char(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '联系人',
+  `creditworthiness` enum('未知','差','一般','较好','特别好') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '未知' COMMENT '信用度',
   `creat_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`supplier_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `tt_supplier` */
 
-insert  into `tt_supplier`(`supplier_id`,`supplier_name`,`supplier_remark`,`item_id`,`item_name`,`item_remark`,`supplier_phone`,`supplier_phone2`,`supplier_address`,`supplier_post`,`mail`,`Contact`,`Creditworthiness`,`creat_time`,`update_time`) values 
+insert  into `tt_supplier`(`supplier_id`,`supplier_name`,`supplier_remark`,`item_id`,`item_name`,`item_remark`,`supplier_phone`,`supplier_phone2`,`supplier_address`,`supplier_post`,`mail`,`contact`,`creditworthiness`,`creat_time`,`update_time`) values 
 (1,'A','123',135,'test','234','1234','2345','asd123','qwe-ased1231234','123142',NULL,'未知','2024-11-20 00:41:04','2024-11-20 00:41:04'),
 (2,'B','123',123,'234','213','123','123','123','123','123',NULL,'未知','2024-11-20 01:29:30','2024-11-20 01:29:30'),
 (8,'123',NULL,123,'123',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'未知','2024-11-20 01:59:17','2024-11-20 01:59:17'),
 (9,'22','123',6,'工具A','123','123','123','123','123','123',NULL,'未知','2024-11-20 04:11:20','2024-11-20 04:11:20'),
-(11,'123','123',12,'123','123','123','123','123','123','123',NULL,'未知','2024-11-20 21:23:38','2024-11-20 21:23:38');
+(11,'123','123',12,'123','123','123','123','123','123','123',NULL,'未知','2024-11-20 21:23:38','2024-11-20 21:23:38'),
+(12,'555',NULL,555,'555',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'未知','2024-11-22 11:12:21','2024-11-22 11:12:21'),
+(13,'666','666',666,'666',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'未知','2024-11-22 11:13:08','2024-11-22 11:13:08'),
+(14,'888',NULL,888,'888',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'未知','2024-11-22 11:15:12','2024-11-22 11:15:12'),
+(15,'1',NULL,1,'1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'未知','2024-11-22 11:17:10','2024-11-22 11:17:10'),
+(16,'1',NULL,1,'1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'未知','2024-11-22 11:17:38','2024-11-22 11:17:38'),
+(17,'1',NULL,1,'1',NULL,NULL,NULL,NULL,NULL,NULL,NULL,'特别好','2024-11-22 11:39:18','2024-11-22 11:39:18');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
