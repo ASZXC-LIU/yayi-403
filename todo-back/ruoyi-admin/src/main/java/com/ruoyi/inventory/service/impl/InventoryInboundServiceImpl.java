@@ -2,9 +2,11 @@ package com.ruoyi.inventory.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.inventory.domain.MedicineSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.inventory.mapper.InventoryInboundMapper;
+import com.ruoyi.inventory.mapper.InventoryMedicineMapper;
 import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.service.IInventoryInboundService;
 
@@ -19,6 +21,8 @@ public class InventoryInboundServiceImpl implements IInventoryInboundService
 {
     @Autowired
     private InventoryInboundMapper inventoryInboundMapper;
+    @Autowired
+    private InventoryMedicineMapper inventoryMedicineMapper;
 
     /**
      * 查询入库工单
@@ -55,6 +59,20 @@ public class InventoryInboundServiceImpl implements IInventoryInboundService
     {
         inventoryInbound.setCreateTime(DateUtils.getNowDate());
         return inventoryInboundMapper.insertInventoryInbound(inventoryInbound);
+    }
+
+
+    /**
+     * 新增药品供应商关联
+     *
+     * @param medicineSupplier 入库工单
+     * @return 结果
+     */
+    @Override
+    public int insertMedicineSuppliers(MedicineSupplier medicineSupplier)
+    {
+
+        return inventoryMedicineMapper.insertMedicineSuppliers(medicineSupplier);
     }
 
     /**
