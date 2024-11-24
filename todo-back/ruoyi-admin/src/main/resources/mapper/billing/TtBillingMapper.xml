@@ -42,7 +42,7 @@
                 and payment_status like concat('%', #{paymentStatus}, '%')
             </if>
         </where>
-        ORDER BY billing_id ASC
+        ORDER BY billing_date DESC, billing_id DESC
     </select>
 
     <!-- 根据账单 ID 查询账单详情 -->
