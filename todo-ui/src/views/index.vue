@@ -18,77 +18,34 @@
 
               <div style="font-size:14px;"> 今日预约(人):</div>
 
-              <div style="font-size: large;">124</div>
+              <div style="font-size: large;">{{ appointmentStatsStore.todayTotalAppointments }}</div>
             </div>
             <div style="width: 30%;  text-align: center; padding: 5px; box-sizing: border-box;">
 
               <div style="font-size:14px;"> 已到访(人):</div>
 
-              <div style="font-size: large;">4</div>
+              <div style="font-size: large;">{{ appointmentStatsStore.todayVisitedCount }}</div>
             </div>
             <div style="width: 30%;  text-align: center; padding: 5px; box-sizing: border-box;">
 
               <div style="font-size:14px;"> 未到访(人):</div>
 
-              <div style="font-size: large;">12</div>
+              <div style="font-size: large;">{{ appointmentStatsStore.todayNoShowCount }}</div>
             </div>
             <div style="width: 30%;  text-align: center; padding: 5px; box-sizing: border-box;">
 
               <div style="font-size:14px;"> 已取消(人):</div>
 
-              <div style="font-size: large;">12</div>
+              <div style="font-size: large;">{{ appointmentStatsStore.todayCancelledCount }}</div>
             </div>
           </div>
 
         </el-card>
       </div>
     </el-col>
-    <!-- 第二列 -->
-    <el-col :span="6">
-      <div
-        style="max-width: 1200px; width: 100%;height: 300px; margin: 0 auto; flex-wrap: wrap; justify-content: space-between; align-items: center; background-color: gray;">
-        <!-- 卡片 -->
-        <el-card
-          style="width: 99%; height: 297px;  position: relative; overflow: hidden;border: 1px solid gray;margin:  auto;">
-          <div style="margin: 0 20px 0 20px; ">
-            客户
-          </div>
-          <el-divider />
-          <div style="display: flex; justify-content: space-between;margin-top: 75px;">
-            <!-- 卡片中三个数据 -->
-            <div style="width: 25%;  text-align: center; padding: 5px; box-sizing: border-box;">
-
-              <div style="font-size:14px;"> 今日＋</div>
-
-              <div style="font-size: large;">4</div>
-            </div>
-            <div style="width: 25%;  text-align: center; padding: 5px; box-sizing: border-box;">
-
-              <div style="font-size:14px;"> 本周＋</div>
-
-              <div style="font-size: large;">13</div>
-            </div>
-            <div style="width: 25%;  text-align: center; padding: 5px; box-sizing: border-box;">
-
-              <div style="font-size:14px;"> 本月＋</div>
-
-              <div style="font-size: large;">24</div>
-            </div>
-            <div style="width: 25%;  text-align: center; padding: 5px; box-sizing: border-box;">
-
-              <div style="font-size:14px;"> 总客户数</div>
-
-              <div style="font-size: large;">1280</div>
-            </div>
-          </div>
-        </el-card>
-      </div>
-
-
-
-    </el-col>
+    
     <!-- 第三列 -->
-    <el-col :span="6">
+    <el-col :span="12">
       <div
         style="max-width: 1200px; width: 100%;height: 300px; margin: 0 auto; flex-wrap: wrap; justify-content: space-between; align-items: center; background-color: gray;">
         <!-- 卡片 -->
@@ -151,7 +108,7 @@
                   <span>今日单数(人)</span>
                 </div>
                 <div class="card-content">
-                  <span>124</span>
+                  <span>{{ billingStatsStore.todayBillingCount }}</span>
                 </div>
               </el-card>
             </el-col>
@@ -162,7 +119,7 @@
                   <span>总金额(元)</span>
                 </div>
                 <div class="card-content">
-                  <span>56</span>
+                  <span>{{ billingStatsStore.todayTotalAmount }}</span>
                 </div>
               </el-card>
             </el-col>
@@ -173,7 +130,7 @@
                   <span>已收款(元)</span>
                 </div>
                 <div class="card-content">
-                  <span>12</span>
+                  <span>{{ billingStatsStore.todayPaidAmount }}</span>
                 </div>
               </el-card>
             </el-col>
@@ -184,7 +141,7 @@
                   <span>待收款(元)</span>
                 </div>
                 <div class="card-content">
-                  <span>4</span>
+                  <span>{{ billingStatsStore.todayUnpaidAmount }}</span>
                 </div>
               </el-card>
             </el-col>
@@ -193,26 +150,14 @@
       </div>
     </el-col>
     <el-col :span="12">
-      <div style="background-color: lightcoral;height: 350px;">
-        <el-calendar v-model="selectedDate">
-          <template slot="dateCell" slot-scope="{ date, data }">
-            <div @click="handleDayClick(date)">
-              {{ data.day.split('-').slice(1).join('-') }}
-              <div v-if="appointments[date] && appointments[date].length > 0">
-                <div v-for="(appointment, index) in appointments[date]" :key="index"
-                  :style="{ backgroundColor: appointment.color }">
-                  {{ appointment.doctor }} - {{ appointment.patient }}
-                </div>
-              </div>
-            </div>
-          </template>
-        </el-calendar>
-      </div>
+      <el-calendar v-model="value">
+      </el-calendar>
     </el-col>
   </el-row>
 </template>
 
 <script setup name="Index">
+<<<<<<< Updated upstream
 // const version = ref('3.8.7')
 // import {
 //   Document,
@@ -258,6 +203,19 @@ const handleTimeSelect = (start, end) => {
   });
   currentView.value = 'month';
 };
+=======
+  import { ref } from 'vue';
+  import { useBillingStatsStore } from "@/store/billingStats";
+  import { useAppointmentStatsStore } from "@/store/appointmentStats";
+const billingStatsStore = useBillingStatsStore();
+const appointmentStatsStore = useAppointmentStatsStore();
+appointmentStatsStore.fetchTodayStats();
+// 页面加载时获取数据
+onMounted(async () => {
+  await billingStatsStore.fetchTodayStats();
+});
+  const value = ref(new Date());
+>>>>>>> Stashed changes
 </script>
 
 <style scoped lang="scss">

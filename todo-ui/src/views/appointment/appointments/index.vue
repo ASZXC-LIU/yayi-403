@@ -234,7 +234,7 @@ const data = reactive({
     doctorName: null,
     patientName: null,
     pageNum: 1,
-    pageSize: 10,
+    pageSize: 20,
     patientId: null,
     doctorId: null,
     appointmentDuration: null,
