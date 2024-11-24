@@ -21,12 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="TtDoctorsVo" id="TtDoctorsVoResult">
         <result property="name"    column="doctorsName"    />
-
     </resultMap>
 
     <resultMap type="TtPatientsVo" id="TtPatientsVoTResult">
         <result property="name"    column="patientsName"    />
-
     </resultMap>
 
     <sql id="selectTtAppointmentsVo">

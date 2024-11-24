@@ -2,14 +2,28 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="患者姓名" prop="name">
-        <el-input v-model="queryParams.name" placeholder="请输入患者姓名" clearable @keyup.enter="handleQuery" />
+        <el-input
+          v-model="queryParams.name"
+          placeholder="请输入患者姓名"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item class="serchRecordNumber" label="患者病历号" prop="medicalRecordNumber" label-width="90px">
-        <el-input v-model="queryParams.medicalRecordNumber" placeholder="请输入患者病历号" clearable
-          @keyup.enter="handleQuery" />
+        <el-input
+          v-model="queryParams.medicalRecordNumber"
+          placeholder="请输入患者病历号"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item label="患者联系电话" prop="phone" label-width="96px">
-        <el-input v-model="queryParams.phone" placeholder="请输入患者联系电话" clearable @keyup.enter="handleQuery" />
+        <el-input
+          v-model="queryParams.phone"
+          placeholder="请输入患者联系电话"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
@@ -19,20 +33,42 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="primary" plain icon="Plus" @click="handleAdd"
-          v-hasPermi="['patientlist:patientlists:add']">新增</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="Plus"
+          @click="handleAdd"
+          v-hasPermi="['patientlist:patientlists:add']"
+        >新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
-          v-hasPermi="['patientlist:patientlists:edit']">修改</el-button>
+        <el-button
+          type="success"
+          plain
+          icon="Edit"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['patientlist:patientlists:edit']"
+        >修改</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
-          v-hasPermi="['patientlist:patientlists:remove']">删除</el-button>
+        <el-button
+          type="danger"
+          plain
+          icon="Delete"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['patientlist:patientlists:remove']"
+        >删除</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="warning" plain icon="Download" @click="handleExport"
-          v-hasPermi="['patientlist:patientlists:export']">导出</el-button>
+        <el-button
+          type="warning"
+          plain
+          icon="Download"
+          @click="handleExport"
+          v-hasPermi="['patientlist:patientlists:export']"
+        >导出</el-button>
       </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -41,15 +77,15 @@
       <el-table-column type="selection" width="55" align="center" />
       <!-- <el-table-column label="患者ID" align="center" prop="patientId" /> -->
       <el-table-column label="患者姓名" align="center" prop="name" />
-      <el-table-column label="患者病历号" align="center" prop="medicalRecordNumber" width="90" />
+      <el-table-column label="患者病历号" align="center" prop="medicalRecordNumber" width="90"/>
       <el-table-column label="患者生日" align="center" prop="birthday" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.birthday, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="患者性别" align="center" prop="gender" />
-      <el-table-column label="患者联系电话" align="center" prop="phone" width="150" />
-      <el-table-column label="患者地址" align="center" prop="address" width="200" />
+      <el-table-column label="患者联系电话" align="center" prop="phone" width="150"/>
+      <el-table-column label="患者地址" align="center" prop="address" width="200"/>
       <el-table-column label="创建时间" align="center" prop="createdAt" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.createdAt, '{y}-{m}-{d}') }}</span>
@@ -61,20 +97,24 @@
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remarks" />
-
+      <template #default="scope">
+    <el-button type="primary" size="mini" @click="handleReserve(scope.row)">预约</el-button>
+  </template>
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button @click="showModal">预约</el-button>
-          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
-            v-hasPermi="['patientlist:patientlists:edit']">修改</el-button>
-          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
-            v-hasPermi="['patientlist:patientlists:remove']">删除</el-button>
+          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['patientlist:patientlists:edit']">修改</el-button>
+          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['patientlist:patientlists:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
-      @pagination="getList" />
+    
+    <pagination
+      v-show="total>0"
+      :total="total"
+      v-model:page="queryParams.pageNum"
+      v-model:limit="queryParams.pageSize"
+      @pagination="getList"
+    />
 
     <!-- 添加或修改患者信息对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
@@ -86,7 +126,11 @@
           <el-input v-model="form.medicalRecordNumber" placeholder="请输入患者病历号" />
         </el-form-item>
         <el-form-item label="患者生日" prop="birthday">
-          <el-date-picker clearable v-model="form.birthday" type="date" value-format="YYYY-MM-DD" placeholder="请选择患者生日">
+          <el-date-picker clearable
+            v-model="form.birthday"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择患者生日">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="患者性别" prop="gender">
@@ -99,7 +143,10 @@
           <el-input v-model="form.address" placeholder="请输入患者地址" />
         </el-form-item>
         <el-form-item label="创建时间" prop="createdAt">
-          <el-date-picker clearable v-model="form.createdAt" type="date" value-format="YYYY-MM-DD"
+          <el-date-picker clearable
+            v-model="form.createdAt"
+            type="date"
+            value-format="YYYY-MM-DD"
             placeholder="请选择创建时间">
           </el-date-picker>
         </el-form-item>
@@ -114,28 +161,6 @@
         </div>
       </template>
     </el-dialog>
-
-    <el-dialog title="预约信息" v-model="reservationModalVisible" width="600px" append-to-body>
-      <el-form :model="reservationForm" label-width="100px">
-        <el-form-item label="患者姓名">
-          <el-input v-model="reservationForm.patientName" placeholder="请输入患者姓名" />
-        </el-form-item>
-        <el-form-item label="预约时间">
-          <el-date-picker v-model="reservationForm.appointmentDate" type="datetime" placeholder="选择预约时间" />
-        </el-form-item>
-        <el-form-item label="预约项目">
-          <el-input v-model="reservationForm.project" placeholder="请输入预约项目" />
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input v-model="reservationForm.remarks" type="textarea" placeholder="请输入备注信息" />
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <el-button @click="reservationModalVisible = false">取消</el-button>
-        <el-button type="primary" @click="confirmReservation">确认</el-button>
-      </template>
-    </el-dialog>
-
   </div>
 </template>
 
@@ -153,21 +178,6 @@ const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
 const title = ref("");
-
-
-const reservationModalVisible = ref(false); // 控制弹窗显示状态
-function showModal() {
-  reservationModalVisible.value = true;
-}
-
-const reservationForm = reactive({
-  patientName: '',
-  appointmentDate: '',
-  project: '',
-  remarks: '',
-});
-
-
 
 const data = reactive({
   form: {},
@@ -287,12 +297,12 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const _patientIds = row.patientId || ids.value;
-  proxy.$modal.confirm('是否确认删除患者信息编号为"' + _patientIds + '"的数据项？').then(function () {
+  proxy.$modal.confirm('是否确认删除患者信息编号为"' + _patientIds + '"的数据项？').then(function() {
     return delPatientlists(_patientIds);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => { });
+  }).catch(() => {});
 }
 
 /** 导出按钮操作 */
@@ -304,4 +314,6 @@ function handleExport() {
 
 getList();
 </script>
-<style></style>
+<style>
+
+</style>

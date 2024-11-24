@@ -13,20 +13,20 @@
           <div style="display: flex; justify-content: space-between; vertical-align: middle; margin-top: 75px;">
             <!-- 卡片中四个数据 -->
             <div style="width: 30%; text-align: center; padding: 5px; box-sizing: border-box;">
-              <div style="font-size: 14px;"> 今日预约:</div>
-              <div style="font-size: large;">{{ appointmentStats.todayTotalAppointments }}</div>
+              <div style="font-size: 14px;"> 今日预约(人):</div>
+              <div style="font-size: large;">{{ billingStats.todayBillingCount }}</div>
             </div>
             <div style="width: 30%; text-align: center; padding: 5px; box-sizing: border-box;">
-              <div style="font-size: 14px;"> 已到访:</div>
-              <div style="font-size: large;">{{ appointmentStats.todayVisitedCount }}</div>
+              <div style="font-size: 14px;"> 总金额(元):</div>
+              <div style="font-size: large;">{{ billingStats.todayTotalAmount }}</div>
             </div>
             <div style="width: 30%; text-align: center; padding: 5px; box-sizing: border-box;">
-              <div style="font-size: 14px;"> 未到访:</div>
-              <div style="font-size: large;">{{ appointmentStats.todayNoShowCount }}</div>
+              <div style="font-size: 14px;"> 已收款(元):</div>
+              <div style="font-size: large;">{{ billingStats.todayPaidAmount }}</div>
             </div>
             <div style="width: 30%; text-align: center; padding: 5px; box-sizing: border-box;">
-              <div style="font-size: 14px;"> 已取消:</div>
-              <div style="font-size: large;">{{ appointmentStats.todayCancelledCount }}</div>
+              <div style="font-size: 14px;"> 待收款(元):</div>
+              <div style="font-size: large;">{{ billingStats.todayUnpaidAmount }}</div>
             </div>
           </div>
         </el-card>
@@ -182,23 +182,24 @@
   </el-row>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
+<script>
 import { useBillingStatsStore } from "@/store/billingStats";
-import {useAppointmentStatsStore} from "@/store/appointmentStats"
 
-// 初始化 value 为当前日期
-const value = ref(new Date());
-
-// 获取 billingStats 实例
-const billingStats = useBillingStatsStore();
-const appointmentStats = useAppointmentStatsStore();
-// 在页面加载时调用数据获取方法
-onMounted(() => {
-  billingStats.fetchTodayStats();
-  appointmentStats.fetchTodayStats();
-  
-});
+export default {
+  data() {
+    return {
+      value: new Date(),
+    };
+  },
+  computed: {
+    billingStats() {
+      return useBillingStatsStore();
+    },
+  },
+  mounted() {
+    this.billingStats.fetchTodayStats();
+  },
+};
 </script>
 
 <style scoped lang="scss">

@@ -167,6 +167,11 @@ const reservationForm = reactive({
   remarks: '',
 });
 
+function confirmReservation() {
+  console.log('预约信息:', reservationForm);
+  // 此处可以调用接口提交预约信息
+  reservationModalVisible.value = false; // 关闭弹窗
+}
 
 
 const data = reactive({

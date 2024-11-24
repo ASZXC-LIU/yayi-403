@@ -4,28 +4,28 @@
     <!-- 第一列 -->
     <el-col :span="12">
       <div
-        style="max-width: 1200px; width: 100%; height: 300px; margin: 0 auto; flex-wrap: wrap; justify-content: space-between; align-items: center; background-color: gray;">
+        style="max-width: 1200px; width: 100%;height: 300px; margin: 0 auto; flex-wrap: wrap; justify-content: space-between; align-items: center; background-color: gray;">
         <!-- 卡片 -->
         <el-card
           style="width: 99%; height: 297px; position: relative; overflow: hidden; border: 1px solid gray; margin: auto;">
           <div style="margin: 0 20px 0 20px;">今日到访</div>
           <el-divider />
           <div style="display: flex; justify-content: space-between; vertical-align: middle; margin-top: 75px;">
-            <!-- 卡片中四个数据 -->
+            <!-- 动态数据绑定 -->
             <div style="width: 30%; text-align: center; padding: 5px; box-sizing: border-box;">
-              <div style="font-size: 14px;"> 今日预约:</div>
+              <div style="font-size:14px;">今日预约(人):</div>
               <div style="font-size: large;">{{ appointmentStats.todayTotalAppointments }}</div>
             </div>
             <div style="width: 30%; text-align: center; padding: 5px; box-sizing: border-box;">
-              <div style="font-size: 14px;"> 已到访:</div>
+              <div style="font-size:14px;">已到访(人):</div>
               <div style="font-size: large;">{{ appointmentStats.todayVisitedCount }}</div>
             </div>
             <div style="width: 30%; text-align: center; padding: 5px; box-sizing: border-box;">
-              <div style="font-size: 14px;"> 未到访:</div>
+              <div style="font-size:14px;">未到访(人):</div>
               <div style="font-size: large;">{{ appointmentStats.todayNoShowCount }}</div>
             </div>
             <div style="width: 30%; text-align: center; padding: 5px; box-sizing: border-box;">
-              <div style="font-size: 14px;"> 已取消:</div>
+              <div style="font-size:14px;">已取消(人):</div>
               <div style="font-size: large;">{{ appointmentStats.todayCancelledCount }}</div>
             </div>
           </div>
@@ -182,23 +182,26 @@
   </el-row>
 </template>
 
-<script setup>
-import { ref, onMounted } from 'vue';
+<script>
 import { useBillingStatsStore } from "@/store/billingStats";
-import {useAppointmentStatsStore} from "@/store/appointmentStats"
+import { useAppointmentStatsStore } from "@/stores/appointmentStats";
 
-// 初始化 value 为当前日期
-const value = ref(new Date());
+export default {
+  data() {
+    return {
+      value: new Date(),
+    };
+  },
+  computed: {
+    billingStats() {
+      return useBillingStatsStore();
+    },
+  },
+  mounted() {
+    this.billingStats.fetchTodayStats();
+  },
+};
 
-// 获取 billingStats 实例
-const billingStats = useBillingStatsStore();
-const appointmentStats = useAppointmentStatsStore();
-// 在页面加载时调用数据获取方法
-onMounted(() => {
-  billingStats.fetchTodayStats();
-  appointmentStats.fetchTodayStats();
-  
-});
 </script>
 
 <style scoped lang="scss">

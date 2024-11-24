@@ -387,6 +387,5 @@ function updateDateRange(value) {
   }
 }
 
-
 getList();
 </script>

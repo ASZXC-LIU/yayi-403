@@ -358,35 +358,5 @@ function handleExport() {
   }, `appointments_${new Date().getTime()}.xlsx`)
 }
 
-
-
-function updateDateRange(value) {
-  const today = new Date();
-  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
-  if (value === "today") {
-    // 今天：从当前日期的0点到当天结束
-    queryParams.value.appointmentTimeStart = startOfToday.toISOString();
-    queryParams.value.appointmentTimeEnd = new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000).toISOString();
-  } else if (value === "tomorrow") {
-    // 明天：从明天的0点到明天结束
-    const startOfTomorrow = new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000);
-    queryParams.value.appointmentTimeStart = startOfTomorrow.toISOString();
-    queryParams.value.appointmentTimeEnd = new Date(startOfTomorrow.getTime() + 24 * 60 * 60 * 1000).toISOString();
-  } else if (value === "thisWeek") {
-    // 本周：从周一0点到周日结束
-    const dayOfWeek = today.getDay(); // 0是周日，1是周一，依此类推
-    const startOfWeek = new Date(startOfToday.getTime() - ((dayOfWeek === 0 ? 6 : dayOfWeek - 1) * 24 * 60 * 60 * 1000)); // 本周一
-    const endOfWeek = new Date(startOfWeek.getTime() + 7 * 24 * 60 * 60 * 1000); // 下周一（不包含）
-    queryParams.value.appointmentTimeStart = startOfWeek.toISOString();
-    queryParams.value.appointmentTimeEnd = endOfWeek.toISOString();
-  } else {
-    // 清空筛选
-    queryParams.value.appointmentTimeStart = null;
-    queryParams.value.appointmentTimeEnd = null;
-  }
-}
-
-
 getList();
 </script>

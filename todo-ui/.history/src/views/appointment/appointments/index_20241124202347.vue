@@ -19,19 +19,19 @@
           <el-option v-for="dict in tt_appointments_status" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
+      <el-form-item label="日期筛选" prop="dateRange">
+  <el-select v-model="queryParams.dateRange" placeholder="选择日期范围" clearable>
+    <el-option label="今天" value="today"></el-option>
+    <el-option label="明天" value="tomorrow"></el-option>
+    <el-option label="本周" value="thisWeek"></el-option>
+  </el-select>
+</el-form-item>
 
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-form-item label="日期筛选" prop="dateRange">
-  <el-select v-model="queryParams.dateRange" placeholder="选择日期范围" clearable @change="updateDateRange">
-    <el-option label="今天" value="today"></el-option>
-    <el-option label="明天" value="tomorrow"></el-option>
-    <el-option label="本周" value="thisWeek"></el-option>
-  </el-select>
-</el-form-item>
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
@@ -357,36 +357,32 @@ function handleExport() {
     ...queryParams.value
   }, `appointments_${new Date().getTime()}.xlsx`)
 }
-
-
-
-function updateDateRange(value) {
+/** 搜索按钮操作 */
+function handleQuery() {
   const today = new Date();
   const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+  const queryDateRange = queryParams.value.dateRange;
 
-  if (value === "today") {
-    // 今天：从当前日期的0点到当天结束
+  if (queryDateRange === "today") {
     queryParams.value.appointmentTimeStart = startOfToday.toISOString();
     queryParams.value.appointmentTimeEnd = new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000).toISOString();
-  } else if (value === "tomorrow") {
-    // 明天：从明天的0点到明天结束
+  } else if (queryDateRange === "tomorrow") {
     const startOfTomorrow = new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000);
     queryParams.value.appointmentTimeStart = startOfTomorrow.toISOString();
     queryParams.value.appointmentTimeEnd = new Date(startOfTomorrow.getTime() + 24 * 60 * 60 * 1000).toISOString();
-  } else if (value === "thisWeek") {
-    // 本周：从周一0点到周日结束
-    const dayOfWeek = today.getDay(); // 0是周日，1是周一，依此类推
-    const startOfWeek = new Date(startOfToday.getTime() - ((dayOfWeek === 0 ? 6 : dayOfWeek - 1) * 24 * 60 * 60 * 1000)); // 本周一
-    const endOfWeek = new Date(startOfWeek.getTime() + 7 * 24 * 60 * 60 * 1000); // 下周一（不包含）
+  } else if (queryDateRange === "thisWeek") {
+    const startOfWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - today.getDay());
+    const endOfWeek = new Date(startOfWeek.getTime() + 7 * 24 * 60 * 60 * 1000);
     queryParams.value.appointmentTimeStart = startOfWeek.toISOString();
     queryParams.value.appointmentTimeEnd = endOfWeek.toISOString();
   } else {
-    // 清空筛选
     queryParams.value.appointmentTimeStart = null;
     queryParams.value.appointmentTimeEnd = null;
   }
-}
 
+  queryParams.value.pageNum = 1;
+  getList();
+}
 
 getList();
 </script>

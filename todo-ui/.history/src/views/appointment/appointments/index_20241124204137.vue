@@ -386,6 +386,10 @@ function updateDateRange(value) {
     queryParams.value.appointmentTimeEnd = null;
   }
 }
+function updateDateRange(value) {
+  console.log("选择的日期范围:", value);
+  // 你的日期范围逻辑...
+}
 
 
 getList();
