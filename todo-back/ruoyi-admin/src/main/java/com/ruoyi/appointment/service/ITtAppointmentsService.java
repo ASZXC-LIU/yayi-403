@@ -58,4 +58,8 @@ public interface ITtAppointmentsService
      * @return 结果
      */
     public int deleteTtAppointmentsByAppointmentId(Long appointmentId);
+
+
+
+
 }

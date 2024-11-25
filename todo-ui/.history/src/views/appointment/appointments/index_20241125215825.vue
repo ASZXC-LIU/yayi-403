@@ -19,27 +19,11 @@
           <el-option v-for="dict in tt_appointments_status" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="日期筛选" prop="dateRange">
-        <el-date-picker
-      v-model="dateRange"
-      type="daterange"
-      unlink-panels
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期"
-      :picker-options="pickerOptions"
-    />
-      </el-form-item> -->
-      <el-form-item label="创建时间" style="width: 308px">
-            <el-date-picker
-               v-model="dateRange"
-               value-format="YYYY-MM-DD"
-               type="daterange"
-               range-separator="-"
-               start-placeholder="开始日期"
-               end-placeholder="结束日期"
-            ></el-date-picker>
-         </el-form-item>
+      <el-form-item label="日期筛选" prop="dateRange">
+        <el-date-picker v-model="dateRange" type="daterange" unlink-panels range-separator="至" start-placeholder="开始日期"
+          end-placeholder="结束日期" :picker-options="pickerOptions">
+        </el-date-picker>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
@@ -369,37 +353,71 @@ function handleDelete(row) {
 }
 
 
-// const pickerOptions = {
-//   shortcuts: [
-//     {
-//       text: '今天',
-//       onClick(picker) {
-//         const today = new Date();
-//         const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-//         const end = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//     {
-//       text: '明天',
-//       onClick(picker) {
-//         const today = new Date();
-//         const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//         const end = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2);
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//     {
-//       text: '最近一周',
-//       onClick(picker) {
-//         const end = new Date();
-//         const start = new Date();
-//         start.setTime(start.getTime() - 3600 * 1000 * 24 * 7); // 一周前
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//   ],
-// };
+const pickerOptions = {
+  shortcuts: [
+    {
+      text: "今天",
+      onClick(picker) {
+        const today = new Date();
+        const start = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate()
+        );
+        const end = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() + 1
+        );
+        picker.$emit("pick", [start, end]);
+      },
+    },
+    {
+      text: "明天",
+      onClick(picker) {
+        const today = new Date();
+        const start = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() + 1
+        );
+        const end = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() + 2
+        );
+        picker.$emit("pick", [start, end]);
+      },
+    },
+    {
+      text: "本周",
+      onClick(picker) {
+        const today = new Date();
+        const dayOfWeek = today.getDay();
+        const start = new Date(
+          today.getFullYear(),
+          today.getMonth(),
+          today.getDate() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1)
+        );
+        const end = new Date(
+          start.getFullYear(),
+          start.getMonth(),
+          start.getDate() + 7
+        );
+        picker.$emit("pick", [start, end]);
+      },
+    },
+  ],
+};
+
+// 格式化日期
+const formattedDateRange = computed(() =>
+  dateRange.value.map((date) =>
+    date ? date.toISOString().split("T")[0] : ""
+  )
+);
+
+
 // 调用以加载列表
 getList();
 </script>

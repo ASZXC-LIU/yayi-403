@@ -233,7 +233,7 @@ const data = reactive({
     ],
   }
 });
-// console.log(data);
+console.log(data);
 const { queryParams, form, rules } = toRefs(data);
 
 /** 查询账单管理列表 */

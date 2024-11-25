@@ -20,8 +20,8 @@
       <el-form-item label="创建时间" style="width: 308px">
             <el-date-picker
                v-model="dateRange"
-               value-format="YYYY-MM-DD"
-               type="daterange"
+               value-format="yyyy-MM-dd HH:mm:ss"
+               type="datetimerange"
                range-separator="-"
                start-placeholder="开始日期"
                end-placeholder="结束日期"
@@ -233,7 +233,7 @@ const data = reactive({
     ],
   }
 });
-// console.log(data);
+console.log(data);
 const { queryParams, form, rules } = toRefs(data);
 
 /** 查询账单管理列表 */
@@ -270,7 +270,6 @@ function reset() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  console.log(dateRange.value)
   queryParams.value.pageNum = 1;
   getList();
 }

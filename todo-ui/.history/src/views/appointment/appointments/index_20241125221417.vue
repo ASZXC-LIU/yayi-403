@@ -19,7 +19,7 @@
           <el-option v-for="dict in tt_appointments_status" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="日期筛选" prop="dateRange">
+      <el-form-item label="日期筛选" prop="dateRange">
         <el-date-picker
       v-model="dateRange"
       type="daterange"
@@ -29,8 +29,8 @@
       end-placeholder="结束日期"
       :picker-options="pickerOptions"
     />
-      </el-form-item> -->
-      <el-form-item label="创建时间" style="width: 308px">
+      </el-form-item>
+      <!-- <el-form-item label="创建时间" style="width: 308px">
             <el-date-picker
                v-model="dateRange"
                value-format="YYYY-MM-DD"
@@ -39,7 +39,7 @@
                start-placeholder="开始日期"
                end-placeholder="结束日期"
             ></el-date-picker>
-         </el-form-item>
+         </el-form-item> -->
 
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>

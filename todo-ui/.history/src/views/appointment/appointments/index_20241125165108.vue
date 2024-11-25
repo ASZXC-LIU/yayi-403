@@ -19,34 +19,19 @@
           <el-option v-for="dict in tt_appointments_status" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
-      <!-- <el-form-item label="日期筛选" prop="dateRange">
-        <el-date-picker
-      v-model="dateRange"
-      type="daterange"
-      unlink-panels
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期"
-      :picker-options="pickerOptions"
-    />
-      </el-form-item> -->
-      <el-form-item label="创建时间" style="width: 308px">
-            <el-date-picker
-               v-model="dateRange"
-               value-format="YYYY-MM-DD"
-               type="daterange"
-               range-separator="-"
-               start-placeholder="开始日期"
-               end-placeholder="结束日期"
-            ></el-date-picker>
-         </el-form-item>
 
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
-
+    <el-form-item label="日期筛选" prop="dateRange">
+      <el-select v-model="dateRange" placeholder="选择日期范围" clearable @change="updateDateRange">
+        <el-option label="今天" value="today"></el-option>
+        <el-option label="明天" value="tomorrow"></el-option>
+        <el-option label="本周" value="thisWeek"></el-option>
+      </el-select>
+    </el-form-item>
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
@@ -214,7 +199,6 @@ const data = reactive({
     appointmentDuration: null,
     appointmentProject: null,
     appointmentStatus: null,
-
     ttDoctor: {
       name: null,
     },
@@ -246,13 +230,15 @@ const data = reactive({
 });
 
 const { queryParams, form, rules } = toRefs(data);
+console.log("22222222222222222222");
+console.log(queryParams);
 /** 查询预约功能列表 */
 function getList() {
   loading.value = true;
   console.log({ ...queryParams.value });
   console.log(dateRange.value);
   listAppointments(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    console.log(response)
+     console.log(response)
     appointmentsList.value = response.rows;
     total.value = response.total;
     loading.value = false;
@@ -292,14 +278,8 @@ function reset() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  // 检查 dateRange 并格式化为 YYYY-MM-DD
+  console.log(dateRange.value)
   queryParams.value.pageNum = 1;
-  queryParams.value.startDate = dateRange.value?.[0]
-    ? proxy.parseTime(dateRange.value[0], '{y}-{m}-{d}')
-    : null; // 格式化第一个日期
-  queryParams.value.endDate = dateRange.value?.[1]
-    ? proxy.parseTime(dateRange.value[1], '{y}-{m}-{d}')
-    : null; // 格式化第二个日期
   getList();
 }
 
@@ -368,38 +348,41 @@ function handleDelete(row) {
   }).catch(() => { });
 }
 
+function updateDateRange(value) {
+  const today = new Date();
+  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate()+1);
 
-// const pickerOptions = {
-//   shortcuts: [
-//     {
-//       text: '今天',
-//       onClick(picker) {
-//         const today = new Date();
-//         const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-//         const end = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//     {
-//       text: '明天',
-//       onClick(picker) {
-//         const today = new Date();
-//         const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//         const end = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2);
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//     {
-//       text: '最近一周',
-//       onClick(picker) {
-//         const end = new Date();
-//         const start = new Date();
-//         start.setTime(start.getTime() - 3600 * 1000 * 24 * 7); // 一周前
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//   ],
-// };
+  function formatDate(date) {
+    return date.toISOString().split("T")[0];
+  }
+
+  if (value === "today") {
+    dateRange.value = {
+      0: formatDate(startOfToday),
+      1: formatDate(new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000 - 1)), // 当天的最后一秒
+    };
+    // dateRange.value.push(formatDate(startOfToday));
+    // dateRange.value.push(formatDate(new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000 - 1)));
+  } else if (value === "tomorrow") {
+    const startOfTomorrow = new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000);
+    // dateRange.value = {
+    //   0: formatDate(startOfTomorrow),
+    //   1: formatDate(new Date(startOfTomorrow.getTime() + 24 * 60 * 60 * 1000 - 1)), // 明天的最后一秒
+    // };
+  } else if (value === "thisWeek") {
+    const dayOfWeek = today.getDay(); // 0是周日，1是周一，依此类推
+    const startOfWeek = new Date(startOfToday.getTime() - (dayOfWeek === 0 ? 6 : dayOfWeek - 1) * 24 * 60 * 60 * 1000); // 本周一
+    const endOfWeek = new Date(startOfWeek.getTime() + 6 * 24 * 60 * 60 * 1000 + 24 * 60 * 60 * 1000 - 1); // 本周日结束
+    // dateRange.value = {
+    //   0: formatDate(startOfWeek),
+    //   1: formatDate(endOfWeek),
+    // };
+  } else {
+    // 清空筛选
+    dateRange.value = {};
+  }
+}
+
 // 调用以加载列表
 getList();
 </script>

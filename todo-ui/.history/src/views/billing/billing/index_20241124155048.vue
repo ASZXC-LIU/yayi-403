@@ -17,16 +17,6 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="创建时间" style="width: 308px">
-            <el-date-picker
-               v-model="dateRange"
-               value-format="YYYY-MM-DD"
-               type="daterange"
-               range-separator="-"
-               start-placeholder="开始日期"
-               end-placeholder="结束日期"
-            ></el-date-picker>
-         </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
@@ -200,9 +190,6 @@ const total = ref(0);
 // 存储标题，初始值为空字符串
 const title = ref("");
 
-const dateRange = ref([]);
-
-
 const data = reactive({
   form: {},
   queryParams: {
@@ -233,13 +220,13 @@ const data = reactive({
     ],
   }
 });
-// console.log(data);
+console.log(data);
 const { queryParams, form, rules } = toRefs(data);
 
 /** 查询账单管理列表 */
 function getList() {
   loading.value = true;
-  listBilling(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
+  listBilling(queryParams.value).then(response => {
     billingList.value = response.rows;
     total.value = response.total;
     loading.value = false;
@@ -270,14 +257,12 @@ function reset() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  console.log(dateRange.value)
   queryParams.value.pageNum = 1;
   getList();
 }
 
 /** 重置按钮操作 */
 function resetQuery() {
-  dateRange.value = [];
   proxy.resetForm("queryRef");
   handleQuery();
 }
