@@ -43,7 +43,7 @@ CREATE TABLE `gen_table` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表';
 
 /*Data for the table `gen_table` */
 
@@ -58,7 +58,8 @@ insert  into `gen_table`(`table_id`,`table_name`,`table_comment`,`sub_table_name
 (26,'tt_inventory_inbound','入库工单表',NULL,NULL,'InventoryInbound','crud','element-plus','com.ruoyi.inventory','inbound','inbounds','入库工单','刘航','0','/','{\"parentMenuId\":\"2118\"}','admin','2024-11-17 19:58:31','','2024-11-17 20:40:52',NULL),
 (27,'tt_inventory_medicine','物品管理表，记录库存的物品信息及供应商产地',NULL,NULL,'TtInventoryMedicine','crud','','com.ruoyi.system','system','medicine','物品管理，记录库存的物品信息及供应商产地','ruoyi','0','/',NULL,'admin','2024-11-18 10:27:35','',NULL,NULL),
 (30,'tt_supplier','供货商表',NULL,NULL,'Supplier','crud','element-plus','com.ruoyi.supplier','supplier','suppliers','供应商列表','刘航','0','/','{\"parentMenuId\":2180}','admin','2024-11-20 00:01:21','','2024-11-20 00:04:19',NULL),
-(31,'tt_emr','',NULL,NULL,'TtEmr','crud','','com.ruoyi.system','system','emr',NULL,'ruoyi','0','/',NULL,'admin','2024-11-24 21:32:06','',NULL,NULL);
+(32,'tt_emr','病历表',NULL,NULL,'Emr','crud','element-plus','com.ruoyi.emr','emr','emrs','病历列表','刘航','0','/','{\"parentMenuId\":1}','admin','2024-11-24 21:52:44','','2024-11-24 22:09:48',NULL),
+(33,'tt_inventory_medicine_supplier','药品供应商联系表',NULL,NULL,'InventoryMedicineSupplier','crud','element-plus','com.ruoyi.medicinesupplier','medicinesupplier','medicinesuppliers','medicine_supplier','ruoyi','0','/','{\"parentMenuId\":\"\"}','admin','2024-11-25 17:54:43','','2024-11-25 17:56:54',NULL);
 
 /*Table structure for table `gen_table_column` */
 
@@ -88,7 +89,7 @@ CREATE TABLE `gen_table_column` (
   `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=331 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表字段';
+) ENGINE=InnoDB AUTO_INCREMENT=350 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表字段';
 
 /*Data for the table `gen_table_column` */
 
@@ -210,20 +211,25 @@ insert  into `gen_table_column`(`column_id`,`table_id`,`column_name`,`column_com
 (314,30,'Creditworthiness','信用度','enum(\'未知\',\'差\',\'一般\',\'较好\',\'特别好\')','String','Creditworthiness','0','0','1','1','1','1','1','EQ','select','',13,'admin','2024-11-20 00:01:21','','2024-11-20 00:04:19'),
 (315,30,'creat_time','创建时间','datetime','Date','creatTime','0','0','0','0','0','1','0','EQ','datetime','',14,'admin','2024-11-20 00:01:21','','2024-11-20 00:04:19'),
 (316,30,'update_time','更新时间','datetime','Date','updateTime','0','0','0','0','0','1',NULL,'EQ','datetime','',15,'admin','2024-11-20 00:01:21','','2024-11-20 00:04:19'),
-(317,31,'emr_id','电子病历id','bigint(20)','Long','emrId','1','0','0','1',NULL,NULL,NULL,'EQ','input','',1,'admin','2024-11-24 21:32:06','',NULL),
-(318,31,'patient_id','患者ID','bigint(20)','Long','patientId','0','0','0','1','1','1','1','EQ','input','',2,'admin','2024-11-24 21:32:06','',NULL),
-(319,31,'patient_name','患者姓名','varchar(50)','String','patientName','0','0','1','1','1','1','1','LIKE','input','',3,'admin','2024-11-24 21:32:06','',NULL),
-(320,31,'doctor_id','医生ID','bigint(20)','Long','doctorId','0','0','0','1','1','1','1','EQ','input','',4,'admin','2024-11-24 21:32:06','',NULL),
-(321,31,'doctor_name','医生姓名','varchar(50)','String','doctorName','0','0','1','1','1','1','1','LIKE','input','',5,'admin','2024-11-24 21:32:06','',NULL),
-(322,31,'maincase','主诉','text','String','maincase','0','0','0','1','1','1','1','EQ','textarea','',6,'admin','2024-11-24 21:32:06','',NULL),
-(323,31,'current_medical_history','现在病史','text','String','currentMedicalHistory','0','0','0','1','1','1','1','EQ','textarea','',7,'admin','2024-11-24 21:32:06','',NULL),
-(324,31,'treatment_type','治疗方式','varchar(255)','String','treatmentType','0','0','0','1','1','1','1','EQ','select','',8,'admin','2024-11-24 21:32:06','',NULL),
-(325,31,'clinical_results','治疗结果','text','String','clinicalResults','0','0','0','1','1','1','1','EQ','textarea','',9,'admin','2024-11-24 21:32:06','',NULL),
-(326,31,'created_time','病历创建时间','datetime','Date','createdTime','0','0','1','1','1','1','1','EQ','datetime','',10,'admin','2024-11-24 21:32:06','',NULL),
-(327,31,'updated_time','更新时间','datetime','Date','updatedTime','0','0','1','1','1','1','1','EQ','datetime','',11,'admin','2024-11-24 21:32:06','',NULL),
-(328,31,'emr_statue','诊断状态','enum(\'未诊断\',\'已诊断\')','String','emrStatue','0','0','1','1','1','1','1','EQ',NULL,'',12,'admin','2024-11-24 21:32:06','',NULL),
-(329,31,'appointment_id','预约id','bigint(20)','Long','appointmentId','0','0','1','1','1','1','1','EQ','input','',13,'admin','2024-11-24 21:32:06','',NULL),
-(330,31,'bill_id','账单id','bigint(20)','Long','billId','0','0','1','1','1','1','1','EQ','input','',14,'admin','2024-11-24 21:32:06','',NULL);
+(331,32,'emr_id','电子病历id','bigint(20)','Long','emrId','1','0','0','0',NULL,'1',NULL,'EQ','input','',1,'admin','2024-11-24 21:52:44','','2024-11-24 22:09:48'),
+(332,32,'patient_id','患者ID','bigint(20)','Long','patientId','0','0','0','0','0','0','0','EQ','input','',2,'admin','2024-11-24 21:52:44','','2024-11-24 22:09:48'),
+(333,32,'patient_name','患者姓名','varchar(50)','String','patientName','0','0','1','0','1','1','1','LIKE','input','',3,'admin','2024-11-24 21:52:44','','2024-11-24 22:09:48'),
+(334,32,'doctor_id','医生ID','bigint(20)','Long','doctorId','0','0','0','0','0','0','0','EQ','input','',4,'admin','2024-11-24 21:52:44','','2024-11-24 22:09:48'),
+(335,32,'doctor_name','医生姓名','varchar(50)','String','doctorName','0','0','1','0','1','1','1','LIKE','input','',5,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(336,32,'maincase','主诉','text','String','maincase','0','0','0','0','1','1','0','EQ','textarea','',6,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(337,32,'current_medical_history','现在病史','text','String','currentMedicalHistory','0','0','0','0','1','1','0','EQ','textarea','',7,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(338,32,'treatment_type','治疗方式','varchar(255)','String','treatmentType','0','0','0','0','1','1','1','EQ','select','',8,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(339,32,'clinical_results','治疗结果','text','String','clinicalResults','0','0','0','0','1','1','0','EQ','textarea','',9,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(340,32,'created_time','病历创建时间','datetime','Date','createdTime','0','0','0','0','0','1','1','EQ','datetime','',10,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(341,32,'updated_time','更新时间','datetime','Date','updatedTime','0','0','0','0','0','1','0','EQ','datetime','',11,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(342,32,'emr_statue','诊断状态','enum(\'未诊断\',\'已诊断\')','String','emrStatue','0','0','0','0','1','1','1','EQ','select','',12,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(343,32,'appointment_id','预约id','bigint(20)','Long','appointmentId','0','0','0','0','0','0','0','EQ','input','',13,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(344,32,'bill_id','账单id','bigint(20)','Long','billId','0','0','0','0','0','0','0','EQ','input','',14,'admin','2024-11-24 21:52:45','','2024-11-24 22:09:48'),
+(345,33,'medicine_supplier_id','联系表ID','bigint(20)','Long','medicineSupplierId','1','1','0','0',NULL,'1',NULL,'EQ','input','',1,'admin','2024-11-25 17:54:43','','2024-11-25 17:56:54'),
+(346,33,'item_id','药品ID','bigint(20)','Long','itemId','0','0','1','1','1','1','1','EQ','input','',2,'admin','2024-11-25 17:54:43','','2024-11-25 17:56:54'),
+(347,33,'supplier_id','供应商ID','bigint(20)','Long','supplierId','0','0','1','1','1','1','1','EQ','input','',3,'admin','2024-11-25 17:54:43','','2024-11-25 17:56:54'),
+(348,33,'item_type','0为药品，1为工具','enum(\'0\',\'1\')','String','itemType','0','0','1','1','1','1','1','EQ','select','',4,'admin','2024-11-25 17:54:43','','2024-11-25 17:56:54'),
+(349,33,'item_num','库存数量','bigint(20)','Long','itemNum','0','0','0','1','1','1','0','EQ','input','',5,'admin','2024-11-25 17:54:43','','2024-11-25 17:56:54');
 
 /*Table structure for table `medicine_supplier` */
 
@@ -660,7 +666,7 @@ CREATE TABLE `sys_logininfor` (
   PRIMARY KEY (`info_id`) USING BTREE,
   KEY `idx_sys_logininfor_s` (`status`) USING BTREE,
   KEY `idx_sys_logininfor_lt` (`login_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=223 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
 
 /*Data for the table `sys_logininfor` */
 
@@ -787,7 +793,15 @@ insert  into `sys_logininfor`(`info_id`,`user_name`,`ipaddr`,`login_location`,`b
 (219,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-24 20:56:32'),
 (220,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 20:56:36'),
 (221,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-24 21:07:32'),
-(222,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 21:31:57');
+(222,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 21:31:57'),
+(223,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-24 21:43:51'),
+(224,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-24 21:43:53'),
+(225,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-25 10:08:39'),
+(226,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-25 10:49:39'),
+(227,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-25 10:50:34'),
+(228,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-25 11:20:42'),
+(229,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-25 17:11:16'),
+(230,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-26 09:48:07');
 
 /*Table structure for table `sys_menu` */
 
@@ -815,7 +829,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2187 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2193 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
 
 /*Data for the table `sys_menu` */
 
@@ -964,7 +978,13 @@ insert  into `sys_menu`(`menu_id`,`menu_name`,`parent_id`,`order_num`,`path`,`co
 (2183,'供应商列表新增',2181,2,'#','',NULL,'',1,0,'F','0','0','supplier:suppliers:add','#','admin','2024-11-20 00:05:03','',NULL,''),
 (2184,'供应商列表修改',2181,3,'#','',NULL,'',1,0,'F','0','0','supplier:suppliers:edit','#','admin','2024-11-20 00:05:03','',NULL,''),
 (2185,'供应商列表删除',2181,4,'#','',NULL,'',1,0,'F','0','0','supplier:suppliers:remove','#','admin','2024-11-20 00:05:03','',NULL,''),
-(2186,'供应商列表导出',2181,5,'#','',NULL,'',1,0,'F','0','0','supplier:suppliers:export','#','admin','2024-11-20 00:05:03','',NULL,'');
+(2186,'供应商列表导出',2181,5,'#','',NULL,'',1,0,'F','0','0','supplier:suppliers:export','#','admin','2024-11-20 00:05:03','',NULL,''),
+(2187,'病历列表',2180,1,'emrs','emr/emrs/index',NULL,'',1,0,'C','0','0','emr:emrs:list','#','admin','2024-11-24 22:10:16','admin','2024-11-24 22:12:07','病历列表菜单'),
+(2188,'病历列表查询',2187,1,'#','',NULL,'',1,0,'F','0','0','emr:emrs:query','#','admin','2024-11-24 22:10:16','',NULL,''),
+(2189,'病历列表新增',2187,2,'#','',NULL,'',1,0,'F','0','0','emr:emrs:add','#','admin','2024-11-24 22:10:16','',NULL,''),
+(2190,'病历列表修改',2187,3,'#','',NULL,'',1,0,'F','0','0','emr:emrs:edit','#','admin','2024-11-24 22:10:16','',NULL,''),
+(2191,'病历列表删除',2187,4,'#','',NULL,'',1,0,'F','0','0','emr:emrs:remove','#','admin','2024-11-24 22:10:16','',NULL,''),
+(2192,'病历列表导出',2187,5,'#','',NULL,'',1,0,'F','0','0','emr:emrs:export','#','admin','2024-11-24 22:10:16','',NULL,'');
 
 /*Table structure for table `sys_notice` */
 
@@ -1012,7 +1032,7 @@ CREATE TABLE `sys_oper_log` (
   KEY `idx_sys_oper_log_bt` (`business_type`) USING BTREE,
   KEY `idx_sys_oper_log_s` (`status`) USING BTREE,
   KEY `idx_sys_oper_log_ot` (`oper_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=779 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=794 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
 
 /*Data for the table `sys_oper_log` */
 
@@ -1434,7 +1454,22 @@ insert  into `sys_oper_log`(`oper_id`,`title`,`business_type`,`method`,`request_
 (775,'药品库存',1,'com.ruoyi.inventory.controller.InventoryMedicineController.add()','POST',1,'admin','牙医诊所','/medicine/medicine','127.0.0.1','内网IP','{\"medicineDescription\":\"test\",\"medicineId\":140,\"medicineName\":\"test111\",\"params\":{},\"sellingPrice\":10000,\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 20:56:49',17),
 (776,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2025-06-30\",\"freight\":2550,\"inboundTime\":\"2024-11-24\",\"itemId\":140,\"itemName\":\"test111\",\"manufactureDate\":\"2024-01-31\",\"params\":{},\"purchasePrice\":2000,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"17\",\"spending\":202550,\"supplier\":\"A\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 20:57:16',10),
 (777,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-24 20:57:16\",\"expirationDate\":\"2025-06-30\",\"freight\":2550,\"inboundId\":35,\"inboundTime\":\"2024-11-24\",\"itemId\":140,\"itemName\":\"test111\",\"manufactureDate\":\"2024-01-31\",\"params\":{},\"purchasePrice\":2000,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"17\",\"spending\":202550,\"supplier\":\"A\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 20:57:16',36),
-(778,'代码生成',6,'com.ruoyi.generator.controller.GenController.importTableSave()','POST',1,'admin','牙医诊所','/tool/gen/importTable','127.0.0.1','内网IP','{\"tables\":\"tt_emr\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 21:32:06',118);
+(778,'代码生成',6,'com.ruoyi.generator.controller.GenController.importTableSave()','POST',1,'admin','牙医诊所','/tool/gen/importTable','127.0.0.1','内网IP','{\"tables\":\"tt_emr\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 21:32:06',118),
+(779,'药品库存',1,'com.ruoyi.inventory.controller.InventoryMedicineController.add()','POST',1,'admin','牙医诊所','/medicine/medicine','127.0.0.1','内网IP','{\"medicineId\":141,\"medicineName\":\"test22\",\"params\":{},\"sellingPrice\":0,\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 21:44:04',10),
+(780,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2025-05-31\",\"freight\":100,\"inboundTime\":\"2024-12-02\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":12,\"responsible\":\"去玩儿\",\"shelfLife\":\"12\",\"spending\":1300,\"supplier\":\"123\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 21:44:21',14),
+(781,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-24 21:44:21\",\"expirationDate\":\"2025-05-31\",\"freight\":100,\"inboundId\":36,\"inboundTime\":\"2024-12-02\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-05-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":12,\"responsible\":\"去玩儿\",\"shelfLife\":\"12\",\"spending\":1300,\"supplier\":\"123\",\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 21:44:21',73),
+(782,'代码生成',3,'com.ruoyi.generator.controller.GenController.remove()','DELETE',1,'admin','牙医诊所','/tool/gen/31','127.0.0.1','内网IP','{}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 21:52:41',32),
+(783,'代码生成',6,'com.ruoyi.generator.controller.GenController.importTableSave()','POST',1,'admin','牙医诊所','/tool/gen/importTable','127.0.0.1','内网IP','{\"tables\":\"tt_emr\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 21:52:45',96),
+(784,'代码生成',2,'com.ruoyi.generator.controller.GenController.editSave()','PUT',1,'admin','牙医诊所','/tool/gen','127.0.0.1','内网IP','{\"businessName\":\"emrs\",\"className\":\"Emr\",\"columns\":[{\"capJavaField\":\"EmrId\",\"columnComment\":\"电子病历id\",\"columnId\":331,\"columnName\":\"emr_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-24 21:52:44\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":false,\"isIncrement\":\"0\",\"isInsert\":\"0\",\"isList\":\"1\",\"isPk\":\"1\",\"isRequired\":\"0\",\"javaField\":\"emrId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":32,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"PatientId\",\"columnComment\":\"患者ID\",\"columnId\":332,\"columnName\":\"patient_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-24 21:52:44\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":false,\"isEdit\":\"0\",\"isIncrement\":\"0\",\"isInsert\":\"0\",\"isList\":\"0\",\"isPk\":\"0\",\"isQuery\":\"0\",\"isRequired\":\"0\",\"javaField\":\"patientId\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":false,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":2,\"superColumn\":false,\"tableId\":32,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"PatientName\",\"columnComment\":\"患者姓名\",\"columnId\":333,\"columnName\":\"patient_name\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-24 21:52:44\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":false,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"0\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"patientName\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"LIKE\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":32,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"DoctorId\",\"columnComment\":\"医生ID\",\"columnId\":334,\"columnName\":\"doctor_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-24 21:52:44\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":false,\"isEdit\":\"0\",\"isIncrement\":\"0\",\"isInsert\":\"0\",\"isList\":\"0\",\"isP','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 22:09:13',42),
+(785,'代码生成',2,'com.ruoyi.generator.controller.GenController.editSave()','PUT',1,'admin','牙医诊所','/tool/gen','127.0.0.1','内网IP','{\"businessName\":\"emrs\",\"className\":\"Emr\",\"columns\":[{\"capJavaField\":\"EmrId\",\"columnComment\":\"电子病历id\",\"columnId\":331,\"columnName\":\"emr_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-24 21:52:44\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":false,\"isIncrement\":\"0\",\"isInsert\":\"0\",\"isList\":\"1\",\"isPk\":\"1\",\"isRequired\":\"0\",\"javaField\":\"emrId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":32,\"updateBy\":\"\",\"updateTime\":\"2024-11-24 22:09:13\",\"usableColumn\":false},{\"capJavaField\":\"PatientId\",\"columnComment\":\"患者ID\",\"columnId\":332,\"columnName\":\"patient_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-24 21:52:44\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":false,\"insert\":false,\"isEdit\":\"0\",\"isIncrement\":\"0\",\"isInsert\":\"0\",\"isList\":\"0\",\"isPk\":\"0\",\"isQuery\":\"0\",\"isRequired\":\"0\",\"javaField\":\"patientId\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":false,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":2,\"superColumn\":false,\"tableId\":32,\"updateBy\":\"\",\"updateTime\":\"2024-11-24 22:09:13\",\"usableColumn\":false},{\"capJavaField\":\"PatientName\",\"columnComment\":\"患者姓名\",\"columnId\":333,\"columnName\":\"patient_name\",\"columnType\":\"varchar(50)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-24 21:52:44\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":false,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"0\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"patientName\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"LIKE\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":32,\"updateBy\":\"\",\"updateTime\":\"2024-11-24 22:09:13\",\"usableColumn\":false},{\"capJavaField\":\"DoctorId\",\"columnComment\":\"医生ID\",\"columnId\":334,\"columnName\":\"doctor_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-24 21:52:44\",\"dictType\":\"\",\"edit\":false,\"htmlType\"','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 22:09:48',106),
+(786,'代码生成',8,'com.ruoyi.generator.controller.GenController.batchGenCode()','GET',1,'admin','牙医诊所','/tool/gen/batchGenCode','127.0.0.1','内网IP','{\"tables\":\"tt_emr\"}',NULL,0,NULL,'2024-11-24 22:09:51',285),
+(787,'代码生成',8,'com.ruoyi.generator.controller.GenController.batchGenCode()','GET',1,'admin','牙医诊所','/tool/gen/batchGenCode','127.0.0.1','内网IP','{\"tables\":\"tt_emr\"}',NULL,0,NULL,'2024-11-24 22:09:55',30),
+(788,'菜单管理',2,'com.ruoyi.web.controller.system.SysMenuController.edit()','PUT',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"component\":\"emr/emrs/index\",\"createTime\":\"2024-11-24 22:10:16\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2187,\"menuName\":\"病历列表\",\"menuType\":\"C\",\"orderNum\":1,\"params\":{},\"parentId\":2180,\"path\":\"emrs\",\"perms\":\"emr:emrs:list\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-24 22:12:07',90),
+(789,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-03-31\",\"freight\":100,\"inboundTime\":\"2024-11-25\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-02-29\",\"params\":{},\"purchasePrice\":100,\"quantity\":12,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1300,\"supplier\":\"555\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-25 17:46:06',26),
+(790,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-25 17:46:06\",\"expirationDate\":\"2024-03-31\",\"freight\":100,\"inboundId\":37,\"inboundTime\":\"2024-11-25\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-02-29\",\"params\":{},\"purchasePrice\":100,\"quantity\":12,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1300,\"supplier\":\"555\",\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-25 17:46:06',190),
+(791,'代码生成',6,'com.ruoyi.generator.controller.GenController.importTableSave()','POST',1,'admin','牙医诊所','/tool/gen/importTable','127.0.0.1','内网IP','{\"tables\":\"tt_inventory_medicine_supplier\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-25 17:54:43',74),
+(792,'代码生成',2,'com.ruoyi.generator.controller.GenController.editSave()','PUT',1,'admin','牙医诊所','/tool/gen','127.0.0.1','内网IP','{\"businessName\":\"medicinesuppliers\",\"className\":\"InventoryMedicineSupplier\",\"columns\":[{\"capJavaField\":\"MedicineSupplierId\",\"columnComment\":\"联系表ID\",\"columnId\":345,\"columnName\":\"medicine_supplier_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-25 17:54:43\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":false,\"isIncrement\":\"1\",\"isInsert\":\"0\",\"isList\":\"1\",\"isPk\":\"1\",\"isRequired\":\"0\",\"javaField\":\"medicineSupplierId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":33,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ItemId\",\"columnComment\":\"药品ID\",\"columnId\":346,\"columnName\":\"item_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-25 17:54:43\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"itemId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":33,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"SupplierId\",\"columnComment\":\"供应商ID\",\"columnId\":347,\"columnName\":\"supplier_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-25 17:54:43\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"supplierId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":33,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ItemType\",\"columnComment\":\"0为药品，1为工具\",\"columnId\":348,\"columnName\":\"item_type\",\"columnType\":\"enum(\'0\',\'1\')\",\"createBy\":\"admin\",\"createTime\":\"2024-11-25 17:54:43\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"select\",\"increment\":false,\"insert\":true,\"isEd','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-25 17:56:54',57),
+(793,'代码生成',8,'com.ruoyi.generator.controller.GenController.batchGenCode()','GET',1,'admin','牙医诊所','/tool/gen/batchGenCode','127.0.0.1','内网IP','{\"tables\":\"tt_inventory_medicine_supplier\"}',NULL,0,NULL,'2024-11-25 17:56:58',354);
 
 /*Table structure for table `sys_post` */
 
@@ -1579,7 +1614,7 @@ CREATE TABLE `sys_user` (
 /*Data for the table `sys_user` */
 
 insert  into `sys_user`(`user_id`,`dept_id`,`user_name`,`nick_name`,`user_type`,`email`,`phonenumber`,`sex`,`avatar`,`password`,`status`,`del_flag`,`login_ip`,`login_date`,`create_by`,`create_time`,`update_by`,`update_time`,`remark`) values 
-(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-24 21:31:58','admin','2024-10-05 15:46:15','','2024-11-24 21:31:57','管理员'),
+(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-26 09:48:07','admin','2024-10-05 15:46:15','','2024-11-26 09:48:07','管理员'),
 (2,100,'ry','若依','00','ry@qq.com','15666666666','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-10-05 15:46:15','admin','2024-10-05 15:46:15','admin','2024-11-13 16:12:11','测试员'),
 (100,100,'test','test','00','','','2','','$2a$10$/NIAAJu1SxRBUsCNvALkuO.fPkPNMFZQSuVNe6qjP6r9ReocXAT7q','0','0','127.0.0.1','2024-11-04 10:22:26','admin','2024-11-01 16:26:49','','2024-11-04 10:22:25',NULL);
 
@@ -1782,7 +1817,7 @@ insert  into `tt_doctors`(`doctor_id`,`name`,`department`,`phone`,`position`,`cr
 DROP TABLE IF EXISTS `tt_emr`;
 
 CREATE TABLE `tt_emr` (
-  `emr_id` bigint(20) NOT NULL COMMENT '电子病历id',
+  `emr_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '电子病历id',
   `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID',
   `patient_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '患者姓名',
   `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID',
@@ -1848,7 +1883,7 @@ CREATE TABLE `tt_inventory_inbound` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`inbound_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `tt_inventory_inbound` */
 
@@ -1869,7 +1904,9 @@ insert  into `tt_inventory_inbound`(`inbound_id`,`item_id`,`item_name`,`responsi
 (32,139,'麻醉药','刘航','test22',100,'针',1000000,205000,100205000,'2024-11-20','2024-06-30','1','2024-07-31','2024-11-22 11:03:39','2024-11-22 11:03:39'),
 (33,1,'药品A','刘航','2',99,NULL,100,2555,12455,'2024-11-22','2024-05-31','96','2032-05-31','2024-11-22 16:11:19','2024-11-22 16:11:19'),
 (34,3,'药品C','刘航','B',60,NULL,100,2055,8055,'2024-11-22','2024-05-31','1','2024-06-30','2024-11-22 16:17:26','2024-11-22 16:17:26'),
-(35,140,'test111','刘航','A',100,'个',2000,2550,202550,'2024-11-24','2024-01-31','17','2025-06-30','2024-11-24 20:57:16','2024-11-24 20:57:16');
+(35,140,'test111','刘航','A',100,'个',2000,2550,202550,'2024-11-24','2024-01-31','17','2025-06-30','2024-11-24 20:57:16','2024-11-24 20:57:16'),
+(36,141,'test22','去玩儿','123',12,'1',100,100,1300,'2024-12-02','2024-05-31','12','2025-05-31','2024-11-24 21:44:21','2024-11-24 21:44:21'),
+(37,141,'test22','刘航','555',12,'1',100,100,1300,'2024-11-25','2024-02-29','1','2024-03-31','2024-11-25 17:46:06','2024-11-25 17:46:06');
 
 /*Table structure for table `tt_inventory_medicine` */
 
@@ -1891,7 +1928,7 @@ CREATE TABLE `tt_inventory_medicine` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`medicine_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=141 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='物品管理表，记录库存的物品信息及供应商产地';
+) ENGINE=MyISAM AUTO_INCREMENT=142 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='物品管理表，记录库存的物品信息及供应商产地';
 
 /*Data for the table `tt_inventory_medicine` */
 
@@ -1903,7 +1940,23 @@ insert  into `tt_inventory_medicine`(`medicine_id`,`medicine_name`,`medicine_des
 (5,'药品E','抗过敏药物',NULL,'中国',NULL,NULL,300,NULL,'2024-11-30',NULL,NULL,'2024-10-05 09:51:34','2024-11-21 20:40:49'),
 (138,'药品T','test',NULL,NULL,NULL,10099,100,'个',NULL,NULL,NULL,'2024-11-22 09:56:28','2024-11-22 09:57:28'),
 (139,'麻醉药','test1','test22',NULL,NULL,19999,400,'针',NULL,NULL,NULL,'2024-11-22 10:50:33','2024-11-22 11:03:38'),
-(140,'test111','test','A',NULL,NULL,10000,100,'个',NULL,NULL,NULL,'2024-11-24 20:56:49','2024-11-24 20:57:16');
+(140,'test111','test','A',NULL,NULL,10000,100,'个',NULL,NULL,NULL,'2024-11-24 20:56:49','2024-11-24 20:57:16'),
+(141,'test22',NULL,'555',NULL,NULL,0,24,'1',NULL,NULL,NULL,'2024-11-24 21:44:04','2024-11-25 17:46:05');
+
+/*Table structure for table `tt_inventory_medicine_supplier` */
+
+DROP TABLE IF EXISTS `tt_inventory_medicine_supplier`;
+
+CREATE TABLE `tt_inventory_medicine_supplier` (
+  `medicine_supplier_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '联系表ID',
+  `item_id` bigint(20) NOT NULL COMMENT '药品ID',
+  `supplier_id` bigint(20) NOT NULL COMMENT '供应商ID',
+  `item_type` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0为药品，1为工具',
+  `item_num` bigint(20) DEFAULT NULL COMMENT '库存数量',
+  PRIMARY KEY (`medicine_supplier_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `tt_inventory_medicine_supplier` */
 
 /*Table structure for table `tt_inventory_offsetting` */
 
