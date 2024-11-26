@@ -42,6 +42,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where supplier_id = #{supplierId}
     </select>
 
+    <select id="selectSupplierByMedicineId" parameterType="Long" resultMap="SupplierResult">
+        <include refid="selectSupplierVo"/>
+        where item_id = #{itemId}
+    </select>
+
     <insert id="insertSupplier" parameterType="Supplier" useGeneratedKeys="true" keyProperty="supplierId">
         insert into tt_supplier
         <trim prefix="(" suffix=")" suffixOverrides=",">

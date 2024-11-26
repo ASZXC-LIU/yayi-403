@@ -9,14 +9,23 @@ export function listSuppliers(query) {
   })
 }
 
-// // 通过货物id查询他的所有供应商以及供应商给的货物详细信息
-// export function listSuppliersBy(query) {
-//   return request({
-//     url: '/supplier/suppliers/list',
-//     method: 'get',
-//     params: query
-//   })
-// }
+// 通过货物id查询他的所有供应商以及供应商给的货物详细信息
+export function getSupplierByMedicineId(itemId) {
+  return request({
+    url: '/supplier/suppliers/getSupplierByMedicineId' ,
+    method: 'get',
+    params: {itemId}
+  })
+}
+
+// 通过货物id查询他的所有供应商以及供应商给的货物详细信息
+export function getSupplierByToolId(itemId) {
+  return request({
+    url: '/supplier/suppliers/getSupplierByToolId' ,
+    method: 'get',
+    params: {itemId}
+  })
+}
 
 // 查询供应商列表详细
 export function getSuppliers(supplierId) {
