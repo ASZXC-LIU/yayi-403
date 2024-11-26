@@ -29,17 +29,7 @@ public class Supplier extends BaseEntity
     @Excel(name = "供应商备注")
     private String supplierRemark;
 
-    /** 供应货物ID */
-    @Excel(name = "供应货物ID")
-    private Long itemId;
 
-    /** 供应货物名称 */
-    @Excel(name = "供应货物名称")
-    private String itemName;
-
-    /** 货物备注 */
-    @Excel(name = "货物备注")
-    private String itemRemark;
 
     /** 供应商电话 */
     @Excel(name = "供应商电话")
@@ -100,37 +90,6 @@ public class Supplier extends BaseEntity
     public String getSupplierRemark() 
     {
         return supplierRemark;
-    }
-    public void setItemId(Long itemId) 
-    {
-        this.itemId = itemId;
-    }
-
-    public Long getItemId() 
-    {
-        return itemId;
-    }
-    public void setItemName(String itemName) 
-    {
-        this.itemName = itemName;
-    }
-
-    public String getItemName() 
-    {
-        return itemName;
-    }
-    public void setItemRemark(String itemRemark) 
-    {
-        this.itemRemark = itemRemark;
-    }
-
-    public String getItemRemark() 
-    {
-        return itemRemark;
-    }
-    public void setSupplierPhone(String supplierPhone) 
-    {
-        this.supplierPhone = supplierPhone;
     }
 
     public String getSupplierPhone() 
@@ -207,9 +166,6 @@ public class Supplier extends BaseEntity
             .append("supplierId", getSupplierId())
             .append("supplierName", getSupplierName())
             .append("supplierRemark", getSupplierRemark())
-            .append("itemId", getItemId())
-            .append("itemName", getItemName())
-            .append("itemRemark", getItemRemark())
             .append("supplierPhone", getSupplierPhone())
             .append("supplierPhone2", getSupplierPhone2())
             .append("supplierAddress", getSupplierAddress())

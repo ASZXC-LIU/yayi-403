@@ -1,6 +1,6 @@
 /*
-SQLyog Community v13.1.7 (64 bit)
-MySQL - 8.0.12 : Database - yayi-ruoyi
+SQLyog Ultimate v13.1.1 (64 bit)
+MySQL - 8.0.30 : Database - yayi-ruoyi
 *********************************************************************
 */
 
@@ -12,7 +12,7 @@ MySQL - 8.0.12 : Database - yayi-ruoyi
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/`yayi-ruoyi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`yayi-ruoyi` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
 
 USE `yayi-ruoyi`;
 
@@ -21,29 +21,29 @@ USE `yayi-ruoyi`;
 DROP TABLE IF EXISTS `gen_table`;
 
 CREATE TABLE `gen_table` (
-  `table_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `table_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '表名称',
-  `table_comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '表描述',
-  `sub_table_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '关联子表的表名',
-  `sub_table_fk_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '子表关联的外键名',
-  `class_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '实体类名称',
-  `tpl_category` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'crud' COMMENT '使用的模板（crud单表操作 tree树表操作）',
-  `tpl_web_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '前端模板类型（element-ui模版 element-plus模版）',
-  `package_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '生成包路径',
-  `module_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '生成模块名',
-  `business_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '生成业务名',
-  `function_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '生成功能名',
-  `function_author` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '生成功能作者',
-  `gen_type` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '生成代码方式（0zip压缩包 1自定义路径）',
-  `gen_path` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '/' COMMENT '生成路径（不填默认项目路径）',
-  `options` varchar(1000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '其它生成选项',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `table_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `table_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '表名称',
+  `table_comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '表描述',
+  `sub_table_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '关联子表的表名',
+  `sub_table_fk_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '子表关联的外键名',
+  `class_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '实体类名称',
+  `tpl_category` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT 'crud' COMMENT '使用的模板（crud单表操作 tree树表操作）',
+  `tpl_web_type` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '前端模板类型（element-ui模版 element-plus模版）',
+  `package_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '生成包路径',
+  `module_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '生成模块名',
+  `business_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '生成业务名',
+  `function_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '生成功能名',
+  `function_author` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '生成功能作者',
+  `gen_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '生成代码方式（0zip压缩包 1自定义路径）',
+  `gen_path` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '/' COMMENT '生成路径（不填默认项目路径）',
+  `options` varchar(1000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '其它生成选项',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`table_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表';
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表';
 
 /*Data for the table `gen_table` */
 
@@ -66,30 +66,30 @@ insert  into `gen_table`(`table_id`,`table_name`,`table_comment`,`sub_table_name
 DROP TABLE IF EXISTS `gen_table_column`;
 
 CREATE TABLE `gen_table_column` (
-  `column_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '编号',
-  `table_id` bigint(20) DEFAULT NULL COMMENT '归属表编号',
-  `column_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '列名称',
-  `column_comment` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '列描述',
-  `column_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '列类型',
-  `java_type` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'JAVA类型',
-  `java_field` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'JAVA字段名',
-  `is_pk` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否主键（1是）',
-  `is_increment` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否自增（1是）',
-  `is_required` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否必填（1是）',
-  `is_insert` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否为插入字段（1是）',
-  `is_edit` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否编辑字段（1是）',
-  `is_list` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否列表字段（1是）',
-  `is_query` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否查询字段（1是）',
-  `query_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
-  `html_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
-  `dict_type` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '字典类型',
-  `sort` int(11) DEFAULT NULL COMMENT '排序',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `column_id` bigint NOT NULL AUTO_INCREMENT COMMENT '编号',
+  `table_id` bigint DEFAULT NULL COMMENT '归属表编号',
+  `column_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '列名称',
+  `column_comment` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '列描述',
+  `column_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '列类型',
+  `java_type` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'JAVA类型',
+  `java_field` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'JAVA字段名',
+  `is_pk` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否主键（1是）',
+  `is_increment` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否自增（1是）',
+  `is_required` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否必填（1是）',
+  `is_insert` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否为插入字段（1是）',
+  `is_edit` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否编辑字段（1是）',
+  `is_list` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否列表字段（1是）',
+  `is_query` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否查询字段（1是）',
+  `query_type` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT 'EQ' COMMENT '查询方式（等于、不等于、大于、小于、范围）',
+  `html_type` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '显示类型（文本框、文本域、下拉框、复选框、单选框、日期控件）',
+  `dict_type` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '字典类型',
+  `sort` int DEFAULT NULL COMMENT '排序',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`column_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=350 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表字段';
+) ENGINE=InnoDB AUTO_INCREMENT=350 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='代码生成业务表字段';
 
 /*Data for the table `gen_table_column` */
 
@@ -236,8 +236,8 @@ insert  into `gen_table_column`(`column_id`,`table_id`,`column_name`,`column_com
 DROP TABLE IF EXISTS `medicine_supplier`;
 
 CREATE TABLE `medicine_supplier` (
-  `medicine_id` bigint(20) NOT NULL,
-  `supplier_id` bigint(20) NOT NULL,
+  `medicine_id` bigint NOT NULL,
+  `supplier_id` bigint NOT NULL,
   PRIMARY KEY (`medicine_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -248,13 +248,13 @@ CREATE TABLE `medicine_supplier` (
 DROP TABLE IF EXISTS `qrtz_blob_triggers`;
 
 CREATE TABLE `qrtz_blob_triggers` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
   `blob_data` blob COMMENT '存放持久化Trigger对象',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_blob_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Blob类型的触发器表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Blob类型的触发器表';
 
 /*Data for the table `qrtz_blob_triggers` */
 
@@ -263,11 +263,11 @@ CREATE TABLE `qrtz_blob_triggers` (
 DROP TABLE IF EXISTS `qrtz_calendars`;
 
 CREATE TABLE `qrtz_calendars` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `calendar_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '日历名称',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `calendar_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '日历名称',
   `calendar` blob NOT NULL COMMENT '存放持久化calendar对象',
   PRIMARY KEY (`sched_name`,`calendar_name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='日历信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='日历信息表';
 
 /*Data for the table `qrtz_calendars` */
 
@@ -276,14 +276,14 @@ CREATE TABLE `qrtz_calendars` (
 DROP TABLE IF EXISTS `qrtz_cron_triggers`;
 
 CREATE TABLE `qrtz_cron_triggers` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `cron_expression` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'cron表达式',
-  `time_zone_id` varchar(80) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '时区',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `cron_expression` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'cron表达式',
+  `time_zone_id` varchar(80) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '时区',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_cron_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Cron类型的触发器表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='Cron类型的触发器表';
 
 /*Data for the table `qrtz_cron_triggers` */
 
@@ -292,21 +292,21 @@ CREATE TABLE `qrtz_cron_triggers` (
 DROP TABLE IF EXISTS `qrtz_fired_triggers`;
 
 CREATE TABLE `qrtz_fired_triggers` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `entry_id` varchar(95) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度器实例id',
-  `trigger_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `instance_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度器实例名',
-  `fired_time` bigint(13) NOT NULL COMMENT '触发的时间',
-  `sched_time` bigint(13) NOT NULL COMMENT '定时器制定的时间',
-  `priority` int(11) NOT NULL COMMENT '优先级',
-  `state` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '状态',
-  `job_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '任务名称',
-  `job_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '任务组名',
-  `is_nonconcurrent` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否并发',
-  `requests_recovery` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '是否接受恢复执行',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `entry_id` varchar(95) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度器实例id',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `instance_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度器实例名',
+  `fired_time` bigint NOT NULL COMMENT '触发的时间',
+  `sched_time` bigint NOT NULL COMMENT '定时器制定的时间',
+  `priority` int NOT NULL COMMENT '优先级',
+  `state` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '状态',
+  `job_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '任务名称',
+  `job_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '任务组名',
+  `is_nonconcurrent` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否并发',
+  `requests_recovery` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '是否接受恢复执行',
   PRIMARY KEY (`sched_name`,`entry_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='已触发的触发器表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='已触发的触发器表';
 
 /*Data for the table `qrtz_fired_triggers` */
 
@@ -315,18 +315,18 @@ CREATE TABLE `qrtz_fired_triggers` (
 DROP TABLE IF EXISTS `qrtz_job_details`;
 
 CREATE TABLE `qrtz_job_details` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `job_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '任务名称',
-  `job_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '任务组名',
-  `description` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '相关介绍',
-  `job_class_name` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '执行任务类名称',
-  `is_durable` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '是否持久化',
-  `is_nonconcurrent` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '是否并发',
-  `is_update_data` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '是否更新数据',
-  `requests_recovery` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '是否接受恢复执行',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `job_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '任务名称',
+  `job_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '任务组名',
+  `description` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '相关介绍',
+  `job_class_name` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '执行任务类名称',
+  `is_durable` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '是否持久化',
+  `is_nonconcurrent` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '是否并发',
+  `is_update_data` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '是否更新数据',
+  `requests_recovery` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '是否接受恢复执行',
   `job_data` blob COMMENT '存放持久化job对象',
   PRIMARY KEY (`sched_name`,`job_name`,`job_group`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='任务详细信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='任务详细信息表';
 
 /*Data for the table `qrtz_job_details` */
 
@@ -335,10 +335,10 @@ CREATE TABLE `qrtz_job_details` (
 DROP TABLE IF EXISTS `qrtz_locks`;
 
 CREATE TABLE `qrtz_locks` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `lock_name` varchar(40) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '悲观锁名称',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `lock_name` varchar(40) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '悲观锁名称',
   PRIMARY KEY (`sched_name`,`lock_name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='存储的悲观锁信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='存储的悲观锁信息表';
 
 /*Data for the table `qrtz_locks` */
 
@@ -347,10 +347,10 @@ CREATE TABLE `qrtz_locks` (
 DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
 
 CREATE TABLE `qrtz_paused_trigger_grps` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `trigger_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
   PRIMARY KEY (`sched_name`,`trigger_group`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='暂停的触发器表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='暂停的触发器表';
 
 /*Data for the table `qrtz_paused_trigger_grps` */
 
@@ -359,12 +359,12 @@ CREATE TABLE `qrtz_paused_trigger_grps` (
 DROP TABLE IF EXISTS `qrtz_scheduler_state`;
 
 CREATE TABLE `qrtz_scheduler_state` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `instance_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '实例名称',
-  `last_checkin_time` bigint(13) NOT NULL COMMENT '上次检查时间',
-  `checkin_interval` bigint(13) NOT NULL COMMENT '检查间隔时间',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `instance_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '实例名称',
+  `last_checkin_time` bigint NOT NULL COMMENT '上次检查时间',
+  `checkin_interval` bigint NOT NULL COMMENT '检查间隔时间',
   PRIMARY KEY (`sched_name`,`instance_name`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='调度器状态表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='调度器状态表';
 
 /*Data for the table `qrtz_scheduler_state` */
 
@@ -373,15 +373,15 @@ CREATE TABLE `qrtz_scheduler_state` (
 DROP TABLE IF EXISTS `qrtz_simple_triggers`;
 
 CREATE TABLE `qrtz_simple_triggers` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `repeat_count` bigint(7) NOT NULL COMMENT '重复的次数统计',
-  `repeat_interval` bigint(12) NOT NULL COMMENT '重复的间隔时间',
-  `times_triggered` bigint(10) NOT NULL COMMENT '已经触发的次数',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `repeat_count` bigint NOT NULL COMMENT '重复的次数统计',
+  `repeat_interval` bigint NOT NULL COMMENT '重复的间隔时间',
+  `times_triggered` bigint NOT NULL COMMENT '已经触发的次数',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_simple_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='简单触发器的信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='简单触发器的信息表';
 
 /*Data for the table `qrtz_simple_triggers` */
 
@@ -390,23 +390,23 @@ CREATE TABLE `qrtz_simple_triggers` (
 DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
 
 CREATE TABLE `qrtz_simprop_triggers` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
-  `trigger_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
-  `str_prop_1` varchar(512) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'String类型的trigger的第一个参数',
-  `str_prop_2` varchar(512) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'String类型的trigger的第二个参数',
-  `str_prop_3` varchar(512) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'String类型的trigger的第三个参数',
-  `int_prop_1` int(11) DEFAULT NULL COMMENT 'int类型的trigger的第一个参数',
-  `int_prop_2` int(11) DEFAULT NULL COMMENT 'int类型的trigger的第二个参数',
-  `long_prop_1` bigint(20) DEFAULT NULL COMMENT 'long类型的trigger的第一个参数',
-  `long_prop_2` bigint(20) DEFAULT NULL COMMENT 'long类型的trigger的第二个参数',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_name的外键',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_triggers表trigger_group的外键',
+  `str_prop_1` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'String类型的trigger的第一个参数',
+  `str_prop_2` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'String类型的trigger的第二个参数',
+  `str_prop_3` varchar(512) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'String类型的trigger的第三个参数',
+  `int_prop_1` int DEFAULT NULL COMMENT 'int类型的trigger的第一个参数',
+  `int_prop_2` int DEFAULT NULL COMMENT 'int类型的trigger的第二个参数',
+  `long_prop_1` bigint DEFAULT NULL COMMENT 'long类型的trigger的第一个参数',
+  `long_prop_2` bigint DEFAULT NULL COMMENT 'long类型的trigger的第二个参数',
   `dec_prop_1` decimal(13,4) DEFAULT NULL COMMENT 'decimal类型的trigger的第一个参数',
   `dec_prop_2` decimal(13,4) DEFAULT NULL COMMENT 'decimal类型的trigger的第二个参数',
-  `bool_prop_1` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Boolean类型的trigger的第一个参数',
-  `bool_prop_2` varchar(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT 'Boolean类型的trigger的第二个参数',
+  `bool_prop_1` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'Boolean类型的trigger的第一个参数',
+  `bool_prop_2` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT 'Boolean类型的trigger的第二个参数',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`) USING BTREE,
   CONSTRAINT `qrtz_simprop_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `trigger_name`, `trigger_group`) REFERENCES `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='同步机制的行锁表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='同步机制的行锁表';
 
 /*Data for the table `qrtz_simprop_triggers` */
 
@@ -415,26 +415,26 @@ CREATE TABLE `qrtz_simprop_triggers` (
 DROP TABLE IF EXISTS `qrtz_triggers`;
 
 CREATE TABLE `qrtz_triggers` (
-  `sched_name` varchar(120) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调度名称',
-  `trigger_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '触发器的名字',
-  `trigger_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '触发器所属组的名字',
-  `job_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_job_details表job_name的外键',
-  `job_group` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT 'qrtz_job_details表job_group的外键',
-  `description` varchar(250) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '相关介绍',
-  `next_fire_time` bigint(13) DEFAULT NULL COMMENT '上一次触发时间（毫秒）',
-  `prev_fire_time` bigint(13) DEFAULT NULL COMMENT '下一次触发时间（默认为-1表示不触发）',
-  `priority` int(11) DEFAULT NULL COMMENT '优先级',
-  `trigger_state` varchar(16) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '触发器状态',
-  `trigger_type` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '触发器的类型',
-  `start_time` bigint(13) NOT NULL COMMENT '开始时间',
-  `end_time` bigint(13) DEFAULT NULL COMMENT '结束时间',
-  `calendar_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '日程表名称',
-  `misfire_instr` smallint(2) DEFAULT NULL COMMENT '补偿执行的策略',
+  `sched_name` varchar(120) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调度名称',
+  `trigger_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '触发器的名字',
+  `trigger_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '触发器所属组的名字',
+  `job_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_job_details表job_name的外键',
+  `job_group` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT 'qrtz_job_details表job_group的外键',
+  `description` varchar(250) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '相关介绍',
+  `next_fire_time` bigint DEFAULT NULL COMMENT '上一次触发时间（毫秒）',
+  `prev_fire_time` bigint DEFAULT NULL COMMENT '下一次触发时间（默认为-1表示不触发）',
+  `priority` int DEFAULT NULL COMMENT '优先级',
+  `trigger_state` varchar(16) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '触发器状态',
+  `trigger_type` varchar(8) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '触发器的类型',
+  `start_time` bigint NOT NULL COMMENT '开始时间',
+  `end_time` bigint DEFAULT NULL COMMENT '结束时间',
+  `calendar_name` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '日程表名称',
+  `misfire_instr` smallint DEFAULT NULL COMMENT '补偿执行的策略',
   `job_data` blob COMMENT '存放持久化job对象',
   PRIMARY KEY (`sched_name`,`trigger_name`,`trigger_group`) USING BTREE,
   KEY `sched_name` (`sched_name`,`job_name`,`job_group`) USING BTREE,
   CONSTRAINT `qrtz_triggers_ibfk_1` FOREIGN KEY (`sched_name`, `job_name`, `job_group`) REFERENCES `qrtz_job_details` (`sched_name`, `job_name`, `job_group`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='触发器详细信息表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='触发器详细信息表';
 
 /*Data for the table `qrtz_triggers` */
 
@@ -443,18 +443,18 @@ CREATE TABLE `qrtz_triggers` (
 DROP TABLE IF EXISTS `sys_config`;
 
 CREATE TABLE `sys_config` (
-  `config_id` int(5) NOT NULL AUTO_INCREMENT COMMENT '参数主键',
-  `config_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '参数名称',
-  `config_key` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '参数键名',
-  `config_value` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '参数键值',
-  `config_type` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'N' COMMENT '系统内置（Y是 N否）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `config_id` int NOT NULL AUTO_INCREMENT COMMENT '参数主键',
+  `config_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '参数名称',
+  `config_key` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '参数键名',
+  `config_value` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '参数键值',
+  `config_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT 'N' COMMENT '系统内置（Y是 N否）',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='参数配置表';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='参数配置表';
 
 /*Data for the table `sys_config` */
 
@@ -471,22 +471,22 @@ insert  into `sys_config`(`config_id`,`config_name`,`config_key`,`config_value`,
 DROP TABLE IF EXISTS `sys_dept`;
 
 CREATE TABLE `sys_dept` (
-  `dept_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门id',
-  `parent_id` bigint(20) DEFAULT '0' COMMENT '父部门id',
-  `ancestors` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '祖级列表',
-  `dept_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '部门名称',
-  `order_num` int(4) DEFAULT '0' COMMENT '显示顺序',
-  `leader` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '负责人',
-  `phone` varchar(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '邮箱',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `dept_id` bigint NOT NULL AUTO_INCREMENT COMMENT '部门id',
+  `parent_id` bigint DEFAULT '0' COMMENT '父部门id',
+  `ancestors` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '祖级列表',
+  `dept_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '部门名称',
+  `order_num` int DEFAULT '0' COMMENT '显示顺序',
+  `leader` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '负责人',
+  `phone` varchar(11) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '联系电话',
+  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '邮箱',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='部门表';
+) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='部门表';
 
 /*Data for the table `sys_dept` */
 
@@ -501,22 +501,22 @@ insert  into `sys_dept`(`dept_id`,`parent_id`,`ancestors`,`dept_name`,`order_num
 DROP TABLE IF EXISTS `sys_dict_data`;
 
 CREATE TABLE `sys_dict_data` (
-  `dict_code` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '字典编码',
-  `dict_sort` int(4) DEFAULT '0' COMMENT '字典排序',
-  `dict_label` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '字典标签',
-  `dict_value` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '字典键值',
-  `dict_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '字典类型',
-  `css_class` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '样式属性（其他样式扩展）',
-  `list_class` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '表格回显样式',
-  `is_default` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'N' COMMENT '是否默认（Y是 N否）',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `dict_code` bigint NOT NULL AUTO_INCREMENT COMMENT '字典编码',
+  `dict_sort` int DEFAULT '0' COMMENT '字典排序',
+  `dict_label` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '字典标签',
+  `dict_value` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '字典键值',
+  `dict_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '字典类型',
+  `css_class` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '样式属性（其他样式扩展）',
+  `list_class` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '表格回显样式',
+  `is_default` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT 'N' COMMENT '是否默认（Y是 N否）',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='字典数据表';
+) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='字典数据表';
 
 /*Data for the table `sys_dict_data` */
 
@@ -573,18 +573,18 @@ insert  into `sys_dict_data`(`dict_code`,`dict_sort`,`dict_label`,`dict_value`,`
 DROP TABLE IF EXISTS `sys_dict_type`;
 
 CREATE TABLE `sys_dict_type` (
-  `dict_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '字典主键',
-  `dict_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '字典名称',
-  `dict_type` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '字典类型',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `dict_id` bigint NOT NULL AUTO_INCREMENT COMMENT '字典主键',
+  `dict_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '字典名称',
+  `dict_type` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '字典类型',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_id`) USING BTREE,
   UNIQUE KEY `dict_type` (`dict_type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='字典类型表';
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='字典类型表';
 
 /*Data for the table `sys_dict_type` */
 
@@ -608,21 +608,21 @@ insert  into `sys_dict_type`(`dict_id`,`dict_name`,`dict_type`,`status`,`create_
 DROP TABLE IF EXISTS `sys_job`;
 
 CREATE TABLE `sys_job` (
-  `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务ID',
-  `job_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '' COMMENT '任务名称',
-  `job_group` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'DEFAULT' COMMENT '任务组名',
-  `invoke_target` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调用目标字符串',
-  `cron_expression` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT 'cron执行表达式',
-  `misfire_policy` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '3' COMMENT '计划执行错误策略（1立即执行 2执行一次 3放弃执行）',
-  `concurrent` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '1' COMMENT '是否并发执行（0允许 1禁止）',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '状态（0正常 1暂停）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `job_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务ID',
+  `job_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT '' COMMENT '任务名称',
+  `job_group` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT 'DEFAULT' COMMENT '任务组名',
+  `invoke_target` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调用目标字符串',
+  `cron_expression` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT 'cron执行表达式',
+  `misfire_policy` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '3' COMMENT '计划执行错误策略（1立即执行 2执行一次 3放弃执行）',
+  `concurrent` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '1' COMMENT '是否并发执行（0允许 1禁止）',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '状态（0正常 1暂停）',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '备注信息',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '备注信息',
   PRIMARY KEY (`job_id`,`job_name`,`job_group`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='定时任务调度表';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='定时任务调度表';
 
 /*Data for the table `sys_job` */
 
@@ -636,16 +636,16 @@ insert  into `sys_job`(`job_id`,`job_name`,`job_group`,`invoke_target`,`cron_exp
 DROP TABLE IF EXISTS `sys_job_log`;
 
 CREATE TABLE `sys_job_log` (
-  `job_log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
-  `job_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '任务名称',
-  `job_group` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '任务组名',
-  `invoke_target` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '调用目标字符串',
-  `job_message` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '日志信息',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '执行状态（0正常 1失败）',
-  `exception_info` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '异常信息',
+  `job_log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
+  `job_name` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '任务名称',
+  `job_group` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '任务组名',
+  `invoke_target` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '调用目标字符串',
+  `job_message` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '日志信息',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '执行状态（0正常 1失败）',
+  `exception_info` varchar(2000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '异常信息',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='定时任务调度日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='定时任务调度日志表';
 
 /*Data for the table `sys_job_log` */
 
@@ -654,19 +654,19 @@ CREATE TABLE `sys_job_log` (
 DROP TABLE IF EXISTS `sys_logininfor`;
 
 CREATE TABLE `sys_logininfor` (
-  `info_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '访问ID',
-  `user_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '用户账号',
-  `ipaddr` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '登录IP地址',
-  `login_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '登录地点',
-  `browser` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '浏览器类型',
-  `os` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '操作系统',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
-  `msg` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '提示消息',
+  `info_id` bigint NOT NULL AUTO_INCREMENT COMMENT '访问ID',
+  `user_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '用户账号',
+  `ipaddr` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '登录IP地址',
+  `login_location` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '登录地点',
+  `browser` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '浏览器类型',
+  `os` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '操作系统',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '登录状态（0成功 1失败）',
+  `msg` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT NULL COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE,
   KEY `idx_sys_logininfor_s` (`status`) USING BTREE,
   KEY `idx_sys_logininfor_lt` (`login_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=234 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
 
 /*Data for the table `sys_logininfor` */
 
@@ -801,35 +801,38 @@ insert  into `sys_logininfor`(`info_id`,`user_name`,`ipaddr`,`login_location`,`b
 (227,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-25 10:50:34'),
 (228,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-25 11:20:42'),
 (229,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-25 17:11:16'),
-(230,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-26 09:48:07');
+(230,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-26 09:48:07'),
+(231,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-26 10:30:39'),
+(232,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-26 10:41:24'),
+(233,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-26 10:41:27');
 
 /*Table structure for table `sys_menu` */
 
 DROP TABLE IF EXISTS `sys_menu`;
 
 CREATE TABLE `sys_menu` (
-  `menu_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
-  `menu_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '菜单名称',
-  `parent_id` bigint(20) DEFAULT '0' COMMENT '父菜单ID',
-  `order_num` int(4) DEFAULT '0' COMMENT '显示顺序',
-  `path` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '路由地址',
-  `component` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '组件路径',
-  `query` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '路由参数',
-  `route_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '路由名称',
-  `is_frame` int(1) DEFAULT '1' COMMENT '是否为外链（0是 1否）',
-  `is_cache` int(1) DEFAULT '0' COMMENT '是否缓存（0缓存 1不缓存）',
-  `menu_type` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
-  `visible` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '菜单状态（0正常 1停用）',
-  `perms` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '权限标识',
-  `icon` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '#' COMMENT '菜单图标',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `menu_id` bigint NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+  `menu_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '菜单名称',
+  `parent_id` bigint DEFAULT '0' COMMENT '父菜单ID',
+  `order_num` int DEFAULT '0' COMMENT '显示顺序',
+  `path` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '路由地址',
+  `component` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '组件路径',
+  `query` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '路由参数',
+  `route_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '路由名称',
+  `is_frame` int DEFAULT '1' COMMENT '是否为外链（0是 1否）',
+  `is_cache` int DEFAULT '0' COMMENT '是否缓存（0缓存 1不缓存）',
+  `menu_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '菜单类型（M目录 C菜单 F按钮）',
+  `visible` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '菜单状态（0正常 1停用）',
+  `perms` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '权限标识',
+  `icon` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '#' COMMENT '菜单图标',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2193 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2193 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
 
 /*Data for the table `sys_menu` */
 
@@ -991,18 +994,18 @@ insert  into `sys_menu`(`menu_id`,`menu_name`,`parent_id`,`order_num`,`path`,`co
 DROP TABLE IF EXISTS `sys_notice`;
 
 CREATE TABLE `sys_notice` (
-  `notice_id` int(4) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
-  `notice_title` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '公告标题',
-  `notice_type` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
+  `notice_id` int NOT NULL AUTO_INCREMENT COMMENT '公告ID',
+  `notice_title` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '公告标题',
+  `notice_type` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '公告类型（1通知 2公告）',
   `notice_content` longblob COMMENT '公告内容',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`notice_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='通知公告表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='通知公告表';
 
 /*Data for the table `sys_notice` */
 
@@ -1011,28 +1014,28 @@ CREATE TABLE `sys_notice` (
 DROP TABLE IF EXISTS `sys_oper_log`;
 
 CREATE TABLE `sys_oper_log` (
-  `oper_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志主键',
-  `title` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '模块标题',
-  `business_type` int(2) DEFAULT '0' COMMENT '业务类型（0其它 1新增 2修改 3删除）',
-  `method` varchar(200) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '方法名称',
-  `request_method` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '请求方式',
-  `operator_type` int(1) DEFAULT '0' COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
-  `oper_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '操作人员',
-  `dept_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '部门名称',
-  `oper_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '请求URL',
-  `oper_ip` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '主机地址',
-  `oper_location` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '操作地点',
-  `oper_param` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '请求参数',
-  `json_result` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '返回参数',
-  `status` int(1) DEFAULT '0' COMMENT '操作状态（0正常 1异常）',
-  `error_msg` varchar(2000) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '错误消息',
+  `oper_id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志主键',
+  `title` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '模块标题',
+  `business_type` int DEFAULT '0' COMMENT '业务类型（0其它 1新增 2修改 3删除）',
+  `method` varchar(200) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '方法名称',
+  `request_method` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '请求方式',
+  `operator_type` int DEFAULT '0' COMMENT '操作类别（0其它 1后台用户 2手机端用户）',
+  `oper_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '操作人员',
+  `dept_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '部门名称',
+  `oper_url` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '请求URL',
+  `oper_ip` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '主机地址',
+  `oper_location` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '操作地点',
+  `oper_param` varchar(2000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '请求参数',
+  `json_result` varchar(2000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '返回参数',
+  `status` int DEFAULT '0' COMMENT '操作状态（0正常 1异常）',
+  `error_msg` varchar(2000) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '错误消息',
   `oper_time` datetime DEFAULT NULL COMMENT '操作时间',
-  `cost_time` bigint(20) DEFAULT '0' COMMENT '消耗时间',
+  `cost_time` bigint DEFAULT '0' COMMENT '消耗时间',
   PRIMARY KEY (`oper_id`) USING BTREE,
   KEY `idx_sys_oper_log_bt` (`business_type`) USING BTREE,
   KEY `idx_sys_oper_log_s` (`status`) USING BTREE,
   KEY `idx_sys_oper_log_ot` (`oper_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=794 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=810 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
 
 /*Data for the table `sys_oper_log` */
 
@@ -1469,25 +1472,41 @@ insert  into `sys_oper_log`(`oper_id`,`title`,`business_type`,`method`,`request_
 (790,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-25 17:46:06\",\"expirationDate\":\"2024-03-31\",\"freight\":100,\"inboundId\":37,\"inboundTime\":\"2024-11-25\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-02-29\",\"params\":{},\"purchasePrice\":100,\"quantity\":12,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1300,\"supplier\":\"555\",\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-25 17:46:06',190),
 (791,'代码生成',6,'com.ruoyi.generator.controller.GenController.importTableSave()','POST',1,'admin','牙医诊所','/tool/gen/importTable','127.0.0.1','内网IP','{\"tables\":\"tt_inventory_medicine_supplier\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-25 17:54:43',74),
 (792,'代码生成',2,'com.ruoyi.generator.controller.GenController.editSave()','PUT',1,'admin','牙医诊所','/tool/gen','127.0.0.1','内网IP','{\"businessName\":\"medicinesuppliers\",\"className\":\"InventoryMedicineSupplier\",\"columns\":[{\"capJavaField\":\"MedicineSupplierId\",\"columnComment\":\"联系表ID\",\"columnId\":345,\"columnName\":\"medicine_supplier_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-25 17:54:43\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":false,\"isIncrement\":\"1\",\"isInsert\":\"0\",\"isList\":\"1\",\"isPk\":\"1\",\"isRequired\":\"0\",\"javaField\":\"medicineSupplierId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":33,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ItemId\",\"columnComment\":\"药品ID\",\"columnId\":346,\"columnName\":\"item_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-25 17:54:43\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"itemId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":2,\"superColumn\":false,\"tableId\":33,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"SupplierId\",\"columnComment\":\"供应商ID\",\"columnId\":347,\"columnName\":\"supplier_id\",\"columnType\":\"bigint(20)\",\"createBy\":\"admin\",\"createTime\":\"2024-11-25 17:54:43\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"1\",\"javaField\":\"supplierId\",\"javaType\":\"Long\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":true,\"sort\":3,\"superColumn\":false,\"tableId\":33,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"ItemType\",\"columnComment\":\"0为药品，1为工具\",\"columnId\":348,\"columnName\":\"item_type\",\"columnType\":\"enum(\'0\',\'1\')\",\"createBy\":\"admin\",\"createTime\":\"2024-11-25 17:54:43\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"select\",\"increment\":false,\"insert\":true,\"isEd','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-25 17:56:54',57),
-(793,'代码生成',8,'com.ruoyi.generator.controller.GenController.batchGenCode()','GET',1,'admin','牙医诊所','/tool/gen/batchGenCode','127.0.0.1','内网IP','{\"tables\":\"tt_inventory_medicine_supplier\"}',NULL,0,NULL,'2024-11-25 17:56:58',354);
+(793,'代码生成',8,'com.ruoyi.generator.controller.GenController.batchGenCode()','GET',1,'admin','牙医诊所','/tool/gen/batchGenCode','127.0.0.1','内网IP','{\"tables\":\"tt_inventory_medicine_supplier\"}',NULL,0,NULL,'2024-11-25 17:56:58',354),
+(794,'代码生成',8,'com.ruoyi.generator.controller.GenController.batchGenCode()','GET',1,'admin','牙医诊所','/tool/gen/batchGenCode','127.0.0.1','内网IP','{\"tables\":\"tt_inventory_medicine_supplier\"}',NULL,0,NULL,'2024-11-26 10:49:36',183),
+(795,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-02-29\",\"freight\":100,\"inboundTime\":\"2024-11-04\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-01-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"123\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 10:57:57',9),
+(796,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-26 10:57:57\",\"expirationDate\":\"2024-02-29\",\"freight\":100,\"inboundId\":38,\"inboundTime\":\"2024-11-04\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-01-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"123\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\",\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 10:57:57',15),
+(797,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.add()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers','127.0.0.1','内网IP','{\"itemId\":141,\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value\r\n### The error may exist in file [C:\\Users\\RJ\\Documents\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.insertInventoryMedicineSupplier-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_inventory_medicine_supplier          ( item_id )           values ( ? )\r\n### Cause: java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value\n; Field \'supplier_id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value','2024-11-26 10:57:57',49),
+(798,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-02-29\",\"freight\":100,\"inboundTime\":\"2024-11-04\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-01-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"1\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 11:01:01',6),
+(799,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-26 11:01:01\",\"expirationDate\":\"2024-02-29\",\"freight\":100,\"inboundId\":39,\"inboundTime\":\"2024-11-04\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-01-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"1\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\",\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 11:01:01',10),
+(800,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.add()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers','127.0.0.1','内网IP','{\"itemId\":141,\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value\r\n### The error may exist in file [C:\\Users\\RJ\\Documents\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.insertInventoryMedicineSupplier-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_inventory_medicine_supplier          ( item_id )           values ( ? )\r\n### Cause: java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value\n; Field \'supplier_id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value','2024-11-26 11:01:01',2),
+(801,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-07-31\",\"freight\":100,\"inboundTime\":\"2024-11-05\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"1\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 11:02:51',6),
+(802,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-26 11:02:51\",\"expirationDate\":\"2024-07-31\",\"freight\":100,\"inboundId\":40,\"inboundTime\":\"2024-11-05\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"1\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\",\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 11:02:51',8),
+(803,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.add()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers','127.0.0.1','内网IP','{\"itemId\":141,\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value\r\n### The error may exist in file [C:\\Users\\RJ\\Documents\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.insertInventoryMedicineSupplier-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_inventory_medicine_supplier          ( item_id )           values ( ? )\r\n### Cause: java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value\n; Field \'supplier_id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value','2024-11-26 11:02:51',2),
+(804,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-07-31\",\"freight\":100,\"inboundTime\":\"2024-11-05\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"1\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 11:05:14',6),
+(805,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-26 11:05:14\",\"expirationDate\":\"2024-07-31\",\"freight\":100,\"inboundId\":41,\"inboundTime\":\"2024-11-05\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"1\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\",\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 11:05:14',8),
+(806,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.add()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers','127.0.0.1','内网IP','{\"itemId\":141,\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value\r\n### The error may exist in file [C:\\Users\\RJ\\Documents\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.insertInventoryMedicineSupplier-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_inventory_medicine_supplier          ( item_id )           values ( ? )\r\n### Cause: java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value\n; Field \'supplier_id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'supplier_id\' doesn\'t have a default value','2024-11-26 11:05:14',2),
+(807,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-07-31\",\"freight\":100,\"inboundTime\":\"2024-11-05\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"1\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 11:07:07',6),
+(808,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-26 11:07:07\",\"expirationDate\":\"2024-07-31\",\"freight\":100,\"inboundId\":42,\"inboundTime\":\"2024-11-05\",\"itemId\":141,\"itemName\":\"test22\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":1,\"responsible\":\"1\",\"shelfLife\":\"1\",\"spending\":200,\"supplier\":\"A\",\"unit\":\"1\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-26 11:07:07',15),
+(809,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.add()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers','127.0.0.1','内网IP','{\"itemType\":\"0\",\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'item_id\' doesn\'t have a default value\r\n### The error may exist in file [C:\\Users\\RJ\\Documents\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.insertInventoryMedicineSupplier-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_inventory_medicine_supplier          ( item_type )           values ( ? )\r\n### Cause: java.sql.SQLException: Field \'item_id\' doesn\'t have a default value\n; Field \'item_id\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'item_id\' doesn\'t have a default value','2024-11-26 11:07:07',2);
 
 /*Table structure for table `sys_post` */
 
 DROP TABLE IF EXISTS `sys_post`;
 
 CREATE TABLE `sys_post` (
-  `post_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
-  `post_code` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '岗位编码',
-  `post_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '岗位名称',
-  `post_sort` int(4) NOT NULL COMMENT '显示顺序',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '状态（0正常 1停用）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `post_id` bigint NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
+  `post_code` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '岗位编码',
+  `post_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '岗位名称',
+  `post_sort` int NOT NULL COMMENT '显示顺序',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '状态（0正常 1停用）',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`post_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='岗位信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='岗位信息表';
 
 /*Data for the table `sys_post` */
 
@@ -1502,22 +1521,22 @@ insert  into `sys_post`(`post_id`,`post_code`,`post_name`,`post_sort`,`status`,`
 DROP TABLE IF EXISTS `sys_role`;
 
 CREATE TABLE `sys_role` (
-  `role_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
-  `role_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '角色名称',
-  `role_key` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '角色权限字符串',
-  `role_sort` int(4) NOT NULL COMMENT '显示顺序',
-  `data_scope` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
+  `role_id` bigint NOT NULL AUTO_INCREMENT COMMENT '角色ID',
+  `role_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '角色名称',
+  `role_key` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '角色权限字符串',
+  `role_sort` int NOT NULL COMMENT '显示顺序',
+  `data_scope` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '1' COMMENT '数据范围（1：全部数据权限 2：自定数据权限 3：本部门数据权限 4：本部门及以下数据权限）',
   `menu_check_strictly` tinyint(1) DEFAULT '1' COMMENT '菜单树选择项是否关联显示',
   `dept_check_strictly` tinyint(1) DEFAULT '1' COMMENT '部门树选择项是否关联显示',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '角色状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='角色信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='角色信息表';
 
 /*Data for the table `sys_role` */
 
@@ -1530,10 +1549,10 @@ insert  into `sys_role`(`role_id`,`role_name`,`role_key`,`role_sort`,`data_scope
 DROP TABLE IF EXISTS `sys_role_dept`;
 
 CREATE TABLE `sys_role_dept` (
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-  `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `dept_id` bigint NOT NULL COMMENT '部门ID',
   PRIMARY KEY (`role_id`,`dept_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='角色和部门关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='角色和部门关联表';
 
 /*Data for the table `sys_role_dept` */
 
@@ -1547,10 +1566,10 @@ insert  into `sys_role_dept`(`role_id`,`dept_id`) values
 DROP TABLE IF EXISTS `sys_role_menu`;
 
 CREATE TABLE `sys_role_menu` (
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
-  `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
+  `menu_id` bigint NOT NULL COMMENT '菜单ID',
   PRIMARY KEY (`role_id`,`menu_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='角色和菜单关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='角色和菜单关联表';
 
 /*Data for the table `sys_role_menu` */
 
@@ -1589,32 +1608,32 @@ insert  into `sys_role_menu`(`role_id`,`menu_id`) values
 DROP TABLE IF EXISTS `sys_user`;
 
 CREATE TABLE `sys_user` (
-  `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
-  `dept_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
-  `user_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '用户账号',
-  `nick_name` varchar(30) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '用户昵称',
-  `user_type` varchar(2) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '00' COMMENT '用户类型（00系统用户）',
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '用户邮箱',
-  `phonenumber` varchar(11) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '手机号码',
-  `sex` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '用户性别（0男 1女 2未知）',
-  `avatar` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '头像地址',
-  `password` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '密码',
-  `status` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
-  `del_flag` char(1) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
-  `login_ip` varchar(128) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '最后登录IP',
+  `user_id` bigint NOT NULL AUTO_INCREMENT COMMENT '用户ID',
+  `dept_id` bigint DEFAULT NULL COMMENT '部门ID',
+  `user_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '用户账号',
+  `nick_name` varchar(30) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '用户昵称',
+  `user_type` varchar(2) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '00' COMMENT '用户类型（00系统用户）',
+  `email` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '用户邮箱',
+  `phonenumber` varchar(11) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '手机号码',
+  `sex` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '用户性别（0男 1女 2未知）',
+  `avatar` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '头像地址',
+  `password` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '密码',
+  `status` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
+  `del_flag` char(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `login_ip` varchar(128) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '最后登录IP',
   `login_date` datetime DEFAULT NULL COMMENT '最后登录时间',
-  `create_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '创建者',
+  `create_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '更新者',
+  `update_by` varchar(64) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
+  `remark` varchar(500) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户信息表';
 
 /*Data for the table `sys_user` */
 
 insert  into `sys_user`(`user_id`,`dept_id`,`user_name`,`nick_name`,`user_type`,`email`,`phonenumber`,`sex`,`avatar`,`password`,`status`,`del_flag`,`login_ip`,`login_date`,`create_by`,`create_time`,`update_by`,`update_time`,`remark`) values 
-(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-26 09:48:07','admin','2024-10-05 15:46:15','','2024-11-26 09:48:07','管理员'),
+(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-26 10:41:27','admin','2024-10-05 15:46:15','','2024-11-26 10:41:27','管理员'),
 (2,100,'ry','若依','00','ry@qq.com','15666666666','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-10-05 15:46:15','admin','2024-10-05 15:46:15','admin','2024-11-13 16:12:11','测试员'),
 (100,100,'test','test','00','','','2','','$2a$10$/NIAAJu1SxRBUsCNvALkuO.fPkPNMFZQSuVNe6qjP6r9ReocXAT7q','0','0','127.0.0.1','2024-11-04 10:22:26','admin','2024-11-01 16:26:49','','2024-11-04 10:22:25',NULL);
 
@@ -1623,10 +1642,10 @@ insert  into `sys_user`(`user_id`,`dept_id`,`user_name`,`nick_name`,`user_type`,
 DROP TABLE IF EXISTS `sys_user_post`;
 
 CREATE TABLE `sys_user_post` (
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `post_id` bigint(20) NOT NULL COMMENT '岗位ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `post_id` bigint NOT NULL COMMENT '岗位ID',
   PRIMARY KEY (`user_id`,`post_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户与岗位关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户与岗位关联表';
 
 /*Data for the table `sys_user_post` */
 
@@ -1640,10 +1659,10 @@ insert  into `sys_user_post`(`user_id`,`post_id`) values
 DROP TABLE IF EXISTS `sys_user_role`;
 
 CREATE TABLE `sys_user_role` (
-  `user_id` bigint(20) NOT NULL COMMENT '用户ID',
-  `role_id` bigint(20) NOT NULL COMMENT '角色ID',
+  `user_id` bigint NOT NULL COMMENT '用户ID',
+  `role_id` bigint NOT NULL COMMENT '角色ID',
   PRIMARY KEY (`user_id`,`role_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户和角色关联表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='用户和角色关联表';
 
 /*Data for the table `sys_user_role` */
 
@@ -1657,15 +1676,15 @@ insert  into `sys_user_role`(`user_id`,`role_id`) values
 DROP TABLE IF EXISTS `tt_action_logs`;
 
 CREATE TABLE `tt_action_logs` (
-  `log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志唯一ID',
-  `user_id` bigint(20) DEFAULT NULL COMMENT '操作用户ID，关联用户表',
-  `action_type` enum('CREATE','UPDATE','DELETE','READ') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '操作类型',
-  `table_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '操作的表名',
-  `record_id` bigint(20) DEFAULT NULL COMMENT '操作的记录ID',
+  `log_id` bigint NOT NULL AUTO_INCREMENT COMMENT '日志唯一ID',
+  `user_id` bigint DEFAULT NULL COMMENT '操作用户ID，关联用户表',
+  `action_type` enum('CREATE','UPDATE','DELETE','READ') CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '操作类型',
+  `table_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '操作的表名',
+  `record_id` bigint DEFAULT NULL COMMENT '操作的记录ID',
   `action_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '操作时间',
-  `description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '操作描述',
+  `description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '操作描述',
   PRIMARY KEY (`log_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志表，记录用户在系统中的操作';
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志表，记录用户在系统中的操作';
 
 /*Data for the table `tt_action_logs` */
 
@@ -1681,20 +1700,20 @@ insert  into `tt_action_logs`(`log_id`,`user_id`,`action_type`,`table_name`,`rec
 DROP TABLE IF EXISTS `tt_appointments`;
 
 CREATE TABLE `tt_appointments` (
-  `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
-  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
-  `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID，关联医生表',
+  `appointment_id` bigint NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
+  `patient_id` bigint DEFAULT NULL COMMENT '患者ID，关联患者表',
+  `doctor_id` bigint DEFAULT NULL COMMENT '医生ID，关联医生表',
   `appointment_date` date DEFAULT NULL COMMENT '预约终止时间',
   `appointment_time` datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约开始时间',
-  `appointment_duration` int(11) DEFAULT NULL COMMENT '预约时长（分钟）',
-  `appointment_project` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '预约的项目',
-  `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `appointment_duration` int DEFAULT NULL COMMENT '预约时长（分钟）',
+  `appointment_project` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '预约的项目',
+  `appointment_status` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预约创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '预约更新时间',
   PRIMARY KEY (`appointment_id`) USING BTREE,
   UNIQUE KEY `doctor_id` (`doctor_id`,`appointment_date`,`appointment_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
   KEY `fk_patient_appointment` (`patient_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
 
 /*Data for the table `tt_appointments` */
 
@@ -1711,20 +1730,20 @@ insert  into `tt_appointments`(`appointment_id`,`patient_id`,`doctor_id`,`appoin
 DROP TABLE IF EXISTS `tt_appointments_test`;
 
 CREATE TABLE `tt_appointments_test` (
-  `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
-  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
-  `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID，关联医生表',
+  `appointment_id` bigint NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
+  `patient_id` bigint DEFAULT NULL COMMENT '患者ID，关联患者表',
+  `doctor_id` bigint DEFAULT NULL COMMENT '医生ID，关联医生表',
   `appointment_start_time` datetime DEFAULT NULL COMMENT '预约开始时间',
   `appointment_end_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约终止时间',
-  `appointment_duration` int(11) DEFAULT NULL COMMENT '预约时长（分钟）',
-  `appointment_project` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '预约的项目',
-  `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `appointment_duration` int DEFAULT NULL COMMENT '预约时长（分钟）',
+  `appointment_project` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '预约的项目',
+  `appointment_status` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预约创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '预约更新时间',
   PRIMARY KEY (`appointment_id`) USING BTREE,
   UNIQUE KEY `doctor_id` (`doctor_id`,`appointment_start_time`,`appointment_end_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
   KEY `fk_patient_appointment` (`patient_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
 
 /*Data for the table `tt_appointments_test` */
 
@@ -1740,7 +1759,7 @@ insert  into `tt_appointments_test`(`appointment_id`,`patient_id`,`doctor_id`,`a
 DROP TABLE IF EXISTS `tt_billing`;
 
 CREATE TABLE `tt_billing` (
-  `billing_id` int(11) NOT NULL AUTO_INCREMENT,
+  `billing_id` int NOT NULL AUTO_INCREMENT,
   `patient_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `doctor_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `billing_date` datetime NOT NULL,
@@ -1767,17 +1786,17 @@ insert  into `tt_billing`(`billing_id`,`patient_name`,`doctor_name`,`billing_dat
 DROP TABLE IF EXISTS `tt_billing_records`;
 
 CREATE TABLE `tt_billing_records` (
-  `billing_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '收费记录唯一ID',
-  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
+  `billing_id` bigint NOT NULL AUTO_INCREMENT COMMENT '收费记录唯一ID',
+  `patient_id` bigint DEFAULT NULL COMMENT '患者ID，关联患者表',
   `amount` decimal(10,2) NOT NULL COMMENT '收费金额',
-  `payment_method` enum('CASH','CREDIT_CARD','INSURANCE','ONLINE') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '支付方式',
-  `payment_status` enum('PENDING','COMPLETED','FAILED') CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'PENDING' COMMENT '支付状态',
+  `payment_method` enum('CASH','CREDIT_CARD','INSURANCE','ONLINE') CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '支付方式',
+  `payment_status` enum('PENDING','COMPLETED','FAILED') CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT 'PENDING' COMMENT '支付状态',
   `payment_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '支付时间',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '收费记录创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '收费记录更新时间',
   PRIMARY KEY (`billing_id`) USING BTREE,
   KEY `fk_patient_billing` (`patient_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=FIXED COMMENT='收费记录表，记录患者的付款信息';
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=FIXED COMMENT='收费记录表，记录患者的付款信息';
 
 /*Data for the table `tt_billing_records` */
 
@@ -1793,15 +1812,15 @@ insert  into `tt_billing_records`(`billing_id`,`patient_id`,`amount`,`payment_me
 DROP TABLE IF EXISTS `tt_doctors`;
 
 CREATE TABLE `tt_doctors` (
-  `doctor_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '医生唯一ID',
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '医生姓名',
-  `department` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '科室',
-  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '医生联系电话',
-  `position` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '职位（如主治医师等）',
+  `doctor_id` bigint NOT NULL AUTO_INCREMENT COMMENT '医生唯一ID',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '医生姓名',
+  `department` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '科室',
+  `phone` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '医生联系电话',
+  `position` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '职位（如主治医师等）',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`doctor_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='医生信息表';
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='医生信息表';
 
 /*Data for the table `tt_doctors` */
 
@@ -1817,22 +1836,22 @@ insert  into `tt_doctors`(`doctor_id`,`name`,`department`,`phone`,`position`,`cr
 DROP TABLE IF EXISTS `tt_emr`;
 
 CREATE TABLE `tt_emr` (
-  `emr_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '电子病历id',
-  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID',
-  `patient_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '患者姓名',
-  `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID',
-  `doctor_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '医生姓名',
-  `maincase` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '主诉',
-  `current_medical_history` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '现在病史',
-  `treatment_type` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '治疗方式',
-  `clinical_results` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '治疗结果',
+  `emr_id` bigint NOT NULL AUTO_INCREMENT COMMENT '电子病历id',
+  `patient_id` bigint DEFAULT NULL COMMENT '患者ID',
+  `patient_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '患者姓名',
+  `doctor_id` bigint DEFAULT NULL COMMENT '医生ID',
+  `doctor_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '医生姓名',
+  `maincase` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '主诉',
+  `current_medical_history` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '现在病史',
+  `treatment_type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '治疗方式',
+  `clinical_results` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '治疗结果',
   `created_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '病历创建时间',
   `updated_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
-  `emr_statue` enum('未诊断','已诊断') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '未诊断' COMMENT '诊断状态',
-  `appointment_id` bigint(20) NOT NULL COMMENT '预约id',
-  `bill_id` bigint(20) NOT NULL COMMENT '账单id',
+  `emr_statue` enum('未诊断','已诊断') CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT '未诊断' COMMENT '诊断状态',
+  `appointment_id` bigint NOT NULL COMMENT '预约id',
+  `bill_id` bigint NOT NULL COMMENT '账单id',
   PRIMARY KEY (`emr_id`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC;
 
 /*Data for the table `tt_emr` */
 
@@ -1841,17 +1860,17 @@ CREATE TABLE `tt_emr` (
 DROP TABLE IF EXISTS `tt_follow_ups`;
 
 CREATE TABLE `tt_follow_ups` (
-  `follow_up_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '随访记录ID',
-  `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
-  `visit_id` bigint(20) DEFAULT NULL COMMENT '就诊记录ID，关联就诊表',
+  `follow_up_id` bigint NOT NULL AUTO_INCREMENT COMMENT '随访记录ID',
+  `patient_id` bigint DEFAULT NULL COMMENT '患者ID，关联患者表',
+  `visit_id` bigint DEFAULT NULL COMMENT '就诊记录ID，关联就诊表',
   `follow_up_date` timestamp NULL DEFAULT NULL COMMENT '随访日期',
-  `follow_up_notes` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '随访备注',
+  `follow_up_notes` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '随访备注',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`follow_up_id`) USING BTREE,
   KEY `fk_patient_follow_up` (`patient_id`) USING BTREE,
   KEY `fk_visit_follow_up` (`visit_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='随访记录表，记录患者随访信息';
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='随访记录表，记录患者随访信息';
 
 /*Data for the table `tt_follow_ups` */
 
@@ -1866,12 +1885,12 @@ insert  into `tt_follow_ups`(`follow_up_id`,`patient_id`,`visit_id`,`follow_up_d
 DROP TABLE IF EXISTS `tt_inventory_inbound`;
 
 CREATE TABLE `tt_inventory_inbound` (
-  `inbound_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '入库工单id',
-  `item_id` bigint(20) NOT NULL COMMENT '物品id',
+  `inbound_id` bigint NOT NULL AUTO_INCREMENT COMMENT '入库工单id',
+  `item_id` bigint NOT NULL COMMENT '物品id',
   `item_name` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '物品名字',
   `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
   `supplier` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '供应来源',
-  `quantity` bigint(20) NOT NULL COMMENT '入库数量',
+  `quantity` bigint NOT NULL COMMENT '入库数量',
   `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '剂量单位',
   `purchase_price` decimal(10,0) NOT NULL COMMENT '进价（最小单位）',
   `freight` decimal(10,0) DEFAULT NULL COMMENT '运费',
@@ -1883,7 +1902,7 @@ CREATE TABLE `tt_inventory_inbound` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`inbound_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `tt_inventory_inbound` */
 
@@ -1906,21 +1925,26 @@ insert  into `tt_inventory_inbound`(`inbound_id`,`item_id`,`item_name`,`responsi
 (34,3,'药品C','刘航','B',60,NULL,100,2055,8055,'2024-11-22','2024-05-31','1','2024-06-30','2024-11-22 16:17:26','2024-11-22 16:17:26'),
 (35,140,'test111','刘航','A',100,'个',2000,2550,202550,'2024-11-24','2024-01-31','17','2025-06-30','2024-11-24 20:57:16','2024-11-24 20:57:16'),
 (36,141,'test22','去玩儿','123',12,'1',100,100,1300,'2024-12-02','2024-05-31','12','2025-05-31','2024-11-24 21:44:21','2024-11-24 21:44:21'),
-(37,141,'test22','刘航','555',12,'1',100,100,1300,'2024-11-25','2024-02-29','1','2024-03-31','2024-11-25 17:46:06','2024-11-25 17:46:06');
+(37,141,'test22','刘航','555',12,'1',100,100,1300,'2024-11-25','2024-02-29','1','2024-03-31','2024-11-25 17:46:06','2024-11-25 17:46:06'),
+(38,141,'test22','123','A',1,'1',100,100,200,'2024-11-04','2024-01-31','1','2024-02-29','2024-11-26 10:57:57','2024-11-26 10:57:57'),
+(39,141,'test22','1','A',1,'1',100,100,200,'2024-11-04','2024-01-31','1','2024-02-29','2024-11-26 11:01:02','2024-11-26 11:01:01'),
+(40,141,'test22','1','A',1,'1',100,100,200,'2024-11-05','2024-06-30','1','2024-07-31','2024-11-26 11:02:51','2024-11-26 11:02:51'),
+(41,141,'test22','1','A',1,'1',100,100,200,'2024-11-05','2024-06-30','1','2024-07-31','2024-11-26 11:05:14','2024-11-26 11:05:14'),
+(42,141,'test22','1','A',1,'1',100,100,200,'2024-11-05','2024-06-30','1','2024-07-31','2024-11-26 11:07:08','2024-11-26 11:07:07');
 
 /*Table structure for table `tt_inventory_medicine` */
 
 DROP TABLE IF EXISTS `tt_inventory_medicine`;
 
 CREATE TABLE `tt_inventory_medicine` (
-  `medicine_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '物品ID',
-  `medicine_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '物品名称',
-  `medicine_description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '物品描述',
-  `supplier` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商',
-  `origin` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '供应商产地',
+  `medicine_id` bigint NOT NULL AUTO_INCREMENT COMMENT '物品ID',
+  `medicine_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '物品名称',
+  `medicine_description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '物品描述',
+  `supplier` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商',
+  `origin` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '供应商产地',
   `purchase_price` decimal(10,0) DEFAULT NULL COMMENT '进价',
   `selling_price` decimal(10,0) DEFAULT NULL COMMENT '售价',
-  `quantity` bigint(20) NOT NULL DEFAULT '0' COMMENT '库存数量',
+  `quantity` bigint NOT NULL DEFAULT '0' COMMENT '库存数量',
   `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '药品的单位',
   `manufacture_date` date DEFAULT NULL COMMENT '生产日期',
   `shelf_life` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '保质期',
@@ -1941,18 +1965,18 @@ insert  into `tt_inventory_medicine`(`medicine_id`,`medicine_name`,`medicine_des
 (138,'药品T','test',NULL,NULL,NULL,10099,100,'个',NULL,NULL,NULL,'2024-11-22 09:56:28','2024-11-22 09:57:28'),
 (139,'麻醉药','test1','test22',NULL,NULL,19999,400,'针',NULL,NULL,NULL,'2024-11-22 10:50:33','2024-11-22 11:03:38'),
 (140,'test111','test','A',NULL,NULL,10000,100,'个',NULL,NULL,NULL,'2024-11-24 20:56:49','2024-11-24 20:57:16'),
-(141,'test22',NULL,'555',NULL,NULL,0,24,'1',NULL,NULL,NULL,'2024-11-24 21:44:04','2024-11-25 17:46:05');
+(141,'test22',NULL,'A',NULL,NULL,0,29,'1',NULL,NULL,NULL,'2024-11-24 21:44:04','2024-11-26 11:07:07');
 
 /*Table structure for table `tt_inventory_medicine_supplier` */
 
 DROP TABLE IF EXISTS `tt_inventory_medicine_supplier`;
 
 CREATE TABLE `tt_inventory_medicine_supplier` (
-  `medicine_supplier_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '联系表ID',
-  `item_id` bigint(20) NOT NULL COMMENT '药品ID',
-  `supplier_id` bigint(20) NOT NULL COMMENT '供应商ID',
-  `item_type` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0为药品，1为工具',
-  `item_num` bigint(20) DEFAULT NULL COMMENT '库存数量',
+  `medicine_supplier_id` bigint NOT NULL AUTO_INCREMENT COMMENT '联系表ID',
+  `item_id` bigint NOT NULL COMMENT '药品ID',
+  `supplier_id` bigint NOT NULL COMMENT '供应商ID',
+  `item_type` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0为药品，1为工具',
+  `item_num` bigint DEFAULT NULL COMMENT '库存数量',
   PRIMARY KEY (`medicine_supplier_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1963,11 +1987,11 @@ CREATE TABLE `tt_inventory_medicine_supplier` (
 DROP TABLE IF EXISTS `tt_inventory_offsetting`;
 
 CREATE TABLE `tt_inventory_offsetting` (
-  `offsetting_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '对冲工单id',
-  `item_id` bigint(20) NOT NULL COMMENT '物品ID',
+  `offsetting_id` bigint NOT NULL AUTO_INCREMENT COMMENT '对冲工单id',
+  `item_id` bigint NOT NULL COMMENT '物品ID',
   `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
   `reason` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '对冲原因',
-  `quantity` bigint(20) NOT NULL COMMENT '对冲数量',
+  `quantity` bigint NOT NULL COMMENT '对冲数量',
   `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '剂量单位',
   `expenses_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '开销原因',
   `spending` decimal(10,0) DEFAULT NULL COMMENT '开销',
@@ -1984,12 +2008,12 @@ CREATE TABLE `tt_inventory_offsetting` (
 DROP TABLE IF EXISTS `tt_inventory_outbound`;
 
 CREATE TABLE `tt_inventory_outbound` (
-  `outbound_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '入库工单id',
-  `item_id` bigint(20) NOT NULL COMMENT '物品id',
-  `item_name` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '物品名字',
+  `outbound_id` bigint NOT NULL AUTO_INCREMENT COMMENT '入库工单id',
+  `item_id` bigint NOT NULL COMMENT '物品id',
+  `item_name` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '物品名字',
   `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'null' COMMENT '负责人',
   `reason` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '空' COMMENT '出库原因',
-  `quantity` bigint(20) NOT NULL DEFAULT '0' COMMENT '出库数量',
+  `quantity` bigint NOT NULL DEFAULT '0' COMMENT '出库数量',
   `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '个' COMMENT '剂量单位',
   `expenses_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '开销原因',
   `spending` decimal(10,0) DEFAULT NULL COMMENT '总开销',
@@ -2006,17 +2030,17 @@ CREATE TABLE `tt_inventory_outbound` (
 DROP TABLE IF EXISTS `tt_inventory_tools`;
 
 CREATE TABLE `tt_inventory_tools` (
-  `tools_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '工具ID',
-  `tools_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '工具名称',
-  `tools_description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '工具描述',
-  `supplier` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '供应商',
-  `origin` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '供应商产地',
+  `tools_id` bigint NOT NULL AUTO_INCREMENT COMMENT '工具ID',
+  `tools_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '工具名称',
+  `tools_description` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '工具描述',
+  `supplier` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '供应商',
+  `origin` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '供应商产地',
   `purchase_price` decimal(10,0) DEFAULT NULL COMMENT '进价',
   `selling_price` decimal(10,0) DEFAULT NULL COMMENT '售价',
-  `quantity` bigint(20) DEFAULT '0' COMMENT '库存数量',
+  `quantity` bigint DEFAULT '0' COMMENT '库存数量',
   `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '工具的单位',
   `manufacture_date` date DEFAULT NULL COMMENT '生产日期',
-  `shelf_life` int(11) DEFAULT NULL COMMENT '保质期',
+  `shelf_life` int DEFAULT NULL COMMENT '保质期',
   `expiration_date` date DEFAULT NULL COMMENT '过期日期',
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
@@ -2033,15 +2057,15 @@ insert  into `tt_inventory_tools`(`tools_id`,`tools_name`,`tools_description`,`s
 DROP TABLE IF EXISTS `tt_medical_visits`;
 
 CREATE TABLE `tt_medical_visits` (
-  `visit_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '就诊记录唯一ID',
-  `patient_id` bigint(20) NOT NULL COMMENT '患者ID，关联患者表',
+  `visit_id` bigint NOT NULL AUTO_INCREMENT COMMENT '就诊记录唯一ID',
+  `patient_id` bigint NOT NULL COMMENT '患者ID，关联患者表',
   `visit_date` timestamp NULL DEFAULT NULL COMMENT '就诊时间',
-  `department` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '科目',
-  `doctor_id` bigint(20) NOT NULL COMMENT '医生ID，关联医生表',
-  `appointment_id` bigint(20) DEFAULT NULL COMMENT '预约ID，关联预约表',
-  `appointment_project` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '预约项目',
-  `visit_status` enum('COMPLETED','MISSED') CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT 'COMPLETED' COMMENT '就诊状态',
-  `notes` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '就诊备注',
+  `department` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '科目',
+  `doctor_id` bigint NOT NULL COMMENT '医生ID，关联医生表',
+  `appointment_id` bigint DEFAULT NULL COMMENT '预约ID，关联预约表',
+  `appointment_project` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '预约项目',
+  `visit_status` enum('COMPLETED','MISSED') CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT 'COMPLETED' COMMENT '就诊状态',
+  `notes` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '就诊备注',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`visit_id`) USING BTREE,
@@ -2049,7 +2073,7 @@ CREATE TABLE `tt_medical_visits` (
   KEY `fk_doctor_visit` (`doctor_id`) USING BTREE,
   KEY `fk_appointment` (`appointment_id`) USING BTREE,
   CONSTRAINT `fk_appointment` FOREIGN KEY (`appointment_id`) REFERENCES `tt_appointments` (`appointment_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='诊疗记录表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='诊疗记录表';
 
 /*Data for the table `tt_medical_visits` */
 
@@ -2065,22 +2089,22 @@ insert  into `tt_medical_visits`(`visit_id`,`patient_id`,`visit_date`,`departmen
 DROP TABLE IF EXISTS `tt_patients`;
 
 CREATE TABLE `tt_patients` (
-  `patient_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '患者唯一ID',
-  `name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '患者姓名',
-  `medical_record_number` bigint(20) NOT NULL COMMENT '患者病历号',
+  `patient_id` bigint NOT NULL AUTO_INCREMENT COMMENT '患者唯一ID',
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '患者姓名',
+  `medical_record_number` bigint NOT NULL COMMENT '患者病历号',
   `birthday` date DEFAULT NULL COMMENT '患者生日',
-  `gender` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '患者性别',
-  `phone` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '患者联系电话',
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '患者地址',
+  `gender` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL COMMENT '患者性别',
+  `phone` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '患者联系电话',
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL COMMENT '患者地址',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `remarks` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci COMMENT '备注',
-  `past_medical_history` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '过去病史',
-  `allergens` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '过敏源',
-  `diagnosis_statue` enum('初诊','复诊') CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT '初诊' COMMENT '是否初诊',
+  `past_medical_history` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '过去病史',
+  `allergens` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT '过敏源',
+  `diagnosis_statue` enum('初诊','复诊') CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT '初诊' COMMENT '是否初诊',
   PRIMARY KEY (`patient_id`) USING BTREE,
   UNIQUE KEY `medical_record_number` (`medical_record_number`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='患者信息表';
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='患者信息表';
 
 /*Data for the table `tt_patients` */
 
@@ -2097,17 +2121,17 @@ insert  into `tt_patients`(`patient_id`,`name`,`medical_record_number`,`birthday
 DROP TABLE IF EXISTS `tt_supplier`;
 
 CREATE TABLE `tt_supplier` (
-  `supplier_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '供应商id',
+  `supplier_id` bigint NOT NULL AUTO_INCREMENT COMMENT '供应商id',
   `supplier_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '供货商名称' COMMENT '供应商名称',
-  `supplier_remark` text COLLATE utf8mb4_unicode_ci COMMENT '供应商备注',
-  `item_id` bigint(20) DEFAULT NULL COMMENT '供应货物id',
+  `supplier_remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '供应商备注',
+  `item_id` bigint DEFAULT NULL COMMENT '供应货物id',
   `item_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应货物名称',
-  `item_remark` text COLLATE utf8mb4_unicode_ci COMMENT '货物备注',
-  `supplier_phone` char(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商电话',
-  `supplier_phone2` char(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商备用电话',
-  `supplier_address` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商地址',
-  `supplier_post` char(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮政编码',
-  `mail` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮箱地址',
+  `item_remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '货物备注',
+  `supplier_phone` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商电话',
+  `supplier_phone2` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商备用电话',
+  `supplier_address` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商地址',
+  `supplier_post` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮政编码',
+  `mail` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮箱地址',
   `contact` char(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '联系人',
   `creditworthiness` enum('未知','差','一般','较好','特别好') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '未知' COMMENT '信用度',
   `creat_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
