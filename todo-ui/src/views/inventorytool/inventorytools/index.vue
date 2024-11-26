@@ -57,7 +57,7 @@
       <el-table-column label="工具描述" align="center" prop="toolsDescription" width="180" />
       <el-table-column label="查看详情" align="center"  >
         <template #default="scope">
-          <el-button  type="primary" @click="opendialog">
+          <el-button  type="primary"  @click="handleView_supplier(scope.row)">
             查看详情</el-button>
           
         </template>
@@ -167,7 +167,10 @@
           <el-input v-model="form_inbounds.responsible" placeholder="请输入负责人" />
         </el-form-item>
         <el-form-item label="供应来源" prop="supplier">
-          <el-input v-model="form_inbounds.supplier" placeholder="请输入供应来源" />
+          <el-select v-model="form_inbounds.supplier" placeholder="请选择供应来源" >
+            <el-option v-for="option in supplierOptions" :key="option.key" :label="`供应商ID：${option.key}    ,    供应商：${option.label}`"
+              :value="option.label"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="入库数量" prop="quantity">
           <el-input v-model="form_inbounds.quantity" placeholder="请输入入库数量" />
@@ -179,7 +182,7 @@
           <el-input v-model="form_inbounds.freight" placeholder="请输入运费" />
         </el-form-item>
         <el-form-item label="总开销" prop="spending">
-          <el-input v-model="form_inbounds.spending" placeholder="请输入总开销" />
+          <el-input v-model="form_inbounds.spending" placeholder="此处自动计算总开销" />
         </el-form-item>
         <el-form-item label="入库时间" prop="inboundTime">
           <el-date-picker clearable v-model="form_inbounds.inboundTime" type="date" value-format="YYYY-MM-DD"
@@ -191,13 +194,9 @@
             placeholder="请选择生产日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="保质期" prop="shelfLife">
-          <el-input v-model="form_inbounds.shelfLife" placeholder="请输入保质期" />
-        </el-form-item>
-        <el-form-item label="过期日期" prop="expirationDate">
-          <el-date-picker clearable v-model="form_inbounds.expirationDate" type="date" value-format="YYYY-MM-DD"
-            placeholder="请选择过期日期">
-          </el-date-picker>
+        <el-form-item label="保质期" prop="dateRange2">
+          <el-date-picker v-model="dateRange2" type="monthrange" range-separator="To" start-placeholder="Start month"
+            end-placeholder="End month" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -308,35 +307,42 @@
     </el-dialog>
 
      
-    <!--查看特定供应商
-    <el-table v-loading="loading" :data="suppliersList"  v-model="opensuppliers">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="供应商ID" align="center" prop="supplierId" />
-      <el-table-column label="供应商名称" align="center" prop="supplierName" width="180"/>
-      <el-table-column label="供应商备注" align="center" prop="supplierRemark" width="180"/>
-      <el-table-column label="供应货物ID" align="center" prop="itemId" width="180"/>
-      <el-table-column label="供应货物名称" align="center" prop="itemName" width="180"/>
-      <el-table-column label="货物备注" align="center" prop="itemRemark" />
-      <el-table-column label="供应商电话" align="center" prop="supplierPhone" width="180"/>
-      <el-table-column label="备用电话" align="center" prop="supplierPhone2" width="180"/>
-      <el-table-column label="供应商地址" align="center" prop="supplierAddress" width="180"/>
-      <el-table-column label="邮政编码" align="center" prop="supplierPost" />
-      <el-table-column label="邮箱地址" align="center" prop="mail" />
-      <el-table-column label="联系人" align="center" prop="Contact" />
-      <el-table-column label="信用度" align="center" prop="Creditworthiness" />
-      <el-table-column label="创建时间" align="center" prop="creatTime" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.creatTime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="更新时间" align="center" prop="updateTime" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.updateTime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-button @click="cancel_diolog">确认</el-button>
-      
-    </el-table> -->
+    <el-dialog :title="title" v-model="open_supplier" width="90%">
+      <el-table v-loading="loading" :data="suppliersList" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55" align="center" />
+        <el-table-column label="供应商ID" align="center" prop="supplierId" />
+        <el-table-column label="供应商名称" align="center" prop="supplierName" width="180" />
+        <el-table-column label="供应商备注" align="center" prop="supplierRemark" width="180" />
+        <el-table-column label="供应货物ID" align="center" prop="itemId" width="180" />
+        <el-table-column label="供应货物名称" align="center" prop="itemName" width="180" />
+        <el-table-column label="货物备注" align="center" prop="itemRemark" />
+        <el-table-column label="供应商电话" align="center" prop="supplierPhone" width="180" />
+        <el-table-column label="备用电话" align="center" prop="supplierPhone2" width="180" />
+        <el-table-column label="供应商地址" align="center" prop="supplierAddress" width="180" />
+        <el-table-column label="邮政编码" align="center" prop="supplierPost" />
+        <el-table-column label="邮箱地址" align="center" prop="mail" />
+        <el-table-column label="联系人" align="center" prop="Contact" />
+        <el-table-column label="信用度" align="center" prop="Creditworthiness" />
+        <el-table-column label="创建时间" align="center" prop="creatTime" width="180">
+          <template #default="scope">
+            <span>{{ parseTime(scope.row.creatTime, '{y}-{m}-{d}') }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="更新时间" align="center" prop="updateTime" width="180">
+          <template #default="scope">
+            <span>{{ parseTime(scope.row.updateTime, '{y}-{m}-{d}') }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+          <template #default="scope">
+            <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
+              v-hasPermi="['supplier:suppliers:edit']">修改</el-button>
+            <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
+              v-hasPermi="['supplier:suppliers:remove']">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
 
   </div>
 </template>
@@ -621,23 +627,73 @@ const data_inbounds = reactive({
     freight: [
       { required: true, message: "运费不能为空", trigger: "blur" }
     ],
-    spending: [
-      { required: true, message: "总开销不能为空", trigger: "blur" }
-    ],
+   
     inboundTime: [
       { required: true, message: "入库时间不能为空", trigger: "blur" }
     ],
-    manufactureDate: [
-      { required: true, message: "生产日期不能为空", trigger: "blur" }
-    ],
-    shelfLife: [
+    dateRange2: [
       { required: true, message: "保质期不能为空", trigger: "blur" }
-    ],
-    expirationDate: [
-      { required: true, message: "过期日期不能为空", trigger: "blur" }
     ],
   }
 });
+
+
+// 从 data_inbounds 中解构出 form_inbounds
+
+const { form_inbounds, rules_inbounds } = toRefs(data_inbounds);
+
+// 计算总开销
+const calculateSpending = (quantity, purchasePrice, freight) => {
+  // 确保所有输入都是数字，如果为 null 或 undefined，则使用 0 作为默认值
+  quantity = parseFloat(quantity) || 0;
+  purchasePrice = parseFloat(purchasePrice) || 0;
+  freight = parseFloat(freight) || 0;
+
+  if ((quantity) && (purchasePrice) && (freight)) {
+    return ((quantity * purchasePrice + freight));
+  }
+  return null;
+};
+
+watch(form_inbounds, (newVal, oldVal) => {
+  const hasValues = Object.values(newVal).some(value => (value !== null && value !== undefined && value !== ""));
+
+  if (hasValues) {
+    form_inbounds.value.spending = calculateSpending(
+      form_inbounds.value.quantity,
+      form_inbounds.value.purchasePrice,
+      form_inbounds.value.freight
+    );
+  }
+}, { deep: true, immediate: true });
+
+
+
+
+//设置时间范围数组，用于选择时间范围
+const dateRange2 = ref([]);
+// 监听 dateRange 的变化
+watch(dateRange2, (newVal) => {
+  if (newVal && newVal.length === 2) {
+    data_inbounds.form_inbounds.manufactureDate = newVal[0];
+    data_inbounds.form_inbounds.expirationDate = newVal[1];
+
+    // 计算保质期
+    const startDate = new Date(newVal[0]);
+    const endDate = new Date(newVal[1]);
+    const yearsDifference = endDate.getFullYear() - startDate.getFullYear();
+    const monthsDifference = endDate.getMonth() - startDate.getMonth();
+    const totalMonthsDifference = yearsDifference * 12 + monthsDifference;
+
+    data_inbounds.form_inbounds.shelfLife = totalMonthsDifference;
+
+  } else {
+    data_inbounds.form_inbounds.manufactureDate = '';
+    data_inbounds.form_inbounds.expirationDate = '';
+    data_inbounds.form_inbounds.shelfLife = '';
+  }
+});
+
 
 // 表单重置
 function reset_inbounds() {
@@ -657,12 +713,12 @@ function reset_inbounds() {
     shelfLife: null,
     expirationDate: null,
     createTime: null,
-    updateTime: null
+    updateTime: null,
+    dateRange2: null,
   };
   proxy.resetForm("inboundsRef");
 }
 
-const { form_inbounds, rules_inbounds } = toRefs(data_inbounds);
 /** 入库按钮操作 */
 function handleAdd_inbounds() {
   reset_inbounds();
@@ -801,10 +857,27 @@ function cancel_out() {
 
 //以下为新增供应商操作
 
+import { addSuppliers,listSuppliers } from "@/api/supplier/suppliers";
+//查询供应商列表，获得供应商名字和id供选择
+const supplierList = ref([]);
+const supplierOptions = ref([]);
 
-import { addSuppliers } from "@/api/supplier/suppliers";
+const getSupplierList = () => {
+  listSuppliers().then((response) => {
+    supplierList.value = response.rows;
+    supplierOptions.value = supplierList.value.map(item => ({
+      key: item.supplierId,
+      value: item.supplierId,
+      label: item.supplierName
+    }));
+  });
+};
+getSupplierList();
+
+
 const opensupplier = ref(false);
 
+//新增供应商评价
 
 //仍旧无法向后端传选择的值
 const creditworthinessOptions = reactive([
@@ -911,52 +984,43 @@ function submitForm_supplier() {
 
 const suppliersList = ref([]);
 
-// /** 查询供应商列表列表 */
-// function getDioList() {
-//   loading.value = true;
-//   listSuppliersByid(queryParams.value).then(response => {
-//     suppliersList.value = response.rows;
-//     total.value = response.total;
-//     loading.value = false;
-//   });
-// }
-
-/** 显示供应商以及货物详细信息 */
-// function opendialog() {
-//   opensuppliers.value = true;
-  
-// }
-
-// const opensuppliers = ref(false);
-
-// const data_suppliers = reactive({
-//   form_suppliers: {
-//     Creditworthiness: null, // 绑定的值
-//   },
-//   queryParams_suppliers: {
-//     pageNum: 1,
-//     pageSize: 10,
-//     supplierName: null,
-//     itemName: null,
-//     supplierPhone: null,
-//     Contact: null,
-//     Creditworthiness: null,
-//   },
-  
-  
-// });
-// const { queryParams_suppliers, form_suppliers, rules_suppliers } = toRefs(data_suppliers);
+//以下为查看供应商详情操作
+const open_supplier = ref(false);
 
 
 
 
 
-// // 关闭按钮
-// function cancel_diolog() {
-//   opensuppliers.value = false;
-// }
 
+import { getSupplierByToolId } from '@/api/supplier/suppliers'; // 假设这是你的API请求方法
 
+//表单重置
+function reset_supplierById() {
+  form_supplier.value = {
+    supplierId: null,
+    supplierName: null, // 绑定的值
+    supplierPhone: null,
+    contact: null,
+    creditworthiness: null,
+  };
+  proxy.resetForm("supplierRef");
+}
+
+// const { form_supplierList, rules_supplierList } = toRefs(data_supplierList);
+/** 查看供应商详情按钮操作 */
+function handleView_supplier(row) {
+  reset_supplierById();
+  console.log("第几列:",row);
+  const ToolId = row.toolId || 0; //供应商id
+  open_supplier.value = true;
+  title.value = "供应商详情";
+  loading.value = true;
+  getSupplierByToolId(ToolId).then((response) => {
+    suppliersList.value = response.data;
+    
+    loading.value = false;
+  });;
+}
 
 getList();
 </script>

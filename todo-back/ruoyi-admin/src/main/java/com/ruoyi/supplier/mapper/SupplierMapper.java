@@ -1,6 +1,8 @@
 package com.ruoyi.supplier.mapper;
 
 import java.util.List;
+
+import com.ruoyi.inventory.domain.InventoryMedicine;
 import com.ruoyi.supplier.domain.Supplier;
 
 /**
@@ -18,6 +20,14 @@ public interface SupplierMapper
      * @return 供应商列表
      */
     public Supplier selectSupplierBySupplierId(Long supplierId);
+
+    /**
+     * 通过药品ID获取他的所有供应商信息
+     *
+     * @param itemId 供应商列表主键
+     * @return 供应商列表
+     */
+    public List<Supplier> selectSupplierByMedicineId(Long itemId);
 
     /**
      * 查询供应商列表列表

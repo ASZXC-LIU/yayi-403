@@ -4,14 +4,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
@@ -67,6 +60,38 @@ public class SupplierController extends BaseController
     public AjaxResult getInfo(@PathVariable("supplierId") Long supplierId)
     {
         return success(supplierService.selectSupplierBySupplierId(supplierId));
+    }
+
+    /**
+     * 通过药品ID获取他的所有供应商信息
+     */
+    @PreAuthorize("@ss.hasPermi('supplier:suppliers:query')")
+    @GetMapping(  "/getSupplierByMedicineId")
+    public AjaxResult getSupplierByMedicineId(@RequestParam Long itemId)
+    {
+
+        if (itemId == null) {
+            System.out.println("itemId is null");
+            return error("itemId is null");
+        }
+
+        return success(supplierService.selectSupplierByMedicineId(itemId));
+    }
+
+    /**
+     * 通过工具ID获取他的所有供应商信息
+     */
+    @PreAuthorize("@ss.hasPermi('supplier:suppliers:query')")
+    @GetMapping(  "/getSupplierByToolId")
+    public AjaxResult getSupplierByToolId(@RequestParam Long itemId)
+    {
+
+        if (itemId == null) {
+            System.out.println("itemId is null");
+            return error("itemId is null");
+        }
+
+        return success(supplierService.selectSupplierByMedicineId(itemId));
     }
 
     /**

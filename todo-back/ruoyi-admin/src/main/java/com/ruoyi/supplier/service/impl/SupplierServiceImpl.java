@@ -2,6 +2,7 @@ package com.ruoyi.supplier.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.inventory.domain.InventoryMedicine;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.supplier.mapper.SupplierMapper;
@@ -32,6 +33,18 @@ public class SupplierServiceImpl implements ISupplierService
         return supplierMapper.selectSupplierBySupplierId(supplierId);
     }
 
+
+    /**
+     * 通过药品ID获取他的所有供应商信息
+     *
+     * @param itemId 供应商列表主键
+     * @return 供应商列表
+     */
+    @Override
+    public List<Supplier> selectSupplierByMedicineId(Long itemId)
+    {
+        return supplierMapper.selectSupplierByMedicineId(itemId);
+    }
     /**
      * 查询供应商列表列表
      * 

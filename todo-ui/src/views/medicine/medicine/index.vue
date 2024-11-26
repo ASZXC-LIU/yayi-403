@@ -49,14 +49,14 @@
       <el-table-column label="药品号" align="center" prop="medicineId" />
       <el-table-column label="药品名称" align="center" prop="medicineName" />
       <el-table-column label="药品描述" align="center" prop="medicineDescription" width="180" />
-      <el-table-column label="查看详情" align="center" width="100" >
+      <el-table-column label="查看详情" align="center" width="100">
         <template #default="scope">
-          <el-button  type="primary" @click="handleView_supplier">
+          <el-button type="primary" @click="handleView_supplier(scope.row)">
             查看详情</el-button>
-          
+
         </template>
       </el-table-column>
-      <el-table-column label="售价" align="center"  prop="sellingPrice" width="180">
+      <el-table-column label="售价" align="center" prop="sellingPrice" width="180">
         <template #default="scope">
           <span>￥{{ scope.row.sellingPrice }}</span>
         </template>
@@ -166,9 +166,9 @@
           <el-input v-model="form_inbounds.responsible" placeholder="请输入负责人" />
         </el-form-item>
         <el-form-item label="供应来源" prop="supplier">
-          <el-select v-model="form_inbounds.supplier" placeholder="请选择供应来源" >
-            <el-option v-for="option in supplierOptions" :key="option.key" :label="option.label"
-              :value="option.label"></el-option>
+          <el-select v-model="form_inbounds.supplier" placeholder="请选择供应来源">
+            <el-option v-for="option in supplierOptions" :key="option.key"
+              :label="`供应商ID：${option.key}    ,    供应商：${option.label}`" :value="option.label"></el-option>
           </el-select>
         </el-form-item>
 
@@ -306,6 +306,45 @@
           <el-button @click="cancel_supplier">取 消</el-button>
         </div>
       </template>
+    </el-dialog>
+
+
+    <!-- 以下为查看供应商详情 -->
+    <el-dialog :title="title" v-model="open_supplier" width="90%">
+      <el-table v-loading="loading" :data="suppliersList" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55" align="center" />
+        <el-table-column label="供应商ID" align="center" prop="supplierId" />
+        <el-table-column label="供应商名称" align="center" prop="supplierName" width="180" />
+        <el-table-column label="供应商备注" align="center" prop="supplierRemark" width="180" />
+        <el-table-column label="供应货物ID" align="center" prop="itemId" width="180" />
+        <el-table-column label="供应货物名称" align="center" prop="itemName" width="180" />
+        <el-table-column label="货物备注" align="center" prop="itemRemark" />
+        <el-table-column label="供应商电话" align="center" prop="supplierPhone" width="180" />
+        <el-table-column label="备用电话" align="center" prop="supplierPhone2" width="180" />
+        <el-table-column label="供应商地址" align="center" prop="supplierAddress" width="180" />
+        <el-table-column label="邮政编码" align="center" prop="supplierPost" />
+        <el-table-column label="邮箱地址" align="center" prop="mail" />
+        <el-table-column label="联系人" align="center" prop="Contact" />
+        <el-table-column label="信用度" align="center" prop="Creditworthiness" />
+        <el-table-column label="创建时间" align="center" prop="creatTime" width="180">
+          <template #default="scope">
+            <span>{{ parseTime(scope.row.creatTime, '{y}-{m}-{d}') }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="更新时间" align="center" prop="updateTime" width="180">
+          <template #default="scope">
+            <span>{{ parseTime(scope.row.updateTime, '{y}-{m}-{d}') }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+          <template #default="scope">
+            <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
+              v-hasPermi="['supplier:suppliers:edit']">修改</el-button>
+            <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
+              v-hasPermi="['supplier:suppliers:remove']">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
     </el-dialog>
 
   </div>
@@ -595,7 +634,7 @@ const data_inbounds = reactive({
     ],
     inboundTime: [
       { required: true, message: "入库时间不能为空", trigger: "blur" }
-    ], 
+    ],
     dateRange2: [
       { required: true, message: "保质期不能为空", trigger: "blur" }
     ],
@@ -823,7 +862,15 @@ function cancel_out() {
 
 
 //以下为查看供应商详情操作
-// const open_supplier = ref(false);
+const open_supplier = ref(false);
+
+
+
+const suppliersList = ref([]);
+
+
+
+import { getSupplierByMedicineId } from '@/api/supplier/suppliers'; // 假设这是你的API请求方法
 
 // const data_supplierList = reactive({
 //   form_supplierList: {},
@@ -839,34 +886,36 @@ function cancel_out() {
 
 // });
 
-// 表单重置
-// function reset_supplier() {
-//   form_supplier.value = {
-//     supplierId: null,
-//     supplierName: null, // 绑定的值
-//     supplierPhone: null,
-//     contact: null,
-//     creditworthiness: null,
-//   };
-//   proxy.resetForm("supplierRef");
-// }
+//表单重置
+function reset_supplierById() {
+  form_supplier.value = {
+    supplierId: null,
+    supplierName: null, // 绑定的值
+    supplierPhone: null,
+    contact: null,
+    creditworthiness: null,
+  };
+  proxy.resetForm("supplierRef");
+}
 
 // const { form_supplierList, rules_supplierList } = toRefs(data_supplierList);
 /** 查看供应商详情按钮操作 */
-// function handleView_supplier(row) {
-//   // reset_supplier();
-//   const MedicineId = row.medicineId || 0; //供应商id
-//   open_supplier.value = true;
-//   title.value = "供应商详情";
-//   getSupplierByMedicineId(MedicineId);
-// }
+function handleView_supplier(row) {
+  reset_supplierById();
+  console.log("第几列:",row);
+  const MedicineId = row.medicineId || 0; //供应商id
+  open_supplier.value = true;
+  title.value = "供应商详情";
+  loading.value = true;
+  getSupplierByMedicineId(MedicineId).then((response) => {
+    suppliersList.value = response.data;
+    console.log("response:",response);
+    console.log("suppliersList.value:",suppliersList.value);
+    
+    loading.value = false;
+  });;
+}
 
-// /** 查看供应商详情 */
-// function getSupplier(supplierId) {
-//   getSupplierById(supplierId).then((response) => {
-//     form_supplier.value = response.data;
-//   });
-// }
 
 
 
@@ -874,7 +923,7 @@ function cancel_out() {
 //以下为新增供应商操作
 
 
-import { addSuppliers,listSuppliers } from "@/api/supplier/suppliers";
+import { addSuppliers, listSuppliers } from "@/api/supplier/suppliers";
 
 
 //查询供应商列表，获得供应商名字和id供选择
@@ -978,7 +1027,7 @@ function handleAdd_supplier() {
 }
 
 function handleChange(value) {
-  
+
 }
 
 /** 提交按钮 */
@@ -986,7 +1035,7 @@ function submitForm_supplier() {
   proxy.$refs["suppliersRef"].validate(valid => {
 
     addSuppliers(form_supplier.value).then(response => {
-      console.log('form_supplier.value',form_supplier.value)
+      console.log('form_supplier.value', form_supplier.value)
       console.log(form_supplier.value.creditworthiness)
       proxy.$modal.msgSuccess("新增供应商成功");
       opensupplier.value = false;
