@@ -19,20 +19,6 @@
           <el-option v-for="dict in tt_appointments_status" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
-<<<<<<< Updated upstream
-      <!-- <el-form-item label="日期筛选" prop="dateRange">
-        <el-date-picker
-      v-model="dateRange"
-      type="daterange"
-      unlink-panels
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期"
-      :picker-options="pickerOptions"
-    />
-      </el-form-item> -->
-=======
->>>>>>> Stashed changes
       <el-form-item label="创建时间" style="width: 308px">
             <el-date-picker
                v-model="dateRange"
@@ -116,10 +102,8 @@
             v-hasPermi="['appointment:appointments:edit']">修改</el-button>
           <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
             v-hasPermi="['appointment:appointments:remove']">删除</el-button>
-            <el-button type="primary" plain @click="handleAdd_billing" v-hasPermi="['billing:billing:add']" v-if="scope.row.appointmentStatus === '1'">
-  <Icon icon="material-symbols:money-bag" /> 记账
-</el-button>
-
+            <el-button type="primary" plain icon="Plus" @click="handleAdd_billing"
+            v-hasPermi="['billing:billing:add']">新增</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -231,7 +215,6 @@
 import { listAppointments, getAppointments, delAppointments, addAppointments, updateAppointments } from "@/api/appointment/appointments";
 const { proxy } = getCurrentInstance();
 const { tt_doctor, tt_tooth, tt_appointments_status } = proxy.useDict('tt_doctor', 'tt_tooth', 'tt_appointments_status');
-const { tt_paymethod, tt_paystatus } = proxy.useDict('tt_paymethod', 'tt_paystatus');
 
 const appointmentsList = ref([]);
 const open = ref(false);
@@ -428,40 +411,6 @@ function handleDelete(row) {
   }).catch(() => { });
 }
 
-<<<<<<< Updated upstream
-
-// const pickerOptions = {
-//   shortcuts: [
-//     {
-//       text: '今天',
-//       onClick(picker) {
-//         const today = new Date();
-//         const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-//         const end = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//     {
-//       text: '明天',
-//       onClick(picker) {
-//         const today = new Date();
-//         const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//         const end = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2);
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//     {
-//       text: '最近一周',
-//       onClick(picker) {
-//         const end = new Date();
-//         const start = new Date();
-//         start.setTime(start.getTime() - 3600 * 1000 * 24 * 7); // 一周前
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//   ],
-// };
-=======
 
 // 入账功能
 import { addBilling } from "@/api/billing/billing";
@@ -526,7 +475,6 @@ function cancel_off() {
 }
 
 
->>>>>>> Stashed changes
 // 调用以加载列表
 getList();
 </script>

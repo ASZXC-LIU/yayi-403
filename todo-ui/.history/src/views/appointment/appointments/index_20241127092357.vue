@@ -19,30 +19,10 @@
           <el-option v-for="dict in tt_appointments_status" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
-<<<<<<< Updated upstream
-      <!-- <el-form-item label="日期筛选" prop="dateRange">
-        <el-date-picker
-      v-model="dateRange"
-      type="daterange"
-      unlink-panels
-      range-separator="至"
-      start-placeholder="开始日期"
-      end-placeholder="结束日期"
-      :picker-options="pickerOptions"
-    />
-      </el-form-item> -->
-=======
->>>>>>> Stashed changes
       <el-form-item label="创建时间" style="width: 308px">
-            <el-date-picker
-               v-model="dateRange"
-               value-format="YYYY-MM-DD"
-               type="daterange"
-               range-separator="-"
-               start-placeholder="开始日期"
-               end-placeholder="结束日期"
-            ></el-date-picker>
-         </el-form-item>
+        <el-date-picker v-model="dateRange" value-format="YYYY-MM-DD" type="daterange" range-separator="-"
+          start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+      </el-form-item>
 
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
@@ -116,14 +96,11 @@
             v-hasPermi="['appointment:appointments:edit']">修改</el-button>
           <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
             v-hasPermi="['appointment:appointments:remove']">删除</el-button>
-            <el-button type="primary" plain @click="handleAdd_billing" v-hasPermi="['billing:billing:add']" v-if="scope.row.appointmentStatus === '1'">
-  <Icon icon="material-symbols:money-bag" /> 记账
-</el-button>
-
+          <el-button v-if="scope.row.appointmentStatus === '1'" type="success" plain icon="Plus" @click="handleAddBilling"
+          v-hasPermi="['billing:billing:add']">记账</el-button>
         </template>
       </el-table-column>
     </el-table>
-
     <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
       v-model:limit="queryParams.pageSize" @pagination="getList" />
 
@@ -169,58 +146,35 @@
         </div>
       </template>
     </el-dialog>
-
-<!-- 添加或修改账单管理对话框 -->
-<el-dialog :title="title" v-model="openbilling" width="500px" append-to-body>
-  <el-form ref="billingRef" :model="form_billing" :rules="rules_billing" label-width="80px">
-    <el-form-item label="患者姓名" prop="patientName">
-      <el-input v-model="form_billing.patientName" placeholder="请输入患者姓名" />
-    </el-form-item>
-    <el-form-item label="就诊医生" prop="doctorName">
-      <el-input v-model="form_billing.doctorName" placeholder="请输入就诊医生" />
-    </el-form-item>
-    <el-form-item label="账单日期" prop="billingDate">
-      <el-date-picker v-model="form_billing.billingDate" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="选择日期时间">
-      </el-date-picker>
-    </el-form-item>
-    <el-form-item label="金额" prop="totalAmount">
-      <el-input v-model="form_billing.totalAmount" placeholder="请输入金额" />
-    </el-form-item>
-
-    <el-form-item label="支付状态" prop="paymentStatus">
-      <el-checkbox-group v-model="form_billing.paymentStatus">
-        <el-checkbox v-for="dict in tt_paystatus" :key="dict.value" :label="dict.value">
-          {{ dict.label }}
-        </el-checkbox>
-      </el-checkbox-group>
-    </el-form-item>
-
-    <el-form-item label="支付方式" prop="paymentMethod">
-      <el-checkbox-group v-model="form_billing.paymentMethod">
-        <el-checkbox v-for="dict in tt_paymethod" :key="dict.value" :label="dict.value">
-          {{ dict.label }}
-        </el-checkbox>
-      </el-checkbox-group>
-    </el-form-item>
-    <el-form-item label="见证人" prop="receiver">
-      <el-input v-model="form_billing.receiver" placeholder="请输入见证人" />
-    </el-form-item>
-    <el-form-item label="备注" prop="notes">
-      <el-input v-model="form_billing.notes" type="textarea" placeholder="请输入内容" />
-    </el-form-item>
-  </el-form>
-
-  <template #footer>
-    <div class="dialog-footer">
-      <el-button type="primary" @click="submitForm_off">确 定</el-button>
-      <el-button @click="cancel_off">取 消</el-button>
-    </div>
-  </template>
-</el-dialog>
-
-
-
-
+    <!-- 记账对话框 -->
+    <el-dialog title="记账" v-model="billingOpen" width="500px">
+      <el-form :model="billingForm" ref="billingForm" label-width="80px">
+        <el-form-item label="预约ID">
+          <el-input v-model="billingForm.appointmentId" disabled />
+        </el-form-item>
+        <el-form-item label="金额" prop="amount">
+          <el-input v-model="billingForm.amount" placeholder="请输入金额" />
+        </el-form-item>
+        <el-form-item label="支付状态" prop="paymentStatus">
+          <el-select v-model="billingForm.paymentStatus" placeholder="请选择支付状态">
+            <el-option label="未支付" value="unpaid" />
+            <el-option label="已支付" value="paid" />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="支付方式" prop="paymentMethod">
+          <el-select v-model="billingForm.paymentMethod" placeholder="请选择支付方式">
+            <el-option label="现金" value="cash" />
+            <el-option label="信用卡" value="credit_card" />
+            <el-option label="支付宝" value="alipay" />
+            <el-option label="微信支付" value="wechat" />
+          </el-select>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <el-button @click="billingOpen = false">取消</el-button>
+        <el-button type="primary" @click="submitBilling">提交</el-button>
+      </template>
+    </el-dialog>
   </div>
 </template>
 
@@ -229,9 +183,9 @@
 
 <script setup name="Appointments">
 import { listAppointments, getAppointments, delAppointments, addAppointments, updateAppointments } from "@/api/appointment/appointments";
+import { addBilling } from "@/api/billing/billing"; // 导入新增账单接口
 const { proxy } = getCurrentInstance();
 const { tt_doctor, tt_tooth, tt_appointments_status } = proxy.useDict('tt_doctor', 'tt_tooth', 'tt_appointments_status');
-const { tt_paymethod, tt_paystatus } = proxy.useDict('tt_paymethod', 'tt_paystatus');
 
 const appointmentsList = ref([]);
 const open = ref(false);
@@ -242,9 +196,16 @@ const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
 const title = ref("");
-
 const dateRange = ref([]);
 
+// 新增账单弹窗管理
+const billingOpen = ref(false); // 控制账单弹窗
+const billingForm = reactive({
+  appointmentId: null,
+  amount: null,
+  paymentStatus: null,
+  paymentMethod: null,
+});
 
 const data = reactive({
   form: {
@@ -274,7 +235,6 @@ const data = reactive({
     appointmentDuration: null,
     appointmentProject: null,
     appointmentStatus: null,
-
     ttDoctor: {
       name: null,
     },
@@ -302,30 +262,55 @@ const data = reactive({
       { required: true, message: "预约状态不能为空", trigger: "change" }
     ],
   },
-
 });
 
 const { queryParams, form, rules } = toRefs(data);
+console.log(queryParams.value);
 /** 查询预约功能列表 */
 function getList() {
   loading.value = true;
-  console.log({ ...queryParams.value });
-  console.log(dateRange.value);
   listAppointments(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
-    console.log(response)
     appointmentsList.value = response.rows;
     total.value = response.total;
     loading.value = false;
   });
 }
 
-// 取消按钮
+// 新增账单操作
+function handleAddBilling(row) {
+  billingForm.appointmentId = row.appointmentId || ids.value[0]; // 设置预约ID
+  billingForm.amount = null; // 重置金额
+  billingForm.paymentStatus = null; // 重置支付状态
+  billingForm.paymentMethod = null; // 重置支付方式
+  billingOpen.value = true; // 打开账单弹窗
+}
+
+// 提交账单
+function submitBilling() {
+  if (!billingForm.appointmentId) {
+    proxy.$modal.msgError("预约ID不能为空");
+    return;
+  }
+  addBilling(billingForm).then(() => {
+    proxy.$modal.msgSuccess("账单新增成功");
+    billingOpen.value = false; // 关闭账单弹窗
+    getList(); // 刷新预约列表
+  }).catch(() => {
+    proxy.$modal.msgError("账单新增失败");
+  });
+}
+
+// 取消账单弹窗
+function cancelBilling() {
+  billingOpen.value = false;
+}
+
+// 其他原有方法保持不变
 function cancel() {
   open.value = false;
   reset();
 }
 
-// 表单重置
 function reset() {
   form.value = {
     doctorName: null,
@@ -350,44 +335,38 @@ function reset() {
   proxy.resetForm("appointmentsRef");
 }
 
-/** 搜索按钮操作 */
 function handleQuery() {
-  // 检查 dateRange 并格式化为 YYYY-MM-DD
   queryParams.value.pageNum = 1;
   queryParams.value.startDate = dateRange.value?.[0]
     ? proxy.parseTime(dateRange.value[0], '{y}-{m}-{d}')
-    : null; // 格式化第一个日期
+    : null;
   queryParams.value.endDate = dateRange.value?.[1]
     ? proxy.parseTime(dateRange.value[1], '{y}-{m}-{d}')
-    : null; // 格式化第二个日期
+    : null;
   getList();
 }
 
-/** 重置按钮操作 */
 function resetQuery() {
   dateRange.value = [];
   proxy.resetForm("queryRef");
   handleQuery();
 }
 
-// 多选框选中数据
 function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.appointmentId);
   single.value = selection.length != 1;
   multiple.value = !selection.length;
 }
 
-/** 新增按钮操作 */
 function handleAdd() {
   reset();
   open.value = true;
   title.value = "添加预约功能";
 }
 
-/** 修改按钮操作 */
 function handleUpdate(row) {
   reset();
-  const _appointmentId = row.appointmentId || ids.value
+  const _appointmentId = row.appointmentId || ids.value;
   getAppointments(_appointmentId).then(response => {
     form.value = response.data;
     open.value = true;
@@ -395,19 +374,17 @@ function handleUpdate(row) {
   });
 }
 
-/** 提交按钮 */
 function submitForm() {
-  console.log(dateRange.value)
   proxy.$refs["appointmentsRef"].validate(valid => {
     if (valid) {
       if (form.value.appointmentId != null) {
-        updateAppointments(form.value).then(response => {
+        updateAppointments(form.value).then(() => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
           getList();
         });
       } else {
-        addAppointments(form.value).then(response => {
+        addAppointments(form.value).then(() => {
           proxy.$modal.msgSuccess("新增成功");
           open.value = false;
           getList();
@@ -417,10 +394,9 @@ function submitForm() {
   });
 }
 
-/** 删除按钮操作 */
 function handleDelete(row) {
   const _appointmentIds = row.appointmentId || ids.value;
-  proxy.$modal.confirm('是否确认删除预约功能编号为"' + _appointmentIds + '"的数据项？').then(function () {
+  proxy.$modal.confirm('是否确认删除预约功能编号为"' + _appointmentIds + '"的数据项？').then(() => {
     return delAppointments(_appointmentIds);
   }).then(() => {
     getList();
@@ -428,105 +404,5 @@ function handleDelete(row) {
   }).catch(() => { });
 }
 
-<<<<<<< Updated upstream
-
-// const pickerOptions = {
-//   shortcuts: [
-//     {
-//       text: '今天',
-//       onClick(picker) {
-//         const today = new Date();
-//         const start = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-//         const end = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//     {
-//       text: '明天',
-//       onClick(picker) {
-//         const today = new Date();
-//         const start = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 1);
-//         const end = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 2);
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//     {
-//       text: '最近一周',
-//       onClick(picker) {
-//         const end = new Date();
-//         const start = new Date();
-//         start.setTime(start.getTime() - 3600 * 1000 * 24 * 7); // 一周前
-//         picker.$emit('pick', [start, end]);
-//       },
-//     },
-//   ],
-// };
-=======
-
-// 入账功能
-import { addBilling } from "@/api/billing/billing";
-const openbilling = ref(false);
-const data_billing = reactive({
-  form_billing: {},
-  queryParams_biling: {
-    pageNum: 1,
-    pageSize: 10,
-    patientName: null,
-    doctorName: null,
-    paymentStatus: null,
-  },
-  rules_billing: {
-    patientName: [
-      { required: true, message: "患者姓名不能为空", trigger: "blur" }
-    ],
-    doctorName: [
-      { required: true, message: "就诊医生不能为空", trigger: "blur" }
-    ],
-    billingDate: [
-      { required: true, message: "账单日期不能为空", trigger: "blur" }
-    ],
-    totalAmount: [
-      { required: true, message: "金额不能为空", trigger: "blur" }
-    ],
-    paymentStatus: [
-      { required: true, message: "支付状态不能为空", trigger: "blur" }
-    ],
-    paymentMethod: [
-      { required: true, message: "支付方式不能为空", trigger: "change" }
-    ],
-  }
-});
-const { form_billing, rules_billing } = toRefs(data_billing);
-
-/** 新增按钮操作 */
-function handleAdd_billing() {
-  openbilling.value = true;
-  title.value = "添加账单";
-}
-
-/** 提交按钮 */
-function submitForm_off() {
-  proxy.$refs["billingRef"].validate((valid) => {
-    if (valid) {
-      form_billing.value.paymentStatus = form_billing.value.paymentStatus.join(",");
-      form_billing.value.paymentMethod = form_billing.value.paymentMethod.join(",");
-      console.log(form_billing.value);
-      addBilling(form_billing.value).then((response) => {
-        proxy.$modal.msgSuccess("新增成功");
-        openbilling.value = false;
-        getList();
-      });
-    }
-  });
-}
-
-/** 取消按钮 */
-function cancel_off() {
-  openbilling.value = false;
-}
-
-
->>>>>>> Stashed changes
-// 调用以加载列表
 getList();
 </script>

@@ -2,14 +2,20 @@
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="患者姓名" prop="patientName">
-        <el-input v-model="queryParams.patientName" placeholder="请输入患者姓名" clearable @keyup.enter="handleQuery" />
+        <el-input
+          v-model="queryParams.patientName"
+          placeholder="请输入患者姓名"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item label="就诊医生" prop="doctorName">
-        <el-input v-model="queryParams.doctorName" placeholder="请输入就诊医生" clearable @keyup.enter="handleQuery" />
-      </el-form-item>
-      <el-form-item label="创建时间" style="width: 308px">
-        <el-date-picker v-model="dateRange" value-format="YYYY-MM-DD" type="daterange" range-separator="-"
-          start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+        <el-input
+          v-model="queryParams.doctorName"
+          placeholder="请输入就诊医生"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item label="创建时间" style="width: 308px">
             <el-date-picker
@@ -29,20 +35,42 @@
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button type="primary" plain icon="Plus" @click="handleAdd"
-          v-hasPermi="['billing:billing:add']">新增</el-button>
+        <el-button
+          type="primary"
+          plain
+          icon="Plus"
+          @click="handleAdd"
+          v-hasPermi="['billing:billing:add']"
+        >新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
-          v-hasPermi="['billing:billing:edit']">修改</el-button>
+        <el-button
+          type="success"
+          plain
+          icon="Edit"
+          :disabled="single"
+          @click="handleUpdate"
+          v-hasPermi="['billing:billing:edit']"
+        >修改</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
-          v-hasPermi="['billing:billing:remove']">删除</el-button>
+        <el-button
+          type="danger"
+          plain
+          icon="Delete"
+          :disabled="multiple"
+          @click="handleDelete"
+          v-hasPermi="['billing:billing:remove']"
+        >删除</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button type="warning" plain icon="Download" @click="handleExport"
-          v-hasPermi="['billing:billing:export']">导出</el-button>
+        <el-button
+          type="warning"
+          plain
+          icon="Download"
+          @click="handleExport"
+          v-hasPermi="['billing:billing:export']"
+        >导出</el-button>
       </el-col>
       <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -53,41 +81,42 @@
       <el-table-column label="患者姓名" align="center" prop="patientName" width="80px" />
       <el-table-column label="就诊医生" align="center" prop="doctorName" />
 
-
+      
       <el-table-column label="账单日期" align="center" prop="billingDate" width="180">
         <template #default="scope">
-          <span>{{ parseTime(scope.row.billingDate, '{y}-{m}-{d} {h}:{i}:{s}') }}</span>
+          <span>{{ parseTime(scope.row.billingDate, '{y}-{m}-{d}  {h}:{i}:{s}') }}</span>
         </template>
       </el-table-column>
 
-
+      
       <el-table-column label="金额" align="center" prop="totalAmount" />
       <el-table-column label="支付状态" align="center" prop="paymentStatus">
         <template #default="scope">
-          <dict-tag :options="tt_paystatus"
-            :value="scope.row.paymentStatus ? scope.row.paymentStatus.split(',') : []" />
+          <dict-tag :options="tt_paystatus" :value="scope.row.paymentStatus ? scope.row.paymentStatus.split(',') : []"/>
         </template>
       </el-table-column>
       <el-table-column label="支付方式" align="center" prop="paymentMethod">
         <template #default="scope">
-          <dict-tag :options="tt_paymethod"
-            :value="scope.row.paymentMethod ? scope.row.paymentMethod.split(',') : []" />
+          <dict-tag :options="tt_paymethod" :value="scope.row.paymentMethod ? scope.row.paymentMethod.split(',') : []"/>
         </template>
       </el-table-column>
       <el-table-column label="见证人" align="center" prop="receiver" />
       <el-table-column label="备注" align="center" prop="notes" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
-            v-hasPermi="['billing:billing:edit']">修改</el-button>
-          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
-            v-hasPermi="['billing:billing:remove']">删除</el-button>
+          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['billing:billing:edit']">修改</el-button>
+          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['billing:billing:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-
-    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum" v-model:limit="queryParams.pageSize"
-      @pagination="getList" />
+    
+    <pagination
+      v-show="total>0"
+      :total="total"
+      v-model:page="queryParams.pageNum"
+      v-model:limit="queryParams.pageSize"
+      @pagination="getList"
+    />
 
     <!-- 添加或修改账单管理对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
@@ -99,28 +128,33 @@
           <el-input v-model="form.doctorName" placeholder="请输入就诊医生" />
         </el-form-item>
         <el-form-item label="账单日期" prop="billingDate">
-          <el-date-picker v-model="form.billingDate" value-format="YYYY-MM-DD HH:mm:ss" type="datetime"
-            placeholder="选择日期时间">
+          <el-date-picker v-model="form.billingDate"value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="选择日期时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="金额" prop="totalAmount">
           <el-input v-model="form.totalAmount" placeholder="请输入金额" />
         </el-form-item>
 
-
+        
         <el-form-item label="支付状态" prop="paymentStatus">
           <el-checkbox-group v-model="form.paymentStatus">
-            <el-checkbox v-for="dict in tt_paystatus" :key="dict.value" :label="dict.value">
-              {{ dict.label }}
+            <el-checkbox
+              v-for="dict in tt_paystatus"
+              :key="dict.value"
+              :label="dict.value">
+              {{dict.label}}
             </el-checkbox>
           </el-checkbox-group>
 
-
+          
         </el-form-item>
         <el-form-item label="支付方式" prop="paymentMethod">
           <el-checkbox-group v-model="form.paymentMethod">
-            <el-checkbox v-for="dict in tt_paymethod" :key="dict.value" :label="dict.value">
-              {{ dict.label }}
+            <el-checkbox
+              v-for="dict in tt_paymethod"
+              :key="dict.value"
+              :label="dict.value">
+              {{dict.label}}
             </el-checkbox>
           </el-checkbox-group>
         </el-form-item>
@@ -199,10 +233,7 @@ const data = reactive({
     ],
   }
 });
-<<<<<<< Updated upstream
 // console.log(data);
-=======
->>>>>>> Stashed changes
 const { queryParams, form, rules } = toRefs(data);
 
 /** 查询账单管理列表 */
@@ -306,12 +337,12 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const _billingIds = row.billingId || ids.value;
-  proxy.$modal.confirm('是否确认删除账单管理编号为"' + _billingIds + '"的数据项？').then(function () {
+  proxy.$modal.confirm('是否确认删除账单管理编号为"' + _billingIds + '"的数据项？').then(function() {
     return delBilling(_billingIds);
   }).then(() => {
     getList();
     proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => { });
+  }).catch(() => {});
 }
 
 /** 导出按钮操作 */
