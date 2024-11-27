@@ -499,38 +499,32 @@ const patientForm = ref({
 });
 
 const queryPatients = async (queryString, callback) => {
-  if (!queryString.trim()) {
-    callback([]); // 如果查询为空，返回空数组
+  if (!queryString) {
+    callback([]);
     return;
   }
-
   try {
-    const response = await listPatientlists({ name: queryString.trim() });
-    console.log("接口返回数据：", response); // 调试打印接口返回
-
-    if (response?.data?.rows?.length) {
-      // 确保正确获取患者数据
+    const response = await listPatientlists({ name: queryString });
+    if (response?.data?.rows) {
+      // 假设后端返回的数据格式是 { total, rows }
       const patients = response.data.rows.map((patient) => ({
-        name: patient.name, // 患者姓名
-        phone: patient.phone, // 电话号码
-        patientId: patient.patientId, // 患者 ID
-        gender: patient.gender, // 性别
-        birthday: patient.birthday, // 出生日期
-        address: patient.address, // 地址
-        remarks: patient.remarks, // 备注
+        name: patient.name,
+        phone: patient.phone,
+        patientId: patient.patientId,
+        gender: patient.gender,
+        birthday: patient.birthday,
+        address: patient.address,
+        remarks: patient.remarks,
       }));
-      console.log("处理后的患者数据：", patients); // 检查数据是否正确
-      callback(patients); // 返回建议列表
+      callback(patients);
     } else {
-      console.warn("未找到匹配的患者数据");
-      callback([]); // 未找到数据
+      callback([]);
     }
   } catch (error) {
     console.error("获取患者数据失败：", error);
-    callback([]); // 捕获错误时返回空列表
+    callback([]);
   }
 };
-
 
 // 选择患者后填充表单
 const handlePatientSelect = (item) => {

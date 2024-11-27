@@ -493,11 +493,12 @@ function cancel_off() {
 }
 
 
-// 表单数据
+/ 表单数据
 const patientForm = ref({
   name: "",
 });
 
+// 查询患者数据的方法
 const queryPatients = async (queryString, callback) => {
   if (!queryString.trim()) {
     callback([]); // 如果查询为空，返回空数组
@@ -509,7 +510,7 @@ const queryPatients = async (queryString, callback) => {
     console.log("接口返回数据：", response); // 调试打印接口返回
 
     if (response?.data?.rows?.length) {
-      // 确保正确获取患者数据
+      // 映射接口返回的患者数据
       const patients = response.data.rows.map((patient) => ({
         name: patient.name, // 患者姓名
         phone: patient.phone, // 电话号码
@@ -530,7 +531,6 @@ const queryPatients = async (queryString, callback) => {
     callback([]); // 捕获错误时返回空列表
   }
 };
-
 
 // 选择患者后填充表单
 const handlePatientSelect = (item) => {

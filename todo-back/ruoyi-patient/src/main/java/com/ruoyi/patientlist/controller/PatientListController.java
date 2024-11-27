@@ -43,7 +43,9 @@ public class PatientListController extends BaseController
     {
         startPage();
         List<PatientList> list = patientListService.selectPatientListList(patientList);
+        System.out.println(list);
         return getDataTable(list);
+
     }
 
     /**

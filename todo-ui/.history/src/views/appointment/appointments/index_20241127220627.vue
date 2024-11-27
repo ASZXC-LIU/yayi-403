@@ -113,23 +113,16 @@
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
 
       <el-form ref="appointmentsRef" :model="form" :rules="rules" label-width="80px">
-        <el-form :model="patientForm">
-    <!-- 患者姓名 -->
-    <el-form-item label="患者姓名" prop="patientForm.name">
-      <el-autocomplete 
-        v-model="patientForm.name" 
-        placeholder="请输入患者姓名" 
-        :fetch-suggestions="queryPatients" 
-        @select="handlePatientSelect">
-        <!-- 自定义下拉选项的显示 -->
-        <template #default="{ item }">
-          <div>
-            <span>{{ item.name }}</span>，电话号：<span>{{ item.phone }}</span>
-          </div>
-        </template>
-      </el-autocomplete>
-    </el-form-item>
-  </el-form>
+        <el-form-item label="患者姓名" prop="patientForm.name">
+          <el-autocomplete v-model="patientForm.name" placeholder="请输入患者姓名" :fetch-suggestions="queryPatients"
+            @select="handlePatientSelect">
+            <template #default="{ item }">
+              <div>
+                <span>{{ item.name }}</span>，电话号：<span>{{ item.phone }}</span>
+              </div>
+            </template>
+          </el-autocomplete>
+        </el-form-item>
 
 
         <el-form-item label="医生姓名" prop="ttDoctor.name">
@@ -493,24 +486,22 @@ function cancel_off() {
 }
 
 
-// 表单数据
+// 表单数据（更名为 patientForm）
 const patientForm = ref({
   name: "",
 });
 
+// 查询患者数据的方法
 const queryPatients = async (queryString, callback) => {
-  if (!queryString.trim()) {
-    callback([]); // 如果查询为空，返回空数组
+  if (!queryString) {
+    callback([]);
     return;
   }
-
   try {
-    const response = await listPatientlists({ name: queryString.trim() });
-    console.log("接口返回数据：", response); // 调试打印接口返回
-
-    if (response?.data?.rows?.length) {
-      // 确保正确获取患者数据
-      const patients = response.data.rows.map((patient) => ({
+    const response = await listPatientlists({ name: queryString });
+    if (response?.data) {
+      // 适配接口返回的数据格式
+      const patients = response.data.map((patient) => ({
         name: patient.name, // 患者姓名
         phone: patient.phone, // 电话号码
         patientId: patient.patientId, // 患者 ID
@@ -519,24 +510,24 @@ const queryPatients = async (queryString, callback) => {
         address: patient.address, // 地址
         remarks: patient.remarks, // 备注
       }));
-      console.log("处理后的患者数据：", patients); // 检查数据是否正确
-      callback(patients); // 返回建议列表
+      callback(patients);
     } else {
-      console.warn("未找到匹配的患者数据");
-      callback([]); // 未找到数据
+      callback([]);
     }
   } catch (error) {
     console.error("获取患者数据失败：", error);
-    callback([]); // 捕获错误时返回空列表
+    callback([]);
   }
 };
-
 
 // 选择患者后填充表单
 const handlePatientSelect = (item) => {
   patientForm.value.name = item.name; // 填充姓名
-  console.log("选择的患者信息：", item); // 打印选中的患者信息
+  // 可根据需求填充其他患者信息
+  console.log("选择的患者信息：", item);
 };
+
+
 // 调用以加载列表
 getList();
 </script>
