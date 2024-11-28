@@ -3,6 +3,13 @@ package com.ruoyi.medicinesupplier.service;
 import java.util.List;
 import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 
+import java.util.Map;
+
+import com.github.pagehelper.PageInfo;
+import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
+import com.ruoyi.medicinesupplier.domain.MedicineSupplierVO;
+
+
 /**
  * medicine_supplierService接口
  * 
@@ -36,6 +43,14 @@ public interface IInventoryMedicineSupplierService
     public int insertInventoryMedicineSupplier(InventoryMedicineSupplier inventoryMedicineSupplier);
 
     /**
+     * 查看是否存在medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    public Integer ifExit(InventoryMedicineSupplier inventoryMedicineSupplier);
+
+    /**
      * 修改medicine_supplier
      * 
      * @param inventoryMedicineSupplier medicine_supplier
@@ -43,6 +58,23 @@ public interface IInventoryMedicineSupplierService
      */
     public int updateInventoryMedicineSupplier(InventoryMedicineSupplier inventoryMedicineSupplier);
 
+
+    /**
+     * 修改medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    public int outboundMS(InventoryMedicineSupplier inventoryMedicineSupplier);
+
+
+    /**
+     * 修改medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    public int updateNumber(InventoryMedicineSupplier inventoryMedicineSupplier);
     /**
      * 批量删除medicine_supplier
      * 
@@ -58,4 +90,6 @@ public interface IInventoryMedicineSupplierService
      * @return 结果
      */
     public int deleteInventoryMedicineSupplierByMedicineSupplierId(Long medicineSupplierId);
+
+
 }

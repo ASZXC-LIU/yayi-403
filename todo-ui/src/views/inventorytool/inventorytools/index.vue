@@ -101,6 +101,9 @@
         <el-form-item label="工具描述" prop="toolsDescription">
           <el-input v-model="form.toolsDescription" type="textarea" placeholder="请输入内容" />
         </el-form-item>
+        <el-form-item label="剂量单位" prop="unit">
+          <el-input v-model="form.unit" placeholder="请输入剂量单位" />
+        </el-form-item>
         <el-form-item label="售价" prop="sellingPrice">
           <el-input v-model="form.sellingPrice" placeholder="请输入售价" />
         </el-form-item>
@@ -121,6 +124,12 @@
         <el-form-item label="物品ID" prop="itemId">
           <el-input v-model="form_off.itemId" placeholder="请输入物品ID" />
         </el-form-item>
+        <el-form-item label="供应来源" prop="supplier">
+          <el-select v-model="form_outbounds.supplier" placeholder="请选择供应来源">
+            <el-option v-for="option in supplierOptions" :key="option.key"
+              :label="`供应商ID：${option.key}    ,    供应商：${option.label}`" :value="option.key"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="负责人" prop="responsible">
           <el-input v-model="form_off.responsible" placeholder="请输入负责人" />
         </el-form-item>
@@ -130,9 +139,7 @@
         <el-form-item label="对冲数量" prop="quantity">
           <el-input v-model="form_off.quantity" placeholder="请输入对冲数量" />
         </el-form-item>
-        <el-form-item label="剂量单位" prop="unit">
-          <el-input v-model="form_off.unit" placeholder="请输入剂量单位" />
-        </el-form-item>
+       
         <el-form-item label="开销原因" prop="expensesReason">
           <el-input v-model="form_off.expensesReason" type="textarea" placeholder="请输入内容" />
         </el-form-item>
@@ -169,7 +176,7 @@
         <el-form-item label="供应来源" prop="supplier">
           <el-select v-model="form_inbounds.supplier" placeholder="请选择供应来源" >
             <el-option v-for="option in supplierOptions" :key="option.key" :label="`供应商ID：${option.key}    ,    供应商：${option.label}`"
-              :value="option.label"></el-option>
+              :value="option.key"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="入库数量" prop="quantity">
@@ -221,15 +228,19 @@
         <el-form-item label="物品名字" prop="itemName">
           <el-input v-model="form_outbounds.itemName" placeholder="请输入物品名字" />
         </el-form-item>
+        <el-form-item label="供应来源" prop="supplier">
+          <el-select v-model="form_outbounds.supplier" placeholder="请选择供应来源">
+            <el-option v-for="option in supplierOptions" :key="option.key"
+              :label="`供应商ID：${option.key}    ,    供应商：${option.label}`" :value="option.key"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="负责人" prop="responsible">
           <el-input v-model="form_outbounds.responsible" placeholder="请输入负责人" />
         </el-form-item>
         <el-form-item label="出库数量" prop="quantity">
           <el-input v-model="form_outbounds.quantity" placeholder="请输入入库数量" />
         </el-form-item>
-        <el-form-item label="计量单位" prop="unit">
-          <el-input v-model="form_outbounds.unit" placeholder="请输入剂量单位" />
-        </el-form-item>
+        
         <el-form-item label="总开销" prop="spending">
           <el-input v-model="form_outbounds.spending" placeholder="请输入总开销" />
         </el-form-item>
@@ -264,21 +275,13 @@
         <el-form-item label="供应商备注" prop="supplierRemark">
           <el-input v-model="form_supplier.supplierRemark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
-        <el-form-item label="可信度" prop="Creditworthiness">
-          <el-select v-model="form_supplier.Creditworthiness" placeholder="请选择" @change="handleChange">
+        <el-form-item label="可信度" prop="creditworthiness">
+          <el-select v-model="form_supplier.creditworthiness" placeholder="请选择" >
             <el-option v-for="option in creditworthinessOptions" :key="option.id" :label="option.value"
               :value="option.value"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="供应货物ID" prop="itemId">
-          <el-input v-model="form_supplier.itemId" placeholder="请输入供应货物ID" />
-        </el-form-item>
-        <el-form-item label="供应货物名称" prop="itemName">
-          <el-input v-model="form_supplier.itemName" placeholder="请输入供应货物名称" />
-        </el-form-item>
-        <el-form-item label="货物备注" prop="itemRemark">
-          <el-input v-model="form_supplier.itemRemark" type="textarea" placeholder="请输入内容" />
-        </el-form-item>
+       
         <el-form-item label="供应商电话" prop="supplierPhone">
           <el-input v-model="form_supplier.supplierPhone" placeholder="请输入供应商电话" />
         </el-form-item>
@@ -294,8 +297,8 @@
         <el-form-item label="邮箱地址" prop="mail">
           <el-input v-model="form_supplier.mail" placeholder="请输入邮箱地址" />
         </el-form-item>
-        <el-form-item label="联系人" prop="Contact">
-          <el-input v-model="form_supplier.Contact" placeholder="请输入联系人" />
+        <el-form-item label="联系人" prop="contact">
+          <el-input v-model="form_supplier.contact" placeholder="请输入联系人" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -310,19 +313,21 @@
     <el-dialog :title="title" v-model="open_supplier" width="90%">
       <el-table v-loading="loading" :data="suppliersList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
+        <el-table-column label="供应货物ID" align="center" prop="itemId" width="180" />
+        <el-table-column label="供应货物名称" align="center" prop="toolsName" width="180" />
+        <el-table-column label="货物数量" align="center" prop="itemNum" />
+        <el-table-column label="货物备注" align="center" prop="toolDescription" />
         <el-table-column label="供应商ID" align="center" prop="supplierId" />
         <el-table-column label="供应商名称" align="center" prop="supplierName" width="180" />
         <el-table-column label="供应商备注" align="center" prop="supplierRemark" width="180" />
-        <el-table-column label="供应货物ID" align="center" prop="itemId" width="180" />
-        <el-table-column label="供应货物名称" align="center" prop="itemName" width="180" />
-        <el-table-column label="货物备注" align="center" prop="itemRemark" />
+        
         <el-table-column label="供应商电话" align="center" prop="supplierPhone" width="180" />
         <el-table-column label="备用电话" align="center" prop="supplierPhone2" width="180" />
         <el-table-column label="供应商地址" align="center" prop="supplierAddress" width="180" />
         <el-table-column label="邮政编码" align="center" prop="supplierPost" />
         <el-table-column label="邮箱地址" align="center" prop="mail" />
-        <el-table-column label="联系人" align="center" prop="Contact" />
-        <el-table-column label="信用度" align="center" prop="Creditworthiness" />
+        <el-table-column label="联系人" align="center" prop="contact" />
+        <el-table-column label="信用度" align="center" prop="creditworthiness" />
         <el-table-column label="创建时间" align="center" prop="creatTime" width="180">
           <template #default="scope">
             <span>{{ parseTime(scope.row.creatTime, '{y}-{m}-{d}') }}</span>
@@ -392,6 +397,7 @@ const data = reactive({
     quantity: [
       { required: true, message: "库存数量不能为空", trigger: "blur" }
     ],
+    unit: [{ required: true, message: "计量单位不能为空", trigger: "blur" }],
   }
 });
 
@@ -519,7 +525,7 @@ function handleExport() {
 
 /*以上为药品管理，以下为对冲功能*/
 import {
-  addOffsettings,
+  addOffTool,
 
 } from "@/api/offsetting/offsettings";
 
@@ -536,18 +542,19 @@ const data_offsetting = reactive({
   },
   rules_off: {
     itemId: [
-      { required: true, message: "物品ID不能为空", trigger: "blur" },
+      { required: true, message: "物品ID不能为空", trigger: "blur" }
     ],
 
     responsible: [
-      { required: true, message: "负责人不能为空", trigger: "blur" },
+      { required: true, message: "负责人不能为空", trigger: "blur" }
     ],
-    reason: [{ required: true, message: "对冲原因不能为空", trigger: "blur" }],
+    reason: [
+      { required: true, message: "对冲原因不能为空", trigger: "blur" }
+    ],
     quantity: [
-      { required: true, message: "对冲数量不能为空", trigger: "blur" },
-    ],
-    unit: [{ required: true, message: "剂量单位不能为空", trigger: "blur" }],
-  },
+      { required: true, message: "对冲数量不能为空", trigger: "blur" }
+    ]
+  } // 确保这里没有多余的逗号
 });
 
 const { queryParams_off, form_off, rules_off } = toRefs(data_offsetting);
@@ -561,12 +568,28 @@ function handleAdd_off() {
 function submitForm_off() {
 
   proxy.$refs["offsettingsRef"].validate((valid) => {
+    console.log(form_off.value);
     form_off.value.spending = formatPriceToLong(form_off.value.spending);
     offsettingUpdateInventorytools(form_off.value).then((response) => {
       proxy.$modal.msgSuccess("已成功修正库存数目");
       openoffsetting.value = false;
-      addOffsettings(form_off.value).then((response) => {
+      addOffTool(form_off.value).then((response) => {
         proxy.$modal.msgSuccess("对冲成功");
+
+        
+        const outboundMSmedicinesuppliers = {
+            itemId: form_outbounds.value.itemId,
+            supplierId: form_outbounds.value.supplier,
+            itemNum: form_outbounds.value.quantity,
+            itemType: 1, // 药品
+          };
+          //新建联系工单
+          outboundMS(outboundMSmedicinesuppliers).then((response) => {
+            proxy.$modal.msgSuccess("联系工单生成成功");
+            openinbounds.value = false;
+          });
+
+
         openoffsetting.value = false;
       });
       getList();
@@ -587,7 +610,7 @@ function cancel_off() {
 
 import {
   addInbounds,
-
+  addTool
 } from "@/api/inbound/inbounds";
 
 const openinbounds = ref(false);
@@ -618,20 +641,23 @@ const data_inbounds = reactive({
     quantity: [
       { required: true, message: "入库数量不能为空", trigger: "blur" }
     ],
-    unit: [
-      { required: true, message: "剂量单位不能为空", trigger: "blur" }
-    ],
+    
     purchasePrice: [
       { required: true, message: "进价不能为空", trigger: "blur" }
     ],
     freight: [
       { required: true, message: "运费不能为空", trigger: "blur" }
     ],
-   
+    spending: [
+      { required: true, message: "总开销不能为空", trigger: "blur" }
+    ],
     inboundTime: [
       { required: true, message: "入库时间不能为空", trigger: "blur" }
     ],
-    dateRange2: [
+    manufactureDate: [
+      { required: true, message: "生产日期不能为空", trigger: "blur" }
+    ],
+    shelfLife: [
       { required: true, message: "保质期不能为空", trigger: "blur" }
     ],
   }
@@ -694,17 +720,15 @@ watch(dateRange2, (newVal) => {
   }
 });
 
-
 // 表单重置
 function reset_inbounds() {
-  form.value = {
+  form_inbounds.value = {
     inboundId: null,
     itemId: null,
     itemName: null,
     responsible: null,
     supplier: null,
     quantity: null,
-    unit: null,
     purchasePrice: null,
     freight: null,
     spending: null,
@@ -715,16 +739,21 @@ function reset_inbounds() {
     createTime: null,
     updateTime: null,
     dateRange2: null,
+    manufactureDate: null,
   };
   proxy.resetForm("inboundsRef");
 }
 
+// const { form_inbounds, rules_inbounds } = toRefs(data_inbounds);
 /** 入库按钮操作 */
 function handleAdd_inbounds() {
   reset_inbounds();
   openinbounds.value = true;
   title.value = "入库工单";
 }
+
+
+import { ifExit , outboundMS} from "@/api/medicinesupplier/medicinesuppliers";
 
 /** 入库表单提交按钮 */
 function submitForm_inb() {
@@ -734,12 +763,29 @@ function submitForm_inb() {
     form_inbounds.value.purchasePrice = formatPriceToLong(form_inbounds.value.purchasePrice);
     form_inbounds.value.freight = formatPriceToLong(form_inbounds.value.freight);
     form_inbounds.value.spending = formatPriceToLong(form_inbounds.value.spending);
-    console.log(form_inbounds.value);
+
     inboundUpdateInventorytools(form_inbounds.value).then((response) => {
       proxy.$modal.msgSuccess("入库成功");
       openinbounds.value = false;
-      addInbounds(form_inbounds.value).then((response) => {
+       //新建入库工单
+       addTool(form_inbounds.value).then((response) => {
         proxy.$modal.msgSuccess("入库工单生成成功");
+
+
+         //添加联系表
+         const medicinesuppliers = {
+            itemId: form_inbounds.value.itemId,
+            supplierId: form_inbounds.value.supplier,
+            itemNum: form_inbounds.value.quantity,
+            itemType: 1, // 工具
+          };
+          //新建联系工单
+          ifExit(medicinesuppliers).then((response) => {
+            proxy.$modal.msgSuccess("联系工单生成成功");
+            openinbounds.value = false;
+          });
+
+
         openinbounds.value = false;
       });
       getList();
@@ -761,7 +807,7 @@ function cancel_inb() {
 
 
 import {
-  addOutbounds,
+  addOutTool,
 } from "@/api/outbound/outbounds";
 
 const openoutbounds = ref(false);
@@ -792,9 +838,7 @@ const data_outbounds = reactive({
     quantity: [
       { required: true, message: "出库数量不能为空", trigger: "blur" }
     ],
-    unit: [
-      { required: true, message: "剂量单位不能为空", trigger: "blur" }
-    ],
+    
   }
 });
 
@@ -807,7 +851,6 @@ function reset_outbounds() {
     responsible: null,
     reason: null,
     quantity: null,
-    unit: null,
     expensesReason: null,
     spending: null,
     outboundTime: null,
@@ -832,12 +875,26 @@ function submitForm_out() {
     //将价格的decimal转换为long
 
     form_outbounds.value.spending = formatPriceToLong(form_outbounds.value.spending);
-    console.log(form_outbounds.value);
     outboundUpdateInventorytools(form_outbounds.value).then((response) => {
       proxy.$modal.msgSuccess("出库成功");
       openoutbounds.value = false;
-      addOutbounds(form_outbounds.value).then((response) => {
+      addOutTool(form_outbounds.value).then((response) => {
         proxy.$modal.msgSuccess("出库工单生成成功");
+
+
+        
+
+        const outboundMSmedicinesuppliers = {
+            itemId: form_outbounds.value.itemId,
+            supplierId: form_outbounds.value.supplier,
+            itemNum: form_outbounds.value.quantity,
+            itemType: 1, // 药品
+          };
+          //新建联系工单
+          outboundMS(outboundMSmedicinesuppliers).then((response) => {
+            proxy.$modal.msgSuccess("联系工单生成成功");
+            openinbounds.value = false;
+          });
         openoutbounds.value = false;
       });
       getList();
@@ -874,10 +931,8 @@ const getSupplierList = () => {
 };
 getSupplierList();
 
-
 const opensupplier = ref(false);
 
-//新增供应商评价
 
 //仍旧无法向后端传选择的值
 const creditworthinessOptions = reactive([
@@ -891,7 +946,7 @@ const creditworthinessOptions = reactive([
 
 const data_supplier = reactive({
   form_supplier: {
-    Creditworthiness: null, // 绑定的值
+    creditworthiness: null, // 绑定的值
   },
   queryParams_supplier: {
     pageNum: 1,
@@ -899,8 +954,8 @@ const data_supplier = reactive({
     supplierName: null,
     itemName: null,
     supplierPhone: null,
-    Contact: null,
-    Creditworthiness: null,
+    contact: null,
+    creditworthiness: null,
   },
   
   rules_supplier: {
@@ -913,7 +968,7 @@ const data_supplier = reactive({
     itemName: [
       { required: true, message: "供应货物名称不能为空", trigger: "blur" }
     ],
-    Creditworthiness: [
+    creditworthiness: [
       { required: true, message: "信用度不能为空", trigger: "change" }
     ],
   }
@@ -926,7 +981,6 @@ function cancel_supplier() {
   reset();
 }
 
-console.log(data_supplier.creditworthinessOptions);
 
 
 // 表单重置
@@ -943,8 +997,8 @@ function reset_supplier() {
     supplierAddress: null,
     supplierPost: null,
     mail: null,
-    Contact: null,
-    Creditworthiness: "未知",
+    contact: null,
+    creditworthiness: "未知",
     creatTime: null,
     updateTime: null,
 
@@ -960,17 +1014,14 @@ function handleAdd_supplier() {
   title.value = "添加供应商列表";
 }
 
-function handleChange(value) {
-  console.log("选中的值是：", value);
-  console.log("form_supplier.Creditworthiness：", form_supplier.Creditworthiness);
-}
+
 
 /** 提交按钮 */
 function submitForm_supplier() {
   proxy.$refs["suppliersRef"].validate(valid => {
 
     addSuppliers(form_supplier.value).then(response => {
-      console.log(form_supplier.Creditworthiness)
+      
       proxy.$modal.msgSuccess("新增供应商成功");
       opensupplier.value = false;
 
@@ -992,7 +1043,7 @@ const open_supplier = ref(false);
 
 
 
-import { getSupplierByToolId } from '@/api/supplier/suppliers'; // 假设这是你的API请求方法
+import { getSupplierByTool } from '@/api/supplier/suppliers'; // 假设这是你的API请求方法
 
 //表单重置
 function reset_supplierById() {
@@ -1010,12 +1061,24 @@ function reset_supplierById() {
 /** 查看供应商详情按钮操作 */
 function handleView_supplier(row) {
   reset_supplierById();
-  console.log("第几列:",row);
-  const ToolId = row.toolId || 0; //供应商id
+  console.log(row);
+  if (!row.toolsId) {
+    console.error("toolsId is invalid!");
+    return;
+  }
+
   open_supplier.value = true;
+  const form_toSearch = reactive({
+    pageNum: 1,
+    pageSize: 10,
+    itemId: null,
+    itemType: 1,
+  });
+  form_toSearch.itemId = row.toolsId; //供应商id
   title.value = "供应商详情";
   loading.value = true;
-  getSupplierByToolId(ToolId).then((response) => {
+  getSupplierByTool(form_toSearch).then((response) => {
+    console.log(response);
     suppliersList.value = response.data;
     
     loading.value = false;

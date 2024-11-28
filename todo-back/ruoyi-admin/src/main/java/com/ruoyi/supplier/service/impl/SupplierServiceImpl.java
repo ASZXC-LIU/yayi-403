@@ -2,7 +2,9 @@ package com.ruoyi.supplier.service.impl;
 
 import java.util.List;
 import com.ruoyi.common.utils.DateUtils;
+import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.supplier.mapper.SupplierMapper;
@@ -37,14 +39,30 @@ public class SupplierServiceImpl implements ISupplierService
     /**
      * 通过药品ID获取他的所有供应商信息
      *
-     * @param itemId 供应商列表主键
+     * @param inventoryMedicineSupplier 供应商列表主键
      * @return 供应商列表
      */
     @Override
-    public List<Supplier> selectSupplierByMedicineId(Long itemId)
+    public List<Supplier> selectSupplierByMedicineId(InventoryMedicineSupplier inventoryMedicineSupplier)
     {
-        return supplierMapper.selectSupplierByMedicineId(itemId);
+        return supplierMapper.selectSupplierByMedicineId(inventoryMedicineSupplier);
+
     }
+
+
+    /**
+     * 通过工具获取他的所有供应商信息
+     *
+     * @param inventoryMedicineSupplier 供应商列表主键
+     * @return 供应商列表
+     */
+    @Override
+    public List<Supplier> selectSupplierByTool(InventoryMedicineSupplier inventoryMedicineSupplier)
+    {
+        return supplierMapper.selectSupplierByTool(inventoryMedicineSupplier);
+    }
+
+
     /**
      * 查询供应商列表列表
      * 
@@ -81,6 +99,22 @@ public class SupplierServiceImpl implements ISupplierService
         supplier.setUpdateTime(DateUtils.getNowDate());
         return supplierMapper.updateSupplier(supplier);
     }
+
+
+
+    /**
+     * 在对应的供应商列表加item_id
+     *
+     * @param inventoryInbound 供应商列表
+     * @return 结果
+     */
+    @Override
+    public int updateItemId(InventoryInbound inventoryInbound)
+    {
+
+        return supplierMapper.updateItemId(inventoryInbound);
+    }
+
 
     /**
      * 批量删除供应商列表

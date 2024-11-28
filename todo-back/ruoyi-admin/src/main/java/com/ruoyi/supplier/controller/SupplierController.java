@@ -2,6 +2,8 @@ package com.ruoyi.supplier.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -67,32 +69,27 @@ public class SupplierController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('supplier:suppliers:query')")
     @GetMapping(  "/getSupplierByMedicineId")
-    public AjaxResult getSupplierByMedicineId(@RequestParam Long itemId)
+    public AjaxResult getSupplierByMedicineId(@ModelAttribute InventoryMedicineSupplier inventoryMedicineSupplier)
     {
+        System.out.println("inventoryMedicineSupplier:"+inventoryMedicineSupplier);
 
-        if (itemId == null) {
-            System.out.println("itemId is null");
-            return error("itemId is null");
-        }
+        System.out.println("response:"+supplierService.selectSupplierByMedicineId(inventoryMedicineSupplier));
 
-        return success(supplierService.selectSupplierByMedicineId(itemId));
+        return success(supplierService.selectSupplierByMedicineId(inventoryMedicineSupplier));
     }
 
     /**
-     * 通过工具ID获取他的所有供应商信息
+     * 通过工具获取他的所有供应商信息
      */
     @PreAuthorize("@ss.hasPermi('supplier:suppliers:query')")
-    @GetMapping(  "/getSupplierByToolId")
-    public AjaxResult getSupplierByToolId(@RequestParam Long itemId)
+    @GetMapping(  "/getSupplierByTool")
+    public AjaxResult getSupplierByTool(@ModelAttribute InventoryMedicineSupplier inventoryMedicineSupplier)
     {
 
-        if (itemId == null) {
-            System.out.println("itemId is null");
-            return error("itemId is null");
-        }
-
-        return success(supplierService.selectSupplierByMedicineId(itemId));
+        return success(supplierService.selectSupplierByTool(inventoryMedicineSupplier));
     }
+
+
 
     /**
      * 新增供应商列表

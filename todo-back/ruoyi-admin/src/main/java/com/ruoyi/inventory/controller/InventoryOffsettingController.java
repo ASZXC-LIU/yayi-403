@@ -2,6 +2,11 @@ package com.ruoyi.inventory.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.inventory.domain.InventoryTools;
+import com.ruoyi.inventory.service.IInventoryMedicineService;
+import com.ruoyi.inventory.service.IInventoryToolsService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +38,10 @@ public class InventoryOffsettingController extends BaseController
 {
     @Autowired
     private IInventoryOffsettingService inventoryOffsettingService;
-
+    @Autowired
+    private IInventoryMedicineService inventoryMedicineService;
+    @Autowired
+    private IInventoryToolsService inventoryToolsService;
     /**
      * 查询对冲记录工单列表
      */
@@ -77,6 +85,27 @@ public class InventoryOffsettingController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody InventoryOffsetting inventoryOffsetting)
     {
+        InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryOffsetting.getItemId());
+        //读取药品的计量单位传递给入库表
+        String unit = inventoryMedicine.getUnit();
+        inventoryOffsetting.setUnit(unit);
+        System.out.println(inventoryOffsetting);
+        return toAjax(inventoryOffsettingService.insertInventoryOffsetting(inventoryOffsetting));
+    }
+    /**
+     * 新增对冲记录工单
+     */
+    @PreAuthorize("@ss.hasPermi('offsetting:offsettings:add')")
+    @Log(title = "对冲记录工单", businessType = BusinessType.INSERT)
+    @PostMapping("/addOffTool")
+    public AjaxResult addOffTool(@RequestBody InventoryOffsetting inventoryOffsetting)
+    {
+        InventoryTools inventoryTools = inventoryToolsService.selectInventoryToolsByToolsId(inventoryOffsetting.getItemId());
+
+
+        //读取药品的计量单位传递给入库表
+        String unit = inventoryTools.getUnit();
+        inventoryOffsetting.setUnit(unit);
         return toAjax(inventoryOffsettingService.insertInventoryOffsetting(inventoryOffsetting));
     }
 

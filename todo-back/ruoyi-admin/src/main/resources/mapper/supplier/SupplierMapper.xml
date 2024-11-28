@@ -8,53 +8,179 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="supplierId"    column="supplier_id"    />
         <result property="supplierName"    column="supplier_name"    />
         <result property="supplierRemark"    column="supplier_remark"    />
-        <result property="itemId"    column="item_id"    />
-        <result property="itemName"    column="item_name"    />
-        <result property="itemRemark"    column="item_remark"    />
         <result property="supplierPhone"    column="supplier_phone"    />
         <result property="supplierPhone2"    column="supplier_phone2"    />
         <result property="supplierAddress"    column="supplier_address"    />
         <result property="supplierPost"    column="supplier_post"    />
         <result property="mail"    column="mail"    />
-        <result property="Contact"    column="Contact"    />
+        <result property="contact"    column="contact"    />
+        <result property="creditworthiness"    column="creditworthiness"    />
+        <result property="creatTime"    column="creat_time"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="itemId"    column="item_id"    />
+    </resultMap>
+
+    <resultMap type="Supplier" id="SupplierResultVo">
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="itemId"    column="item_id"    />
+        <result property="itemType"    column="item_type"    />
+    </resultMap>
+
+    <resultMap type="MedicineSupplierVO" id="MedicineSupplierResult">
+        <result property="medicineSupplierId" column="medicine_supplier_id" />
+        <result property="medicineName" column="medicine_name" />
+        <result property="supplierName" column="supplier_name" />
+        <result property="itemId"    column="item_id"    />
+        <result property="medicineName"    column="medicine_name"    />
+        <result property="medicineDescription"    column="medicine_description"    />
+        <result property="itemType" column="item_type" />
+        <result property="itemNum" column="item_num" />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierRemark"    column="supplier_remark"    />
+        <result property="supplierPhone"    column="supplier_phone"    />
+        <result property="supplierPhone2"    column="supplier_phone2"    />
+        <result property="supplierAddress"    column="supplier_address"    />
+        <result property="supplierPost"    column="supplier_post"    />
+        <result property="mail"    column="mail"    />
+        <result property="contact"    column="contact"    />
         <result property="creditworthiness"    column="creditworthiness"    />
         <result property="creatTime"    column="creat_time"    />
         <result property="updateTime"    column="update_time"    />
     </resultMap>
 
+    <resultMap type="MedicineSupplierVO" id="ToolSupplierResult">
+        <result property="medicineSupplierId" column="medicine_supplier_id" />
+        <result property="medicineName" column="medicine_name" />
+        <result property="supplierName" column="supplier_name" />
+        <result property="itemId"    column="item_id"    />
+        <result property="toolsName"    column="tools_name"    />
+        <result property="toolDescription"    column="tools_description"    />
+        <result property="itemType" column="item_type" />
+        <result property="itemNum" column="item_num" />
+        <result property="supplierId"    column="supplier_id"    />
+        <result property="supplierName"    column="supplier_name"    />
+        <result property="supplierRemark"    column="supplier_remark"    />
+        <result property="supplierPhone"    column="supplier_phone"    />
+        <result property="supplierPhone2"    column="supplier_phone2"    />
+        <result property="supplierAddress"    column="supplier_address"    />
+        <result property="supplierPost"    column="supplier_post"    />
+        <result property="mail"    column="mail"    />
+        <result property="contact"    column="contact"    />
+        <result property="creditworthiness"    column="creditworthiness"    />
+        <result property="creatTime"    column="creat_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+
+
     <sql id="selectSupplierVo">
-        select supplier_id, supplier_name, supplier_remark, item_id, item_name, item_remark, supplier_phone, supplier_phone2, supplier_address, supplier_post, mail, contact, creditworthiness, creat_time, update_time from tt_supplier
+        select supplier_id, supplier_name, supplier_remark,  supplier_phone, supplier_phone2, supplier_address, supplier_post, mail, contact, creditworthiness, creat_time, update_time from tt_supplier
+    </sql>
+
+    <sql id="selectMedicineSupplierVo">
+    select
+    ms.medicine_supplier_id,
+    s.supplier_name,
+    s.supplier_remark,
+    s.supplier_id,
+    m.medicine_name,
+    m.medicine_description,
+    s.supplier_phone,
+    s.supplier_phone2,
+    s.supplier_address,
+    s.supplier_post,
+    s.mail,
+    s.contact,
+    s.creditworthiness,
+    s.creat_time,
+    s.update_time,
+    ms.item_id,
+    ms.item_type,
+    ms.item_num
+FROM
+    tt_inventory_medicine_supplier ms
+LEFT JOIN
+    tt_supplier s ON ms.supplier_id = s.supplier_id  -- 使用正确的关联条件
+LEFT JOIN
+    tt_inventory_medicine m ON m.medicine_id = ms.item_id
+
+
+    </sql>
+
+    <sql id="selectToolSupplierVo">
+        SELECT
+            ms.medicine_supplier_id,
+            s.supplier_name,
+            s.supplier_remark,
+            s.supplier_id,
+            m.tools_name,
+            m.tools_description,
+            s.supplier_phone,
+            s.supplier_phone2,
+            s.supplier_address,
+            s.supplier_post,
+            s.mail,
+            s.contact,
+            s.creditworthiness,
+            s.creat_time,
+            s.update_time,
+            ms.item_id,
+            ms.item_type,
+            ms.item_num
+        FROM
+            tt_inventory_medicine_supplier ms
+                LEFT JOIN
+            tt_supplier s ON ms.supplier_id = s.supplier_id  -- 使用正确的关联条件
+                LEFT JOIN
+            tt_inventory_tools m ON m.tools_id = ms.item_id
+
+
     </sql>
 
     <select id="selectSupplierList" parameterType="Supplier" resultMap="SupplierResult">
         <include refid="selectSupplierVo"/>
         <where>  
             <if test="supplierName != null  and supplierName != ''"> and supplier_name like concat('%', #{supplierName}, '%')</if>
-            <if test="itemName != null  and itemName != ''"> and item_name like concat('%', #{itemName}, '%')</if>
             <if test="supplierPhone != null  and supplierPhone != ''"> and supplier_phone like concat('%', #{supplierPhone}, '%')</if>
             <if test="contact != null  and contact != ''"> and contact like concat('%', #{contact}, '%')</if>
             <if test="creditworthiness != null  and creditworthiness != ''"> and creditworthiness = #{creditworthiness}</if>
         </where>
     </select>
-    
+
     <select id="selectSupplierBySupplierId" parameterType="Long" resultMap="SupplierResult">
         <include refid="selectSupplierVo"/>
         where supplier_id = #{supplierId}
     </select>
 
-    <select id="selectSupplierByMedicineId" parameterType="Long" resultMap="SupplierResult">
-        <include refid="selectSupplierVo"/>
-        where item_id = #{itemId}
+    <select id="selectSupplierByMedicineId" parameterType="InventoryMedicineSupplier" resultMap="MedicineSupplierResult">
+        <include refid="selectMedicineSupplierVo"/>
+        WHERE
+        ms.item_type = #{itemType}
+        AND
+        ms.item_id = #{itemId}
+        ORDER BY
+        ms.medicine_supplier_id DESC
     </select>
+
+
+    <select id="selectSupplierByTool" parameterType="InventoryMedicineSupplier" resultMap="ToolSupplierResult">
+        <include refid="selectToolSupplierVo"/>
+        WHERE
+        ms.item_type = #{itemType}
+        AND
+        ms.item_id = #{itemId}
+        ORDER BY
+        ms.medicine_supplier_id DESC
+    </select>
+
 
     <insert id="insertSupplier" parameterType="Supplier" useGeneratedKeys="true" keyProperty="supplierId">
         insert into tt_supplier
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="supplierName != null and supplierName != ''">supplier_name,</if>
             <if test="supplierRemark != null">supplier_remark,</if>
-            <if test="itemId != null">item_id,</if>
-            <if test="itemName != null and itemName != ''">item_name,</if>
-            <if test="itemRemark != null">item_remark,</if>
+
             <if test="supplierPhone != null">supplier_phone,</if>
             <if test="supplierPhone2 != null">supplier_phone2,</if>
             <if test="supplierAddress != null">supplier_address,</if>
@@ -68,9 +194,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="supplierName != null and supplierName != ''">#{supplierName},</if>
             <if test="supplierRemark != null">#{supplierRemark},</if>
-            <if test="itemId != null">#{itemId},</if>
-            <if test="itemName != null and itemName != ''">#{itemName},</if>
-            <if test="itemRemark != null">#{itemRemark},</if>
+
             <if test="supplierPhone != null">#{supplierPhone},</if>
             <if test="supplierPhone2 != null">#{supplierPhone2},</if>
             <if test="supplierAddress != null">#{supplierAddress},</if>
@@ -88,9 +212,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <trim prefix="SET" suffixOverrides=",">
             <if test="supplierName != null and supplierName != ''">supplier_name = #{supplierName},</if>
             <if test="supplierRemark != null">supplier_remark = #{supplierRemark},</if>
-            <if test="itemId != null">item_id = #{itemId},</if>
-            <if test="itemName != null and itemName != ''">item_name = #{itemName},</if>
-            <if test="itemRemark != null">item_remark = #{itemRemark},</if>
+
             <if test="supplierPhone != null">supplier_phone = #{supplierPhone},</if>
             <if test="supplierPhone2 != null">supplier_phone2 = #{supplierPhone2},</if>
             <if test="supplierAddress != null">supplier_address = #{supplierAddress},</if>
@@ -102,6 +224,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateTime != null">update_time = #{updateTime},</if>
         </trim>
         where supplier_id = #{supplierId}
+    </update>
+
+    <update id="updateItemId" parameterType="InventoryInbound">
+        update tt_supplier
+        <trim prefix="SET" suffixOverrides=",">
+
+            <if test="itemId != null">item_id = #{itemId},</if>
+        </trim>
+        where supplier_id = #{supplier}
     </update>
 
     <delete id="deleteSupplierBySupplierId" parameterType="Long">

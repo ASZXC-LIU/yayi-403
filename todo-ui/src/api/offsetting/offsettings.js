@@ -17,6 +17,17 @@ export function getOffsettings(offsettingId) {
   })
 }
 
+
+// 新增对冲记录工单
+export function addOffTool(data) {
+  return request({
+    url: '/offsetting/offsettings/addOffTool',
+    method: 'post',
+    data: data
+  })
+}
+
+
 // 新增对冲记录工单
 export function addOffsettings(data) {
   return request({

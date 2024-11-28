@@ -1,7 +1,11 @@
 package com.ruoyi.medicinesupplier.mapper;
 
 import java.util.List;
+import java.util.Map;
+
+import com.github.pagehelper.PageInfo;
 import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
+import com.ruoyi.medicinesupplier.domain.MedicineSupplierVO;
 
 /**
  * medicine_supplierMapper接口
@@ -35,6 +39,16 @@ public interface InventoryMedicineSupplierMapper
      */
     public int insertInventoryMedicineSupplier(InventoryMedicineSupplier inventoryMedicineSupplier);
 
+
+    /**
+     * 新增medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    public Integer ifExit(InventoryMedicineSupplier inventoryMedicineSupplier);
+
+
     /**
      * 修改medicine_supplier
      * 
@@ -43,6 +57,23 @@ public interface InventoryMedicineSupplierMapper
      */
     public int updateInventoryMedicineSupplier(InventoryMedicineSupplier inventoryMedicineSupplier);
 
+
+    /**
+     * 修改medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    public int outboundMS(InventoryMedicineSupplier inventoryMedicineSupplier);
+
+
+    /**
+     * 修改medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    public int updateNumber(InventoryMedicineSupplier inventoryMedicineSupplier);
     /**
      * 删除medicine_supplier
      * 
@@ -58,4 +89,6 @@ public interface InventoryMedicineSupplierMapper
      * @return 结果
      */
     public int deleteInventoryMedicineSupplierByMedicineSupplierIds(Long[] medicineSupplierIds);
+
+    public PageInfo<MedicineSupplierVO> selectMedicineSupplierList(Map<String, Object> params);
 }
