@@ -1,6 +1,11 @@
 package com.ruoyi.medicinesupplier.service.impl;
 
 import java.util.List;
+import java.util.Map;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.ruoyi.medicinesupplier.domain.MedicineSupplierVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper;
@@ -55,6 +60,25 @@ public class InventoryMedicineSupplierServiceImpl implements IInventoryMedicineS
         return inventoryMedicineSupplierMapper.insertInventoryMedicineSupplier(inventoryMedicineSupplier);
     }
 
+
+
+    /**
+     * 新增medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    @Override
+    public Integer ifExit(InventoryMedicineSupplier inventoryMedicineSupplier)
+    {
+        return inventoryMedicineSupplierMapper.ifExit(inventoryMedicineSupplier);
+    }
+
+
+
+
+
+
     /**
      * 修改medicine_supplier
      * 
@@ -67,6 +91,30 @@ public class InventoryMedicineSupplierServiceImpl implements IInventoryMedicineS
         return inventoryMedicineSupplierMapper.updateInventoryMedicineSupplier(inventoryMedicineSupplier);
     }
 
+    /**
+     * 修改medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    @Override
+    public int outboundMS(InventoryMedicineSupplier inventoryMedicineSupplier)
+    {
+        return inventoryMedicineSupplierMapper.outboundMS(inventoryMedicineSupplier);
+    }
+
+
+    /**
+     * 修改medicine_supplier
+     *
+     * @param inventoryMedicineSupplier medicine_supplier
+     * @return 结果
+     */
+    @Override
+    public int updateNumber(InventoryMedicineSupplier inventoryMedicineSupplier)
+    {
+        return inventoryMedicineSupplierMapper.updateNumber(inventoryMedicineSupplier);
+    }
     /**
      * 批量删除medicine_supplier
      * 
@@ -90,4 +138,6 @@ public class InventoryMedicineSupplierServiceImpl implements IInventoryMedicineS
     {
         return inventoryMedicineSupplierMapper.deleteInventoryMedicineSupplierByMedicineSupplierId(medicineSupplierId);
     }
+
+
 }

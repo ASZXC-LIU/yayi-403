@@ -26,6 +26,23 @@ export function addMedicinesuppliers(data) {
   })
 }
 
+// 查看是否存在
+export function ifExit(data) {
+  return request({
+    url: '/medicinesupplier/medicinesuppliers/ifExit',
+    method: 'post',
+    data: data
+  })
+}
+
+// 查看是否存在
+export function outboundMS(data) {
+  return request({
+    url: '/medicinesupplier/medicinesuppliers/outboundMS',
+    method: 'put',
+    data: data
+  })
+}
 // 修改medicine_supplier
 export function updateMedicinesuppliers(data) {
   return request({

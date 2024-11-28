@@ -4,9 +4,12 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.inventory.domain.InventoryTools;
 import com.ruoyi.inventory.mapper.InventoryMedicineMapper;
 import com.ruoyi.inventory.service.IInventoryMedicineService;
+import com.ruoyi.inventory.service.IInventoryToolsService;
 import com.ruoyi.inventory.service.impl.InventoryMedicineServiceImpl;
+import com.ruoyi.supplier.service.ISupplierService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +43,10 @@ public class InventoryInboundController extends BaseController
     private IInventoryInboundService inventoryInboundService;
     @Autowired
     private IInventoryMedicineService inventoryMedicineService;
+    @Autowired
+    private ISupplierService supplierService;
+    @Autowired
+    private IInventoryToolsService inventoryToolsService;
 
     /**
      * 查询入库工单列表
@@ -91,10 +98,39 @@ public class InventoryInboundController extends BaseController
             InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryInbound.getItemId());
             //读取入库的供应商给药品表
             inventoryMedicine.setSupplier(inventoryInbound.getSupplier());
-            inventoryMedicineService.updateInventoryMedicine(inventoryMedicine);
+            inventoryMedicineService.updateInventoryMedicine(inventoryMedicine);//更新药品库存
+            supplierService.updateItemId(inventoryInbound);
 
             //读取药品的计量单位传递给入库表
              String unit = inventoryMedicine.getUnit();
+            inventoryInbound.setUnit(unit);
+            System.out.println(inventoryInbound);
+            return toAjax(inventoryInboundService.insertInventoryInbound(inventoryInbound));
+        }else {
+            return AjaxResult.error("ID不存在");
+        }
+    }
+
+    /**
+     * 新增入库工单
+     */
+    @PreAuthorize("@ss.hasPermi('inbound:inbounds:add')")
+    @Log(title = "入库工单", businessType = BusinessType.INSERT)
+    @PostMapping("/addTool")
+    public AjaxResult addTool(@RequestBody InventoryInbound inventoryInbound)
+    {
+
+
+
+        if(inventoryInbound.getItemId() != null){
+            InventoryTools inventoryTools = inventoryToolsService.selectInventoryToolsByToolsId(inventoryInbound.getItemId());
+            //读取入库的供应商给工具表
+            inventoryTools.setSupplier(inventoryInbound.getSupplier());
+            inventoryToolsService.updateInventoryTools(inventoryTools);//更新药品库存
+            supplierService.updateItemId(inventoryInbound);
+
+            //读取药品的计量单位传递给入库表
+            String unit = inventoryTools.getUnit();
             inventoryInbound.setUnit(unit);
             System.out.println(inventoryInbound);
             return toAjax(inventoryInboundService.insertInventoryInbound(inventoryInbound));

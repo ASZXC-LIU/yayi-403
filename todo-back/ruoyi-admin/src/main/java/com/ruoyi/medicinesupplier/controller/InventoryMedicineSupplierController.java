@@ -1,7 +1,12 @@
 package com.ruoyi.medicinesupplier.controller;
 
 import java.util.List;
+import java.util.Map;
 import javax.servlet.http.HttpServletResponse;
+
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
+import com.ruoyi.medicinesupplier.domain.MedicineSupplierVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,6 +86,30 @@ public class InventoryMedicineSupplierController extends BaseController
     }
 
     /**
+     * 查看是否存在
+     */
+    @PreAuthorize("@ss.hasPermi('medicinesupplier:medicinesuppliers:add')")
+    @Log(title = "medicine_supplier", businessType = BusinessType.INSERT)
+    @PostMapping("/ifExit")
+    public AjaxResult  ifExit(@RequestBody InventoryMedicineSupplier inventoryMedicineSupplier)
+    {
+        System.out.println("inventoryMedicineSupplier:"+inventoryMedicineSupplier);
+        int exists = inventoryMedicineSupplierService.ifExit(inventoryMedicineSupplier);
+        if (exists > 0) {
+            // 如果存在，执行更新逻辑
+            System.out.println("exists:");
+            return toAjax(inventoryMedicineSupplierService.updateNumber(inventoryMedicineSupplier));
+
+        } else {
+            System.out.println("no exists:");
+            // 如果不存在，执行新增逻辑
+            return toAjax(inventoryMedicineSupplierService.insertInventoryMedicineSupplier(inventoryMedicineSupplier));
+        }
+
+    }
+
+
+    /**
      * 修改medicine_supplier
      */
     @PreAuthorize("@ss.hasPermi('medicinesupplier:medicinesuppliers:edit')")
@@ -92,6 +121,19 @@ public class InventoryMedicineSupplierController extends BaseController
     }
 
     /**
+     * 修改medicine_supplier
+     */
+    @PreAuthorize("@ss.hasPermi('medicinesupplier:medicinesuppliers:edit')")
+    @Log(title = "medicine_supplier", businessType = BusinessType.UPDATE)
+    @PutMapping("/outboundMS")
+    public AjaxResult outboundMS(@RequestBody InventoryMedicineSupplier inventoryMedicineSupplier)
+    {
+        return toAjax(inventoryMedicineSupplierService.outboundMS(inventoryMedicineSupplier));
+    }
+
+
+
+    /**
      * 删除medicine_supplier
      */
     @PreAuthorize("@ss.hasPermi('medicinesupplier:medicinesuppliers:remove')")
@@ -101,4 +143,6 @@ public class InventoryMedicineSupplierController extends BaseController
     {
         return toAjax(inventoryMedicineSupplierService.deleteInventoryMedicineSupplierByMedicineSupplierIds(medicineSupplierIds));
     }
+
+
 }

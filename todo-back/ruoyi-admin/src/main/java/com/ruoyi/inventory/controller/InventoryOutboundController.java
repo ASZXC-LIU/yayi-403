@@ -2,6 +2,11 @@ package com.ruoyi.inventory.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.inventory.domain.InventoryTools;
+import com.ruoyi.inventory.service.IInventoryMedicineService;
+import com.ruoyi.inventory.service.IInventoryToolsService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +38,10 @@ public class InventoryOutboundController extends BaseController
 {
     @Autowired
     private IInventoryOutboundService inventoryOutboundService;
+    @Autowired
+    private IInventoryMedicineService inventoryMedicineService;
+    @Autowired
+    private IInventoryToolsService inventoryToolsService;
 
     /**
      * 查询出库工单列表
@@ -43,7 +52,7 @@ public class InventoryOutboundController extends BaseController
     {
         startPage();
         List<InventoryOutbound> list = inventoryOutboundService.selectInventoryOutboundList(inventoryOutbound);
-        System.out.println(list);
+
         return getDataTable(list);
     }
 
@@ -78,7 +87,32 @@ public class InventoryOutboundController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody InventoryOutbound inventoryOutbound)
     {
-        return toAjax(inventoryOutboundService.insertInventoryOutbound(inventoryOutbound));
+        InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryOutbound.getItemId());
+        //读取药品的计量单位传递给入库表
+        String unit = inventoryMedicine.getUnit();
+        inventoryOutbound.setUnit(unit);
+        System.out.println(inventoryOutbound);
+        return toAjax(
+
+                inventoryOutboundService.insertInventoryOutbound(inventoryOutbound));
+    }
+
+    /**
+     * 新增出库工单
+     */
+    @PreAuthorize("@ss.hasPermi('outbound:outbounds:add')")
+    @Log(title = "出库工单", businessType = BusinessType.INSERT)
+    @PostMapping("/addOutTool")
+    public AjaxResult addOutTool(@RequestBody InventoryOutbound inventoryOutbound)
+    {
+        InventoryTools inventoryTools = inventoryToolsService.selectInventoryToolsByToolsId(inventoryOutbound.getItemId());
+        //读取药品的计量单位传递给入库表
+        String unit = inventoryTools.getUnit();
+        inventoryOutbound.setUnit(unit);
+        System.out.println(inventoryOutbound);
+        return toAjax(
+
+                inventoryOutboundService.insertInventoryOutbound(inventoryOutbound));
     }
 
     /**

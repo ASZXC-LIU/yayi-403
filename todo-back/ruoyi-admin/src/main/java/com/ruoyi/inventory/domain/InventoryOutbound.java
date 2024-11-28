@@ -145,7 +145,7 @@ public class InventoryOutbound extends BaseEntity
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("outboundId", getOutboundId())
 
-                .append("getItemId", getItemId())
+                .append("itemId", getItemId())
                 .append("itemName", getItemName())
             .append("responsible", getResponsible())
             .append("reason", getReason())

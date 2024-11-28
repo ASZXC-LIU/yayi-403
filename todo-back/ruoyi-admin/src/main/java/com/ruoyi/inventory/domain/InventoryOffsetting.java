@@ -27,7 +27,7 @@ public class InventoryOffsetting extends BaseEntity
 
     /** 物品名字 */
     @Excel(name = "物品ID")
-    private String itemId;
+    private Long itemId;
 
     /** 负责人 */
     @Excel(name = "负责人")
@@ -150,11 +150,11 @@ public class InventoryOffsetting extends BaseEntity
     }
 
 
-    public String getItemId() {
+    public Long getItemId() {
         return itemId;
     }
 
-    public void setItemID(String itemId) {
+    public void setItemID(Long itemId) {
         this.itemId = itemId;
     }
 }

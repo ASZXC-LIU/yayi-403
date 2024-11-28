@@ -35,6 +35,17 @@ public class Supplier extends BaseEntity
     @Excel(name = "供应商电话")
     private String supplierPhone;
 
+
+//    /** 货物ID */
+//    @Excel(name = "货物ID")
+//    private Long itemId;
+//
+//    /** 货物名称 */
+//    @Excel(name = "货物名称")
+//    private String itemName;
+//
+
+
     /** 备用电话 */
     @Excel(name = "备用电话")
     private String supplierPhone2;
