@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="80px">
       <el-form-item label="患者姓名" prop="name">
         <el-input
           v-model="queryParams.name"
@@ -114,8 +114,8 @@
     />
 
     <!-- 添加或修改患者信息对话框 -->
-    <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-      <el-form ref="patientlistsRef" :model="form" :rules="rules" label-width="80px">
+    <el-dialog :title="title" v-model="open" width="500px"  append-to-body>
+      <el-form ref="patientlistsRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="患者姓名" prop="name">
           <el-input v-model="form.name" placeholder="请输入患者姓名" />
         </el-form-item>
