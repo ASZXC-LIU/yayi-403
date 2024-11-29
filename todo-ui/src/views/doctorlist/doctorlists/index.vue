@@ -100,7 +100,7 @@
 
     <!-- 添加或修改医生信息对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-      <el-form ref="doctorlistsRef" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="doctorlistsRef" :model="form" :rules="rules" label-width="100px">
         <el-form-item label="医生姓名" prop="name">
           <el-input v-model="form.name" placeholder="请输入医生姓名" />
         </el-form-item>

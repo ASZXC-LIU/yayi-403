@@ -87,14 +87,17 @@ public class InventoryOutboundController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody InventoryOutbound inventoryOutbound)
     {
-        InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryOutbound.getItemId());
-        //读取药品的计量单位传递给入库表
-        String unit = inventoryMedicine.getUnit();
-        inventoryOutbound.setUnit(unit);
-        System.out.println(inventoryOutbound);
-        return toAjax(
+        if(inventoryOutbound.getItemId() != null){
+            InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryOutbound.getItemId());
+            //读取药品的计量单位传递给入库表
+            String unit = inventoryMedicine.getUnit();
+            inventoryOutbound.setUnit(unit);
+            return toAjax(inventoryOutboundService.insertInventoryOutbound(inventoryOutbound));
+        }else {
+            return AjaxResult.error("ID不存在");
+        }
 
-                inventoryOutboundService.insertInventoryOutbound(inventoryOutbound));
+
     }
 
     /**
@@ -110,9 +113,12 @@ public class InventoryOutboundController extends BaseController
         String unit = inventoryTools.getUnit();
         inventoryOutbound.setUnit(unit);
         System.out.println(inventoryOutbound);
-        return toAjax(
+        return toAjax( inventoryOutboundService.insertInventoryOutbound(inventoryOutbound));
 
-                inventoryOutboundService.insertInventoryOutbound(inventoryOutbound));
+
+
+
+
     }
 
     /**

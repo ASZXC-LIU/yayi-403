@@ -5,6 +5,7 @@ import java.util.List;
 import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.domain.InventoryOffsetting;
 import com.ruoyi.inventory.domain.InventoryOutbound;
+import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.inventory.mapper.InventoryToolsMapper;
@@ -133,5 +134,17 @@ public class InventoryToolsServiceImpl implements IInventoryToolsService
     public int deleteInventoryToolsByToolsId(Long toolsId)
     {
         return inventoryToolsMapper.deleteInventoryToolsByToolsId(toolsId);
+    }
+    /**
+     * 根据对冲修改药品库存
+     *
+     * @param inventoryMedicineSupplier 药品库存
+     * @return 结果
+     */
+    @Override
+    public Long getAllQuantity(InventoryMedicineSupplier inventoryMedicineSupplier)
+    {
+
+        return inventoryToolsMapper.getAllQuantity(inventoryMedicineSupplier);
     }
 }

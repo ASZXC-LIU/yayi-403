@@ -6,6 +6,7 @@ import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.domain.InventoryOffsetting;
 import com.ruoyi.inventory.domain.InventoryOutbound;
 import com.ruoyi.inventory.domain.InventoryTools;
+import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 
 /**
  * 工具库存Service接口
@@ -89,4 +90,14 @@ public interface IInventoryToolsService
      * @return 结果
      */
     public int deleteInventoryToolsByToolsId(Long toolsId);
+
+    /**
+     * 根据不同供应商的供货量整合货物总量
+     *
+     * @param inventoryMedicineSupplier 药品库存
+     * @return 结果
+     */
+    public Long getAllQuantity(InventoryMedicineSupplier inventoryMedicineSupplier);
+
+
 }
