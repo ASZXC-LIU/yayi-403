@@ -2,6 +2,9 @@ package com.ruoyi.appointmentte.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.appointmentte.domain.PatientListVo;
+import com.ruoyi.appointmentte.service.IPatientListVoService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +36,9 @@ public class TtAppointmentsTestController extends BaseController
 {
     @Autowired
     private ITtAppointmentsTestService ttAppointmentsTestService;
+    @Autowired
+    private IPatientListVoService patientListService;
+
 
     /**
      * 查询预约测试列表
@@ -77,7 +83,18 @@ public class TtAppointmentsTestController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody TtAppointmentsTest ttAppointmentsTest)
     {
-        return toAjax(ttAppointmentsTestService.insertTtAppointmentsTest(ttAppointmentsTest));
+        //预约之前通过名字和手机号判断患者是否存在
+        PatientListVo patientListVo=ttAppointmentsTestService.ifExitBeforAppointment(ttAppointmentsTest);
+        System.out.println("2222222222222222222222"+patientListVo);
+        if(patientListVo==null){
+            return AjaxResult.error("患者不存在，请先添加患者信息");
+        }else {
+            return toAjax(ttAppointmentsTestService.insertTtAppointmentsTest(ttAppointmentsTest));
+        }
+
+
+
+
     }
 
     /**

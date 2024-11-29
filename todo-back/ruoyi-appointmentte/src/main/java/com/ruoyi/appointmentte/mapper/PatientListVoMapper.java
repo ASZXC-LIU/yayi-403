@@ -53,6 +53,17 @@ public interface PatientListVoMapper
     public int deletePatientListByPatientId(Long patientId);
 
     /**
+     * 通过名字查询是否存在
+     *
+     * @param patientListVo 患者信息主键
+     * @return 结果
+     */
+    public Integer selectTtPatientsByName(PatientListVo patientListVo);
+
+
+
+
+    /**
      * 批量删除患者信息
      * 
      * @param patientIds 需要删除的数据主键集合

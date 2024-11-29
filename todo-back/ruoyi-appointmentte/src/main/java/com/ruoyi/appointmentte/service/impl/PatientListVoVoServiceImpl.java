@@ -91,6 +91,16 @@ public class PatientListVoVoServiceImpl implements IPatientListVoService
     {
         return patientListVoMapper.deletePatientListByPatientId(patientId);
     }
-
+/**
+ * 通过名字查询是否存在
+ *
+ * @param patientListVo 患者信息主键
+ * @return 结果
+ */
+    @Override
+    public Integer selectTtPatientsByName(PatientListVo patientListVo)
+    {
+        return patientListVoMapper.selectTtPatientsByName(patientListVo);
+    }
 
 }

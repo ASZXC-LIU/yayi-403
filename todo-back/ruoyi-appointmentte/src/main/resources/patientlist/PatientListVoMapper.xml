@@ -37,10 +37,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
     <!-- 查询患者信息：根据患者姓名查询 -->
-    <select id="selectTtPatientsByName" parameterType="String" resultMap="TtPatientsResult">
+    <select id="selectTtPatientsByName" parameterType="PatientListVo" resultMap="PatientListResult">
         SELECT patient_id, name, medical_record_number, birthday, gender, phone, address, created_at, updated_at, remarks
         FROM tt_patients
-        WHERE name = #{name}
+        WHERE name = #{name} AND phone = #{phone}
     </select>
 
     <insert id="insertPatientList" parameterType="PatientList" useGeneratedKeys="true" keyProperty="patientId">

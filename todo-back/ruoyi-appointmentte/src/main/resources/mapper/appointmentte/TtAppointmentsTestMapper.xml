@@ -20,8 +20,27 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="remark"    column="remark"    />
     </resultMap>
 
+    <resultMap type="PatientListVo" id="PatientListResult">
+        <result property="patientId"    column="patient_id"    />
+        <result property="name"    column="name"    />
+        <result property="medicalRecordNumber"    column="medical_record_number"    />
+        <result property="birthday"    column="birthday"    />
+        <result property="gender"    column="gender"    />
+        <result property="phone"    column="phone"    />
+        <result property="address"    column="address"    />
+        <result property="createdAt"    column="created_at"    />
+        <result property="updatedAt"    column="updated_at"    />
+        <result property="remarks"    column="remarks"    />
+    </resultMap>
+
+
+
     <sql id="selectTtAppointmentsTestVo">
         select appointment_id, patient_id, doctor_id, patient_name, doctor_name, patient_phone, appointment_start_time, appointment_duration, appointment_project, appointment_status, created_at, updated_at, remark from tt_appointments_test
+    </sql>
+
+    <sql id="ifExitBeforAppointment">
+        select patient_id, name, medical_record_number, birthday, gender, phone, address, created_at, updated_at, remarks from tt_patients
     </sql>
 
     <select id="selectTtAppointmentsTestList" parameterType="TtAppointmentsTest" resultMap="TtAppointmentsTestResult">
@@ -34,6 +53,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="appointmentStatus != null  and appointmentStatus != ''"> and appointment_status = #{appointmentStatus}</if>
         </where>
     </select>
+
+    <select id="ifExitBeforAppointment" parameterType="TtAppointmentsTest" resultMap="PatientListResult">
+        <include refid="ifExitBeforAppointment"/>
+        <where>
+            <if test="patientName != null  and patientName != ''"> and name like concat('%', #{patientName}, '%')</if>
+            <if test="patientPhone != null  and patientPhone != ''"> and phone = #{patientPhone}</if>
+        </where>
+    </select>
+
+
     
     <select id="selectTtAppointmentsTestByAppointmentId" parameterType="Long" resultMap="TtAppointmentsTestResult">
         <include refid="selectTtAppointmentsTestVo"/>

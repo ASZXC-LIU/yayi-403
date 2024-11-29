@@ -1,6 +1,8 @@
 package com.ruoyi.appointmentte.service;
 
 import java.util.List;
+
+import com.ruoyi.appointmentte.domain.PatientListVo;
 import com.ruoyi.appointmentte.domain.TtAppointmentsTest;
 
 /**
@@ -18,6 +20,18 @@ public interface ITtAppointmentsTestService
      * @return 预约测试
      */
     public TtAppointmentsTest selectTtAppointmentsTestByAppointmentId(Long appointmentId);
+
+
+    /**
+     * 预约之前通过名字和手机号判断患者是否存在
+     *
+     * @param ttAppointmentsTest 预约测试主键
+     * @return 预约测试
+     */
+    public PatientListVo ifExitBeforAppointment(TtAppointmentsTest ttAppointmentsTest);
+
+
+
 
     /**
      * 查询预约测试列表

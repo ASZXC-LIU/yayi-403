@@ -8,6 +8,7 @@ import com.ruoyi.common.enums.BusinessType;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.appointmentte.domain.PatientListVo;
 import com.ruoyi.appointmentte.service.IPatientListVoService;
+import com.ruoyi.framework.web.domain.server.Sys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -63,6 +64,29 @@ public class PatientListVoController extends BaseController
         return success(patientListService.selectPatientListByPatientId(patientId));
     }
 
+
+    /**
+     * 获取患者信息详细信息
+     */
+    @PreAuthorize("@ss.hasPermi('patientlist:patientlists:query')")
+    @GetMapping(value = "ifExistTest")
+    public AjaxResult selectTtPatientsByName(@RequestBody PatientListVo patientListVo)
+    {
+        String patientName = patientListVo.getName();
+        int num = patientListService.selectTtPatientsByName(patientListVo);
+        if(num == 0){
+            return error("患者姓名不能为空");
+
+        }else{
+            System.out.println(patientName);
+            return error("患者存在");
+        }
+
+
+    }
+
+
+
     /**
      * 新增患者信息
      */
@@ -71,6 +95,16 @@ public class PatientListVoController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody PatientListVo patientListVo)
     {
+
+        String patientName = patientListVo.getName();
+        int num = patientListService.selectTtPatientsByName(patientListVo);
+        if(num == 0){
+            return error("患者姓名不能为空");
+
+        }else{
+            System.out.println(patientName);
+        }
+
         return toAjax(patientListService.insertPatientList(patientListVo));
     }
 

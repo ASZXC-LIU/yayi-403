@@ -135,15 +135,9 @@ public class InventoryMedicineController extends BaseController
             return AjaxResult.error("入库失败：货物不存在");
         }
         String exitName = inventoryMedicine.getMedicineName();
-
-
         String outName = inventoryInbound.getItemName();
-
-
         if (exitName.equals(outName)) {
-
             return toAjax(inventoryMedicineService.inboundUpdateMedicine(inventoryInbound));
-
         } else {
             return AjaxResult.error("入库失败:货物名称不正确");
         }

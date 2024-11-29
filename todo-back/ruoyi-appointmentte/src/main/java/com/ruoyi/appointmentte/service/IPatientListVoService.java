@@ -61,6 +61,12 @@ public interface IPatientListVoService
     public int deletePatientListByPatientId(Long patientId);
 
 
+    /**
+     * 通过名字查询是否存在
+     *
+     * @param patientListVo 患者信息主键
+     * @return 结果
+     */
     // 根据患者姓名查询患者
-    public PatientListVo selectTtPatientsByName(String patientName);
+    public Integer selectTtPatientsByName(PatientListVo patientListVo);
 }
