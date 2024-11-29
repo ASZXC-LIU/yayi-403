@@ -20,18 +20,17 @@
         </el-select>
       </el-form-item>
 
+      <el-form-item label="创建时间" style="width: 308px">
+        <el-date-picker v-model="dateRange" value-format="YYYY-MM-DD" type="daterange" range-separator="-"
+          start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
+      </el-form-item>
+
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
-    <el-form-item label="日期筛选" prop="dateRange">
-  <el-select v-model="queryParams.dateRange" placeholder="选择日期范围" clearable @change="updateDateRange">
-    <el-option label="今天" value="today"></el-option>
-    <el-option label="明天" value="tomorrow"></el-option>
-    <el-option label="本周" value="thisWeek"></el-option>
-  </el-select>
-</el-form-item>
+
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
@@ -98,6 +97,11 @@
             v-hasPermi="['appointment:appointments:edit']">修改</el-button>
           <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
             v-hasPermi="['appointment:appointments:remove']">删除</el-button>
+          <el-button type="primary" plain  @click="handleAdd_billing(scope.row)"  v-hasPermi="['billing:billing:add']"
+            v-if="scope.row.appointmentStatus === '1'">
+            <Icon icon="material-symbols:money-bag" /> 记账
+          </el-button>
+
         </template>
       </el-table-column>
     </el-table>
@@ -109,9 +113,25 @@
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
 
       <el-form ref="appointmentsRef" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="患者姓名" prop="ttPatient.name">
-          <el-input v-model="form.ttPatient.name" placeholder="请输入患者姓名" />
-        </el-form-item>
+        <el-form :model="patientForm">
+    <!-- 患者姓名 -->
+    <el-form-item label="患者姓名" prop="patientForm.name">
+      <el-autocomplete 
+        v-model="patientForm.name" 
+        placeholder="请输入患者姓名" 
+        :fetch-suggestions="queryPatients" 
+        @select="handlePatientSelect">
+        <!-- 自定义下拉选项的显示 -->
+        <template #default="{ item }">
+          <div>
+            <span>{{ item.name }}</span>，电话号：<span>{{ item.phone }}</span>
+          </div>
+        </template>
+      </el-autocomplete>
+    </el-form-item>
+  </el-form>
+
+
         <el-form-item label="医生姓名" prop="ttDoctor.name">
           <el-select v-model="form.ttDoctor.name" placeholder="请选择医生姓名">
             <el-option v-for="dict in tt_doctor" :key="dict.value" :label="dict.label" :value="dict.value" />
@@ -119,7 +139,8 @@
         </el-form-item>
 
         <el-form-item label="会诊时间" prop="appointmentTime">
-          <el-date-picker v-model="form.appointmentTime" value-format="YYYY-MM-DD HH:mm:ss" type="datetime" placeholder="选择日期时间">
+          <el-date-picker v-model="form.appointmentTime" value-format="YYYY-MM-DD HH:mm:ss" type="datetime"
+            placeholder="选择日期时间">
           </el-date-picker>
         </el-form-item>
 
@@ -146,27 +167,72 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 添加或修改账单管理对话框 -->
+    <el-dialog :title="title" v-model="openbilling" width="500px" append-to-body>
+      <el-form ref="billingRef" :model="form_billing" :rules="rules_billing" label-width="80px">
+        <el-form-item label="患者姓名" prop="patientName">
+          <el-input v-model="form_billing.patientName" placeholder="请输入患者姓名" />
+        </el-form-item>
+        <el-form-item label="就诊医生" prop="doctorName">
+          <el-input v-model="form_billing.doctorName" placeholder="请输入就诊医生" />
+        </el-form-item>
+        <el-form-item label="账单日期" prop="billingDate">
+          <el-date-picker v-model="form_billing.billingDate" value-format="YYYY-MM-DD HH:mm:ss" type="datetime"
+            placeholder="选择日期时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="金额" prop="totalAmount">
+          <el-input v-model="form_billing.totalAmount" placeholder="请输入金额" />
+        </el-form-item>
+
+        <el-form-item label="支付状态" prop="paymentStatus">
+          <el-checkbox-group v-model="form_billing.paymentStatus">
+            <el-checkbox v-for="dict in tt_paystatus" :key="dict.value" :label="dict.value">
+              {{ dict.label }}
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+
+        <el-form-item label="支付方式" prop="paymentMethod">
+          <el-checkbox-group v-model="form_billing.paymentMethod">
+            <el-checkbox v-for="dict in tt_paymethod" :key="dict.value" :label="dict.value">
+              {{ dict.label }}
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="见证人" prop="receiver">
+          <el-input v-model="form_billing.receiver" placeholder="请输入见证人" />
+        </el-form-item>
+        <el-form-item label="备注" prop="notes">
+          <el-input v-model="form_billing.notes" type="textarea" placeholder="请输入内容" />
+        </el-form-item>
+      </el-form>
+
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="submitForm_off">确 定</el-button>
+          <el-button @click="cancel_off">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+
+
+
   </div>
 </template>
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 <script setup name="Appointments">
 import { listAppointments, getAppointments, delAppointments, addAppointments, updateAppointments } from "@/api/appointment/appointments";
+import { listPatientlists } from "@/api/patientlist/patientlists";
+
 const { proxy } = getCurrentInstance();
 const { tt_doctor, tt_tooth, tt_appointments_status } = proxy.useDict('tt_doctor', 'tt_tooth', 'tt_appointments_status');
+const { tt_paymethod, tt_paystatus } = proxy.useDict('tt_paymethod', 'tt_paystatus');
 
 const appointmentsList = ref([]);
 const open = ref(false);
@@ -177,6 +243,9 @@ const single = ref(true);
 const multiple = ref(true);
 const total = ref(0);
 const title = ref("");
+
+const dateRange = ref([]);
+
 
 const data = reactive({
   form: {
@@ -206,6 +275,7 @@ const data = reactive({
     appointmentDuration: null,
     appointmentProject: null,
     appointmentStatus: null,
+
     ttDoctor: {
       name: null,
     },
@@ -237,14 +307,13 @@ const data = reactive({
 });
 
 const { queryParams, form, rules } = toRefs(data);
-console.log("22222222222222222222");
-console.log(queryParams);
 /** 查询预约功能列表 */
 function getList() {
   loading.value = true;
   console.log({ ...queryParams.value });
-  listAppointments({ ...queryParams.value }).then(response => {
-    //  console.log(response)
+  console.log(dateRange.value);
+  listAppointments(proxy.addDateRange(queryParams.value, dateRange.value)).then(response => {
+    console.log(response)
     appointmentsList.value = response.rows;
     total.value = response.total;
     loading.value = false;
@@ -284,12 +353,20 @@ function reset() {
 
 /** 搜索按钮操作 */
 function handleQuery() {
+  // 检查 dateRange 并格式化为 YYYY-MM-DD
   queryParams.value.pageNum = 1;
+  queryParams.value.startDate = dateRange.value?.[0]
+    ? proxy.parseTime(dateRange.value[0], '{y}-{m}-{d}')
+    : null; // 格式化第一个日期
+  queryParams.value.endDate = dateRange.value?.[1]
+    ? proxy.parseTime(dateRange.value[1], '{y}-{m}-{d}')
+    : null; // 格式化第二个日期
   getList();
 }
 
 /** 重置按钮操作 */
 function resetQuery() {
+  dateRange.value = [];
   proxy.resetForm("queryRef");
   handleQuery();
 }
@@ -321,6 +398,7 @@ function handleUpdate(row) {
 
 /** 提交按钮 */
 function submitForm() {
+  console.log(dateRange.value)
   proxy.$refs["appointmentsRef"].validate(valid => {
     if (valid) {
       if (form.value.appointmentId != null) {
@@ -351,42 +429,122 @@ function handleDelete(row) {
   }).catch(() => { });
 }
 
-/** 导出按钮操作 */
-function handleExport() {
-  proxy.download('appointment/appointments/export', {
-    ...queryParams.value
-  }, `appointments_${new Date().getTime()}.xlsx`)
-}
 
-
-
-function updateDateRange(value) {
-  const today = new Date();
-  const startOfToday = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-
-  if (value === "today") {
-    // 今天：从当前日期的0点到当天结束
-    queryParams.value.appointmentTimeStart = startOfToday.toISOString();
-    queryParams.value.appointmentTimeEnd = new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000).toISOString();
-  } else if (value === "tomorrow") {
-    // 明天：从明天的0点到明天结束
-    const startOfTomorrow = new Date(startOfToday.getTime() + 24 * 60 * 60 * 1000);
-    queryParams.value.appointmentTimeStart = startOfTomorrow.toISOString();
-    queryParams.value.appointmentTimeEnd = new Date(startOfTomorrow.getTime() + 24 * 60 * 60 * 1000).toISOString();
-  } else if (value === "thisWeek") {
-    // 本周：从周一0点到周日结束
-    const dayOfWeek = today.getDay(); // 0是周日，1是周一，依此类推
-    const startOfWeek = new Date(startOfToday.getTime() - ((dayOfWeek === 0 ? 6 : dayOfWeek - 1) * 24 * 60 * 60 * 1000)); // 本周一
-    const endOfWeek = new Date(startOfWeek.getTime() + 7 * 24 * 60 * 60 * 1000); // 下周一（不包含）
-    queryParams.value.appointmentTimeStart = startOfWeek.toISOString();
-    queryParams.value.appointmentTimeEnd = endOfWeek.toISOString();
-  } else {
-    // 清空筛选
-    queryParams.value.appointmentTimeStart = null;
-    queryParams.value.appointmentTimeEnd = null;
+// 入账功能
+import { addBilling } from "@/api/billing/billing";
+const openbilling = ref(false);
+const data_billing = reactive({
+  form_billing: {},
+  queryParams_biling: {
+    pageNum: 1,
+    pageSize: 10,
+    patientName: null,
+    doctorName: null,
+    paymentStatus: null,
+  },
+  rules_billing: {
+    patientName: [
+      { required: true, message: "患者姓名不能为空", trigger: "blur" }
+    ],
+    doctorName: [
+      { required: true, message: "就诊医生不能为空", trigger: "blur" }
+    ],
+    billingDate: [
+      { required: true, message: "账单日期不能为空", trigger: "blur" }
+    ],
+    totalAmount: [
+      { required: true, message: "金额不能为空", trigger: "blur" }
+    ],
+    paymentStatus: [
+      { required: true, message: "支付状态不能为空", trigger: "blur" }
+    ],
+    paymentMethod: [
+      { required: true, message: "支付方式不能为空", trigger: "change" }
+    ],
   }
+});
+const { form_billing, rules_billing } = toRefs(data_billing);
+
+/** 新增按钮操作 */
+function handleAdd_billing(row) {
+  openbilling.value = true;
+  console.log(row);
+  const form_toSearch = reactive({
+    pageNum: 1,
+    pageSize: 10,
+    patientname: null,
+    doctername: 0,
+  });
+  form_toSearch.itemId = row.medicineId; //供应商id
+  title.value = "添加账单";
+}
+
+/** 提交按钮 */
+function submitForm_off() {
+  proxy.$refs["billingRef"].validate((valid) => {
+    if (valid) {
+      form_billing.value.paymentStatus = form_billing.value.paymentStatus.join(",");
+      form_billing.value.paymentMethod = form_billing.value.paymentMethod.join(",");
+      console.log(form_billing.value);
+      addBilling(form_billing.value).then((response) => {
+        proxy.$modal.msgSuccess("新增成功");
+        openbilling.value = false;
+        getList();
+      });
+    }
+  });
+}
+
+/** 取消按钮 */
+function cancel_off() {
+  openbilling.value = false;
 }
 
 
+// 表单数据
+const patientForm = ref({
+  name: "",
+});
+
+const queryPatients = async (queryString, callback) => {
+  if (!queryString.trim()) {
+    callback([]); // 如果查询为空，返回空数组
+    return;
+  }
+
+  try {
+    const response = await listPatientlists({ name: queryString.trim() });
+    console.log("接口返回数据：", response); // 调试打印接口返回
+
+    if (response?.data?.rows?.length) {
+      // 确保正确获取患者数据
+      const patients = response.data.rows.map((patient) => ({
+        name: patient.name, // 患者姓名
+        phone: patient.phone, // 电话号码
+        patientId: patient.patientId, // 患者 ID
+        gender: patient.gender, // 性别
+        birthday: patient.birthday, // 出生日期
+        address: patient.address, // 地址
+        remarks: patient.remarks, // 备注
+      }));
+      console.log("处理后的患者数据：", patients); // 检查数据是否正确
+      callback(patients); // 返回建议列表
+    } else {
+      console.warn("未找到匹配的患者数据");
+      callback([]); // 未找到数据
+    }
+  } catch (error) {
+    console.error("获取患者数据失败：", error);
+    callback([]); // 捕获错误时返回空列表
+  }
+};
+
+
+// 选择患者后填充表单
+const handlePatientSelect = (item) => {
+  patientForm.value.name = item.name; // 填充姓名
+  console.log("选择的患者信息：", item); // 打印选中的患者信息
+};
+// 调用以加载列表
 getList();
 </script>

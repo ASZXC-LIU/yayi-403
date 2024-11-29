@@ -514,9 +514,12 @@ CREATE TABLE `sys_logininfor` (
   PRIMARY KEY (`info_id`) USING BTREE,
   KEY `idx_sys_logininfor_s` (`status`) USING BTREE,
   KEY `idx_sys_logininfor_lt` (`login_time`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
 
 /*Data for the table `sys_logininfor` */
+
+insert  into `sys_logininfor`(`info_id`,`user_name`,`ipaddr`,`login_location`,`browser`,`os`,`status`,`msg`,`login_time`) values 
+(1,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-30 02:30:09');
 
 /*Table structure for table `sys_menu` */
 
@@ -544,7 +547,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2193 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=2199 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='菜单权限表';
 
 /*Data for the table `sys_menu` */
 
@@ -699,7 +702,13 @@ insert  into `sys_menu`(`menu_id`,`menu_name`,`parent_id`,`order_num`,`path`,`co
 (2189,'病历列表新增',2187,2,'#','',NULL,'',1,0,'F','0','0','emr:emrs:add','#','admin','2024-11-24 22:10:16','',NULL,''),
 (2190,'病历列表修改',2187,3,'#','',NULL,'',1,0,'F','0','0','emr:emrs:edit','#','admin','2024-11-24 22:10:16','',NULL,''),
 (2191,'病历列表删除',2187,4,'#','',NULL,'',1,0,'F','0','0','emr:emrs:remove','#','admin','2024-11-24 22:10:16','',NULL,''),
-(2192,'病历列表导出',2187,5,'#','',NULL,'',1,0,'F','0','0','emr:emrs:export','#','admin','2024-11-24 22:10:16','',NULL,'');
+(2192,'病历列表导出',2187,5,'#','',NULL,'',1,0,'F','0','0','emr:emrs:export','#','admin','2024-11-24 22:10:16','',NULL,''),
+(2193,'预约测试',2062,3,'appointmentte','appointmentte/appointmentte/index',NULL,'',1,0,'C','0','0','appointmentte:appointmentte:list','#','admin','2024-11-30 02:31:18','admin','2024-11-30 02:33:08',''),
+(2194,'预约测试查询',2193,1,'',NULL,NULL,'',1,0,'F','0','0','appointmentte:appointmentte:query','#','admin','2024-11-30 02:33:52','',NULL,''),
+(2195,'预约测试新增',2193,2,'appointmentte:appointmentte:add',NULL,NULL,'',1,0,'F','0','0','appointmentte:appointmentte:add','#','admin','2024-11-30 02:34:17','',NULL,''),
+(2196,'预约测试修改',2193,3,'',NULL,NULL,'',1,0,'F','0','0','appointmentte:appointmentte:edit','#','admin','2024-11-30 02:34:34','',NULL,''),
+(2197,'预约测试删除',2193,4,'',NULL,NULL,'',1,0,'F','0','0','appointmentte:appointmentte:remove','#','admin','2024-11-30 02:34:48','',NULL,''),
+(2198,'预约测试导出',2193,5,'',NULL,NULL,'',1,0,'F','0','0','appointmentte:appointmentte:export','#','admin','2024-11-30 02:34:59','',NULL,'');
 
 /*Table structure for table `sys_notice` */
 
@@ -747,13 +756,23 @@ CREATE TABLE `sys_oper_log` (
   KEY `idx_sys_oper_log_bt` (`business_type`) USING BTREE,
   KEY `idx_sys_oper_log_s` (`status`) USING BTREE,
   KEY `idx_sys_oper_log_ot` (`oper_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
 
 /*Data for the table `sys_oper_log` */
 
 insert  into `sys_oper_log`(`oper_id`,`title`,`business_type`,`method`,`request_method`,`operator_type`,`oper_name`,`dept_name`,`oper_url`,`oper_ip`,`oper_location`,`oper_param`,`json_result`,`status`,`error_msg`,`oper_time`,`cost_time`) values 
 (1,'操作日志',9,'com.ruoyi.web.controller.monitor.SysOperlogController.clean()','DELETE',1,'admin','牙医诊所','/monitor/operlog/clean','127.0.0.1','内网IP','{}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 01:17:33',89),
-(2,'登录日志',9,'com.ruoyi.web.controller.monitor.SysLogininforController.clean()','DELETE',1,'admin','牙医诊所','/monitor/logininfor/clean','127.0.0.1','内网IP','{}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 01:17:37',81);
+(2,'登录日志',9,'com.ruoyi.web.controller.monitor.SysLogininforController.clean()','DELETE',1,'admin','牙医诊所','/monitor/logininfor/clean','127.0.0.1','内网IP','{}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 01:17:37',81),
+(3,'菜单管理',1,'com.ruoyi.web.controller.system.SysMenuController.add()','POST',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"预约列表\",\"menuType\":\"M\",\"orderNum\":3,\"params\":{},\"parentId\":2062,\"path\":\"appointmentt\",\"status\":\"0\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 02:31:18',73),
+(4,'菜单管理',2,'com.ruoyi.web.controller.system.SysMenuController.edit()','PUT',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"component\":\"appointmentte/appointmentte/index\",\"createTime\":\"2024-11-30 02:31:18\",\"icon\":\"#\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuId\":2193,\"menuName\":\"预约测试\",\"menuType\":\"C\",\"orderNum\":3,\"params\":{},\"parentId\":2062,\"path\":\"appointmentte\",\"perms\":\"appointmentte:appointmentte:list\",\"routeName\":\"\",\"status\":\"0\",\"updateBy\":\"admin\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 02:33:08',110),
+(5,'菜单管理',1,'com.ruoyi.web.controller.system.SysMenuController.add()','POST',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"预约测试查询\",\"menuType\":\"F\",\"orderNum\":1,\"params\":{},\"parentId\":2193,\"perms\":\"appointmentte:appointmentte:query\",\"status\":\"0\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 02:33:52',102),
+(6,'菜单管理',1,'com.ruoyi.web.controller.system.SysMenuController.add()','POST',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"预约测试新增\",\"menuType\":\"F\",\"orderNum\":2,\"params\":{},\"parentId\":2193,\"path\":\"appointmentte:appointmentte:add\",\"perms\":\"appointmentte:appointmentte:add\",\"status\":\"0\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 02:34:17',102),
+(7,'菜单管理',1,'com.ruoyi.web.controller.system.SysMenuController.add()','POST',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"预约测试修改\",\"menuType\":\"F\",\"orderNum\":3,\"params\":{},\"parentId\":2193,\"perms\":\"appointmentte:appointmentte:edit\",\"status\":\"0\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 02:34:34',18),
+(8,'菜单管理',1,'com.ruoyi.web.controller.system.SysMenuController.add()','POST',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"预约测试删除\",\"menuType\":\"F\",\"orderNum\":4,\"params\":{},\"parentId\":2193,\"perms\":\"appointmentte:appointmentte:remove\",\"status\":\"0\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 02:34:48',82),
+(9,'菜单管理',1,'com.ruoyi.web.controller.system.SysMenuController.add()','POST',1,'admin','牙医诊所','/system/menu','127.0.0.1','内网IP','{\"children\":[],\"createBy\":\"admin\",\"isCache\":\"0\",\"isFrame\":\"1\",\"menuName\":\"预约测试导出\",\"menuType\":\"F\",\"orderNum\":5,\"params\":{},\"parentId\":2193,\"perms\":\"appointmentte:appointmentte:export\",\"status\":\"0\",\"visible\":\"0\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 02:34:59',17),
+(10,'账单管理',1,'com.ruoyi.billing.controller.TtBillingController.add()','POST',1,'admin','牙医诊所','/billing/billing','127.0.0.1','内网IP','{\"billingDate\":\"2024-11-13 00:00:00\",\"notes\":\"123\",\"params\":{},\"paymentMethod\":\"5\",\"paymentStatus\":\"2\",\"receiver\":\"123\",\"totalAmount\":123}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\billing\\TtBillingMapper.xml]\r\n### The error may involve com.ruoyi.billing.mapper.TtBillingMapper.insertTtBilling-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_billing                   ( billing_date,             total_amount,             payment_status,             payment_method,             receiver,             notes )                    values ( ?,             ?,             ?,             ?,             ?,             ? )\r\n### Cause: java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value\n; Field \'patient_name\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value','2024-11-30 02:50:32',129),
+(11,'账单管理',1,'com.ruoyi.billing.controller.TtBillingController.add()','POST',1,'admin','牙医诊所','/billing/billing','127.0.0.1','内网IP','{\"billingDate\":\"2024-11-06 00:00:00\",\"notes\":\"432\",\"params\":{},\"paymentMethod\":\"5\",\"paymentStatus\":\"2\",\"receiver\":\"123\",\"totalAmount\":123}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\billing\\TtBillingMapper.xml]\r\n### The error may involve com.ruoyi.billing.mapper.TtBillingMapper.insertTtBilling-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_billing                   ( billing_date,             total_amount,             payment_status,             payment_method,             receiver,             notes )                    values ( ?,             ?,             ?,             ?,             ?,             ? )\r\n### Cause: java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value\n; Field \'patient_name\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value','2024-11-30 02:56:08',6),
+(12,'账单管理',1,'com.ruoyi.billing.controller.TtBillingController.add()','POST',1,'admin','牙医诊所','/billing/billing','127.0.0.1','内网IP','{\"billingDate\":\"2024-11-14 00:00:00\",\"notes\":\"123\",\"params\":{},\"paymentMethod\":\"5\",\"paymentStatus\":\"2\",\"receiver\":\"123\",\"totalAmount\":123}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\billing\\TtBillingMapper.xml]\r\n### The error may involve com.ruoyi.billing.mapper.TtBillingMapper.insertTtBilling-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into tt_billing                   ( billing_date,             total_amount,             payment_status,             payment_method,             receiver,             notes )                    values ( ?,             ?,             ?,             ?,             ?,             ? )\r\n### Cause: java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value\n; Field \'patient_name\' doesn\'t have a default value; nested exception is java.sql.SQLException: Field \'patient_name\' doesn\'t have a default value','2024-11-30 03:00:37',2);
 
 /*Table structure for table `sys_post` */
 
@@ -898,7 +917,7 @@ CREATE TABLE `sys_user` (
 /*Data for the table `sys_user` */
 
 insert  into `sys_user`(`user_id`,`dept_id`,`user_name`,`nick_name`,`user_type`,`email`,`phonenumber`,`sex`,`avatar`,`password`,`status`,`del_flag`,`login_ip`,`login_date`,`create_by`,`create_time`,`update_by`,`update_time`,`remark`) values 
-(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-30 01:15:14','admin','2024-10-05 15:46:15','','2024-11-30 01:15:13','管理员'),
+(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-30 02:30:10','admin','2024-10-05 15:46:15','','2024-11-30 02:30:09','管理员'),
 (2,100,'ry','若依','00','ry@qq.com','15666666666','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-10-05 15:46:15','admin','2024-10-05 15:46:15','admin','2024-11-13 16:12:11','测试员'),
 (100,100,'test','test','00','','','2','','$2a$10$/NIAAJu1SxRBUsCNvALkuO.fPkPNMFZQSuVNe6qjP6r9ReocXAT7q','0','0','127.0.0.1','2024-11-04 10:22:26','admin','2024-11-01 16:26:49','','2024-11-04 10:22:25',NULL);
 
@@ -998,26 +1017,32 @@ CREATE TABLE `tt_appointments_test` (
   `appointment_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '预约唯一ID',
   `patient_id` bigint(20) DEFAULT NULL COMMENT '患者ID，关联患者表',
   `doctor_id` bigint(20) DEFAULT NULL COMMENT '医生ID，关联医生表',
+  `patient_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '患者姓名',
+  `doctor_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '医生姓名',
+  `patient_phone` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '患者联系方式',
   `appointment_start_time` datetime DEFAULT NULL COMMENT '预约开始时间',
-  `appointment_end_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '预约终止时间',
   `appointment_duration` int(11) DEFAULT NULL COMMENT '预约时长（分钟）',
   `appointment_project` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '预约的项目',
-  `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `appointment_status` varchar(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '预约状态',
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT '预约创建时间',
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '预约更新时间',
+  `remark` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`appointment_id`) USING BTREE,
-  UNIQUE KEY `doctor_id` (`doctor_id`,`appointment_start_time`,`appointment_end_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
+  UNIQUE KEY `doctor_id` (`doctor_id`,`appointment_start_time`) USING BTREE COMMENT '确保医生在同一时间内不能重复预约',
   KEY `fk_patient_appointment` (`patient_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='预约表';
 
 /*Data for the table `tt_appointments_test` */
 
-insert  into `tt_appointments_test`(`appointment_id`,`patient_id`,`doctor_id`,`appointment_start_time`,`appointment_end_time`,`appointment_duration`,`appointment_project`,`appointment_status`,`created_at`,`updated_at`) values 
-(1,1,3,'2024-11-18 16:54:31','2024-11-18 16:54:33',30,'1','2','2024-10-05 00:00:00','2024-11-18 16:54:33'),
-(2,2,1,'2024-11-20 16:54:34','2024-11-18 16:54:51',45,'3','1','2024-10-05 00:00:00','2024-11-18 16:54:51'),
-(3,3,3,'2024-11-20 16:54:37','2024-11-18 16:54:56',60,'3','3','2024-10-05 00:00:00','2024-11-18 16:54:56'),
-(4,4,4,'2024-11-19 16:54:39','2024-11-18 16:54:48',30,'4','3','2024-10-05 00:00:00','2024-11-18 16:54:48'),
-(5,5,5,'2024-11-21 16:54:41','2024-11-18 16:54:59',30,'6','1','2024-10-05 09:51:34','2024-11-18 16:54:59');
+insert  into `tt_appointments_test`(`appointment_id`,`patient_id`,`doctor_id`,`patient_name`,`doctor_name`,`patient_phone`,`appointment_start_time`,`appointment_duration`,`appointment_project`,`appointment_status`,`created_at`,`updated_at`,`remark`) values 
+(2,2,2,'李丽','1','987-654-3210','2024-11-20 00:00:00',45,'3','1','2024-10-05 00:00:00','2024-11-28 09:16:47',NULL),
+(3,3,3,'王强','2','555-123-4567','2024-11-20 00:00:00',60,'3','3','2024-10-05 00:00:00','2024-11-28 09:16:54',NULL),
+(4,4,4,'赵敏','2','444-222-1111','2024-11-19 00:00:00',30,'4','3','2024-10-05 00:00:00','2024-11-28 09:17:00',NULL),
+(5,5,5,'刘洋','3','666-555-4444','2024-11-21 00:00:00',30,'6','1','2024-10-05 09:51:34','2024-11-28 09:17:04',NULL),
+(1,3,3,'张伟','2','555-123-4567','2024-11-28 00:00:00',45,'6','1','2024-11-28 09:06:18','2024-11-28 09:17:13',NULL),
+(6,NULL,NULL,'张三','1','1008611','2024-11-28 00:00:00',45,'1','1','2024-11-28 11:12:46','2024-11-29 23:21:48',NULL),
+(7,NULL,NULL,'123','1','123123','2024-11-29 00:00:00',45,'1','1','2024-11-29 21:02:37','2024-11-29 21:02:37',NULL),
+(8,NULL,NULL,'张三','1','1008611','2024-11-06 00:00:00',1,'2','3','2024-11-29 23:24:34','2024-11-29 23:24:34','12');
 
 /*Table structure for table `tt_billing` */
 
@@ -1232,7 +1257,7 @@ DROP TABLE IF EXISTS `tt_inventory_offsetting`;
 CREATE TABLE `tt_inventory_offsetting` (
   `offsetting_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '对冲工单id',
   `item_id` bigint(20) NOT NULL COMMENT '物品ID',
-  `item_name` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '货物名称',
+  `item_name` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '货物名称',
   `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
   `reason` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '对冲原因',
   `quantity` bigint(20) NOT NULL COMMENT '对冲数量',

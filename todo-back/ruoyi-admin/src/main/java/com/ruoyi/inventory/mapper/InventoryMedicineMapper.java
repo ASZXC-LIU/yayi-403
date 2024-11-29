@@ -37,7 +37,7 @@ public interface InventoryMedicineMapper
      */
     public int insertInventoryMedicine(InventoryMedicine inventoryMedicine);
 
-
+//    新增新增药品供应商关联
     /**
      * 新增药品供应商关联
      *
@@ -45,12 +45,14 @@ public interface InventoryMedicineMapper
      * @return 结果
      */
     public int insertMedicineSuppliers(MedicineSupplier medicineSupplier);
+//    新增修改药品库存
     /**
      * 修改药品库存
      * 
      * @param inventoryMedicine 药品库存
      * @return 结果
      */
+
     public int updateInventoryMedicine(InventoryMedicine inventoryMedicine);
 
     /**
@@ -60,7 +62,6 @@ public interface InventoryMedicineMapper
      * @return 结果
      */
     public int offsettingUpdateInventoryMedicineResult(InventoryOffsetting inventoryOffsetting);
-
 
     /**
      * 修改对冲后药品库存
@@ -79,8 +80,6 @@ public interface InventoryMedicineMapper
      * @return 结果
      */
     public int inboundUpdateMedicineUpdateInventoryMedicineResult(InventoryInbound inventoryInbound);
-
-
     /**
      * 修改出库后药品库存
      *

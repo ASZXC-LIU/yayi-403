@@ -71,6 +71,12 @@
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-doctor</artifactId>
         </dependency>
+        <!--预约测试-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>ruoyi-appointmentte</artifactId>
+            <version>${ruoyi.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
