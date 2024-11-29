@@ -35,6 +35,18 @@ export function ifExit(data) {
   })
 }
 
+
+// 查看是否存在
+export function getAllQuantity(data) {
+  return request({
+    url: '/medicinesupplier/medicinesuppliers/getAllQuantity',
+    method: 'post',
+    data: data
+  })
+}
+
+
+
 // 查看是否存在
 export function outboundMS(data) {
   return request({
@@ -43,6 +55,17 @@ export function outboundMS(data) {
     data: data
   })
 }
+
+// 查看是否存在
+export function offSettingMS(data) {
+  return request({
+    url: '/medicinesupplier/medicinesuppliers/offSettingMS',
+    method: 'put',
+    data: data
+  })
+}
+
+
 // 修改medicine_supplier
 export function updateMedicinesuppliers(data) {
   return request({

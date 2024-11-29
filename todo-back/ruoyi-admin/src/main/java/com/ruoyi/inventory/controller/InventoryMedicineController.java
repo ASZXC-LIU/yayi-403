@@ -142,7 +142,7 @@ public class InventoryMedicineController extends BaseController
 
         if (exitName.equals(outName)) {
 
-            return toAjax(inventoryMedicineService.inboundUpdateMedicine(inventoryInbound));
+            return toAjax(1);
 
         } else {
             return AjaxResult.error("入库失败:货物名称不正确");

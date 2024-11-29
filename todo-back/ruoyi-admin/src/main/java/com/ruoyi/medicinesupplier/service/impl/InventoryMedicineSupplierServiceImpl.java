@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 import com.ruoyi.medicinesupplier.domain.MedicineSupplierVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

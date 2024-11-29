@@ -7,6 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <resultMap type="InventoryOffsetting" id="InventoryOffsettingResult">
         <result property="offsettingId"    column="offsetting_id"    />
         <result property="itemId"    column="item_id"    />
+        <result property="itemName"    column="item_name"    />
         <result property="responsible"    column="responsible"    />
         <result property="reason"    column="reason"    />
         <result property="quantity"    column="quantity"    />
@@ -40,6 +41,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into tt_inventory_offsetting
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="itemId != null and itemId != ''">item_id,</if>
+            <if test="itemName != null and itemName != ''">item_name,</if>
             <if test="responsible != null and responsible != ''">responsible,</if>
             <if test="reason != null and reason != ''">reason,</if>
             <if test="quantity != null">quantity,</if>
@@ -52,6 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="itemId != null and itemId != ''">#{itemId},</if>
+            <if test="itemName != null and itemName != ''">#{itemName},</if>
             <if test="responsible != null and responsible != ''">#{responsible},</if>
             <if test="reason != null and reason != ''">#{reason},</if>
             <if test="quantity != null">#{quantity},</if>

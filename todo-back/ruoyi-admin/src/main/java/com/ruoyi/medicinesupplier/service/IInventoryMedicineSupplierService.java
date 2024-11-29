@@ -1,6 +1,8 @@
 package com.ruoyi.medicinesupplier.service;
 
 import java.util.List;
+
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 
 import java.util.Map;

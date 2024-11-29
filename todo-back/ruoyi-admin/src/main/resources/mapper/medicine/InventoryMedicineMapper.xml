@@ -53,6 +53,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where medicine_id = #{medicineId}
     </select>
 
+    <select id="getAllQuantity" parameterType="InventoryMedicineSupplier" >
+        SELECT SUM(item_num) AS total_inventory
+        FROM tt_inventory_medicine_supplier
+        WHERE item_id = #{itemId}
+    </select>
+
+
+
     <insert id="insertInventoryMedicine" parameterType="InventoryMedicine" useGeneratedKeys="true" keyProperty="medicineId">
         insert into tt_inventory_medicine
         <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -78,7 +78,7 @@ public class InventoryOffsettingController extends BaseController
     }
 
     /**
-     * 新增对冲记录工单
+     * 新增药品记录工单
      */
     @PreAuthorize("@ss.hasPermi('offsetting:offsettings:add')")
     @Log(title = "对冲记录工单", businessType = BusinessType.INSERT)
@@ -89,11 +89,10 @@ public class InventoryOffsettingController extends BaseController
         //读取药品的计量单位传递给入库表
         String unit = inventoryMedicine.getUnit();
         inventoryOffsetting.setUnit(unit);
-        System.out.println(inventoryOffsetting);
         return toAjax(inventoryOffsettingService.insertInventoryOffsetting(inventoryOffsetting));
     }
     /**
-     * 新增对冲记录工单
+     * 新增工具记录工单
      */
     @PreAuthorize("@ss.hasPermi('offsetting:offsettings:add')")
     @Log(title = "对冲记录工单", businessType = BusinessType.INSERT)

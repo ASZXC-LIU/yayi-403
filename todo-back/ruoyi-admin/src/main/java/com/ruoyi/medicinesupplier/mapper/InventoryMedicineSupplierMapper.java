@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.github.pagehelper.PageInfo;
+import com.ruoyi.inventory.domain.InventoryOffsetting;
 import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 import com.ruoyi.medicinesupplier.domain.MedicineSupplierVO;
 

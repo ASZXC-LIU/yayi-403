@@ -104,7 +104,6 @@ public class InventoryInboundController extends BaseController
             //读取药品的计量单位传递给入库表
              String unit = inventoryMedicine.getUnit();
             inventoryInbound.setUnit(unit);
-            System.out.println(inventoryInbound);
             return toAjax(inventoryInboundService.insertInventoryInbound(inventoryInbound));
         }else {
             return AjaxResult.error("ID不存在");
@@ -132,7 +131,6 @@ public class InventoryInboundController extends BaseController
             //读取药品的计量单位传递给入库表
             String unit = inventoryTools.getUnit();
             inventoryInbound.setUnit(unit);
-            System.out.println(inventoryInbound);
             return toAjax(inventoryInboundService.insertInventoryInbound(inventoryInbound));
         }else {
             return AjaxResult.error("ID不存在");
