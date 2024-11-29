@@ -25,7 +25,14 @@ export function addOutbounds(data) {
     data: data
   })
 }
-
+// 新增出库工单
+export function addOutTool(data) {
+  return request({
+    url: '/outbound/outbounds/addOutTool',
+    method: 'post',
+    data: data
+  })
+}
 // 修改出库工单
 export function updateOutbounds(data) {
   return request({

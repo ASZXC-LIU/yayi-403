@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.emr.mapper.EmrMapper">
+    
+    <resultMap type="Emr" id="EmrResult">
+        <result property="emrId"    column="emr_id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="doctorName"    column="doctor_name"    />
+        <result property="maincase"    column="maincase"    />
+        <result property="currentMedicalHistory"    column="current_medical_history"    />
+        <result property="treatmentType"    column="treatment_type"    />
+        <result property="clinicalResults"    column="clinical_results"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedTime"    column="updated_time"    />
+        <result property="emrStatue"    column="emr_statue"    />
+        <result property="appointmentId"    column="appointment_id"    />
+        <result property="billId"    column="bill_id"    />
+    </resultMap>
+
+    <sql id="selectEmrVo">
+        select emr_id, patient_id, patient_name, doctor_id, doctor_name, maincase, current_medical_history, treatment_type, clinical_results, created_time, updated_time, emr_statue, appointment_id, bill_id from tt_emr
+    </sql>
+
+    <select id="selectEmrList" parameterType="Emr" resultMap="EmrResult">
+        <include refid="selectEmrVo"/>
+        <where>  
+            <if test="patientName != null  and patientName != ''"> and patient_name like concat('%', #{patientName}, '%')</if>
+            <if test="doctorName != null  and doctorName != ''"> and doctor_name like concat('%', #{doctorName}, '%')</if>
+            <if test="treatmentType != null  and treatmentType != ''"> and treatment_type = #{treatmentType}</if>
+            <if test="createdTime != null "> and created_time = #{createdTime}</if>
+            <if test="emrStatue != null  and emrStatue != ''"> and emr_statue = #{emrStatue}</if>
+        </where>
+    </select>
+    
+    <select id="selectEmrByEmrId" parameterType="Long" resultMap="EmrResult">
+        <include refid="selectEmrVo"/>
+        where emr_id = #{emrId}
+    </select>
+
+    <insert id="insertEmr" parameterType="Emr">
+        insert into tt_emr
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="emrId != null">emr_id,</if>
+            <if test="patientId != null">patient_id,</if>
+            <if test="patientName != null and patientName != ''">patient_name,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="doctorName != null and doctorName != ''">doctor_name,</if>
+            <if test="maincase != null">maincase,</if>
+            <if test="currentMedicalHistory != null">current_medical_history,</if>
+            <if test="treatmentType != null">treatment_type,</if>
+            <if test="clinicalResults != null">clinical_results,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedTime != null">updated_time,</if>
+            <if test="emrStatue != null">emr_statue,</if>
+            <if test="appointmentId != null">appointment_id,</if>
+            <if test="billId != null">bill_id,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="emrId != null">#{emrId},</if>
+            <if test="patientId != null">#{patientId},</if>
+            <if test="patientName != null and patientName != ''">#{patientName},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="doctorName != null and doctorName != ''">#{doctorName},</if>
+            <if test="maincase != null">#{maincase},</if>
+            <if test="currentMedicalHistory != null">#{currentMedicalHistory},</if>
+            <if test="treatmentType != null">#{treatmentType},</if>
+            <if test="clinicalResults != null">#{clinicalResults},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+            <if test="emrStatue != null">#{emrStatue},</if>
+            <if test="appointmentId != null">#{appointmentId},</if>
+            <if test="billId != null">#{billId},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEmr" parameterType="Emr">
+        update tt_emr
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="patientName != null and patientName != ''">patient_name = #{patientName},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="doctorName != null and doctorName != ''">doctor_name = #{doctorName},</if>
+            <if test="maincase != null">maincase = #{maincase},</if>
+            <if test="currentMedicalHistory != null">current_medical_history = #{currentMedicalHistory},</if>
+            <if test="treatmentType != null">treatment_type = #{treatmentType},</if>
+            <if test="clinicalResults != null">clinical_results = #{clinicalResults},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+            <if test="emrStatue != null">emr_statue = #{emrStatue},</if>
+            <if test="appointmentId != null">appointment_id = #{appointmentId},</if>
+            <if test="billId != null">bill_id = #{billId},</if>
+        </trim>
+        where emr_id = #{emrId}
+    </update>
+
+    <delete id="deleteEmrByEmrId" parameterType="Long">
+        delete from tt_emr where emr_id = #{emrId}
+    </delete>
+
+    <delete id="deleteEmrByEmrIds" parameterType="String">
+        delete from tt_emr where emr_id in 
+        <foreach item="emrId" collection="array" open="(" separator="," close=")">
+            #{emrId}
+        </foreach>
+    </delete>
+</mapper>

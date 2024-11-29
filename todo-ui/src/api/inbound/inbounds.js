@@ -17,10 +17,19 @@ export function getInbounds(inboundId) {
   })
 }
 
-// 新增入库工单
+// 新增药品入库工单
 export function addInbounds(data) {
   return request({
     url: '/inbound/inbounds',
+    method: 'post',
+    data: data
+  })
+}
+
+// 新增工具入库工单
+export function addTool(data) {
+  return request({
+    url: '/inbound/inbounds/addTool',
     method: 'post',
     data: data
   })

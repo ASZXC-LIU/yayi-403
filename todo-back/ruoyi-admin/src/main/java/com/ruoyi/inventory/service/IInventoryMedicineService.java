@@ -6,6 +6,7 @@ import com.ruoyi.inventory.domain.InventoryInbound;
 import com.ruoyi.inventory.domain.InventoryMedicine;
 import com.ruoyi.inventory.domain.InventoryOffsetting;
 import com.ruoyi.inventory.domain.InventoryOutbound;
+import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 
 /**
  * 药品库存Service接口
@@ -56,12 +57,12 @@ public interface IInventoryMedicineService
     public int offsettingUpdateMedicine(InventoryOffsetting inventoryOffsetting);
 
     /**
-     * 修改入库后的对应药品库存
+     * 根据不同供应商的供货量整合货物总量
      *
-     * @param inventoryInbound 药品库存
+     * @param inventoryMedicineSupplier 药品库存
      * @return 结果
      */
-    public int inboundUpdateMedicine(InventoryInbound inventoryInbound);
+    public Long getAllQuantity(InventoryMedicineSupplier inventoryMedicineSupplier);
 
 
     /**
