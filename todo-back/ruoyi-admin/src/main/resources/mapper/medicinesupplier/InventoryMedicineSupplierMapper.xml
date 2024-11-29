@@ -93,10 +93,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update tt_inventory_medicine_supplier
         <trim prefix="SET" suffixOverrides=",">
 
-            <if test="itemNum != null">item_num = item_num+#{itemNum},</if>
+            <if test="itemNum != null">item_num = item_num + #{itemNum},</if>
         </trim>
         where item_id = #{itemId}
         and supplier_id = #{supplierId}
+        and item_type = #{itemType}
     </update>
 
     <update id="outboundMS" parameterType="InventoryMedicineSupplier">
@@ -107,6 +108,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
         where item_id = #{itemId}
         and supplier_id = #{supplierId}
+        and item_type = #{itemType}
     </update>
 
 
