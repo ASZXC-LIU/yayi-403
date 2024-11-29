@@ -1,25 +1,19 @@
-package com.ruoyi.patientlist.controller;
+package com.ruoyi.appointmentte.controller;
 
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import com.ruoyi.common.annotation.Log;
 import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
-import com.ruoyi.common.enums.BusinessType;
-import com.ruoyi.patientlist.domain.PatientList;
-import com.ruoyi.patientlist.service.IPatientListService;
-import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
+import com.ruoyi.common.enums.BusinessType;
+import com.ruoyi.common.utils.poi.ExcelUtil;
+import com.ruoyi.appointmentte.domain.PatientListVo;
+import com.ruoyi.appointmentte.service.IPatientListVoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 患者信息Controller
@@ -28,21 +22,21 @@ import com.ruoyi.common.core.page.TableDataInfo;
  * @date 2024-10-24
  */
 @RestController
-@RequestMapping("/patientlist/patientlists")
-public class PatientListController extends BaseController
+@RequestMapping("/patientlist/patientlists/vo")
+public class PatientListVoController extends BaseController
 {
     @Autowired
-    private IPatientListService patientListService;
+    private IPatientListVoService patientListService;
 
     /**
      * 查询患者信息列表
      */
     @PreAuthorize("@ss.hasPermi('patientlist:patientlists:list')")
     @GetMapping("/list")
-    public TableDataInfo list(PatientList patientList)
+    public TableDataInfo list(PatientListVo patientListVo)
     {
         startPage();
-        List<PatientList> list = patientListService.selectPatientListList(patientList);
+        List<PatientListVo> list = patientListService.selectPatientListList(patientListVo);
         return getDataTable(list);
     }
 
@@ -52,10 +46,10 @@ public class PatientListController extends BaseController
     @PreAuthorize("@ss.hasPermi('patientlist:patientlists:export')")
     @Log(title = "患者信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, PatientList patientList)
+    public void export(HttpServletResponse response, PatientListVo patientListVo)
     {
-        List<PatientList> list = patientListService.selectPatientListList(patientList);
-        ExcelUtil<PatientList> util = new ExcelUtil<PatientList>(PatientList.class);
+        List<PatientListVo> list = patientListService.selectPatientListList(patientListVo);
+        ExcelUtil<PatientListVo> util = new ExcelUtil<PatientListVo>(PatientListVo.class);
         util.exportExcel(response, list, "患者信息数据");
     }
 
@@ -75,9 +69,9 @@ public class PatientListController extends BaseController
     @PreAuthorize("@ss.hasPermi('patientlist:patientlists:add')")
     @Log(title = "患者信息", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody PatientList patientList)
+    public AjaxResult add(@RequestBody PatientListVo patientListVo)
     {
-        return toAjax(patientListService.insertPatientList(patientList));
+        return toAjax(patientListService.insertPatientList(patientListVo));
     }
 
     /**
@@ -86,9 +80,9 @@ public class PatientListController extends BaseController
     @PreAuthorize("@ss.hasPermi('patientlist:patientlists:edit')")
     @Log(title = "患者信息", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody PatientList patientList)
+    public AjaxResult edit(@RequestBody PatientListVo patientListVo)
     {
-        return toAjax(patientListService.updatePatientList(patientList));
+        return toAjax(patientListService.updatePatientList(patientListVo));
     }
 
     /**

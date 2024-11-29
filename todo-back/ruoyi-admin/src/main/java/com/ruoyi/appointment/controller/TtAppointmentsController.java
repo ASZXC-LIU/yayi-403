@@ -51,8 +51,6 @@ public class TtAppointmentsController extends BaseController
 
     }
 
-
-
     /**
      * 导出预约功能列表
      */
