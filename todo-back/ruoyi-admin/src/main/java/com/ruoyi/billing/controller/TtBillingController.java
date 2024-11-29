@@ -79,6 +79,7 @@ public class TtBillingController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody TtBilling ttBilling)
     {
+        System.out.println(ttBilling);
         return toAjax(ttBillingService.insertTtBilling(ttBilling));
     }
 

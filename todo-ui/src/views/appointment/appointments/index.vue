@@ -97,7 +97,7 @@
             v-hasPermi="['appointment:appointments:edit']">修改</el-button>
           <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
             v-hasPermi="['appointment:appointments:remove']">删除</el-button>
-          <el-button type="primary" plain @click="handleAdd_billing" v-hasPermi="['billing:billing:add']"
+          <el-button type="primary" plain  @click="handleAdd_billing(scope.row)"  v-hasPermi="['billing:billing:add']"
             v-if="scope.row.appointmentStatus === '1'">
             <Icon icon="material-symbols:money-bag" /> 记账
           </el-button>
@@ -466,8 +466,16 @@ const data_billing = reactive({
 const { form_billing, rules_billing } = toRefs(data_billing);
 
 /** 新增按钮操作 */
-function handleAdd_billing() {
+function handleAdd_billing(row) {
   openbilling.value = true;
+  console.log(row);
+  const form_toSearch = reactive({
+    pageNum: 1,
+    pageSize: 10,
+    patientname: null,
+    doctername: 0,
+  });
+  form_toSearch.itemId = row.medicineId; //供应商id
   title.value = "添加账单";
 }
 
