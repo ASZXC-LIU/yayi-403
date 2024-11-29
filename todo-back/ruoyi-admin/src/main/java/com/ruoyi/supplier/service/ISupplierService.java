@@ -1,6 +1,10 @@
 package com.ruoyi.supplier.service;
 
 import java.util.List;
+
+import com.ruoyi.inventory.domain.InventoryInbound;
+import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.medicinesupplier.domain.InventoryMedicineSupplier;
 import com.ruoyi.supplier.domain.Supplier;
 
 /**
@@ -19,6 +23,21 @@ public interface ISupplierService
      */
     public Supplier selectSupplierBySupplierId(Long supplierId);
 
+    /**
+     * 通过药品ID获取他的所有供应商信息
+     *
+     * @param inventoryMedicineSupplier 供应商列表主键
+     * @return 供应商列表
+     */
+    public List<Supplier> selectSupplierByMedicineId(InventoryMedicineSupplier inventoryMedicineSupplier);
+
+    /**
+     * 通过工具获取他的所有供应商信息
+     *
+     * @param inventoryMedicineSupplier 供应商列表主键
+     * @return 供应商列表
+     */
+    public List<Supplier> selectSupplierByTool(InventoryMedicineSupplier inventoryMedicineSupplier);
     /**
      * 查询供应商列表列表
      * 
@@ -42,6 +61,14 @@ public interface ISupplierService
      * @return 结果
      */
     public int updateSupplier(Supplier supplier);
+
+    /**
+     * 修改供应商列表
+     *
+     * @param inventoryInbound 供应商列表
+     * @return 结果
+     */
+    public int updateItemId(InventoryInbound inventoryInbound);
 
     /**
      * 批量删除供应商列表

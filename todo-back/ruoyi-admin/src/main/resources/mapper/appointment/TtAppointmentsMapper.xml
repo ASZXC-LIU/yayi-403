@@ -57,12 +57,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <if test="appointmentProject != null  and appointmentProject != ''"> and a.appointment_project = #{appointmentProject}</if>
         <if test="appointmentStatus != null  and appointmentStatus != ''"> and a.appointment_status = #{appointmentStatus}</if>
         <if test="patientName != null "> and b.name like concat('%', #{patientName}, '%')</if>
+        <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+            and date_format(appointment_time,'%Y%m%d') &gt;= date_format(#{params.beginTime},'%Y%m%d')
+        </if>
+        <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+            and date_format(appointment_time,'%Y%m%d') &lt;= date_format(#{params.endTime},'%Y%m%d')
+        </if>
     </where>
 </select>
 
-
-
-    
     <select id="selectTtAppointmentsByAppointmentId" parameterType="Long" resultMap="TtAppointmentsResult">
         <include refid="selectTtAppointmentsVo"/>
         where appointment_id = #{appointmentId}

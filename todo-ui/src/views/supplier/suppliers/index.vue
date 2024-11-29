@@ -9,14 +9,7 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="供应货物名称" prop="itemName" >
-        <el-input 
-          v-model="queryParams.itemName"
-          placeholder="请输入供应货物名称"
-          clearable
-          @keyup.enter="handleQuery"
-        />
-      </el-form-item>
+     
       <el-form-item label="供应商电话" prop="supplierPhone">
         <el-input
           v-model="queryParams.supplierPhone"
@@ -86,9 +79,7 @@
       <el-table-column label="供应商ID" align="center" prop="supplierId" />
       <el-table-column label="供应商名称" align="center" prop="supplierName" width="180"/>
       <el-table-column label="供应商备注" align="center" prop="supplierRemark" width="180"/>
-      <el-table-column label="供应货物ID" align="center" prop="itemId" width="180"/>
-      <el-table-column label="供应货物名称" align="center" prop="itemName" width="180"/>
-      <el-table-column label="货物备注" align="center" prop="itemRemark" />
+      
       <el-table-column label="供应商电话" align="center" prop="supplierPhone" width="180"/>
       <el-table-column label="备用电话" align="center" prop="supplierPhone2" width="180"/>
       <el-table-column label="供应商地址" align="center" prop="supplierAddress" width="180"/>
@@ -130,15 +121,6 @@
         </el-form-item>
         <el-form-item label="供应商备注" prop="supplierRemark">
           <el-input v-model="form.supplierRemark" type="textarea" placeholder="请输入内容" />
-        </el-form-item>
-        <el-form-item label="供应货物ID" prop="itemId">
-          <el-input v-model="form.itemId" placeholder="请输入供应货物ID" />
-        </el-form-item>
-        <el-form-item label="供应货物名称" prop="itemName">
-          <el-input v-model="form.itemName" placeholder="请输入供应货物名称" />
-        </el-form-item>
-        <el-form-item label="货物备注" prop="itemRemark">
-          <el-input v-model="form.itemRemark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="供应商电话" prop="supplierPhone">
           <el-input v-model="form.supplierPhone" placeholder="请输入供应商电话" />
@@ -190,7 +172,6 @@ const data = reactive({
     pageNum: 1,
     pageSize: 10,
     supplierName: null,
-    itemName: null,
     supplierPhone: null,
     Contact: null,
     Creditworthiness: null,
@@ -198,12 +179,6 @@ const data = reactive({
   rules: {
     supplierName: [
       { required: true, message: "供应商名称不能为空", trigger: "blur" }
-    ],
-    itemId: [
-      { required: true, message: "供应货物ID不能为空", trigger: "blur" }
-    ],
-    itemName: [
-      { required: true, message: "供应货物名称不能为空", trigger: "blur" }
     ],
     Creditworthiness: [
       { required: true, message: "信用度不能为空", trigger: "change" }
@@ -235,9 +210,6 @@ function reset() {
     supplierId: null,
     supplierName: null,
     supplierRemark: null,
-    itemId: null,
-    itemName: null,
-    itemRemark: null,
     supplierPhone: null,
     supplierPhone2: null,
     supplierAddress: null,
