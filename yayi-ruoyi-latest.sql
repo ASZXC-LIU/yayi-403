@@ -666,7 +666,7 @@ CREATE TABLE `sys_logininfor` (
   PRIMARY KEY (`info_id`) USING BTREE,
   KEY `idx_sys_logininfor_s` (`status`) USING BTREE,
   KEY `idx_sys_logininfor_lt` (`login_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=255 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='系统访问记录';
 
 /*Data for the table `sys_logininfor` */
 
@@ -819,7 +819,13 @@ insert  into `sys_logininfor`(`info_id`,`user_name`,`ipaddr`,`login_location`,`b
 (245,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-28 15:47:29'),
 (246,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-28 19:15:45'),
 (247,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-28 19:32:43'),
-(248,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-28 19:42:48');
+(248,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-28 19:42:48'),
+(249,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-28 21:11:03'),
+(250,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-29 21:18:33'),
+(251,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','退出成功','2024-11-29 21:32:53'),
+(252,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-29 21:33:13'),
+(253,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-30 00:10:05'),
+(254,'admin','127.0.0.1','内网IP','Chrome 13','Windows 10','0','登录成功','2024-11-30 00:48:43');
 
 /*Table structure for table `sys_menu` */
 
@@ -1050,7 +1056,7 @@ CREATE TABLE `sys_oper_log` (
   KEY `idx_sys_oper_log_bt` (`business_type`) USING BTREE,
   KEY `idx_sys_oper_log_s` (`status`) USING BTREE,
   KEY `idx_sys_oper_log_ot` (`oper_time`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1014 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=1064 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='操作日志记录';
 
 /*Data for the table `sys_oper_log` */
 
@@ -1707,7 +1713,57 @@ insert  into `sys_oper_log`(`oper_id`,`title`,`business_type`,`method`,`request_
 (1010,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.addTool()','POST',1,'admin','牙医诊所','/inbound/inbounds/addTool','127.0.0.1','内网IP','{\"createTime\":\"2024-11-28 20:39:55\",\"expirationDate\":\"2024-11-30\",\"freight\":100,\"inboundId\":76,\"inboundTime\":\"2024-11-19\",\"itemId\":8,\"itemName\":\"工具A\",\"manufactureDate\":\"2024-10-31\",\"params\":{},\"purchasePrice\":100,\"quantity\":100,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":10100,\"supplier\":\"23\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-28 20:39:55',56),
 (1011,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.ifExit()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/ifExit','127.0.0.1','内网IP','{\"itemId\":8,\"itemNum\":100,\"itemType\":\"1\",\"medicineSupplierId\":16,\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-28 20:39:55',23),
 (1012,'药品库存',2,'com.ruoyi.inventory.controller.InventoryToolsController.outboundUpdateTools()','PUT',1,'admin','牙医诊所','/inventorytool/inventorytools/outboundUpdateTools','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":8,\"itemName\":\"工具A\",\"outboundTime\":\"2024-11-19\",\"params\":{},\"quantity\":1,\"responsible\":\"1\",\"spending\":100}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-28 20:40:21',18),
-(1013,'出库工单',1,'com.ruoyi.inventory.controller.InventoryOutboundController.add()','POST',1,'admin','牙医诊所','/outbound/outbounds','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":8,\"itemName\":\"工具A\",\"outboundTime\":\"2024-11-19\",\"params\":{},\"quantity\":1,\"responsible\":\"1\",\"spending\":100}',NULL,1,'Cannot invoke \"com.ruoyi.inventory.domain.InventoryMedicine.getUnit()\" because \"inventoryMedicine\" is null','2024-11-28 20:40:21',8);
+(1013,'出库工单',1,'com.ruoyi.inventory.controller.InventoryOutboundController.add()','POST',1,'admin','牙医诊所','/outbound/outbounds','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":8,\"itemName\":\"工具A\",\"outboundTime\":\"2024-11-19\",\"params\":{},\"quantity\":1,\"responsible\":\"1\",\"spending\":100}',NULL,1,'Cannot invoke \"com.ruoyi.inventory.domain.InventoryMedicine.getUnit()\" because \"inventoryMedicine\" is null','2024-11-28 20:40:21',8),
+(1014,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.outboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/outboundUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"outboundTime\":\"2024-11-28\",\"params\":{},\"quantity\":1,\"responsible\":\"刘航\",\"spending\":100}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 21:19:17',19),
+(1015,'出库工单',1,'com.ruoyi.inventory.controller.InventoryOutboundController.add()','POST',1,'admin','牙医诊所','/outbound/outbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 21:19:17\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"outboundId\":16,\"outboundTime\":\"2024-11-28\",\"params\":{},\"quantity\":1,\"responsible\":\"刘航\",\"spending\":100,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 21:19:17',47),
+(1016,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.outboundMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/outboundMS','127.0.0.1','内网IP','{\"itemId\":145,\"itemNum\":1,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 21:19:17',32),
+(1017,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"itemId\":133,\"params\":{},\"spending\":0}','{\"msg\":\"出库失败：货物不存在\",\"code\":500}',0,NULL,'2024-11-29 21:34:50',5),
+(1018,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"itemId\":145,\"params\":{},\"spending\":0}',NULL,1,'Cannot read field \"value\" because \"anotherLong\" is null','2024-11-29 21:34:54',3),
+(1019,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"itemId\":145,\"params\":{},\"quantity\":11111111,\"spending\":0}','{\"msg\":\"出库失败：当前库存不足，库存量为 95，出库量为 11111111\",\"code\":500}',0,NULL,'2024-11-29 21:35:27',2),
+(1020,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.inboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/inboundUpdateMedicine','127.0.0.1','内网IP','{\"expirationDate\":\"2024-03-31\",\"freight\":1300,\"inboundTime\":\"2024-11-19\",\"itemId\":145,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-02-29\",\"params\":{},\"purchasePrice\":1100,\"quantity\":22,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":25500,\"supplier\":\"24\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 21:43:25',21),
+(1021,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 21:43:24\",\"expirationDate\":\"2024-03-31\",\"freight\":1300,\"inboundId\":77,\"inboundTime\":\"2024-11-19\",\"itemId\":145,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-02-29\",\"params\":{},\"purchasePrice\":1100,\"quantity\":22,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":25500,\"supplier\":\"24\",\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 21:43:25',220),
+(1022,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.ifExit()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/ifExit','127.0.0.1','内网IP','{\"itemId\":145,\"itemNum\":22,\"itemType\":\"0\",\"params\":{},\"supplierId\":24}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 21:43:25',24),
+(1023,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":1000}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 21:48:41',21),
+(1024,'对冲记录工单',1,'com.ruoyi.inventory.controller.InventoryOffsettingController.add()','POST',1,'admin','牙医诊所','/offsetting/offsettings','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 21:48:40\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"offsettingId\":28,\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":1000,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 21:48:41',299),
+(1025,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.outboundMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/outboundMS','127.0.0.1','内网IP','{\"itemType\":\"0\",\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.outboundMS-Inline\r\n### The error occurred while setting parameters\r\n### SQL: update tt_inventory_medicine_supplier                    where item_id = ?         and supplier_id = ?\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3','2024-11-29 21:48:41',69),
+(1026,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":100}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:01:19',29),
+(1027,'对冲记录工单',1,'com.ruoyi.inventory.controller.InventoryOffsettingController.add()','POST',1,'admin','牙医诊所','/offsetting/offsettings','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 22:01:19\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"offsettingId\":29,\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":100,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:01:19',215),
+(1028,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.outboundMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/outboundMS','127.0.0.1','内网IP','{\"itemType\":\"0\",\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.outboundMS-Inline\r\n### The error occurred while setting parameters\r\n### SQL: update tt_inventory_medicine_supplier                    where item_id = ?         and supplier_id = ?\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3','2024-11-29 22:01:19',78),
+(1029,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":10000}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:03:29',14),
+(1030,'对冲记录工单',1,'com.ruoyi.inventory.controller.InventoryOffsettingController.add()','POST',1,'admin','牙医诊所','/offsetting/offsettings','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 22:03:29\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"offsettingId\":30,\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":10000,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:03:29',84),
+(1031,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.outboundMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/outboundMS','127.0.0.1','内网IP','{\"itemType\":\"0\",\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.outboundMS-Inline\r\n### The error occurred while setting parameters\r\n### SQL: update tt_inventory_medicine_supplier                    where item_id = ?         and supplier_id = ?\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3','2024-11-29 22:03:29',6),
+(1032,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":1000000}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:07:03',21),
+(1033,'对冲记录工单',1,'com.ruoyi.inventory.controller.InventoryOffsettingController.add()','POST',1,'admin','牙医诊所','/offsetting/offsettings','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 22:07:03\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"offsettingId\":31,\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":1000000,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:07:03',156),
+(1034,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.outboundMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/outboundMS','127.0.0.1','内网IP','{\"itemType\":\"0\",\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.outboundMS-Inline\r\n### The error occurred while setting parameters\r\n### SQL: update tt_inventory_medicine_supplier                    where item_id = ?         and supplier_id = ?\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3','2024-11-29 22:07:03',80),
+(1035,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":100}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:11:43',26),
+(1036,'对冲记录工单',1,'com.ruoyi.inventory.controller.InventoryOffsettingController.add()','POST',1,'admin','牙医诊所','/offsetting/offsettings','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 22:11:43\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"offsettingId\":32,\"params\":{},\"quantity\":7,\"reason\":\"1\",\"responsible\":\"刘航\",\"spending\":100,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:11:43',221),
+(1037,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.offSettingMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/offSettingMS','127.0.0.1','内网IP','{\"itemType\":\"0\",\"params\":{}}',NULL,1,'\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\r\n### The error may exist in file [D:\\work\\work\\GitHub\\yayi-403\\todo-back\\ruoyi-admin\\target\\classes\\mapper\\medicinesupplier\\InventoryMedicineSupplierMapper.xml]\r\n### The error may involve com.ruoyi.medicinesupplier.mapper.InventoryMedicineSupplierMapper.offSettingMS-Inline\r\n### The error occurred while setting parameters\r\n### SQL: update tt_inventory_medicine_supplier                    where item_id = ?         and supplier_id = ?\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'where item_id = null\n        and supplier_id = null\' at line 3','2024-11-29 22:11:43',61),
+(1038,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.outboundUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/outboundUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"outboundTime\":\"2024-11-26\",\"params\":{},\"quantity\":7,\"responsible\":\"1\",\"spending\":100}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:14:10',19),
+(1039,'出库工单',1,'com.ruoyi.inventory.controller.InventoryOutboundController.add()','POST',1,'admin','牙医诊所','/outbound/outbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 22:14:10\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"outboundId\":17,\"outboundTime\":\"2024-11-26\",\"params\":{},\"quantity\":7,\"responsible\":\"1\",\"spending\":100,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:14:10',118),
+(1040,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.outboundMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/outboundMS','127.0.0.1','内网IP','{\"itemId\":145,\"itemNum\":7,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:14:10',25),
+(1041,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"params\":{},\"quantity\":10,\"reason\":\"1\",\"responsible\":\"1\",\"spending\":100}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:17:10',11),
+(1042,'对冲记录工单',1,'com.ruoyi.inventory.controller.InventoryOffsettingController.add()','POST',1,'admin','牙医诊所','/offsetting/offsettings','127.0.0.1','内网IP','{\"createTime\":\"2024-11-29 22:17:10\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"offsettingId\":33,\"params\":{},\"quantity\":10,\"reason\":\"1\",\"responsible\":\"1\",\"spending\":100,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:17:10',97),
+(1043,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.outboundMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/outboundMS','127.0.0.1','内网IP','{\"itemId\":145,\"itemNum\":10,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-29 22:17:10',14),
+(1044,'药品库存',2,'com.ruoyi.inventory.controller.InventoryToolsController.offsettingUpdateTools()','PUT',1,'admin','牙医诊所','/inventorytool/inventorytools/offsettingUpdateTools','127.0.0.1','内网IP','{\"itemId\":8,\"params\":{},\"spending\":0}',NULL,1,'Cannot read field \"value\" because \"anotherLong\" is null','2024-11-30 00:11:21',14),
+(1045,'药品库存',2,'com.ruoyi.inventory.controller.InventoryMedicineController.offsettingUpdateMedicine()','PUT',1,'admin','牙医诊所','/medicine/medicine/offsettingUpdateMedicine','127.0.0.1','内网IP','{\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"offsettingTime\":\"2024-11-26\",\"params\":{},\"quantity\":1,\"reason\":\"1\",\"responsible\":\"213\",\"spending\":100}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:11:38',6),
+(1046,'对冲记录工单',1,'com.ruoyi.inventory.controller.InventoryOffsettingController.add()','POST',1,'admin','牙医诊所','/offsetting/offsettings','127.0.0.1','内网IP','{\"createTime\":\"2024-11-30 00:11:38\",\"expensesReason\":\"1\",\"itemId\":145,\"itemName\":\"药品A\",\"offsettingId\":34,\"offsettingTime\":\"2024-11-26\",\"params\":{},\"quantity\":1,\"reason\":\"1\",\"responsible\":\"213\",\"spending\":100,\"unit\":\"瓶\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:11:38',101),
+(1047,'medicine_supplier',2,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.outboundMS()','PUT',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/outboundMS','127.0.0.1','内网IP','{\"itemId\":145,\"itemNum\":1,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:11:38',32),
+(1048,'药品库存',3,'com.ruoyi.inventory.controller.InventoryMedicineController.remove()','DELETE',1,'admin','牙医诊所','/medicine/medicine/145','127.0.0.1','内网IP','{}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:48:52',21),
+(1049,'药品库存',1,'com.ruoyi.inventory.controller.InventoryMedicineController.add()','POST',1,'admin','牙医诊所','/medicine/medicine','127.0.0.1','内网IP','{\"medicineDescription\":\"一个药品A\",\"medicineId\":146,\"medicineName\":\"药品A\",\"params\":{},\"sellingPrice\":1000,\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:50:19',17),
+(1050,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-30 00:50:44\",\"expirationDate\":\"2025-11-30\",\"freight\":250,\"inboundId\":78,\"inboundTime\":\"2024-11-20\",\"itemId\":146,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-09-30\",\"params\":{},\"purchasePrice\":500,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"14\",\"spending\":5250,\"supplier\":\"23\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:50:44',76),
+(1051,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.ifExit()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/ifExit','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":10,\"itemType\":\"0\",\"medicineSupplierId\":17,\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:50:44',38),
+(1052,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-30 00:52:27\",\"expirationDate\":\"2024-07-31\",\"freight\":100,\"inboundId\":79,\"inboundTime\":\"2024-11-26\",\"itemId\":146,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":90,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":9100,\"supplier\":\"23\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:52:27',55),
+(1053,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.getAllQuantity()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/getAllQuantity','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":90,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}',NULL,1,'Cannot invoke \"com.ruoyi.inventory.domain.InventoryMedicine.setQuantity(java.lang.Long)\" because \"inventoryMedicine\" is null','2024-11-30 00:52:27',13),
+(1054,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.ifExit()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/ifExit','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":90,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:52:27',19),
+(1055,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-30 00:55:47\",\"expirationDate\":\"2024-07-31\",\"freight\":100,\"inboundId\":80,\"inboundTime\":\"2024-11-26\",\"itemId\":146,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":100,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1100,\"supplier\":\"23\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:55:47',40),
+(1056,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.ifExit()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/ifExit','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":10,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:55:47',26),
+(1057,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.getAllQuantity()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/getAllQuantity','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":10,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}',NULL,1,'Cannot invoke \"com.ruoyi.inventory.domain.InventoryMedicine.setQuantity(java.lang.Long)\" because \"inventoryMedicine\" is null','2024-11-30 00:55:47',25),
+(1058,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-30 00:57:40\",\"expirationDate\":\"2024-07-31\",\"freight\":10000,\"inboundId\":81,\"inboundTime\":\"2024-11-26\",\"itemId\":146,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-06-30\",\"params\":{},\"purchasePrice\":10000,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":110000,\"supplier\":\"23\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:57:40',207),
+(1059,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.getAllQuantity()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/getAllQuantity','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":10,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"成功更新货物所有库存量\",\"code\":200}',0,NULL,'2024-11-30 00:57:40',39),
+(1060,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.ifExit()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/ifExit','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":10,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:57:40',39),
+(1061,'入库工单',1,'com.ruoyi.inventory.controller.InventoryInboundController.add()','POST',1,'admin','牙医诊所','/inbound/inbounds','127.0.0.1','内网IP','{\"createTime\":\"2024-11-30 00:59:39\",\"expirationDate\":\"2024-03-31\",\"freight\":100,\"inboundId\":82,\"inboundTime\":\"2024-11-26\",\"itemId\":146,\"itemName\":\"药品A\",\"manufactureDate\":\"2024-02-29\",\"params\":{},\"purchasePrice\":100,\"quantity\":10,\"responsible\":\"刘航\",\"shelfLife\":\"1\",\"spending\":1100,\"supplier\":\"23\",\"unit\":\"个\"}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:59:39',44),
+(1062,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.getAllQuantity()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/getAllQuantity','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":10,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"成功更新货物所有库存量\",\"code\":200}',0,NULL,'2024-11-30 00:59:39',22),
+(1063,'medicine_supplier',1,'com.ruoyi.medicinesupplier.controller.InventoryMedicineSupplierController.ifExit()','POST',1,'admin','牙医诊所','/medicinesupplier/medicinesuppliers/ifExit','127.0.0.1','内网IP','{\"itemId\":146,\"itemNum\":10,\"itemType\":\"0\",\"params\":{},\"supplierId\":23}','{\"msg\":\"操作成功\",\"code\":200}',0,NULL,'2024-11-30 00:59:39',33);
 
 /*Table structure for table `sys_post` */
 
@@ -1852,7 +1908,7 @@ CREATE TABLE `sys_user` (
 /*Data for the table `sys_user` */
 
 insert  into `sys_user`(`user_id`,`dept_id`,`user_name`,`nick_name`,`user_type`,`email`,`phonenumber`,`sex`,`avatar`,`password`,`status`,`del_flag`,`login_ip`,`login_date`,`create_by`,`create_time`,`update_by`,`update_time`,`remark`) values 
-(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-28 19:42:49','admin','2024-10-05 15:46:15','','2024-11-28 19:42:48','管理员'),
+(1,100,'admin','若依','00','ry@163.com','15888888888','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-11-30 00:48:43','admin','2024-10-05 15:46:15','','2024-11-30 00:48:43','管理员'),
 (2,100,'ry','若依','00','ry@qq.com','15666666666','1','','$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2','0','0','127.0.0.1','2024-10-05 15:46:15','admin','2024-10-05 15:46:15','admin','2024-11-13 16:12:11','测试员'),
 (100,100,'test','test','00','','','2','','$2a$10$/NIAAJu1SxRBUsCNvALkuO.fPkPNMFZQSuVNe6qjP6r9ReocXAT7q','0','0','127.0.0.1','2024-11-04 10:22:26','admin','2024-11-01 16:26:49','','2024-11-04 10:22:25',NULL);
 
@@ -2121,12 +2177,18 @@ CREATE TABLE `tt_inventory_inbound` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`inbound_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=83 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `tt_inventory_inbound` */
 
 insert  into `tt_inventory_inbound`(`inbound_id`,`item_id`,`item_name`,`responsible`,`supplier`,`quantity`,`unit`,`purchase_price`,`freight`,`spending`,`inbound_time`,`manufacture_date`,`shelf_life`,`expiration_date`,`create_time`,`update_time`) values 
-(76,8,'工具A','刘航','23',100,'个',100,100,10100,'2024-11-19','2024-10-31','1','2024-11-30','2024-11-28 20:39:55','2024-11-28 20:39:55');
+(76,8,'工具A','刘航','23',100,'个',100,100,10100,'2024-11-19','2024-10-31','1','2024-11-30','2024-11-28 20:39:55','2024-11-28 20:39:55'),
+(77,145,'药品A','刘航','24',22,'瓶',1100,1300,25500,'2024-11-19','2024-02-29','1','2024-03-31','2024-11-29 21:43:25','2024-11-29 21:43:25'),
+(78,146,'药品A','刘航','23',10,'个',500,250,5250,'2024-11-20','2024-09-30','14','2025-11-30','2024-11-30 00:50:45','2024-11-30 00:50:44'),
+(79,146,'药品A','刘航','23',90,'个',100,100,9100,'2024-11-26','2024-06-30','1','2024-07-31','2024-11-30 00:52:27','2024-11-30 00:52:27'),
+(80,146,'药品A','刘航','23',10,'个',100,100,1100,'2024-11-26','2024-06-30','1','2024-07-31','2024-11-30 00:55:48','2024-11-30 00:55:47'),
+(81,146,'药品A','刘航','23',10,'个',10000,10000,110000,'2024-11-26','2024-06-30','1','2024-07-31','2024-11-30 00:57:40','2024-11-30 00:57:40'),
+(82,146,'药品A','刘航','23',10,'个',100,100,1100,'2024-11-26','2024-02-29','1','2024-03-31','2024-11-30 00:59:39','2024-11-30 00:59:39');
 
 /*Table structure for table `tt_inventory_medicine` */
 
@@ -2136,7 +2198,7 @@ CREATE TABLE `tt_inventory_medicine` (
   `medicine_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '物品ID',
   `medicine_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL COMMENT '物品名称',
   `medicine_description` text CHARACTER SET utf8 COLLATE utf8_unicode_ci COMMENT '物品描述',
-  `supplier` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商',
+  `supplier` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商',
   `origin` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL COMMENT '供应商产地',
   `purchase_price` decimal(10,0) DEFAULT NULL COMMENT '进价',
   `selling_price` decimal(10,0) DEFAULT NULL COMMENT '售价',
@@ -2148,12 +2210,12 @@ CREATE TABLE `tt_inventory_medicine` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `updated_at` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`medicine_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=146 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='物品管理表，记录库存的物品信息及供应商产地';
+) ENGINE=MyISAM AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC COMMENT='物品管理表，记录库存的物品信息及供应商产地';
 
 /*Data for the table `tt_inventory_medicine` */
 
 insert  into `tt_inventory_medicine`(`medicine_id`,`medicine_name`,`medicine_description`,`supplier`,`origin`,`purchase_price`,`selling_price`,`quantity`,`unit`,`manufacture_date`,`shelf_life`,`expiration_date`,`created_at`,`updated_at`) values 
-(145,'药品A','一瓶药片A','23',NULL,NULL,10000,96,'瓶',NULL,NULL,NULL,'2024-11-28 19:53:57','2024-11-28 20:36:09');
+(146,'药品A','一个药品A','23',NULL,NULL,1000,0,'个',NULL,NULL,NULL,'2024-11-30 00:50:19','2024-11-30 00:50:19');
 
 /*Table structure for table `tt_inventory_medicine_supplier` */
 
@@ -2163,17 +2225,15 @@ CREATE TABLE `tt_inventory_medicine_supplier` (
   `medicine_supplier_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '联系表ID',
   `item_id` bigint(20) NOT NULL COMMENT '药品ID',
   `supplier_id` bigint(20) NOT NULL COMMENT '供应商ID',
-  `item_type` enum('0','1') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0为药品，1为工具',
+  `item_type` enum('0','1') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0' COMMENT '0为药品，1为工具',
   `item_num` bigint(20) DEFAULT NULL COMMENT '库存数量',
   PRIMARY KEY (`medicine_supplier_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `tt_inventory_medicine_supplier` */
 
 insert  into `tt_inventory_medicine_supplier`(`medicine_supplier_id`,`item_id`,`supplier_id`,`item_type`,`item_num`) values 
-(14,145,23,'0',98),
-(15,145,24,'0',-2),
-(16,8,23,'1',100);
+(17,146,23,'0',130);
 
 /*Table structure for table `tt_inventory_offsetting` */
 
@@ -2182,17 +2242,18 @@ DROP TABLE IF EXISTS `tt_inventory_offsetting`;
 CREATE TABLE `tt_inventory_offsetting` (
   `offsetting_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '对冲工单id',
   `item_id` bigint(20) NOT NULL COMMENT '物品ID',
+  `item_name` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '货物名称',
   `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '负责人',
   `reason` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '对冲原因',
   `quantity` bigint(20) NOT NULL COMMENT '对冲数量',
   `unit` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '剂量单位',
   `expenses_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '开销原因',
-  `spending` decimal(10,0) DEFAULT NULL COMMENT '开销',
+  `spending` decimal(10,0) DEFAULT NULL COMMENT '总开销',
   `offsetting_time` date DEFAULT NULL COMMENT '对冲时间',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`offsetting_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `tt_inventory_offsetting` */
 
@@ -2203,7 +2264,7 @@ DROP TABLE IF EXISTS `tt_inventory_outbound`;
 CREATE TABLE `tt_inventory_outbound` (
   `outbound_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '入库工单id',
   `item_id` bigint(20) NOT NULL COMMENT '物品id',
-  `item_name` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '物品名字',
+  `item_name` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '物品名字',
   `responsible` char(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'null' COMMENT '负责人',
   `reason` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '空' COMMENT '出库原因',
   `quantity` bigint(20) NOT NULL DEFAULT '0' COMMENT '出库数量',
@@ -2214,7 +2275,7 @@ CREATE TABLE `tt_inventory_outbound` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   PRIMARY KEY (`outbound_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `tt_inventory_outbound` */
 
@@ -2316,15 +2377,15 @@ DROP TABLE IF EXISTS `tt_supplier`;
 CREATE TABLE `tt_supplier` (
   `supplier_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '供应商id',
   `supplier_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '供货商名称' COMMENT '供应商名称',
-  `supplier_remark` text COLLATE utf8mb4_unicode_ci COMMENT '供应商备注',
+  `supplier_remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '供应商备注',
   `item_id` bigint(20) DEFAULT NULL COMMENT '供应货物id',
   `item_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应货物名称',
-  `item_remark` text COLLATE utf8mb4_unicode_ci COMMENT '货物备注',
-  `supplier_phone` char(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商电话',
-  `supplier_phone2` char(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商备用电话',
-  `supplier_address` varchar(250) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商地址',
-  `supplier_post` char(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮政编码',
-  `mail` char(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮箱地址',
+  `item_remark` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci COMMENT '货物备注',
+  `supplier_phone` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商电话',
+  `supplier_phone2` char(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商备用电话',
+  `supplier_address` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商地址',
+  `supplier_post` char(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮政编码',
+  `mail` char(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '供应商邮箱地址',
   `contact` char(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '联系人',
   `creditworthiness` enum('未知','差','一般','较好','特别好') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '未知' COMMENT '信用度',
   `creat_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
@@ -2335,8 +2396,8 @@ CREATE TABLE `tt_supplier` (
 /*Data for the table `tt_supplier` */
 
 insert  into `tt_supplier`(`supplier_id`,`supplier_name`,`supplier_remark`,`item_id`,`item_name`,`item_remark`,`supplier_phone`,`supplier_phone2`,`supplier_address`,`supplier_post`,`mail`,`contact`,`creditworthiness`,`creat_time`,`update_time`) values 
-(23,'供应商A','一个供应商',8,NULL,NULL,'1333113131','22223333333','邯郸学院','123-321-456','123142@qq.com','123','特别好','2024-11-28 20:04:12','2024-11-28 20:39:55'),
-(24,'供应商B','第二个供应商',145,NULL,NULL,'123142124','123123123','123123','12312','3123123','123','差','2024-11-28 20:06:02','2024-11-28 20:06:24');
+(23,'供应商A','一个供应商',146,NULL,NULL,'1333113131','22223333333','邯郸学院','123-321-456','123142@qq.com','123','特别好','2024-11-28 20:04:12','2024-11-30 00:50:44'),
+(24,'供应商B','第二个供应商',0,NULL,NULL,'123142124','123123123','123123','12312','3123123','123','差','2024-11-28 20:06:02','2024-11-30 00:49:56');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

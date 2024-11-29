@@ -6,6 +6,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ruoyi.inventory.domain.InventoryMedicine;
+import com.ruoyi.inventory.domain.InventoryOffsetting;
+import com.ruoyi.inventory.service.IInventoryMedicineService;
 import com.ruoyi.medicinesupplier.domain.MedicineSupplierVO;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +41,8 @@ public class InventoryMedicineSupplierController extends BaseController
 {
     @Autowired
     private IInventoryMedicineSupplierService inventoryMedicineSupplierService;
-
+    @Autowired
+    private IInventoryMedicineService inventoryMedicineService;
     /**
      * 查询medicine_supplier列表
      */
@@ -93,20 +97,40 @@ public class InventoryMedicineSupplierController extends BaseController
     @PostMapping("/ifExit")
     public AjaxResult  ifExit(@RequestBody InventoryMedicineSupplier inventoryMedicineSupplier)
     {
-        System.out.println("inventoryMedicineSupplier:"+inventoryMedicineSupplier);
+
         int exists = inventoryMedicineSupplierService.ifExit(inventoryMedicineSupplier);
         if (exists > 0) {
             // 如果存在，执行更新逻辑
-            System.out.println("exists:");
+            System.out.println("这个货物已经与这个供应商建立联系，接下来将进行库存修改");
             return toAjax(inventoryMedicineSupplierService.updateNumber(inventoryMedicineSupplier));
 
         } else {
-            System.out.println("no exists:");
             // 如果不存在，执行新增逻辑
+            System.out.println("这个货物还没有与这个供应商建立联系，接下来将建立联系");
+
             return toAjax(inventoryMedicineSupplierService.insertInventoryMedicineSupplier(inventoryMedicineSupplier));
         }
 
     }
+
+    /**
+     * 查看所有库存
+     */
+    @PreAuthorize("@ss.hasPermi('medicinesupplier:medicinesuppliers:add')")
+    @Log(title = "medicine_supplier", businessType = BusinessType.INSERT)
+    @PostMapping("/getAllQuantity")
+    public AjaxResult  getAllQuantity(@RequestBody InventoryMedicineSupplier inventoryMedicineSupplier)
+    {
+        System.out.println("inventoryMedicineSupplier11111111111111111111111111111111111111111111111:"+inventoryMedicineSupplier);
+        //通过货物id获得所有供应商给他的供货的库存总量
+        Long allQuantity =  inventoryMedicineService.getAllQuantity(inventoryMedicineSupplier);
+        InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryMedicineSupplier.getItemId());
+        inventoryMedicine.setQuantity(allQuantity);
+        System.out.println("inventoryMedicine111111111111111111111111111111111111111111111111111111111:"+inventoryMedicine);
+        return AjaxResult.success("成功更新货物所有库存量");
+    }
+
+
 
 
     /**
@@ -130,7 +154,6 @@ public class InventoryMedicineSupplierController extends BaseController
     {
         return toAjax(inventoryMedicineSupplierService.outboundMS(inventoryMedicineSupplier));
     }
-
 
 
     /**

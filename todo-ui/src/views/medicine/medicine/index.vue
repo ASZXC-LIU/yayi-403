@@ -117,12 +117,15 @@
 
     <!-- 添加对冲记录工单对话框 -->
     <el-dialog :title="title" v-model="openoffsetting" width="500px" append-to-body>
-      <el-form ref="offsettingsRef" :model="form_off" :rules="rules_off" label-width="80px">
-        <el-form-item label="物品ID" prop="itemId">
-          <el-input v-model="form_off.itemId" placeholder="请输入物品ID" />
+      <el-form ref="offsettingsRef" :model="form_off" :rules="rules_off" label-width="100px">
+        <el-form-item label="对冲货物ID" prop="itemId">
+          <el-input v-model="form_off.itemId" placeholder="请输入对冲货物ID" />
+        </el-form-item>
+        <el-form-item label="物品名字" prop="itemName">
+          <el-input v-model="form_off.itemName" placeholder="请输入物品名字" />
         </el-form-item>
         <el-form-item label="供应来源" prop="supplier">
-          <el-select v-model="form_outbounds.supplier" placeholder="请选择供应来源">
+          <el-select v-model="form_off.supplier" placeholder="请选择供应来源">
             <el-option v-for="option in supplierOptions" :key="option.key"
               :label="`供应商ID：${option.key}    ,    供应商：${option.label}`" :value="option.key"></el-option>
           </el-select>
@@ -130,25 +133,26 @@
         <el-form-item label="负责人" prop="responsible">
           <el-input v-model="form_off.responsible" placeholder="请输入负责人" />
         </el-form-item>
-        <el-form-item label="对冲原因" prop="reason">
-          <el-input v-model="form_off.reason" placeholder="请输入对冲原因" />
-        </el-form-item>
         <el-form-item label="对冲数量" prop="quantity">
           <el-input v-model="form_off.quantity" placeholder="请输入对冲数量" />
         </el-form-item>
-        
+        <el-form-item label="对冲原因" prop="reason">
+          <el-input v-model="form_off.reason" placeholder="请输入对冲原因" />
+        </el-form-item>
+        <el-form-item label="总开销" prop="spending">
+          <el-input v-model="form_off.spending" placeholder="请输入总开销" />
+        </el-form-item>
         <el-form-item label="开销原因" prop="expensesReason">
           <el-input v-model="form_off.expensesReason" type="textarea" placeholder="请输入内容" />
-        </el-form-item>
-        <el-form-item label="开销" prop="spending">
-          <el-input v-model="form_off.spending" placeholder="请输入开销" />
         </el-form-item>
         <el-form-item label="对冲时间" prop="offsettingTime">
           <el-date-picker clearable v-model="form_off.offsettingTime" type="date" value-format="YYYY-MM-DD"
             placeholder="请选择对冲时间">
           </el-date-picker>
         </el-form-item>
+
       </el-form>
+
       <template #footer>
         <div class="dialog-footer">
           <el-button type="primary" @click="submitForm_off">确 定</el-button>
@@ -248,7 +252,7 @@
         </el-form-item>
         <el-form-item label="出库时间" prop="outboundTime">
           <el-date-picker clearable v-model="form_outbounds.outboundTime" type="date" value-format="YYYY-MM-DD"
-            placeholder="请选择入库时间">
+            placeholder="请选择出库时间">
           </el-date-picker>
         </el-form-item>
 
@@ -542,7 +546,9 @@ const data_offsetting = reactive({
     itemId: [
       { required: true, message: "物品ID不能为空", trigger: "blur" },
     ],
-
+    itemName: [
+      { required: true, message: "物品名称不能为空", trigger: "blur" },
+    ],
     responsible: [
       { required: true, message: "负责人不能为空", trigger: "blur" },
     ],
@@ -553,9 +559,10 @@ const data_offsetting = reactive({
   },
 });
 
-const { queryParams_off, form_off, rules_off } = toRefs(data_offsetting);
+const {  form_off, rules_off } = toRefs(data_offsetting);
 /** 新增按钮操作 */
 function handleAdd_off() {
+  reset_outbounds();
   openoffsetting.value = true;
   title.value = "添加对冲记录工单";
 }
@@ -573,16 +580,17 @@ function submitForm_off() {
           proxy.$modal.msgSuccess("对冲成功");
 
 
-          const outboundMSmedicinesuppliers = {
-            itemId: form_outbounds.value.itemId,
-            supplierId: form_outbounds.value.supplier,
-            itemNum: form_outbounds.value.quantity,
+          const offSettingMSmedicinesuppliers = {
+            itemId: form_off.value.itemId,
+            supplierId: form_off.value.supplier,
+            itemNum: form_off.value.quantity,
             itemType: 0, // 药品
           };
           //新建联系工单
-          outboundMS(outboundMSmedicinesuppliers).then((response) => {
+
+          outboundMS(offSettingMSmedicinesuppliers).then((response) => {
             proxy.$modal.msgSuccess("联系工单生成成功");
-            openinbounds.value = false;
+            openoffsetting.value = false;
           });
           openoffsetting.value = false;
         });
@@ -603,7 +611,7 @@ function cancel_off() {
 /*以上为药品管理,对冲功能，以下为入库功能*/
 
 import { addInbounds } from "@/api/inbound/inbounds";
-import { ifExit, outboundMS } from "@/api/medicinesupplier/medicinesuppliers";
+import { ifExit, outboundMS ,offSettingMS,getAllQuantity} from "@/api/medicinesupplier/medicinesuppliers";
 const openinbounds = ref(false);
 
 const data_inbounds = reactive({
@@ -734,7 +742,7 @@ function reset_inbounds() {
 
 /** 入库按钮操作 */
 function handleAdd_inbounds() {
-  reset_inbounds();
+  // reset_inbounds();
   openinbounds.value = true;
   title.value = "入库工单";
 }
@@ -754,11 +762,7 @@ function submitForm_inb() {
     form_inbounds.value.spending = formatPriceToLong(
       form_inbounds.value.spending
     );
-    inboundUpdateMedicine(form_inbounds.value).then(
-      (response) => {
-        proxy.$modal.msgSuccess("入库成功");
-        openinbounds.value = false;
-
+    
         //新建入库工单
         addInbounds(form_inbounds.value).then((response) => {
           proxy.$modal.msgSuccess("入库工单生成成功");
@@ -776,6 +780,14 @@ function submitForm_inb() {
             proxy.$modal.msgSuccess("联系工单生成成功");
             openinbounds.value = false;
           });
+           //新建联系工单
+           console.log(medicinesuppliers);
+           getAllQuantity(medicinesuppliers).then((response) => {
+            proxy.$modal.msgSuccess("成功更新货物所有库存量");
+            openinbounds.value = false;
+          });
+
+         
 
           openinbounds.value = false;
         });
@@ -786,8 +798,7 @@ function submitForm_inb() {
       }
     );
 
-  });
-}
+  }
 
 
 

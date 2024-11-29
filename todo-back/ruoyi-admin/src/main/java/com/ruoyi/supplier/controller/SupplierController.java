@@ -71,9 +71,7 @@ public class SupplierController extends BaseController
     @GetMapping(  "/getSupplierByMedicineId")
     public AjaxResult getSupplierByMedicineId(@ModelAttribute InventoryMedicineSupplier inventoryMedicineSupplier)
     {
-        System.out.println("inventoryMedicineSupplier:"+inventoryMedicineSupplier);
 
-        System.out.println("response:"+supplierService.selectSupplierByMedicineId(inventoryMedicineSupplier));
 
         return success(supplierService.selectSupplierByMedicineId(inventoryMedicineSupplier));
     }
@@ -99,7 +97,6 @@ public class SupplierController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody Supplier supplier)
     {
-        System.out.println(supplier);
         return toAjax(supplierService.insertSupplier(supplier));
     }
 

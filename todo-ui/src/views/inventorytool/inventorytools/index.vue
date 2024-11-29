@@ -120,12 +120,15 @@
 
     <!-- 添加对冲记录工单对话框 -->
     <el-dialog :title="title" v-model="openoffsetting" width="500px" append-to-body>
-      <el-form ref="offsettingsRef" :model="form_off" :rules="rules_off" label-width="80px">
-        <el-form-item label="物品ID" prop="itemId">
-          <el-input v-model="form_off.itemId" placeholder="请输入物品ID" />
+      <el-form ref="offsettingsRef" :model="form_off" :rules="rules_off" label-width="100px">
+        <el-form-item label="对冲货物ID" prop="itemId">
+          <el-input v-model="form_off.itemId" placeholder="请输入对冲货物ID" />
+        </el-form-item>
+        <el-form-item label="物品名字" prop="itemName">
+          <el-input v-model="form_off.itemName" placeholder="请输入物品名字" />
         </el-form-item>
         <el-form-item label="供应来源" prop="supplier">
-          <el-select v-model="form_outbounds.supplier" placeholder="请选择供应来源">
+          <el-select v-model="form_off.supplier" placeholder="请选择供应来源">
             <el-option v-for="option in supplierOptions" :key="option.key"
               :label="`供应商ID：${option.key}    ,    供应商：${option.label}`" :value="option.key"></el-option>
           </el-select>
@@ -133,25 +136,29 @@
         <el-form-item label="负责人" prop="responsible">
           <el-input v-model="form_off.responsible" placeholder="请输入负责人" />
         </el-form-item>
-        <el-form-item label="对冲原因" prop="reason">
-          <el-input v-model="form_off.reason" placeholder="请输入对冲原因" />
-        </el-form-item>
         <el-form-item label="对冲数量" prop="quantity">
           <el-input v-model="form_off.quantity" placeholder="请输入对冲数量" />
         </el-form-item>
-       
+        <el-form-item label="对冲原因" prop="reason">
+          <el-input v-model="form_off.reason" placeholder="请输入对冲原因" />
+        </el-form-item>
+        <el-form-item label="总开销" prop="spending">
+          <el-input v-model="form_off.spending" placeholder="请输入总开销" />
+        </el-form-item>
         <el-form-item label="开销原因" prop="expensesReason">
           <el-input v-model="form_off.expensesReason" type="textarea" placeholder="请输入内容" />
-        </el-form-item>
-        <el-form-item label="开销" prop="spending">
-          <el-input v-model="form_off.spending" placeholder="请输入开销" />
         </el-form-item>
         <el-form-item label="对冲时间" prop="offsettingTime">
           <el-date-picker clearable v-model="form_off.offsettingTime" type="date" value-format="YYYY-MM-DD"
             placeholder="请选择对冲时间">
           </el-date-picker>
         </el-form-item>
+
       </el-form>
+
+      
+
+
       <template #footer>
         <div class="dialog-footer">
           <el-button type="primary" @click="submitForm_off">确 定</el-button>
