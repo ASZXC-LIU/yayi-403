@@ -47,7 +47,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectInventoryToolsVo"/>
         where tools_id = #{toolsId}
     </select>
-
+    <select id="getAllQuantity" parameterType="InventoryMedicineSupplier" >
+        SELECT SUM(item_num) AS total_inventory
+        FROM tt_inventory_medicine_supplier
+        WHERE item_id = #{itemId}
+        and item_type = '1'
+    </select>
     <insert id="insertInventoryTools" parameterType="InventoryTools" useGeneratedKeys="true" keyProperty="toolsId">
         insert into tt_inventory_tools
         <trim prefix="(" suffix=")" suffixOverrides=",">

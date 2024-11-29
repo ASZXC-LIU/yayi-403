@@ -16,7 +16,27 @@
         font-family: Arial, Helvetica, sans-serif;
         font-size: 14px;
         color: red;
-      ">注意：若要增加新药品，请先通过"新建"按钮增加种类，然后再通过"入库"按钮设置数量</span>
+      ">注意：</span>
+       <br>
+      <span style="
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: red;
+      ">1. 请先通过"新建"按钮增加种类，然后再进行"入库"，"出库"，"对冲"操作</span>
+     
+      <br>
+      <span style="
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: red;
+      ">2. 操作时请根据供应商入库</span>
+      <br>
+      <span style="
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: red;
+      ">3. 对冲：当库存与实际不同时，请通过对冲功能修正库存数量</span>
+
     <el-row :gutter="10" class="mb8" style="margin-top: 20px">
       <el-col :span="1.5">
         <el-button type="primary" plain icon="Plus" @click="handleAdd"
@@ -200,10 +220,6 @@
             placeholder="请选择入库时间">
           </el-date-picker>
         </el-form-item>
-        <!-- <el-form-item label="保质期" prop="dateRange">
-          <el-date-picker v-model="dateRange" type="daterange" range-separator="To" start-placeholder="Start date"
-            end-placeholder="End date" :size="size" />
-        </el-form-item> -->
         <el-form-item label="保质期" prop="dateRange2">
           <el-date-picker v-model="dateRange2" type="monthrange" range-separator="To" start-placeholder="Start month"
             end-placeholder="End month" />
@@ -279,12 +295,12 @@
           <el-input v-model="form_supplier.supplierRemark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
         <el-form-item label="可信度" prop="creditworthiness">
-          <el-select v-model="form_supplier.creditworthiness" placeholder="请选择" @change="handleChange">
+          <el-select v-model="form_supplier.creditworthiness" placeholder="请选择" >
             <el-option v-for="option in creditworthinessOptions" :key="option.id" :label="option.value"
               :value="option.value"></el-option>
           </el-select>
         </el-form-item>
-        
+
         <el-form-item label="供应商电话" prop="supplierPhone">
           <el-input v-model="form_supplier.supplierPhone" placeholder="请输入供应商电话" />
         </el-form-item>
@@ -414,6 +430,7 @@ function getList() {
       // item.purchasePrice = (item.purchasePrice / 100).toFixed(2);
       // item.sellingPrice = (item.sellingPrice / 100).toFixed(2);
     });
+    console.log(response);
     medicineList.value = response.rows;
     total.value = response.total;
     loading.value = false;
@@ -473,7 +490,16 @@ function handleAdd() {
   title.value = "添加药品库存";
 }
 
-
+/** 修改按钮操作 */
+function handleUpdate(row) {
+  reset();
+  const _medicineId = row.medicineId || ids.value
+  getMedicine(_medicineId).then(response => {
+    form.value = response.data;
+    open.value = true;
+    title.value = "修改药品库存";
+  });
+}
 
 /** 提交按钮 */
 function submitForm() {
@@ -559,7 +585,7 @@ const data_offsetting = reactive({
   },
 });
 
-const {  form_off, rules_off } = toRefs(data_offsetting);
+const { form_off, rules_off } = toRefs(data_offsetting);
 /** 新增按钮操作 */
 function handleAdd_off() {
   reset_outbounds();
@@ -572,37 +598,32 @@ function submitForm_off() {
 
   proxy.$refs["offsettingsRef"].validate((valid) => {
     form_off.value.spending = formatPriceToLong(form_off.value.spending);
-    offsettingUpdateMedicine(form_off.value).then(
-      (response) => {
-        proxy.$modal.msgSuccess("已成功修正库存数目");
+
+    addOffsettings(form_off.value).then((response) => {
+      proxy.$modal.msgSuccess("对冲成功");
+
+
+      const offSettingMSmedicinesuppliers = {
+        itemId: form_off.value.itemId,
+        supplierId: form_off.value.supplier,
+        itemNum: form_off.value.quantity,
+        itemType: 0, // 药品
+      };
+      //减少供应商库存并且刷新货物的总库存
+      outboundMS(offSettingMSmedicinesuppliers).then((response) => {
+        proxy.$modal.msgSuccess("联系工单生成成功");
         openoffsetting.value = false;
-        addOffsettings(form_off.value).then((response) => {
-          proxy.$modal.msgSuccess("对冲成功");
+      });
+      openoffsetting.value = false;
+    });
+    getList();
+  },
+    (error) => {
+      proxy.$modal.msgError(error.values[0].message);
+    }
+  );
 
-
-          const offSettingMSmedicinesuppliers = {
-            itemId: form_off.value.itemId,
-            supplierId: form_off.value.supplier,
-            itemNum: form_off.value.quantity,
-            itemType: 0, // 药品
-          };
-          //新建联系工单
-
-          outboundMS(offSettingMSmedicinesuppliers).then((response) => {
-            proxy.$modal.msgSuccess("联系工单生成成功");
-            openoffsetting.value = false;
-          });
-          openoffsetting.value = false;
-        });
-        getList();
-      },
-      (error) => {
-        proxy.$modal.msgError(error.values[0].message);
-      }
-    );
-
-  });
-}
+};
 // 取消按钮
 function cancel_off() {
   openoffsetting.value = false;
@@ -611,7 +632,7 @@ function cancel_off() {
 /*以上为药品管理,对冲功能，以下为入库功能*/
 
 import { addInbounds } from "@/api/inbound/inbounds";
-import { ifExit, outboundMS ,offSettingMS,getAllQuantity} from "@/api/medicinesupplier/medicinesuppliers";
+import { ifExit, outboundMS, offSettingMS, getAllQuantity } from "@/api/medicinesupplier/medicinesuppliers";
 const openinbounds = ref(false);
 
 const data_inbounds = reactive({
@@ -640,7 +661,7 @@ const data_inbounds = reactive({
     quantity: [
       { required: true, message: "入库数量不能为空", trigger: "blur" }
     ],
-    
+
     purchasePrice: [
       { required: true, message: "进价不能为空", trigger: "blur" }
     ],
@@ -742,7 +763,7 @@ function reset_inbounds() {
 
 /** 入库按钮操作 */
 function handleAdd_inbounds() {
-  // reset_inbounds();
+  reset_inbounds();
   openinbounds.value = true;
   title.value = "入库工单";
 }
@@ -762,43 +783,34 @@ function submitForm_inb() {
     form_inbounds.value.spending = formatPriceToLong(
       form_inbounds.value.spending
     );
-    
-        //新建入库工单
-        addInbounds(form_inbounds.value).then((response) => {
-          proxy.$modal.msgSuccess("入库工单生成成功");
+
+    //新建入库工单
+    addInbounds(form_inbounds.value).then((response) => {
+      proxy.$modal.msgSuccess("入库工单生成成功");
 
 
-          const medicinesuppliers = {
-            itemId: form_inbounds.value.itemId,
-            supplierId: form_inbounds.value.supplier,
-            itemNum: form_inbounds.value.quantity,
-            itemType: 0, // 药品
-          };
+      const medicinesuppliers = {
+        itemId: form_inbounds.value.itemId,
+        supplierId: form_inbounds.value.supplier,
+        itemNum: form_inbounds.value.quantity,
+        itemType: 0, // 药品
+      };
 
-          //新建联系工单
-          ifExit(medicinesuppliers).then((response) => {
-            proxy.$modal.msgSuccess("联系工单生成成功");
-            openinbounds.value = false;
-          });
-           //新建联系工单
-           console.log(medicinesuppliers);
-           getAllQuantity(medicinesuppliers).then((response) => {
-            proxy.$modal.msgSuccess("成功更新货物所有库存量");
-            openinbounds.value = false;
-          });
+      //判断联系是否存在，并增加供应商库存或者新建联系并且刷新货物的总库存
+      ifExit(medicinesuppliers).then((response) => {
+        proxy.$modal.msgSuccess("联系工单生成成功");
+        openinbounds.value = false;
+      });
+      openinbounds.value = false;
+    });
+    getList();
+  },
+    (error) => {
+      proxy.$modal.msgError(error.values[0].message);
+    }
+  );
 
-         
-
-          openinbounds.value = false;
-        });
-        getList();
-      },
-      (error) => {
-        proxy.$modal.msgError(error.values[0].message);
-      }
-    );
-
-  }
+}
 
 
 
@@ -846,7 +858,7 @@ const data_outbounds = reactive({
     quantity: [
       { required: true, message: "出库数量不能为空", trigger: "blur" }
     ],
-    
+
   }
 });
 
@@ -885,35 +897,39 @@ function submitForm_out() {
     form_outbounds.value.spending = formatPriceToLong(
       form_outbounds.value.spending
     );
-    outboundUpdateMedicine(form_outbounds.value).then(
-      (response) => {
-        proxy.$modal.msgSuccess("出库成功");
+
+    addOutbounds(form_outbounds.value).then((response) => {
+      proxy.$modal.msgSuccess("出库工单生成成功");
+
+
+      const outboundMSmedicinesuppliers = {
+        itemId: form_outbounds.value.itemId,
+        supplierId: form_outbounds.value.supplier,
+        itemNum: form_outbounds.value.quantity,
+        itemType: 0, // 药品
+      };
+      //减少供应商库存并且刷新货物的总库存
+      outboundMS(outboundMSmedicinesuppliers).then((response) => {
+        proxy.$modal.msgSuccess("该供应商库存减少成功");
         openoutbounds.value = false;
-        addOutbounds(form_outbounds.value).then((response) => {
-          proxy.$modal.msgSuccess("出库工单生成成功");
+      });
 
 
-          const outboundMSmedicinesuppliers = {
-            itemId: form_outbounds.value.itemId,
-            supplierId: form_outbounds.value.supplier,
-            itemNum: form_outbounds.value.quantity,
-            itemType: 0, // 药品
-          };
-          //新建联系工单
-          outboundMS(outboundMSmedicinesuppliers).then((response) => {
-            proxy.$modal.msgSuccess("联系工单生成成功");
-            openinbounds.value = false;
-          });
-          openoutbounds.value = false;
-        });
-        getList();
-      },
-      (error) => {
-        proxy.$modal.msgError(error.values[0].message);
-      }
-    );
 
-  });
+
+      openoutbounds.value = false;
+    });
+
+
+
+
+    getList();
+  },
+    (error) => {
+      proxy.$modal.msgError(error.values[0].message);
+    }
+  );
+
 }
 // 取消按钮
 function cancel_out() {
@@ -1093,13 +1109,13 @@ function handleAdd_supplier() {
   title.value = "添加供应商列表";
 }
 
-function handleChange(value) { }
+
 
 /** 提交按钮 */
 function submitForm_supplier() {
   proxy.$refs["suppliersRef"].validate((valid) => {
     addSuppliers(form_supplier.value).then((response) => {
-
+      getSupplierList();
       proxy.$modal.msgSuccess("新增供应商成功");
       opensupplier.value = false;
 

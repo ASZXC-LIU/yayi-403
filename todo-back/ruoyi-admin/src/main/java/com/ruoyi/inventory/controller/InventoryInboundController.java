@@ -3,6 +3,7 @@ package com.ruoyi.inventory.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ruoyi.framework.web.domain.server.Sys;
 import com.ruoyi.inventory.domain.InventoryMedicine;
 import com.ruoyi.inventory.domain.InventoryTools;
 import com.ruoyi.inventory.mapper.InventoryMedicineMapper;
@@ -93,15 +94,6 @@ public class InventoryInboundController extends BaseController
     {
         if(inventoryInbound.getItemId() != null){
             InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryInbound.getItemId());
-            //读取入库的供应商给药品表
-            inventoryMedicine.setSupplier(inventoryInbound.getSupplier());
-
-//             inventoryMedicineService.updateInventoryMedicine(inventoryMedicine);
-
-            inventoryMedicineService.updateInventoryMedicine(inventoryMedicine);//更新药品库存
-            supplierService.updateItemId(inventoryInbound);
-
-
             //读取药品的计量单位传递给入库表
              String unit = inventoryMedicine.getUnit();
             inventoryInbound.setUnit(unit);
@@ -124,11 +116,6 @@ public class InventoryInboundController extends BaseController
 
         if(inventoryInbound.getItemId() != null){
             InventoryTools inventoryTools = inventoryToolsService.selectInventoryToolsByToolsId(inventoryInbound.getItemId());
-            //读取入库的供应商给工具表
-            inventoryTools.setSupplier(inventoryInbound.getSupplier());
-            inventoryToolsService.updateInventoryTools(inventoryTools);//更新药品库存
-            supplierService.updateItemId(inventoryInbound);
-
             //读取药品的计量单位传递给入库表
             String unit = inventoryTools.getUnit();
             inventoryInbound.setUnit(unit);

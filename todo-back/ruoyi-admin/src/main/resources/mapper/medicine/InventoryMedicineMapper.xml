@@ -57,6 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         SELECT SUM(item_num) AS total_inventory
         FROM tt_inventory_medicine_supplier
         WHERE item_id = #{itemId}
+          and item_type = '0'
     </select>
 
 
