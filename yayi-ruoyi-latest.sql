@@ -11,7 +11,7 @@
  Target Server Version : 80012 (8.0.12)
  File Encoding         : 65001
 
- Date: 30/11/2024 01:07:53
+ Date: 30/11/2024 01:17:45
 */
 
 SET NAMES utf8mb4;
@@ -49,18 +49,6 @@ CREATE TABLE `gen_table`  (
 -- ----------------------------
 -- Records of gen_table
 -- ----------------------------
-INSERT INTO `gen_table` VALUES (7, 'tt_appointments', '预约表', NULL, NULL, 'TtAppointments', 'crud', 'element-plus', 'com.ruoyi.appointment', 'appointment', 'appointments', '预约功能', 'ruoyi', '0', '/', '{\"parentMenuId\":3}', 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14', NULL);
-INSERT INTO `gen_table` VALUES (8, 'tt_doctors', '医生信息表', NULL, NULL, 'DoctorList', 'crud', 'element-plus', 'com.ruoyi.doctorlist', 'doctorlist', 'doctorlists', '医生信息', 'ruoyi', '0', '/', '{\"parentMenuId\":2060}', 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:51:17', NULL);
-INSERT INTO `gen_table` VALUES (9, 'tt_patients', '患者信息表', NULL, NULL, 'PatientList', 'crud', 'element-plus', 'com.ruoyi.patientlist', 'patientlist', 'patientlists', '患者信息', 'ruoyi', '0', '/', '{\"parentMenuId\":2061}', 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39', NULL);
-INSERT INTO `gen_table` VALUES (10, 'tt_billing_records', '收费记录表，记录患者的付款信息', NULL, NULL, 'BillingRecords', 'crud', 'element-plus', 'com.ruoyi.bill', 'bill', 'bills', '收费', 'ruoyi', '0', '/', '{\"parentMenuId\":\"2111\"}', 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02', NULL);
-INSERT INTO `gen_table` VALUES (13, 'tt_inventory_tools', '工具库存表', NULL, NULL, 'InventoryTools', 'crud', 'element-plus', 'com.ruoyi.inventory', 'inventorytool', 'inventorytools', '工具库存', '刘航', '0', '/', '{\"parentMenuId\":2118}', 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52', NULL);
-INSERT INTO `gen_table` VALUES (24, 'tt_inventory_offsetting', '对冲记录表', NULL, NULL, 'InventoryOffsetting', 'crud', 'element-plus', 'com.ruoyi.inventory', 'offsetting', 'offsettings', '对冲记录工单', '刘航', '0', '/', '{\"parentMenuId\":2118}', 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14', NULL);
-INSERT INTO `gen_table` VALUES (25, 'tt_inventory_outbound', '出库表', NULL, NULL, 'InventoryOutbound', 'crud', 'element-plus', 'com.ruoyi.inventory', 'outbound', 'outbounds', '出库工单', '刘航', '0', '/', '{\"parentMenuId\":2118}', 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27', NULL);
-INSERT INTO `gen_table` VALUES (26, 'tt_inventory_inbound', '入库工单表', NULL, NULL, 'InventoryInbound', 'crud', 'element-plus', 'com.ruoyi.inventory', 'inbound', 'inbounds', '入库工单', '刘航', '0', '/', '{\"parentMenuId\":\"2118\"}', 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52', NULL);
-INSERT INTO `gen_table` VALUES (27, 'tt_inventory_medicine', '物品管理表，记录库存的物品信息及供应商产地', NULL, NULL, 'TtInventoryMedicine', 'crud', '', 'com.ruoyi.system', 'system', 'medicine', '物品管理，记录库存的物品信息及供应商产地', 'ruoyi', '0', '/', NULL, 'admin', '2024-11-18 10:27:35', '', NULL, NULL);
-INSERT INTO `gen_table` VALUES (30, 'tt_supplier', '供货商表', NULL, NULL, 'Supplier', 'crud', 'element-plus', 'com.ruoyi.supplier', 'supplier', 'suppliers', '供应商列表', '刘航', '0', '/', '{\"parentMenuId\":2180}', 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19', NULL);
-INSERT INTO `gen_table` VALUES (31, 'tt_emr', '', NULL, NULL, 'TtEmr', 'crud', '', 'com.ruoyi.system', 'system', 'emr', NULL, 'ruoyi', '0', '/', NULL, 'admin', '2024-11-24 21:32:06', '', NULL, NULL);
-INSERT INTO `gen_table` VALUES (33, 'tt_appointments_test', '预约测试表', '', '', 'TtAppointmentsTest', 'crud', 'element-plus', 'com.ruoyi.appointmentte', 'appointmentte', 'appointmentte', '预约测试', 'ruoyi', '0', '/', '{\"parentMenuId\":\"2062\"}', 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24', NULL);
 
 -- ----------------------------
 -- Table structure for gen_table_column
@@ -95,150 +83,6 @@ CREATE TABLE `gen_table_column`  (
 -- ----------------------------
 -- Records of gen_table_column
 -- ----------------------------
-INSERT INTO `gen_table_column` VALUES (48, 7, 'appointment_id', '预约ID', 'bigint(20)', 'Long', 'appointmentId', '1', '1', '0', '0', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (49, 7, 'patient_id', '患者姓名', 'bigint(20)', 'Long', 'patientId', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (50, 7, 'doctor_id', '医生姓名', 'bigint(20)', 'Long', 'doctorId', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'select', 'tt_doctor', 3, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (51, 7, 'appointment_date', '预约日期', 'date', 'Date', 'appointmentDate', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'datetime', '', 4, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (52, 7, 'appointment_time', '会诊时间', 'time', 'Date', 'appointmentTime', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'datetime', '', 5, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (53, 7, 'appointment_duration', '预约时长', 'int(11)', 'Long', 'appointmentDuration', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (54, 7, 'appointment_project', '预约项目', 'varchar(100)', 'String', 'appointmentProject', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', 'tt_tooth', 7, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (55, 7, 'appointment_status', '预约状态', 'enum(\'PENDING\',\'CONFIRMED\',\'CANCELLED\',\'MISSED\')', 'String', 'appointmentStatus', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', 'tt_appointments_status', 8, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (56, 7, 'created_at', '预约创建时间', 'timestamp', 'Date', 'createdAt', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 9, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (57, 7, 'updated_at', '预约更新时间', 'timestamp', 'Date', 'updatedAt', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 10, 'admin', '2024-10-07 10:11:36', '', '2024-10-14 10:32:14');
-INSERT INTO `gen_table_column` VALUES (58, 8, 'doctor_id', '医生唯一ID', 'bigint(20)', 'Long', 'doctorId', '1', '1', '0', '0', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:51:17');
-INSERT INTO `gen_table_column` VALUES (59, 8, 'name', '医生姓名', 'varchar(100)', 'String', 'name', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:51:17');
-INSERT INTO `gen_table_column` VALUES (60, 8, 'department', '科室', 'varchar(100)', 'String', 'department', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:51:17');
-INSERT INTO `gen_table_column` VALUES (61, 8, 'phone', '医生联系电话', 'varchar(20)', 'String', 'phone', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 4, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:51:17');
-INSERT INTO `gen_table_column` VALUES (62, 8, 'position', '职位（如主治医师等）', 'varchar(50)', 'String', 'position', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 5, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:51:17');
-INSERT INTO `gen_table_column` VALUES (63, 8, 'created_at', '创建时间', 'timestamp', 'Date', 'createdAt', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'datetime', '', 6, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:51:17');
-INSERT INTO `gen_table_column` VALUES (64, 8, 'updated_at', '更新时间', 'timestamp', 'Date', 'updatedAt', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 7, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:51:17');
-INSERT INTO `gen_table_column` VALUES (65, 9, 'patient_id', '患者唯一ID', 'bigint(20)', 'Long', 'patientId', '1', '1', '0', '0', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (66, 9, 'name', '患者姓名', 'varchar(100)', 'String', 'name', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (67, 9, 'medical_record_number', '患者病历号', 'bigint(20)', 'Long', 'medicalRecordNumber', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 3, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (68, 9, 'birthday', '患者生日', 'date', 'Date', 'birthday', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'datetime', '', 4, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (69, 9, 'gender', '患者性别', 'varchar(20)', 'String', 'gender', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 5, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (70, 9, 'phone', '患者联系电话', 'varchar(20)', 'String', 'phone', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (71, 9, 'address', '患者地址', 'varchar(255)', 'String', 'address', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 7, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (72, 9, 'created_at', '创建时间', 'timestamp', 'Date', 'createdAt', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'datetime', '', 8, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (73, 9, 'updated_at', '更新时间', 'timestamp', 'Date', 'updatedAt', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 9, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (74, 9, 'remarks', '备注', 'text', 'String', 'remarks', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'textarea', '', 10, 'admin', '2024-10-09 10:29:30', '', '2024-10-24 15:27:39');
-INSERT INTO `gen_table_column` VALUES (75, 10, 'billing_id', '账单ID', 'bigint(20)', 'Long', 'billingId', '1', '1', '0', '0', NULL, '1', NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (76, 10, 'patient_id', '患者姓名', 'bigint(20)', 'Long', 'patientId', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (77, 10, 'appointment_id', '', 'bigint(20)', 'Long', 'appointmentId', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'input', '', 3, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (78, 10, 'amount', '收费金额', 'decimal(10,2)', 'BigDecimal', 'amount', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'input', '', 4, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (79, 10, 'payment_method', '支付方式', 'enum(\'CASH\',\'CREDIT_CARD\',\'INSURANCE\',\'ONLINE\')', 'String', 'paymentMethod', '0', '0', '0', '0', '1', '1', '1', 'EQ', 'select', '', 5, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (80, 10, 'payment_status', '支付状态', 'enum(\'PENDING\',\'COMPLETED\',\'FAILED\')', 'String', 'paymentStatus', '0', '0', '0', '0', '0', '1', '1', 'EQ', 'select', '', 6, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (81, 10, 'payment_time', '支付时间', 'timestamp', 'Date', 'paymentTime', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 7, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (82, 10, 'created_at', '收费记录创建时间', 'timestamp', 'Date', 'createdAt', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 8, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (83, 10, 'updated_at', '收费记录更新时间', 'timestamp', 'Date', 'updatedAt', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 9, 'admin', '2024-11-01 14:47:04', '', '2024-11-01 15:02:02');
-INSERT INTO `gen_table_column` VALUES (99, 13, 'tools_id', '工具ID', 'bigint(20)', 'Long', 'toolsId', '1', '1', '0', '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (100, 13, 'tools_name', '工具名称', 'varchar(100)', 'String', 'toolsName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (101, 13, 'tools_description', '工具描述', 'text', 'String', 'toolsDescription', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'textarea', '', 3, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (102, 13, 'supplier', '供应商', 'varchar(100)', 'String', 'supplier', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (103, 13, 'origin', '供应商产地', 'varchar(100)', 'String', 'origin', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'input', '', 5, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (104, 13, 'purchase_price', '进价', 'decimal(10,0)', 'Long', 'purchasePrice', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 6, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (105, 13, 'selling_price', '售价', 'decimal(10,0)', 'Long', 'sellingPrice', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 7, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (106, 13, 'quantity', '库存数量', 'bigint(20)', 'Long', 'quantity', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 8, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (107, 13, 'unit', '工具的单位', 'char(20)', 'String', 'unit', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 9, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (108, 13, 'manufacture_date', '生产日期', 'date', 'Date', 'manufactureDate', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'datetime', '', 10, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (109, 13, 'shelf_life', '保质期', 'int(11)', 'Long', 'shelfLife', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 11, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (110, 13, 'expiration_date', '过期日期', 'date', 'Date', 'expirationDate', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'datetime', '', 12, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (111, 13, 'created_at', '创建时间', 'datetime', 'Date', 'createdAt', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 13, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (112, 13, 'updated_at', '更新时间', 'datetime', 'Date', 'updatedAt', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 14, 'admin', '2024-11-13 13:25:01', '', '2024-11-13 13:31:52');
-INSERT INTO `gen_table_column` VALUES (227, 24, 'offsetting_id', '对冲工单id', 'bigint(20)', 'Long', 'offsettingId', '1', '1', '0', '0', NULL, '1', NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (228, 24, 'item_name', '物品名字', 'char(255)', 'String', 'itemName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (229, 24, 'responsible', '负责人', 'char(30)', 'String', 'responsible', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (230, 24, 'reason', '对冲原因', 'varchar(300)', 'String', 'reason', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 4, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (231, 24, 'quantity', '对冲数量', 'bigint(20)', 'Long', 'quantity', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 5, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (232, 24, 'unit', '剂量单位', 'char(20)', 'String', 'unit', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 6, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (233, 24, 'expenses_reason', '开销原因', 'text', 'String', 'expensesReason', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'textarea', '', 7, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (234, 24, 'spending', '开销', 'decimal(10,0)', 'Long', 'spending', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 8, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (235, 24, 'offsetting_time', '对冲时间', 'date', 'Date', 'offsettingTime', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'datetime', '', 9, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (236, 24, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', '0', '0', NULL, '1', NULL, 'EQ', 'datetime', '', 10, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (237, 24, 'update_time', '修改时间', 'datetime', 'Date', 'updateTime', '0', '0', '0', '0', '0', '1', NULL, 'EQ', 'datetime', '', 11, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:42:14');
-INSERT INTO `gen_table_column` VALUES (238, 25, 'outbound_id', '入库工单id', 'bigint(20)', 'Long', 'outboundId', '1', '1', '0', '0', NULL, '1', NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (239, 25, 'item_name', '物品名字', 'char(255)', 'String', 'itemName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (240, 25, 'responsible', '负责人', 'char(30)', 'String', 'responsible', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (241, 25, 'reason', '出库原因', 'varchar(300)', 'String', 'reason', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 4, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (242, 25, 'quantity', '出库数量', 'bigint(20)', 'Long', 'quantity', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 5, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (243, 25, 'unit', '剂量单位', 'char(20)', 'String', 'unit', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 6, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (244, 25, 'expenses_reason', '开销原因', 'text', 'String', 'expensesReason', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'textarea', '', 7, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (245, 25, 'spending', '总开销', 'decimal(10,0)', 'Long', 'spending', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 8, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (246, 25, 'outbound_time', '出库时间', 'date', 'Date', 'outboundTime', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'datetime', '', 9, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (247, 25, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', '0', '0', NULL, '1', NULL, 'EQ', 'datetime', '', 10, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (248, 25, 'update_time', '修改时间', 'datetime', 'Date', 'updateTime', '0', '0', '0', '0', '0', '1', NULL, 'EQ', 'datetime', '', 11, 'admin', '2024-11-13 15:35:23', '', '2024-11-13 15:46:27');
-INSERT INTO `gen_table_column` VALUES (249, 26, 'inbound_id', '入库工单id', 'bigint(20)', 'Long', 'inboundId', '1', '1', '0', '0', NULL, '1', NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (250, 26, 'item_name', '物品名字', 'char(255)', 'String', 'itemName', '0', '0', '1', '1', '0', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (251, 26, 'responsible', '负责人', 'char(30)', 'String', 'responsible', '0', '0', '1', '1', '0', '1', '1', 'LIKE', 'input', '', 4, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (252, 26, 'supplier', '供应来源', 'varchar(255)', 'String', 'supplier', '0', '0', '1', '1', '0', '1', '1', 'LIKE', 'input', '', 5, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (253, 26, 'quantity', '入库数量', 'bigint(20)', 'Long', 'quantity', '0', '0', '1', '1', '0', '1', '0', 'LIKE', 'input', '', 6, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (254, 26, 'unit', '剂量单位', 'char(20)', 'String', 'unit', '0', '0', '1', '1', '0', '1', '0', 'EQ', 'input', '', 7, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (255, 26, 'purchase_price', '进价（最小单位）', 'decimal(10,0)', 'Long', 'purchasePrice', '0', '0', '1', '1', '0', '1', '0', 'EQ', 'input', '', 8, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (256, 26, 'freight', '运费', 'decimal(10,0)', 'Long', 'freight', '0', '0', '1', '1', '0', '1', '0', 'EQ', 'input', '', 9, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (257, 26, 'spending', '总开销', 'decimal(10,0)', 'Long', 'spending', '0', '0', '1', '1', '0', '1', '0', 'EQ', 'input', '', 10, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (258, 26, 'inbound_time', '入库时间', 'date', 'Date', 'inboundTime', '0', '0', '1', '1', '0', '1', '1', 'EQ', 'datetime', '', 11, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (259, 26, 'manufacture_date', '生产日期', 'date', 'Date', 'manufactureDate', '0', '0', '1', '1', '0', '1', '1', 'EQ', 'datetime', '', 12, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (260, 26, 'shelf_life', '保质期', 'char(20)', 'String', 'shelfLife', '0', '0', '1', '1', '0', '1', '0', 'EQ', 'input', '', 13, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (261, 26, 'expiration_date', '过期日期', 'date', 'Date', 'expirationDate', '0', '0', '1', '1', '0', '1', '1', 'EQ', 'datetime', '', 14, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (262, 26, 'create_time', '创建时间', 'datetime', 'Date', 'createTime', '0', '0', '0', '0', NULL, '1', NULL, 'EQ', 'datetime', '', 15, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (263, 26, 'update_time', '修改时间', 'datetime', 'Date', 'updateTime', '0', '0', '0', '0', '0', '1', NULL, 'EQ', 'datetime', '', 16, 'admin', '2024-11-17 19:58:31', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (264, 26, 'item_id', '物品id', 'bigint(20)', 'Long', 'itemId', '0', '0', '1', '1', '0', '1', '1', 'EQ', 'input', '', 2, '', '2024-11-17 20:39:22', '', '2024-11-17 20:40:52');
-INSERT INTO `gen_table_column` VALUES (265, 27, 'medicine_id', '物品ID', 'bigint(20)', 'Long', 'medicineId', '1', '1', '0', '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (266, 27, 'medicine_name', '物品名称', 'varchar(100)', 'String', 'medicineName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (267, 27, 'medicine_description', '物品描述', 'text', 'String', 'medicineDescription', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'textarea', '', 3, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (268, 27, 'supplier', '供应商', 'varchar(100)', 'String', 'supplier', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (269, 27, 'origin', '供应商产地', 'varchar(100)', 'String', 'origin', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 5, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (270, 27, 'purchase_price', '进价', 'decimal(10,0)', 'Long', 'purchasePrice', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 6, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (271, 27, 'selling_price', '售价', 'decimal(10,0)', 'Long', 'sellingPrice', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 7, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (272, 27, 'quantity', '库存数量', 'bigint(20)', 'Long', 'quantity', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 8, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (273, 27, 'unit', '药品的单位', 'char(20)', 'String', 'unit', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 9, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (274, 27, 'manufacture_date', '生产日期', 'date', 'Date', 'manufactureDate', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'datetime', '', 10, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (275, 27, 'shelf_life', '保质期', 'char(20)', 'String', 'shelfLife', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 11, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (276, 27, 'expiration_date', '过期日期', 'date', 'Date', 'expirationDate', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'datetime', '', 12, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (277, 27, 'created_at', '创建时间', 'datetime', 'Date', 'createdAt', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'datetime', '', 13, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (278, 27, 'updated_at', '更新时间', 'datetime', 'Date', 'updatedAt', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'datetime', '', 14, 'admin', '2024-11-18 10:27:35', '', NULL);
-INSERT INTO `gen_table_column` VALUES (302, 30, 'supplier_id', '供应商ID', 'bigint(20)', 'Long', 'supplierId', '1', '1', '0', '0', NULL, '1', NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (303, 30, 'supplier_name', '供应商名称', 'varchar(50)', 'String', 'supplierName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 2, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (304, 30, 'supplier_remark', '供应商备注', 'text', 'String', 'supplierRemark', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'textarea', '', 3, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (305, 30, 'item_id', '供应货物ID', 'bigint(20)', 'Long', 'itemId', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 4, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (306, 30, 'item_name', '供应货物名称', 'varchar(50)', 'String', 'itemName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 5, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (307, 30, 'item_remark', '货物备注', 'text', 'String', 'itemRemark', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'textarea', '', 6, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (308, 30, 'supplier_phone', '供应商电话', 'char(20)', 'String', 'supplierPhone', '0', '0', '0', '1', '1', '1', '1', 'LIKE', 'input', '', 7, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (309, 30, 'supplier_phone2', '备用电话', 'char(20)', 'String', 'supplierPhone2', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 8, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (310, 30, 'supplier_address', '供应商地址', 'varchar(250)', 'String', 'supplierAddress', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 9, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (311, 30, 'supplier_post', '邮政编码', 'char(50)', 'String', 'supplierPost', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 10, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (312, 30, 'mail', '邮箱地址', 'char(255)', 'String', 'mail', '0', '0', '0', '1', '1', '1', '0', 'EQ', 'input', '', 11, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (313, 30, 'Contact', '联系人', 'char(250)', 'String', 'Contact', '0', '0', '0', '1', '1', '1', '1', 'LIKE', 'input', '', 12, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (314, 30, 'Creditworthiness', '信用度', 'enum(\'未知\',\'差\',\'一般\',\'较好\',\'特别好\')', 'String', 'Creditworthiness', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', '', 13, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (315, 30, 'creat_time', '创建时间', 'datetime', 'Date', 'creatTime', '0', '0', '0', '0', '0', '1', '0', 'EQ', 'datetime', '', 14, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (316, 30, 'update_time', '更新时间', 'datetime', 'Date', 'updateTime', '0', '0', '0', '0', '0', '1', NULL, 'EQ', 'datetime', '', 15, 'admin', '2024-11-20 00:01:21', '', '2024-11-20 00:04:19');
-INSERT INTO `gen_table_column` VALUES (317, 31, 'emr_id', '电子病历id', 'bigint(20)', 'Long', 'emrId', '1', '0', '0', '1', NULL, NULL, NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (318, 31, 'patient_id', '患者ID', 'bigint(20)', 'Long', 'patientId', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 2, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (319, 31, 'patient_name', '患者姓名', 'varchar(50)', 'String', 'patientName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 3, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (320, 31, 'doctor_id', '医生ID', 'bigint(20)', 'Long', 'doctorId', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'input', '', 4, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (321, 31, 'doctor_name', '医生姓名', 'varchar(50)', 'String', 'doctorName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 5, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (322, 31, 'maincase', '主诉', 'text', 'String', 'maincase', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'textarea', '', 6, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (323, 31, 'current_medical_history', '现在病史', 'text', 'String', 'currentMedicalHistory', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'textarea', '', 7, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (324, 31, 'treatment_type', '治疗方式', 'varchar(255)', 'String', 'treatmentType', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'select', '', 8, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (325, 31, 'clinical_results', '治疗结果', 'text', 'String', 'clinicalResults', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'textarea', '', 9, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (326, 31, 'created_time', '病历创建时间', 'datetime', 'Date', 'createdTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 10, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (327, 31, 'updated_time', '更新时间', 'datetime', 'Date', 'updatedTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 11, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (328, 31, 'emr_statue', '诊断状态', 'enum(\'未诊断\',\'已诊断\')', 'String', 'emrStatue', '0', '0', '1', '1', '1', '1', '1', 'EQ', NULL, '', 12, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (329, 31, 'appointment_id', '预约id', 'bigint(20)', 'Long', 'appointmentId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 13, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (330, 31, 'bill_id', '账单id', 'bigint(20)', 'Long', 'billId', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'input', '', 14, 'admin', '2024-11-24 21:32:06', '', NULL);
-INSERT INTO `gen_table_column` VALUES (340, 33, 'appointment_id', '预约唯一ID', 'bigint(20)', 'Long', 'appointmentId', '1', '1', '0', '0', NULL, '1', NULL, 'EQ', 'input', '', 1, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (341, 33, 'patient_id', '患者ID', 'bigint(20)', 'Long', 'patientId', '0', '0', '0', '1', '0', '1', '0', 'EQ', 'input', '', 2, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (342, 33, 'doctor_id', '医生ID', 'bigint(20)', 'Long', 'doctorId', '0', '0', '0', '1', '0', '1', '0', 'EQ', 'textarea', '', 3, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (343, 33, 'appointment_start_time', '预约开始时间', 'datetime', 'Date', 'appointmentStartTime', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'datetime', '', 7, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (345, 33, 'appointment_duration', '预约时长', 'int(11)', 'Long', 'appointmentDuration', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 8, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (346, 33, 'appointment_project', '预约的项目', 'varchar(100)', 'String', 'appointmentProject', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', 'tt_tooth', 9, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (347, 33, 'appointment_status', '预约状态', 'varchar(20)', 'String', 'appointmentStatus', '0', '0', '0', '1', '1', '1', '1', 'EQ', 'select', 'tt_appointments_status', 10, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (348, 33, 'created_at', '预约创建时间', 'timestamp', 'Date', 'createdAt', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'datetime', '', 11, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (349, 33, 'updated_at', '预约更新时间', 'timestamp', 'Date', 'updatedAt', '0', '0', '0', '0', '0', '0', '0', 'EQ', 'datetime', '', 12, 'admin', '2024-11-26 20:35:04', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (350, 33, 'patient_phone', '患者联系方式', 'varchar(255)', 'String', 'patientPhone', '0', '0', '1', '1', '1', '1', '0', 'EQ', 'input', '', 6, '', '2024-11-28 09:14:01', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (351, 33, 'remark', '备注', 'varchar(255)', 'String', 'remark', '0', '0', '0', '1', '1', '1', NULL, 'EQ', 'input', '', 13, '', '2024-11-28 09:14:01', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (352, 33, 'patient_name', '患者姓名', 'varchar(255)', 'String', 'patientName', '0', '0', '1', '1', '1', '1', '1', 'LIKE', 'input', '', 4, '', '2024-11-28 09:17:27', '', '2024-11-28 11:01:24');
-INSERT INTO `gen_table_column` VALUES (353, 33, 'doctor_name', '医生姓名', 'varchar(255)', 'String', 'doctorName', '0', '0', '1', '1', '1', '1', '1', 'EQ', 'select', 'tt_doctor', 5, '', '2024-11-28 09:17:27', '', '2024-11-28 11:01:24');
 
 -- ----------------------------
 -- Table structure for medicine_supplier
@@ -701,7 +545,7 @@ CREATE TABLE `sys_logininfor`  (
   PRIMARY KEY (`info_id`) USING BTREE,
   INDEX `idx_sys_logininfor_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_logininfor_lt`(`login_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 280 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 281 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '系统访问记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -886,6 +730,7 @@ INSERT INTO `sys_logininfor` VALUES (276, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (277, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '退出成功', '2024-11-29 23:30:35');
 INSERT INTO `sys_logininfor` VALUES (278, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-11-29 23:30:41');
 INSERT INTO `sys_logininfor` VALUES (279, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-11-30 00:13:24');
+INSERT INTO `sys_logininfor` VALUES (280, 'admin', '127.0.0.1', '内网IP', 'Chrome 11', 'Windows 10', '0', '登录成功', '2024-11-30 01:15:42');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -1124,7 +969,7 @@ CREATE TABLE `sys_oper_log`  (
   INDEX `idx_sys_oper_log_bt`(`business_type` ASC) USING BTREE,
   INDEX `idx_sys_oper_log_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_oper_log_ot`(`oper_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 838 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 841 CHARACTER SET = utf8 COLLATE = utf8_unicode_ci COMMENT = '操作日志记录' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -1606,6 +1451,9 @@ INSERT INTO `sys_oper_log` VALUES (834, '预约测试', 1, 'com.ruoyi.appointmen
 INSERT INTO `sys_oper_log` VALUES (835, '预约测试', 1, 'com.ruoyi.appointmentte.controller.TtAppointmentsTestController.add()', 'POST', 1, 'admin', '牙医诊所', '/appointmentte/appointmentte', '127.0.0.1', '内网IP', '{\"appointmentDuration\":123,\"appointmentProject\":\"2\",\"appointmentStartTime\":\"2024-11-06\",\"appointmentStatus\":\"1\",\"doctorName\":\"2\",\"params\":{},\"patientName\":\"张三\",\"patientPhone\":\"123123123123\",\"remark\":\"123\"}', '{\"msg\":\"患者不存在，请先添加患者信息\",\"code\":500}', 0, NULL, '2024-11-29 23:25:16', 12);
 INSERT INTO `sys_oper_log` VALUES (836, '预约测试', 1, 'com.ruoyi.appointmentte.controller.TtAppointmentsTestController.add()', 'POST', 1, 'admin', '牙医诊所', '/appointmentte/appointmentte', '127.0.0.1', '内网IP', '{\"appointmentDuration\":123,\"appointmentProject\":\"2\",\"appointmentStartTime\":\"2024-11-06\",\"appointmentStatus\":\"1\",\"doctorName\":\"2\",\"params\":{},\"patientName\":\"张三\",\"patientPhone\":\"123123123123\",\"remark\":\"123\"}', '{\"msg\":\"患者不存在，请先添加患者信息\",\"code\":500}', 0, NULL, '2024-11-29 23:25:28', 12);
 INSERT INTO `sys_oper_log` VALUES (837, '预约功能', 2, 'com.ruoyi.appointment.controller.TtAppointmentsController.edit()', 'PUT', 1, 'admin', '牙医诊所', '/appointment/appointments', '127.0.0.1', '内网IP', '{\"appointmentDate\":\"2024-11-18 00:00:00\",\"appointmentDuration\":30,\"appointmentId\":1,\"appointmentProject\":\"1\",\"appointmentStatus\":\"1\",\"appointmentTime\":\"2024-11-28 09:08:56\",\"createdAt\":\"2024-10-05 00:00:00\",\"doctorId\":1,\"params\":{},\"patientId\":1,\"ttDoctor\":{\"name\":\"王医生\",\"params\":{}},\"ttPatient\":{\"name\":\"张伟\",\"params\":{}},\"updatedAt\":\"2024-11-28 09:08:56\"}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-11-29 23:31:12', 40);
+INSERT INTO `sys_oper_log` VALUES (838, '代码生成', 3, 'com.ruoyi.generator.controller.GenController.remove()', 'DELETE', 1, 'admin', '牙医诊所', '/tool/gen/33', '127.0.0.1', '内网IP', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-11-30 01:15:56', 127);
+INSERT INTO `sys_oper_log` VALUES (839, '代码生成', 3, 'com.ruoyi.generator.controller.GenController.remove()', 'DELETE', 1, 'admin', '牙医诊所', '/tool/gen/7,8,9,10,13,24,25,26,27,30', '127.0.0.1', '内网IP', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-11-30 01:17:25', 89);
+INSERT INTO `sys_oper_log` VALUES (840, '代码生成', 3, 'com.ruoyi.generator.controller.GenController.remove()', 'DELETE', 1, 'admin', '牙医诊所', '/tool/gen/31', '127.0.0.1', '内网IP', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2024-11-30 01:17:28', 36);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -1750,7 +1598,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 100, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-11-30 00:13:24', 'admin', '2024-10-05 15:46:15', '', '2024-11-30 00:13:24', '管理员');
+INSERT INTO `sys_user` VALUES (1, 100, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-11-30 01:15:42', 'admin', '2024-10-05 15:46:15', '', '2024-11-30 01:15:42', '管理员');
 INSERT INTO `sys_user` VALUES (2, 100, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2024-10-05 15:46:15', 'admin', '2024-10-05 15:46:15', 'admin', '2024-11-13 16:12:11', '测试员');
 INSERT INTO `sys_user` VALUES (100, 100, 'test', 'test', '00', '', '', '2', '', '$2a$10$/NIAAJu1SxRBUsCNvALkuO.fPkPNMFZQSuVNe6qjP6r9ReocXAT7q', '0', '0', '127.0.0.1', '2024-11-04 10:22:26', 'admin', '2024-11-01 16:26:49', '', '2024-11-04 10:22:25', NULL);
 
