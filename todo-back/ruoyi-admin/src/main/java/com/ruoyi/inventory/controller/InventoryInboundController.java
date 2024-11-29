@@ -91,15 +91,16 @@ public class InventoryInboundController extends BaseController
     @PostMapping
     public AjaxResult add(@RequestBody InventoryInbound inventoryInbound)
     {
-
-
-
         if(inventoryInbound.getItemId() != null){
             InventoryMedicine inventoryMedicine = inventoryMedicineService.selectInventoryMedicineByMedicineId(inventoryInbound.getItemId());
             //读取入库的供应商给药品表
             inventoryMedicine.setSupplier(inventoryInbound.getSupplier());
+
+//             inventoryMedicineService.updateInventoryMedicine(inventoryMedicine);
+
             inventoryMedicineService.updateInventoryMedicine(inventoryMedicine);//更新药品库存
             supplierService.updateItemId(inventoryInbound);
+
 
             //读取药品的计量单位传递给入库表
              String unit = inventoryMedicine.getUnit();

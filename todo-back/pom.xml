@@ -200,8 +200,12 @@
                 <artifactId>ruoyi-doctor</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
-
-
+            <!--预约测试-->
+            <dependency>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>ruoyi-appointmentte</artifactId>
+                <version>${ruoyi.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -216,6 +220,7 @@
         <module>ruoyi-merchant</module>
         <module>ruoyi-patient</module>
         <module>ruoyi-doctor</module>
+        <module>ruoyi-appointmentte</module>
     </modules>
     <packaging>pom</packaging>
 
