@@ -192,7 +192,7 @@
             <span>{{ parseTime(scope.row.updatedTime, '{y}-{m}-{d}') }}</span>
           </template>
         </el-table-column>
-        <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+        <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="180">
           <template #default="scope">
             <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
               v-hasPermi="['record:records:edit']">修改</el-button>
@@ -421,9 +421,9 @@ function reset_records() {
 
 
 import { getRecordsByPatientId } from "@/api/record/records";
-
 function handleView_records(row) {
   reset_records();
+  console.log(row);
   if (!row.patientId) {
     console.error("MedicineId is invalid!");
     return;
@@ -431,21 +431,12 @@ function handleView_records(row) {
   open_records.value = true;
   title.value = "查看个人就诊记录";
   loading.value = true;
-//   getRecordsByPatientId(row.patientId).then((response) => {
-//     recordsList.value = response.data;
-//     console.log(response);
-//     console.log(recordsList.value);
-//     loading.value = false;
-//   });
- }
-getRecordsByPatientId(row.patientId).then((response) => {
-  recordsList.value = response.data;
-  console.log(response);
-  this.$nextTick(() => {
-    console.log(recordsList.value);  // 等待 Vue 更新后输出
+  getRecordsByPatientId(row.patientId).then((response) => {
+    recordsList.value = response.rows;
+    
+    loading.value = false;
   });
-  loading.value = false;
-});
+}
 
 function submitForm_records() {
   open_records.value = false;

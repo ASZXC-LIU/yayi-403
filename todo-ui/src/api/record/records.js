@@ -10,11 +10,11 @@ export function listRecords(query) {
 }
 
 // 查询个人就诊记录列表
-export function getRecordsByPatientId(query) {
+export function getRecordsByPatientId(patientId) {
   return request({
     url: '/record/records/getRecordsByPatientId',
     method: 'get',
-    params: query
+    params: { patientId }
   })
 }
 

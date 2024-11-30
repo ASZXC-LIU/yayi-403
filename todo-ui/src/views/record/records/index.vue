@@ -102,8 +102,13 @@
           <span>{{ parseTime(scope.row.updatedTime, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="180" >
         <template #default="scope">
+          <el-button  type="primary" v-if="scope.row.medicalRecordsStatue === 1" @click="showBilling(scope.row)" v-hasPermi="['record:records:edit']">添加账单</el-button>
+          
+          
+
+
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['record:records:edit']">修改</el-button>
           <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)" v-hasPermi="['record:records:remove']">删除</el-button>
         </template>
@@ -147,8 +152,64 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 添加账单对话框 -->
+    <el-dialog :title="title" v-model="open_billing" width="500px" append-to-body>
+      <el-form ref="billingRef" :model="form_billing" :rules="rules_billing" label-width="80px">
+        <el-form-item label="患者姓名" prop="patientName">
+          <el-input v-model="form.patientName" placeholder="请输入患者姓名" />
+        </el-form-item>
+        <el-form-item label="就诊医生" prop="doctorName">
+          <el-input v-model="form.doctorName" placeholder="请输入就诊医生" />
+        </el-form-item>
+        <el-form-item label="账单日期" prop="billingDate">
+          <el-date-picker v-model="form.billingDate" value-format="YYYY-MM-DD HH:mm:ss" type="datetime"
+            placeholder="选择日期时间">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="金额" prop="totalAmount">
+          <el-input v-model="form.totalAmount" placeholder="请输入金额" />
+        </el-form-item>
+
+
+        <el-form-item label="支付状态" prop="paymentStatus">
+          <el-checkbox-group v-model="form.paymentStatus">
+            <el-checkbox v-for="dict in tt_paystatus" :key="dict.value" :label="dict.value">
+              {{ dict.label }}
+            </el-checkbox>
+          </el-checkbox-group>
+
+
+        </el-form-item>
+        <el-form-item label="支付方式" prop="paymentMethod">
+          <el-checkbox-group v-model="form.paymentMethod">
+            <el-checkbox v-for="dict in tt_paymethod" :key="dict.value" :label="dict.value">
+              {{ dict.label }}
+            </el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="见证人" prop="receiver">
+          <el-input v-model="form.receiver" placeholder="请输入见证人" />
+        </el-form-item>
+        <el-form-item label="备注" prop="notes">
+          <el-input v-model="form.notes" type="textarea" placeholder="请输入内容" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <div class="dialog-footer">
+          <el-button type="primary" @click="submitForm">确 定</el-button>
+          <el-button @click="cancel_billing">取 消</el-button>
+        </div>
+      </template>
+    </el-dialog>
+
+
   </div>
 </template>
+
+
+
+
 
 <script setup name="Records">
 import { listRecords, getRecords, delRecords, addRecords, updateRecords } from "@/api/record/records";
@@ -304,6 +365,97 @@ function handleExport() {
     ...queryParams.value
   }, `records_${new Date().getTime()}.xlsx`)
 }
+
+
+
+
+// 以下为根据就诊状态新建账单功能
+import {addBilling } from "@/api/billing/billing";
+
+const data_billing = reactive({
+  form_billing: {
+    creditworthiness: null, // 绑定的值
+  },
+  queryParams_billing: {
+    pageNum: 1,
+    pageSize: 10,
+    billingName: null,
+    itemName: null,
+    billingPhone: null,
+    contact: null,
+    creditworthiness: null,
+  },
+
+  rules_billing: {
+    billingName: [
+      { required: true, message: "供应商名称不能为空", trigger: "blur" }
+    ],
+    itemId: [
+      { required: true, message: "供应货物ID不能为空", trigger: "blur" }
+    ],
+    itemName: [
+      { required: true, message: "供应货物名称不能为空", trigger: "blur" }
+    ],
+    creditworthiness: [
+      { required: true, message: "信用度不能为空", trigger: "change" }
+    ],
+  }
+});
+const { queryParams_billing,form_billing, rules_billing } = toRefs(data_billing);
+
+// 取消按钮
+function cancel_billing() {
+  open_billing.value = false;
+  reset();
+}
+
+
+
+//以下为查看货物的供应商详情功能
+
+const billingsList = ref([]);
+//以下为查看供应商详情操作
+const open_billing = ref(false);
+// 表单重置
+function reset_billings() {
+  form_billing.value = {
+    billingId: null,
+    patientName: null,
+    doctorName: null,
+    billingDate: null,
+    totalAmount: null,
+    paymentStatus: [],
+    paymentMethod: [],
+    receiver: null,
+    notes: null
+  };
+  proxy.resetForm("billingRef");
+}
+
+function showBilling(row) {
+  reset_billings();
+  console.log(row);
+  if (!row.patientId) {
+    console.error("MedicineId is invalid!");
+    return;
+  }
+  open_records.value = true;
+  title.value = "查看个人就诊记录";
+  loading.value = true;
+    value.patientName = row.patientName; // 绑定患者姓名
+    form_billing.value.doctorName = row.doctorName; // 绑定医生姓名
+  addBilling(row).then((response) => {
+    billingsList.value = response.rows;
+    
+    loading.value = false;
+  });
+}
+
+
+
+
+
+
 
 getList();
 </script>
