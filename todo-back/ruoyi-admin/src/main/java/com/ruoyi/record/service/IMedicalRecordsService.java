@@ -27,6 +27,18 @@ public interface IMedicalRecordsService
      */
     public List<MedicalRecords> selectMedicalRecordsList(MedicalRecords medicalRecords);
 
+
+
+    /**
+     * 查询个人就诊记录列表
+     *
+     * @param patientId 就诊记录
+     * @return 就诊记录集合
+     */
+    public List<MedicalRecords> getRecordsByPatientId(Long patientId);
+
+
+
     /**
      * 新增就诊记录
      * 

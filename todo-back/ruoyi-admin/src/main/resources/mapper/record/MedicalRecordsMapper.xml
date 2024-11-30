@@ -39,6 +39,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="medicalRecordsStatue != null  and medicalRecordsStatue != ''"> and medical_records_statue = #{medicalRecordsStatue}</if>
         </where>
     </select>
+
+    <select id="getRecordsByPatientId" parameterType="Long" resultMap="MedicalRecordsResult">
+        <include refid="selectMedicalRecordsVo"/>
+        <where>
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+        </where>
+    </select>
+
+
     
     <select id="selectMedicalRecordsByMedicalRecordsId" parameterType="Long" resultMap="MedicalRecordsResult">
         <include refid="selectMedicalRecordsVo"/>

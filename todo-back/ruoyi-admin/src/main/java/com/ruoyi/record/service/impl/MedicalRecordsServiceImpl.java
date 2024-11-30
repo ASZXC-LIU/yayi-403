@@ -43,6 +43,23 @@ public class MedicalRecordsServiceImpl implements IMedicalRecordsService
         return medicalRecordsMapper.selectMedicalRecordsList(medicalRecords);
     }
 
+
+
+    /**
+     * 查询就诊记录列表
+     *
+     * @param patientId 就诊记录
+     * @return 就诊记录
+     */
+    @Override
+    public List<MedicalRecords> getRecordsByPatientId(Long patientId)
+    {
+        return medicalRecordsMapper.getRecordsByPatientId(patientId);
+    }
+
+
+
+
     /**
      * 新增就诊记录
      * 

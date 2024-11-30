@@ -28,6 +28,16 @@ public interface MedicalRecordsMapper
     public List<MedicalRecords> selectMedicalRecordsList(MedicalRecords medicalRecords);
 
     /**
+     * 查询就诊记录列表
+     *
+     * @param patientId 就诊记录
+     * @return 就诊记录集合
+     */
+    public List<MedicalRecords> getRecordsByPatientId(Long patientId);
+
+
+
+    /**
      * 新增就诊记录
      * 
      * @param medicalRecords 就诊记录

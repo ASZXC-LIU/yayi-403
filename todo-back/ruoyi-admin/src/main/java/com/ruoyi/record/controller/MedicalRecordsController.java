@@ -2,6 +2,8 @@ package com.ruoyi.record.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.framework.web.domain.server.Sys;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,6 +45,20 @@ public class MedicalRecordsController extends BaseController
     {
         startPage();
         List<MedicalRecords> list = medicalRecordsService.selectMedicalRecordsList(medicalRecords);
+        return getDataTable(list);
+    }
+
+    /**
+     * 查询个人就诊记录列表
+     */
+    @PreAuthorize("@ss.hasPermi('record:records:list')")
+    @GetMapping("/getRecordsByPatientId")
+    public TableDataInfo getRecordsByPatientId(Long patientId)
+    {
+        startPage();
+        System.out.println("patientId1111111111111111111111:"+patientId);
+        List<MedicalRecords> list = medicalRecordsService.getRecordsByPatientId(patientId);
+        System.out.println("22222222222222222222222222:"+list);
         return getDataTable(list);
     }
 

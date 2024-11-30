@@ -9,6 +9,15 @@ export function listRecords(query) {
   })
 }
 
+// 查询个人就诊记录列表
+export function getRecordsByPatientId(query) {
+  return request({
+    url: '/record/records/getRecordsByPatientId',
+    method: 'get',
+    params: query
+  })
+}
+
 // 查询就诊记录详细
 export function getRecords(medicalRecordsId) {
   return request({
