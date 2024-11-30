@@ -431,13 +431,21 @@ function handleView_records(row) {
   open_records.value = true;
   title.value = "查看个人就诊记录";
   loading.value = true;
-  getRecordsByPatientId(row.patientId).then((response) => {
-    recordsList.value = response.data;
-    console.log(response);
-    console.log(recordsList.value);
-    loading.value = false;
+//   getRecordsByPatientId(row.patientId).then((response) => {
+//     recordsList.value = response.data;
+//     console.log(response);
+//     console.log(recordsList.value);
+//     loading.value = false;
+//   });
+ }
+getRecordsByPatientId(row.patientId).then((response) => {
+  recordsList.value = response.data;
+  console.log(response);
+  this.$nextTick(() => {
+    console.log(recordsList.value);  // 等待 Vue 更新后输出
   });
-}
+  loading.value = false;
+});
 
 function submitForm_records() {
   open_records.value = false;
