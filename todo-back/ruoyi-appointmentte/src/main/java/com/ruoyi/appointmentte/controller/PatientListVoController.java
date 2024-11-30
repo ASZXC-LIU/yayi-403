@@ -72,7 +72,7 @@ public class PatientListVoController extends BaseController
     @GetMapping(value = "ifExistTest")
     public AjaxResult selectTtPatientsByName(@RequestBody PatientListVo patientListVo)
     {
-        String patientName = patientListVo.getName();
+        String patientName = patientListVo.getPatientName();
         int num = patientListService.selectTtPatientsByName(patientListVo);
         if(num == 0){
             return error("患者姓名不能为空");
@@ -96,7 +96,7 @@ public class PatientListVoController extends BaseController
     public AjaxResult add(@RequestBody PatientListVo patientListVo)
     {
 
-        String patientName = patientListVo.getName();
+        String patientName = patientListVo.getPatientName();
         int num = patientListService.selectTtPatientsByName(patientListVo);
         if(num == 0){
             return error("患者姓名不能为空");

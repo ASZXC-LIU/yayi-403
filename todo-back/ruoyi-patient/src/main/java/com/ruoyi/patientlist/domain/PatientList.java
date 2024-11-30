@@ -22,28 +22,29 @@ public class PatientList extends BaseEntity
 
     /** 患者姓名 */
     @Excel(name = "患者姓名")
-    private String name;
+    private String patientName;
 
-    /** 患者病历号 */
-    @Excel(name = "患者病历号")
-    private Long medicalRecordNumber;
-
+    /** 患者年龄 */
+    private Long patientOld;
     /** 患者生日 */
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "患者生日", width = 30, dateFormat = "yyyy-MM-dd")
-    private Date birthday;
+    private Date patientBirthday;
 
     /** 患者性别 */
     @Excel(name = "患者性别")
-    private String gender;
+    private String patientGender;
+
+
+
 
     /** 患者联系电话 */
     @Excel(name = "患者联系电话")
-    private String phone;
+    private String patientPhone;
 
     /** 患者地址 */
     @Excel(name = "患者地址")
-    private String address;
+    private String patientAddress;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -57,112 +58,125 @@ public class PatientList extends BaseEntity
 
     /** 备注 */
     @Excel(name = "备注")
-    private String remarks;
+    private String patientRemarks;
 
-    public void setPatientId(Long patientId) 
+    /** 过敏原 */
+    @Excel(name = "备注")
+    private String patientAllergens;
+
+    public void setPatientId(Long patientId)
     {
         this.patientId = patientId;
     }
 
-    public Long getPatientId() 
+    public Long getPatientId()
     {
         return patientId;
     }
-    public void setName(String name) 
+    public void setPatientName(String patientName)
     {
-        this.name = name;
+        this.patientName = patientName;
     }
 
-    public String getName() 
+    public String getPatientName()
     {
-        return name;
-    }
-    public void setMedicalRecordNumber(Long medicalRecordNumber) 
-    {
-        this.medicalRecordNumber = medicalRecordNumber;
+        return patientName;
     }
 
-    public Long getMedicalRecordNumber() 
+    public void setPatientBirthday(Date patientBirthday)
     {
-        return medicalRecordNumber;
-    }
-    public void setBirthday(Date birthday) 
-    {
-        this.birthday = birthday;
+        this.patientBirthday = patientBirthday;
     }
 
-    public Date getBirthday() 
+    public Date getPatientBirthday()
     {
-        return birthday;
+        return patientBirthday;
     }
-    public void setGender(String gender) 
+    public void setPatientGender(String patientGender)
     {
-        this.gender = gender;
-    }
-
-    public String getGender() 
-    {
-        return gender;
-    }
-    public void setPhone(String phone) 
-    {
-        this.phone = phone;
+        this.patientGender = patientGender;
     }
 
-    public String getPhone() 
+    public String getPatientGender()
     {
-        return phone;
+        return patientGender;
     }
-    public void setAddress(String address) 
+    public void setPatientPhone(String patientPhone)
     {
-        this.address = address;
+        this.patientPhone = patientPhone;
     }
 
-    public String getAddress() 
+    public String getPatientPhone()
     {
-        return address;
+        return patientPhone;
     }
-    public void setCreatedAt(Date createdAt) 
+    public void setPatientAddress(String patientAddress)
+    {
+        this.patientAddress = patientAddress;
+    }
+
+    public String getPatientAddress()
+    {
+        return patientAddress;
+    }
+    public void setCreatedAt(Date createdAt)
     {
         this.createdAt = createdAt;
     }
 
-    public Date getCreatedAt() 
+    public Date getCreatedAt()
     {
         return createdAt;
     }
-    public void setUpdatedAt(Date updatedAt) 
+    public void setUpdatedAt(Date updatedAt)
     {
         this.updatedAt = updatedAt;
     }
 
-    public Date getUpdatedAt() 
+    public Date getUpdatedAt()
     {
         return updatedAt;
     }
-    public void setRemarks(String remarks) 
+    public void setPatientRemarks(String patientRemarks)
     {
-        this.remarks = remarks;
+        this.patientRemarks = patientRemarks;
     }
 
-    public String getRemarks() 
+    public String getPatientRemarks()
     {
-        return remarks;
+        return patientRemarks;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("patientId", getPatientId())
-            .append("name", getName())
-            .append("medicalRecordNumber", getMedicalRecordNumber())
-            .append("birthday", getBirthday())
-            .append("gender", getGender())
-            .append("phone", getPhone())
-            .append("address", getAddress())
-            .append("createdAt", getCreatedAt())
-            .append("updatedAt", getUpdatedAt())
-            .append("remarks", getRemarks())
-            .toString();
+                .append("patientId", getPatientId())
+                .append("patientName", getPatientName())
+                .append("patientBirthday", getPatientBirthday())
+                .append("patientPhone", getPatientGender())
+                .append("patientPhone", getPatientPhone())
+                .append("patientAddress", getPatientAddress())
+                .append("createdAt", getCreatedAt())
+                .append("updatedAt", getUpdatedAt())
+                .append("patientRemarks", getPatientRemarks())
+                .append("patientAllergens", getPatientAllergens())
+                .append("patientOld", getPatientOld())
+                .toString();
+    }
+
+    public String getPatientAllergens() {
+        return patientAllergens;
+    }
+
+    public void setPatientAllergens(String patientAllergens) {
+        this.patientAllergens = patientAllergens;
+    }
+
+    public Long getPatientOld() {
+        return patientOld;
+    }
+
+    public void setPatientOld(Long patientOld) {
+        this.patientOld = patientOld;
     }
 }

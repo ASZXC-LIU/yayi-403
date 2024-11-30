@@ -1,134 +1,57 @@
 <template>
   <div class="app-container">
-    <el-form
-      :model="queryParams"
-      ref="queryRef"
-      :inline="true"
-      v-show="showSearch"
-      label-width="68px"
-    >
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
       <el-form-item label="患者姓名" prop="patientName">
-        <el-input
-          v-model="queryParams.patientName"
-          placeholder="请输入患者姓名"
-          clearable
-          @keyup.enter="handleQuery"
-        />
+        <el-input v-model="queryParams.patientName" placeholder="请输入患者姓名" clearable @keyup.enter="handleQuery" />
       </el-form-item>
       <el-form-item label="医生姓名" prop="doctorName">
-        <el-select
-          v-model="queryParams.doctorName"
-          placeholder="请选择医生姓名"
-          clearable
-        >
-          <el-option
-            v-for="dict in tt_doctor"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.doctorName" placeholder="请选择医生姓名" clearable>
+          <el-option v-for="dict in tt_doctor" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="预约开始时间" prop="appointmentStartTime">
-        <el-date-picker
-          clearable
-          v-model="queryParams.appointmentStartTime"
-          type="date"
-          value-format="YYYY-MM-DD"
-          placeholder="请选择预约开始时间"
-        >
+        <el-date-picker clearable v-model="queryParams.appointmentStartTime" type="date" value-format="YYYY-MM-DD"
+          placeholder="请选择预约开始时间">
         </el-date-picker>
       </el-form-item>
+      
       <el-form-item label="预约的项目" prop="appointmentProject">
-        <el-select
-          v-model="queryParams.appointmentProject"
-          placeholder="请选择预约的项目"
-          clearable
-        >
-          <el-option
-            v-for="dict in tt_tooth"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.appointmentProject" placeholder="请选择预约的项目" clearable>
+          <el-option v-for="dict in tt_tooth" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item label="预约状态" prop="appointmentStatus">
-        <el-select
-          v-model="queryParams.appointmentStatus"
-          placeholder="请选择预约状态"
-          clearable
-        >
-          <el-option
-            v-for="dict in tt_appointments_status"
-            :key="dict.value"
-            :label="dict.label"
-            :value="dict.value"
-          />
+        <el-select v-model="queryParams.appointmentStatus" placeholder="请选择预约状态" clearable>
+          <el-option v-for="dict in tt_appointments_status" :key="dict.value" :label="dict.label" :value="dict.value" />
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="Search" @click="handleQuery"
-          >搜索</el-button
-        >
+        <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
 
     <el-row :gutter="10" class="mb8">
       <el-col :span="1.5">
-        <el-button
-          type="primary"
-          plain
-          icon="Plus"
-          @click="handleAdd"
-          v-hasPermi="['appointmentte:appointmentte:add']"
-          >新增</el-button
-        >
+        <el-button type="primary" plain icon="Plus" @click="handleAdd"
+          v-hasPermi="['appointmentte:appointmentte:add']">新增</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="success"
-          plain
-          icon="Edit"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['appointmentte:appointmentte:edit']"
-          >修改</el-button
-        >
+        <el-button type="success" plain icon="Edit" :disabled="single" @click="handleUpdate"
+          v-hasPermi="['appointmentte:appointmentte:edit']">修改</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="Delete"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['appointmentte:appointmentte:remove']"
-          >删除</el-button
-        >
+        <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete"
+          v-hasPermi="['appointmentte:appointmentte:remove']">删除</el-button>
       </el-col>
       <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="Download"
-          @click="handleExport"
-          v-hasPermi="['appointmentte:appointmentte:export']"
-          >导出</el-button
-        >
+        <el-button type="warning" plain icon="Download" @click="handleExport"
+          v-hasPermi="['appointmentte:appointmentte:export']">导出</el-button>
       </el-col>
-      <right-toolbar
-        v-model:showSearch="showSearch"
-        @queryTable="getList"
-      ></right-toolbar>
+      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table
-      v-loading="loading"
-      :data="appointmentteList"
-      @selection-change="handleSelectionChange"
-    >
+    <el-table v-loading="loading" :data="appointmentteList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <!-- <el-table-column label="预约唯一ID" align="center" prop="appointmentId" />
       <el-table-column label="患者ID" align="center" prop="patientId" />
@@ -139,88 +62,52 @@
           <dict-tag :options="tt_doctor" :value="scope.row.doctorName" />
         </template>
       </el-table-column>
-      <el-table-column
-        label="患者联系方式"
-        align="center"
-        prop="patientPhone"
-      />
-      <el-table-column
-        label="预约开始时间"
-        align="center"
-        prop="appointmentStartTime"
-        width="180"
-      >
+      <el-table-column label="患者联系方式" align="center" prop="patientPhone" />
+      <el-table-column label="预约开始时间" align="center" prop="appointmentStartTime" width="180">
         <template #default="scope">
           <span>{{
             parseTime(scope.row.appointmentStartTime, "{y}-{m}-{d}")
           }}</span>
         </template>
       </el-table-column>
-      <el-table-column
-        label="预约时长"
-        align="center"
-        prop="appointmentDuration"
-      />
-      <el-table-column
-        label="预约的项目"
-        align="center"
-        prop="appointmentProject"
-      >
+      <el-table-column label="预约时长" align="center" prop="partTime" />
+
+      <el-table-column label="预约结束时间" align="center" prop="appointmentEndTime" width="180">
+        <template #default="scope">
+          <span>{{
+            parseTime(scope.row.appointmentEndTime, "{y}-{m}-{d}")
+          }}</span>
+        </template>
+      </el-table-column>
+
+
+      <el-table-column label="预约的项目" align="center" prop="appointmentProject">
         <template #default="scope">
           <dict-tag :options="tt_tooth" :value="scope.row.appointmentProject" />
         </template>
       </el-table-column>
       <el-table-column label="预约状态" align="center" prop="appointmentStatus">
         <template #default="scope">
-          <dict-tag
-            :options="tt_appointments_status"
-            :value="scope.row.appointmentStatus"
-          />
+          <dict-tag :options="tt_appointments_status" :value="scope.row.appointmentStatus" />
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" />
-      <el-table-column
-        label="操作"
-        align="center"
-        class-name="small-padding fixed-width"
-      >
+      <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
-          <el-button
-            link
-            type="primary"
-            icon="Edit"
-            @click="handleUpdate(scope.row)"
-            v-hasPermi="['appointmentte:appointmentte:edit']"
-            >修改</el-button
-          >
-          <el-button
-            link
-            type="primary"
-            icon="Delete"
-            @click="handleDelete(scope.row)"
-            v-hasPermi="['appointmentte:appointmentte:remove']"
-            >删除</el-button
-          >
+          <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)"
+            v-hasPermi="['appointmentte:appointmentte:edit']">修改</el-button>
+          <el-button link type="primary" icon="Delete" @click="handleDelete(scope.row)"
+            v-hasPermi="['appointmentte:appointmentte:remove']">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <pagination
-      v-show="total > 0"
-      :total="total"
-      v-model:page="queryParams.pageNum"
-      v-model:limit="queryParams.pageSize"
-      @pagination="getList"
-    />
+    <pagination v-show="total > 0" :total="total" v-model:page="queryParams.pageNum"
+      v-model:limit="queryParams.pageSize" @pagination="getList" />
 
     <!-- 添加或修改预约测试对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
-      <el-form
-        ref="appointmentteRef"
-        :model="form"
-        :rules="rules"
-        label-width="80px"
-      >
+      <el-form ref="appointmentteRef" :model="form" :rules="rules" label-width="80px">
         <!-- <el-form-item label="患者ID" prop="patientId">
           <el-input v-model="form.patientId" placeholder="请输入患者ID" />
         </el-form-item>
@@ -232,60 +119,34 @@
         </el-form-item>
         <el-form-item label="医生姓名" prop="doctorName">
           <el-select v-model="form.doctorName" placeholder="请选择医生姓名">
-            <el-option
-              v-for="dict in tt_doctor"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            ></el-option>
+            <el-option v-for="dict in tt_doctor" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="患者联系方式" prop="patientPhone">
-          <el-input
-            v-model="form.patientPhone"
-            placeholder="请输入患者联系方式"
-          />
+          <el-input v-model="form.patientPhone" placeholder="请输入患者联系方式" />
         </el-form-item>
         <el-form-item label="预约开始时间" prop="appointmentStartTime">
-          <el-date-picker
-            clearable
-            v-model="form.appointmentStartTime"
-            type="date"
-            value-format="YYYY-MM-DD"
-            placeholder="请选择预约开始时间"
-          >
+          <el-date-picker clearable v-model="form.appointmentStartTime" type="date" value-format="YYYY-MM-DD"
+            placeholder="请选择预约开始时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="预约时长" prop="appointmentDuration">
-          <el-input
-            v-model="form.appointmentDuration"
-            placeholder="请输入预约时长"
-          />
+        <el-form-item label="预约时长" prop="partTime">
+          <el-input v-model="form.partTime" placeholder="请输入预约时长" />
+        </el-form-item>
+        <el-form-item label="预约结束时间" prop="appointmentEndTime">
+          <el-date-picker clearable v-model="form.appointmentEndTime" type="date" value-format="YYYY-MM-DD"
+            placeholder="请选择预约开始时间">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="预约的项目" prop="appointmentProject">
-          <el-select
-            v-model="form.appointmentProject"
-            placeholder="请选择预约的项目"
-          >
-            <el-option
-              v-for="dict in tt_tooth"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            ></el-option>
+          <el-select v-model="form.appointmentProject" placeholder="请选择预约的项目">
+            <el-option v-for="dict in tt_tooth" :key="dict.value" :label="dict.label" :value="dict.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="预约状态" prop="appointmentStatus">
-          <el-select
-            v-model="form.appointmentStatus"
-            placeholder="请选择预约状态"
-          >
-            <el-option
-              v-for="dict in tt_appointments_status"
-              :key="dict.value"
-              :label="dict.label"
-              :value="dict.value"
-            ></el-option>
+          <el-select v-model="form.appointmentStatus" placeholder="请选择预约状态">
+            <el-option v-for="dict in tt_appointments_status" :key="dict.value" :label="dict.label"
+              :value="dict.value"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
@@ -336,7 +197,9 @@ const data = reactive({
     patientName: null,
     doctorName: null,
     appointmentStartTime: null,
+    partTime: null,
     appointmentProject: null,
+    appointmentEndTime: null,
     appointmentStatus: null,
   },
   rules: {
@@ -352,8 +215,8 @@ const data = reactive({
     appointmentStartTime: [
       { required: true, message: "预约开始时间不能为空", trigger: "blur" },
     ],
-    appointmentDuration: [
-      { required: true, message: "预约时长不能为空", trigger: "blur" },
+    appointmentEndTime: [
+      { required: true, message: "预约开始时间不能为空", trigger: "blur" },
     ],
     appointmentProject: [
       { required: true, message: "预约的项目不能为空", trigger: "change" },
@@ -390,7 +253,8 @@ function reset() {
     doctorName: null,
     patientPhone: null,
     appointmentStartTime: null,
-    appointmentDuration: null,
+    partTime: null,
+    appointmentEndTime: null,
     appointmentProject: null,
     appointmentStatus: null,
     createdAt: null,
@@ -470,7 +334,7 @@ function handleDelete(row) {
       getList();
       proxy.$modal.msgSuccess("删除成功");
     })
-    .catch(() => {});
+    .catch(() => { });
 }
 
 /** 导出按钮操作 */

@@ -3,30 +3,31 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ruoyi.patientlist.mapper.PatientListMapper">
-    
+
     <resultMap type="PatientList" id="PatientListResult">
         <result property="patientId"    column="patient_id"    />
-        <result property="name"    column="name"    />
-        <result property="medicalRecordNumber"    column="medical_record_number"    />
-        <result property="birthday"    column="birthday"    />
-        <result property="gender"    column="gender"    />
-        <result property="phone"    column="phone"    />
-        <result property="address"    column="address"    />
-        <result property="createdAt"    column="created_at"    />
-        <result property="updatedAt"    column="updated_at"    />
-        <result property="remarks"    column="remarks"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="patientOld"    column="patient_old"    />
+        <result property="patientBirthday"    column="patient_birthday"    />
+        <result property="patientGender"    column="patient_gender"    />
+        <result property="patientAllergens"    column="patient_allergens"    />
+        <result property="patientPhone"    column="patient_phone"    />
+        <result property="patientAddress"    column="patient_address"    />
+        <result property="created_at"    column="createdAt"    />
+        <result property="updated_at"    column="updatedAt"    />
+        <result property="patientRemarks"    column="patient_remarks"    />
     </resultMap>
 
     <sql id="selectPatientListVo">
-        select patient_id, name, medical_record_number, birthday, gender, phone, address, created_at, updated_at, remarks from tt_patients
+        select patient_id, patient_name,  patient_birthday,patient_allergens,patient_old, patient_gender, patient_phone, patient_address, created_at, updated_at, patient_remarks from tt_patients
     </sql>
 
     <select id="selectPatientListList" parameterType="PatientList" resultMap="PatientListResult">
         <include refid="selectPatientListVo"/>
-        <where>  
-            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
-            <if test="medicalRecordNumber != null "> and medical_record_number = #{medicalRecordNumber}</if>
-            <if test="phone != null  and phone != ''"> and phone = #{phone}</if>
+        <where>
+            <if test="patientName != null  and patientName != ''"> and patient_name like concat('%', #{patientName}, '%')</if>
+
+            <if test="patientPhone != null  and patientPhone != ''"> and patient_phone = #{patientPhone}</if>
         </where>
     </select>
     
@@ -38,41 +39,44 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertPatientList" parameterType="PatientList" useGeneratedKeys="true" keyProperty="patientId">
         insert into tt_patients
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="name != null and name != ''">name,</if>
-            <if test="medicalRecordNumber != null">medical_record_number,</if>
-            <if test="birthday != null">birthday,</if>
-            <if test="gender != null and gender != ''">gender,</if>
-            <if test="phone != null">phone,</if>
-            <if test="address != null">address,</if>
+            <if test="patientName != null and patientName != ''">patient_name,</if>
+            <if test="patientBirthday != null">patient_birthday,</if>
+            <if test="patientGender != null and patientGender != ''">patient_gender,</if>
+            <if test="patientPhone != null">patient_phone,</if>
+            <if test="patientOld != null">patient_old,</if>
+            <if test="patientAllergens != null">patient_allergens,</if>
+            <if test="patientAddress != null">patient_address,</if>
             <if test="createdAt != null">created_at,</if>
             <if test="updatedAt != null">updated_at,</if>
-            <if test="remarks != null">remarks,</if>
-         </trim>
+            <if test="patientRemarks != null">patient_remarks,</if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="name != null and name != ''">#{name},</if>
-            <if test="medicalRecordNumber != null">#{medicalRecordNumber},</if>
-            <if test="birthday != null">#{birthday},</if>
-            <if test="gender != null and gender != ''">#{gender},</if>
-            <if test="phone != null">#{phone},</if>
-            <if test="address != null">#{address},</if>
+            <if test="patientName != null and patientName != ''">#{patientName},</if>
+            <if test="patientBirthday != null">#{patientBirthday},</if>
+            <if test="patientGender != null and patientGender != ''">#{patientGender},</if>
+            <if test="patientPhone != null">#{patientPhone},</if>
+            <if test="patientOld != null">#{patientOld},</if>
+            <if test="patientAllergens != null">#{patientAllergens},</if>
+            <if test="patientAddress != null">#{patientAddress},</if>
             <if test="createdAt != null">#{createdAt},</if>
             <if test="updatedAt != null">#{updatedAt},</if>
-            <if test="remarks != null">#{remarks},</if>
-         </trim>
+            <if test="patientRemarks != null">#{patientRemarks},</if>
+        </trim>
     </insert>
 
     <update id="updatePatientList" parameterType="PatientList">
         update tt_patients
         <trim prefix="SET" suffixOverrides=",">
-            <if test="name != null and name != ''">name = #{name},</if>
-            <if test="medicalRecordNumber != null">medical_record_number = #{medicalRecordNumber},</if>
-            <if test="birthday != null">birthday = #{birthday},</if>
-            <if test="gender != null and gender != ''">gender = #{gender},</if>
-            <if test="phone != null">phone = #{phone},</if>
-            <if test="address != null">address = #{address},</if>
+            <if test="patientName != null and patientName != ''"> patient_name =#{patientName},</if>
+            <if test="patientBirthday != null"> patient_birthday =#{patientBirthday},</if>
+            <if test="patientGender != null and patientGender != ''">patient_gender  =#{patientGender},</if>
+            <if test="patientPhone != null">  patient_phone=#{patientPhone},</if>
+            <if test="patientOld != null"> patient_old=#{patientOld} ,</if>
+            <if test="patientAllergens != null"> patient_allergens=#{patientAllergens} ,</if>
+            <if test="patientAddress != null">patient_address = #{patientAddress},</if>
             <if test="createdAt != null">created_at = #{createdAt},</if>
             <if test="updatedAt != null">updated_at = #{updatedAt},</if>
-            <if test="remarks != null">remarks = #{remarks},</if>
+            <if test="patientRemarks != null">patient_remarks = #{patientRemarks},</if>
         </trim>
         where patient_id = #{patientId}
     </update>

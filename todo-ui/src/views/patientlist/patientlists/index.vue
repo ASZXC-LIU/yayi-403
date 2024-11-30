@@ -76,16 +76,19 @@
     <el-table v-loading="loading" :data="patientlistsList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="患者ID" align="center" prop="patientId" />
-      <el-table-column label="患者姓名" align="center" prop="name" />
-      <el-table-column label="患者病历号" align="center" prop="medicalRecordNumber" width="90"/>
-      <el-table-column label="患者生日" align="center" prop="birthday" width="180">
+      <el-table-column label="患者姓名" align="center" prop="patientName" />
+      <el-table-column label="患者年龄" align="center" prop="patientOld" />
+      
+       <el-table-column label="患者生日" align="center" prop="patientBirthday" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.birthday, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="患者性别" align="center" prop="gender" />
-      <el-table-column label="患者联系电话" align="center" prop="phone" width="150"/>
-      <el-table-column label="患者地址" align="center" prop="address" width="200"/>
+      <el-table-column label="患者性别" align="center" prop="patientGender" />
+      <el-table-column label="患者过敏源" align="center" prop="patientAllergens" />
+      
+      <el-table-column label="患者联系电话" align="center" prop="patientPhone" width="150"/>
+      <el-table-column label="患者地址" align="center" prop="patientAddress" width="200"/>
       <el-table-column label="创建时间" align="center" prop="createdAt" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.createdAt, '{y}-{m}-{d}') }}</span>
@@ -96,7 +99,7 @@
           <span>{{ parseTime(scope.row.updatedAt, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="备注" align="center" prop="remarks" />
+      <el-table-column label="备注" align="center" prop="patientRemarks" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['patientlist:patientlists:edit']">修改</el-button>
@@ -116,28 +119,31 @@
     <!-- 添加或修改患者信息对话框 -->
     <el-dialog :title="title" v-model="open" width="500px"  append-to-body>
       <el-form ref="patientlistsRef" :model="form" :rules="rules" label-width="100px">
-        <el-form-item label="患者姓名" prop="name">
-          <el-input v-model="form.name" placeholder="请输入患者姓名" />
+        <el-form-item label="患者姓名" prop="patientName">
+          <el-input v-model="form.patientName" placeholder="请输入患者姓名" />
         </el-form-item>
-        <el-form-item label="患者病历号" prop="medicalRecordNumber">
-          <el-input v-model="form.medicalRecordNumber" placeholder="请输入患者病历号" />
+        <el-form-item label="患者年龄" prop="patientOld">
+          <el-input v-model="form.patientOld" placeholder="请输入患者性别" />
         </el-form-item>
-        <el-form-item label="患者生日" prop="birthday">
+        <el-form-item label="患者生日" prop="patientBirthday">
           <el-date-picker clearable
-            v-model="form.birthday"
+            v-model="form.patientBirthday"
             type="date"
             value-format="YYYY-MM-DD"
             placeholder="请选择患者生日">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="患者性别" prop="gender">
-          <el-input v-model="form.gender" placeholder="请输入患者性别" />
+        <el-form-item label="患者性别" prop="patientGender">
+          <el-input v-model="form.patientGender" placeholder="请输入患者性别" />
         </el-form-item>
-        <el-form-item label="患者联系电话" prop="phone">
-          <el-input v-model="form.phone" placeholder="请输入患者联系电话" />
+        <el-form-item label="过敏源" prop="patientAllergens">
+          <el-input v-model="form.patientAllergens" placeholder="请输入患者过敏源" />
         </el-form-item>
-        <el-form-item label="患者地址" prop="address">
-          <el-input v-model="form.address" placeholder="请输入患者地址" />
+        <el-form-item label="患者联系电话" prop="patientPhone">
+          <el-input v-model="form.patientPhone" placeholder="请输入患者联系电话" />
+        </el-form-item>
+        <el-form-item label="患者地址" prop="patientAddress">
+          <el-input v-model="form.patientAddress" placeholder="请输入患者地址" />
         </el-form-item>
         <el-form-item label="创建时间" prop="createdAt">
           <el-date-picker clearable
@@ -147,8 +153,8 @@
             placeholder="请选择创建时间">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="备注" prop="remarks">
-          <el-input v-model="form.remarks" type="textarea" placeholder="请输入内容" />
+        <el-form-item label="备注" prop="patientRemarks">
+          <el-input v-model="form.patientRemarks" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -181,18 +187,15 @@ const data = reactive({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    name: null,
-    medicalRecordNumber: null,
-    phone: null,
+    patientName: null,
+    patientPhone: null,
   },
   rules: {
-    name: [
+    patientName: [
       { required: true, message: "患者姓名不能为空", trigger: "blur" }
     ],
-    medicalRecordNumber: [
-      { required: true, message: "患者病历号不能为空", trigger: "blur" }
-    ],
-    gender: [
+    
+    patientPhone: [
       { required: true, message: "患者性别不能为空", trigger: "blur" }
     ],
   }
@@ -221,15 +224,16 @@ function cancel() {
 function reset() {
   form.value = {
     patientId: null,
-    name: null,
-    medicalRecordNumber: null,
-    birthday: null,
-    gender: null,
-    phone: null,
-    address: null,
+    patientName: null,
+    patientBirthday: null,
+    patientGender: null,
+    patientPhone: null,
+    patientAddress: null,
     createdAt: null,
     updatedAt: null,
-    remarks: null
+    patientRemarks: null,
+    patientAllergens : null,
+    patientOld : null,
   };
   proxy.resetForm("patientlistsRef");
 }

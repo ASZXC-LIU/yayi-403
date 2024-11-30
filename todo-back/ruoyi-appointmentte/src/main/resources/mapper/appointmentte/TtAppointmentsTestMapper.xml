@@ -12,7 +12,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="doctorName"    column="doctor_name"    />
         <result property="patientPhone"    column="patient_phone"    />
         <result property="appointmentStartTime"    column="appointment_start_time"    />
-        <result property="appointmentDuration"    column="appointment_duration"    />
+        <result property="partTime"    column="part_time"    />
+        <result property="appointmentEndTime"    column="appointment_end_time"    />
         <result property="appointmentProject"    column="appointment_project"    />
         <result property="appointmentStatus"    column="appointment_status"    />
         <result property="createdAt"    column="created_at"    />
@@ -22,25 +23,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="PatientListVo" id="PatientListResult">
         <result property="patientId"    column="patient_id"    />
-        <result property="name"    column="name"    />
-        <result property="medicalRecordNumber"    column="medical_record_number"    />
-        <result property="birthday"    column="birthday"    />
-        <result property="gender"    column="gender"    />
-        <result property="phone"    column="phone"    />
-        <result property="address"    column="address"    />
+        <result property="patient_name"    column="patientName"    />
+        <result property="patient_birthday"    column="patientBirthday"    />
+        <result property="patient_gender"    column="patientGender"    />
+        <result property="patient_phone"    column="patientPhone"    />
+        <result property="patient_address"    column="patientAddress"    />
         <result property="createdAt"    column="created_at"    />
         <result property="updatedAt"    column="updated_at"    />
-        <result property="remarks"    column="remarks"    />
+        <result property="patient_remarks"    column="patientRemarks"    />
     </resultMap>
 
 
 
     <sql id="selectTtAppointmentsTestVo">
-        select appointment_id, patient_id, doctor_id, patient_name, doctor_name, patient_phone, appointment_start_time, appointment_duration, appointment_project, appointment_status, created_at, updated_at, remark from tt_appointments_test
+        select appointment_id, patient_id, doctor_id, patient_name, doctor_name, patient_phone, appointment_start_time, part_time,appointment_end_time, appointment_project, appointment_status, created_at, updated_at, remark from tt_appointments_test
     </sql>
 
     <sql id="ifExitBeforAppointment">
-        select patient_id, name, medical_record_number, birthday, gender, phone, address, created_at, updated_at, remarks from tt_patients
+        select patient_id, patient_name,  patient_birthday,patient_allergens,patient_old, patient_gender, patient_phone, patient_address, created_at, updated_at, patient_remarks from tt_patients
     </sql>
 
     <select id="selectTtAppointmentsTestList" parameterType="TtAppointmentsTest" resultMap="TtAppointmentsTestResult">
@@ -57,8 +57,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="ifExitBeforAppointment" parameterType="TtAppointmentsTest" resultMap="PatientListResult">
         <include refid="ifExitBeforAppointment"/>
         <where>
-            <if test="patientName != null  and patientName != ''"> and name like concat('%', #{patientName}, '%')</if>
-            <if test="patientPhone != null  and patientPhone != ''"> and phone = #{patientPhone}</if>
+            <if test="patientName != null  and patientName != ''"> and patient_name like concat('%', #{patientName}, '%')</if>
+            <if test="patientPhone != null  and patientPhone != ''"> and patient_phone = #{patientPhone}</if>
         </where>
     </select>
 
@@ -78,7 +78,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="doctorName != null and doctorName != ''">doctor_name,</if>
             <if test="patientPhone != null and patientPhone != ''">patient_phone,</if>
             <if test="appointmentStartTime != null">appointment_start_time,</if>
-            <if test="appointmentDuration != null">appointment_duration,</if>
+            <if test="partTime != null">part_time,</if>
+            <if test="appointmentStartTime != null">appointment_end_time,</if>
             <if test="appointmentProject != null and appointmentProject != ''">appointment_project,</if>
             <if test="appointmentStatus != null">appointment_status,</if>
             <if test="createdAt != null">created_at,</if>
@@ -92,7 +93,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="doctorName != null and doctorName != ''">#{doctorName},</if>
             <if test="patientPhone != null and patientPhone != ''">#{patientPhone},</if>
             <if test="appointmentStartTime != null">#{appointmentStartTime},</if>
-            <if test="appointmentDuration != null">#{appointmentDuration},</if>
+            <if test="partTime != null">#{partTime},</if>
+            <if test="appointmentEndTime != null">#{appointmentEndTime},</if>
             <if test="appointmentProject != null and appointmentProject != ''">#{appointmentProject},</if>
             <if test="appointmentStatus != null">#{appointmentStatus},</if>
             <if test="createdAt != null">#{createdAt},</if>
@@ -110,7 +112,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="doctorName != null and doctorName != ''">doctor_name = #{doctorName},</if>
             <if test="patientPhone != null and patientPhone != ''">patient_phone = #{patientPhone},</if>
             <if test="appointmentStartTime != null">appointment_start_time = #{appointmentStartTime},</if>
-            <if test="appointmentDuration != null">appointment_duration = #{appointmentDuration},</if>
+            <if test="partTime != null">part_time = #{partTime},</if>
+            <if test="appointmentEndTime != null">appointment_end_time = #{appointmentEndTime},</if>
             <if test="appointmentProject != null and appointmentProject != ''">appointment_project = #{appointmentProject},</if>
             <if test="appointmentStatus != null">appointment_status = #{appointmentStatus},</if>
             <if test="createdAt != null">created_at = #{createdAt},</if>
