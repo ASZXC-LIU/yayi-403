@@ -51,7 +51,7 @@
 
       <el-table-column label="患者生日" align="center" prop="patientBirthday" width="180">
         <template #default="scope">
-          <span>{{ parseTime(scope.row.birthday, '{y}-{m}-{d}') }}</span>
+          <span>{{ parseTime(scope.row.patientBirthday, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
       <el-table-column label="患者性别" align="center" prop="patientGender" />
@@ -59,16 +59,7 @@
 
       <el-table-column label="患者联系电话" align="center" prop="patientPhone" width="150" />
       <el-table-column label="患者地址" align="center" prop="patientAddress" width="200" />
-      <el-table-column label="创建时间" align="center" prop="createdAt" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.createdAt, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column label="更新时间" align="center" prop="updatedAt" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.updatedAt, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
+     
       <el-table-column label="备注" align="center" prop="patientRemarks" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width" width="150">
         <template #default="scope">
@@ -174,9 +165,9 @@
       <el-table v-loading="loading" :data="recordsList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="就诊记录ID" align="center" prop="medicalRecordsId" />
-        <el-table-column label="患者ID" align="center" prop="patientId" />
+        <!-- <el-table-column label="患者ID" align="center" prop="patientId" /> -->
         <el-table-column label="患者姓名" align="center" prop="patientName" />
-        <el-table-column label="医生ID" align="center" prop="doctorId" />
+        <!-- <el-table-column label="医生ID" align="center" prop="doctorId" /> -->
         <el-table-column label="医生姓名" align="center" prop="doctorName" />
         <el-table-column label="主诉" align="center" prop="maincase" />
         <el-table-column label="治疗方式" align="center" prop="treatmentType" />

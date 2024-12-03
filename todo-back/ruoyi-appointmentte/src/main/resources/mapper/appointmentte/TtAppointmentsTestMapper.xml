@@ -51,6 +51,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="appointmentStartTime != null "> and appointment_start_time = #{appointmentStartTime}</if>
             <if test="appointmentProject != null  and appointmentProject != ''"> and appointment_project = #{appointmentProject}</if>
             <if test="appointmentStatus != null  and appointmentStatus != ''"> and appointment_status = #{appointmentStatus}</if>
+            <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
+                and date_format(appointment_start_time,'%Y%m%d') &gt;= date_format(#{params.beginTime},'%Y%m%d')
+            </if>
+            <if test="params.endTime != null and params.endTime != ''"><!-- 结束时间检索 -->
+                and date_format(appointment_start_time,'%Y%m%d') &lt;= date_format(#{params.endTime},'%Y%m%d')
+            </if>
         </where>
     </select>
 
@@ -79,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="patientPhone != null and patientPhone != ''">patient_phone,</if>
             <if test="appointmentStartTime != null">appointment_start_time,</if>
             <if test="partTime != null">part_time,</if>
-            <if test="appointmentStartTime != null">appointment_end_time,</if>
+            <if test="appointmentEndTime != null">appointment_end_time,</if>
             <if test="appointmentProject != null and appointmentProject != ''">appointment_project,</if>
             <if test="appointmentStatus != null">appointment_status,</if>
             <if test="createdAt != null">created_at,</if>

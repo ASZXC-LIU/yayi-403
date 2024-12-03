@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>环形图</title>
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+</head>
+
+<body>
+    <div id="chart" style="width: 600px; height: 400px;"></div>
+    <script>
+        // 初始化ECharts实例
+        var chart = echarts.init(document.getElementById('chart'));
+
+        // 配置选项
+        var option = {
+            title: {
+                text: '今日预约情况',
+                left: 'center',
+                top: '20px',
+                textStyle: {
+                    fontSize: 18
+                }
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            legend: {
+                top: 'bottom',
+                data: ['今日预约', '已就诊', '已收款', '未到']
+            },
+            series: [{
+                name: '预约数据',
+                type: 'pie',
+                radius: ['40%', '70%'], // 内外半径，形成环形
+                avoidLabelOverlap: false,
+                label: {
+                    show: true,
+                    position: 'outside',
+                    formatter: '{b}: {c} 人\n({d}%)' // 显示名称、数值和百分比
+                },
+                emphasis: {
+                    label: {
+                        show: true,
+                        fontSize: '16',
+                        fontWeight: 'bold'
+                    }
+                },
+                labelLine: {
+                    show: true
+                },
+                data: [{
+                        value: 14,
+                        name: '今日预约'
+                    },
+                    {
+                        value: 5,
+                        name: '已就诊'
+                    },
+                    {
+                        value: 7,
+                        name: '已收款'
+                    },
+                    {
+                        value: 2,
+                        name: '未到'
+                    }
+                ]
+            }]
+        };
+
+        // 使用配置项加载图表
+        chart.setOption(option);
+    </script>
+</body>
+
+</html>

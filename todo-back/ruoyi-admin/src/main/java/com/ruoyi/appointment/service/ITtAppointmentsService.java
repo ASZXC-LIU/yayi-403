@@ -5,15 +5,15 @@ import com.ruoyi.appointment.domain.TtAppointments;
 
 /**
  * 预约功能Service接口
- * 
+ *
  * @author ruoyi
  * @date 2024-10-14
  */
-public interface ITtAppointmentsService 
+public interface ITtAppointmentsService
 {
     /**
      * 查询预约功能
-     * 
+     *
      * @param appointmentId 预约功能主键
      * @return 预约功能
      */
@@ -21,7 +21,7 @@ public interface ITtAppointmentsService
 
     /**
      * 查询预约功能列表
-     * 
+     *
      * @param ttAppointments 预约功能
      * @return 预约功能集合
      */
@@ -29,7 +29,7 @@ public interface ITtAppointmentsService
 
     /**
      * 新增预约功能
-     * 
+     *
      * @param ttAppointments 预约功能
      * @return 结果
      */
@@ -37,7 +37,7 @@ public interface ITtAppointmentsService
 
     /**
      * 修改预约功能
-     * 
+     *
      * @param ttAppointments 预约功能
      * @return 结果
      */
@@ -45,7 +45,7 @@ public interface ITtAppointmentsService
 
     /**
      * 批量删除预约功能
-     * 
+     *
      * @param appointmentIds 需要删除的预约功能主键集合
      * @return 结果
      */
@@ -53,7 +53,7 @@ public interface ITtAppointmentsService
 
     /**
      * 删除预约功能信息
-     * 
+     *
      * @param appointmentId 预约功能主键
      * @return 结果
      */
