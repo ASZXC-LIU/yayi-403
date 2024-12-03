@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <resultMap type="TtPatientsVo" id="TtPatientsVoTResult">
-        <result property="name"    column="patientsName"    />
+        <result property="patient_name"    column="patientsName"    />
 
     </resultMap>
 
@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
                a.appointment_status,
                a.created_at,
                a.updated_at,
-               b.name as patientsName,
+               b.patient_name as patientsName,
                c.name as doctorsName
         from tt_appointments a
                  INNER JOIN tt_patients b on a.patient_id = b.patient_id
@@ -56,7 +56,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <if test="appointmentDuration != null "> and a.appointment_duration = #{appointmentDuration}</if>
         <if test="appointmentProject != null  and appointmentProject != ''"> and a.appointment_project = #{appointmentProject}</if>
         <if test="appointmentStatus != null  and appointmentStatus != ''"> and a.appointment_status = #{appointmentStatus}</if>
-        <if test="patientName != null "> and b.name like concat('%', #{patientName}, '%')</if>
+        <if test="patientName != null "> and b.patient_name like concat('%', #{patientName}, '%')</if>
         <if test="params.beginTime != null and params.beginTime != ''"><!-- 开始时间检索 -->
             and date_format(appointment_time,'%Y%m%d') &gt;= date_format(#{params.beginTime},'%Y%m%d')
         </if>

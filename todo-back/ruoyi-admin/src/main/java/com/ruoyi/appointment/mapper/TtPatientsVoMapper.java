@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * 患者信息Mapper接口
- * 
+ *
  * @author ruoyi
  * @date 2024-10-16
  */
@@ -14,7 +14,7 @@ public interface TtPatientsVoMapper
 {
     /**
      * 查询患者信息
-     * 
+     *
      * @param patientId 患者信息主键
      * @return 患者信息
      */
@@ -22,7 +22,7 @@ public interface TtPatientsVoMapper
 
     /**
      * 查询患者信息列表
-     * 
+     *
      * @param ttPatients 患者信息
      * @return 患者信息集合
      */
@@ -30,7 +30,7 @@ public interface TtPatientsVoMapper
 
     /**
      * 新增患者信息
-     * 
+     *
      * @param ttPatients 患者信息
      * @return 结果
      */
@@ -38,7 +38,7 @@ public interface TtPatientsVoMapper
 
     /**
      * 修改患者信息
-     * 
+     *
      * @param ttPatients 患者信息
      * @return 结果
      */
@@ -46,7 +46,7 @@ public interface TtPatientsVoMapper
 
     /**
      * 删除患者信息
-     * 
+     *
      * @param patientId 患者信息主键
      * @return 结果
      */
@@ -54,7 +54,7 @@ public interface TtPatientsVoMapper
 
     /**
      * 批量删除患者信息
-     * 
+     *
      * @param patientIds 需要删除的数据主键集合
      * @return 结果
      */

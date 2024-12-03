@@ -42,13 +42,18 @@ public class TtAppointmentsTest extends BaseEntity
     private String patientPhone;
 
     /** 预约开始时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    @Excel(name = "预约开始时间", width = 30, dateFormat = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "预约开始时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date appointmentStartTime;
 
     /** 预约时长 */
     @Excel(name = "预约时长")
-    private Long appointmentDuration;
+    private Long partTime;
+
+    /** 预约结束时间 */
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "预约开始时间", width = 30, dateFormat = "yyyy-MM-dd")
+    private Date appointmentEndTime;
 
     /** 预约的项目 */
     @Excel(name = "预约的项目")
@@ -127,14 +132,14 @@ public class TtAppointmentsTest extends BaseEntity
     {
         return appointmentStartTime;
     }
-    public void setAppointmentDuration(Long appointmentDuration) 
+    public void setPartTime(Long partTime)
     {
-        this.appointmentDuration = appointmentDuration;
+        this.partTime = partTime;
     }
 
-    public Long getAppointmentDuration() 
+    public Long getPartTime()
     {
-        return appointmentDuration;
+        return partTime;
     }
     public void setAppointmentProject(String appointmentProject) 
     {
@@ -183,12 +188,21 @@ public class TtAppointmentsTest extends BaseEntity
             .append("doctorName", getDoctorName())
             .append("patientPhone", getPatientPhone())
             .append("appointmentStartTime", getAppointmentStartTime())
-            .append("appointmentDuration", getAppointmentDuration())
+            .append("appointmentDuration", getPartTime())
+                .append("appointmentEndTime", getAppointmentEndTime())
             .append("appointmentProject", getAppointmentProject())
             .append("appointmentStatus", getAppointmentStatus())
             .append("createdAt", getCreatedAt())
             .append("updatedAt", getUpdatedAt())
             .append("remark", getRemark())
             .toString();
+    }
+
+    public Date getAppointmentEndTime() {
+        return appointmentEndTime;
+    }
+
+    public void setAppointmentEndTime(Date appointmentEndTime) {
+        this.appointmentEndTime = appointmentEndTime;
     }
 }

@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { listAppointments } from "@/api/appointment/appointments";
+import { listAppointmentte } from "@/api/appointmentte/appointmentte";
 
 export const useAppointmentStatsStore = defineStore("appointmentStats", {
   state: () => ({
@@ -10,26 +10,37 @@ export const useAppointmentStatsStore = defineStore("appointmentStats", {
   }),
   actions: {
     async fetchTodayStats() {
-      const today = new Date().toISOString().split("T")[0]; // 获取当前日期
-      const response = await listAppointments({}); // 获取预约列表
-      const appointmentList = response.rows;
+      try {
+        const today = new Date().toISOString().split("T")[0]; // 获取当前日期
 
-      // 过滤出今天的预约数据
-      const todayAppointments = appointmentList.filter((item) =>
-        item.appointmentTime.startsWith(today)
-      );
+        // 获取预约列表
+        const response = await listAppointmentte({});
+        if (!response || !response.rows) {
+          throw new Error("API 返回数据无效");
+        }
 
-      // 计算统计数据
-      this.todayTotalAppointments = todayAppointments.length;
-      this.todayVisitedCount = todayAppointments.filter(
-        (item) => item.appointmentStatus === "1"
-      ).length;
-      this.todayCancelledCount = todayAppointments.filter(
-        (item) => item.appointmentStatus === "2"
-      ).length;
-      this.todayNoShowCount = todayAppointments.filter(
-        (item) => item.appointmentStatus === "3"
-      ).length;
+        const appointmentList = response.rows;
+        console.log(appointmentList);
+        // 过滤出今天的预约数据
+        const todayAppointments = appointmentList.filter((item) =>
+          item.appointmentStartTime.startsWith(today) // 确保时间从今天开始
+        );
+        console.log(todayAppointments);
+        // 统计今日预约的各个状态
+        this.todayTotalAppointments = todayAppointments.length;
+        this.todayVisitedCount = todayAppointments.filter(
+          (item) => item.appointmentStatus === "5"
+        ).length;
+        this.todayCancelledCount = todayAppointments.filter(
+          (item) => item.appointmentStatus === "4"
+        ).length;
+        this.todayNoShowCount = todayAppointments.filter(
+          (item) => item.appointmentStatus === "1"
+        ).length;
+        
+      } catch (error) {
+        console.error("获取今日预约统计时发生错误:", error);
+      }
     },
   },
 });

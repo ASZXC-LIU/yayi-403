@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.record.mapper.MedicalRecordsMapper">
+    
+    <resultMap type="MedicalRecords" id="MedicalRecordsResult">
+        <result property="medicalRecordsId"    column="medical_records_id"    />
+        <result property="patientId"    column="patient_id"    />
+        <result property="patientName"    column="patient_name"    />
+        <result property="doctorId"    column="doctor_id"    />
+        <result property="doctorName"    column="doctor_name"    />
+        <result property="maincase"    column="maincase"    />
+        <result property="treatmentType"    column="treatment_type"    />
+        <result property="clinicalResults"    column="clinical_results"    />
+        <result property="medicalRecordsStatue"    column="medical_records_statue"    />
+        <result property="createdTime"    column="created_time"    />
+        <result property="updatedTime"    column="updated_time"    />
+        <result property="appointmentId"    column="appointment_id"    />
+        <result property="billId"    column="bill_id"    />
+        <result property="test"    column="test"    />
+        <result property="test2"    column="test2"    />
+        <result property="test3"    column="test3"    />
+        <result property="test4"    column="test4"    />
+    </resultMap>
+
+    <sql id="selectMedicalRecordsVo">
+        select medical_records_id, patient_id, patient_name, doctor_id, doctor_name, maincase, treatment_type, clinical_results, medical_records_statue, created_time, updated_time, appointment_id, bill_id, test, test2, test3, test4 from tt_medical_records
+    </sql>
+
+    <select id="selectMedicalRecordsList" parameterType="MedicalRecords" resultMap="MedicalRecordsResult">
+        <include refid="selectMedicalRecordsVo"/>
+        <where>  
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+            <if test="patientName != null  and patientName != ''"> and patient_name like concat('%', #{patientName}, '%')</if>
+            <if test="doctorId != null "> and doctor_id = #{doctorId}</if>
+            <if test="doctorName != null  and doctorName != ''"> and doctor_name like concat('%', #{doctorName}, '%')</if>
+            <if test="treatmentType != null  and treatmentType != ''"> and treatment_type = #{treatmentType}</if>
+            <if test="medicalRecordsStatue != null  and medicalRecordsStatue != ''"> and medical_records_statue = #{medicalRecordsStatue}</if>
+        </where>
+    </select>
+
+    <select id="getRecordsByPatientId" parameterType="Long" resultMap="MedicalRecordsResult">
+        <include refid="selectMedicalRecordsVo"/>
+        <where>
+            <if test="patientId != null "> and patient_id = #{patientId}</if>
+        </where>
+    </select>
+
+
+    
+    <select id="selectMedicalRecordsByMedicalRecordsId" parameterType="Long" resultMap="MedicalRecordsResult">
+        <include refid="selectMedicalRecordsVo"/>
+        where medical_records_id = #{medicalRecordsId}
+    </select>
+
+    <insert id="insertMedicalRecords" parameterType="MedicalRecords" useGeneratedKeys="true" keyProperty="medicalRecordsId">
+        insert into tt_medical_records
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">patient_id,</if>
+            <if test="patientName != null and patientName != ''">patient_name,</if>
+            <if test="doctorId != null">doctor_id,</if>
+            <if test="doctorName != null">doctor_name,</if>
+            <if test="maincase != null">maincase,</if>
+            <if test="treatmentType != null">treatment_type,</if>
+            <if test="clinicalResults != null">clinical_results,</if>
+            <if test="medicalRecordsStatue != null">medical_records_statue,</if>
+            <if test="createdTime != null">created_time,</if>
+            <if test="updatedTime != null">updated_time,</if>
+            <if test="appointmentId != null">appointment_id,</if>
+            <if test="billId != null">bill_id,</if>
+            <if test="test != null">test,</if>
+            <if test="test2 != null">test2,</if>
+            <if test="test3 != null">test3,</if>
+            <if test="test4 != null">test4,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="patientId != null">#{patientId},</if>
+            <if test="patientName != null and patientName != ''">#{patientName},</if>
+            <if test="doctorId != null">#{doctorId},</if>
+            <if test="doctorName != null">#{doctorName},</if>
+            <if test="maincase != null">#{maincase},</if>
+            <if test="treatmentType != null">#{treatmentType},</if>
+            <if test="clinicalResults != null">#{clinicalResults},</if>
+            <if test="medicalRecordsStatue != null">#{medicalRecordsStatue},</if>
+            <if test="createdTime != null">#{createdTime},</if>
+            <if test="updatedTime != null">#{updatedTime},</if>
+            <if test="appointmentId != null">#{appointmentId},</if>
+            <if test="billId != null">#{billId},</if>
+            <if test="test != null">#{test},</if>
+            <if test="test2 != null">#{test2},</if>
+            <if test="test3 != null">#{test3},</if>
+            <if test="test4 != null">#{test4},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMedicalRecords" parameterType="MedicalRecords">
+        update tt_medical_records
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="patientId != null">patient_id = #{patientId},</if>
+            <if test="patientName != null and patientName != ''">patient_name = #{patientName},</if>
+            <if test="doctorId != null">doctor_id = #{doctorId},</if>
+            <if test="doctorName != null">doctor_name = #{doctorName},</if>
+            <if test="maincase != null">maincase = #{maincase},</if>
+            <if test="treatmentType != null">treatment_type = #{treatmentType},</if>
+            <if test="clinicalResults != null">clinical_results = #{clinicalResults},</if>
+            <if test="medicalRecordsStatue != null">medical_records_statue = #{medicalRecordsStatue},</if>
+            <if test="createdTime != null">created_time = #{createdTime},</if>
+            <if test="updatedTime != null">updated_time = #{updatedTime},</if>
+            <if test="appointmentId != null">appointment_id = #{appointmentId},</if>
+            <if test="billId != null">bill_id = #{billId},</if>
+            <if test="test != null">test = #{test},</if>
+            <if test="test2 != null">test2 = #{test2},</if>
+            <if test="test3 != null">test3 = #{test3},</if>
+            <if test="test4 != null">test4 = #{test4},</if>
+        </trim>
+        where medical_records_id = #{medicalRecordsId}
+    </update>
+
+    <delete id="deleteMedicalRecordsByMedicalRecordsId" parameterType="Long">
+        delete from tt_medical_records where medical_records_id = #{medicalRecordsId}
+    </delete>
+
+    <delete id="deleteMedicalRecordsByMedicalRecordsIds" parameterType="String">
+        delete from tt_medical_records where medical_records_id in 
+        <foreach item="medicalRecordsId" collection="array" open="(" separator="," close=")">
+            #{medicalRecordsId}
+        </foreach>
+    </delete>
+</mapper>
